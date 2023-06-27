@@ -7,7 +7,7 @@ Se trata de un proyecto el cual toma las mediciones realizadas por un Dispositiv
 
 |Version|Dev|Fecha|
 |--------|-------|-----------|
-|...|Moyano, Alejo| 16/06/2023 |
+|...|Merino, Mateo| 16/06/2023 |
 
 ## Stack
 - Python
