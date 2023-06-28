@@ -40,7 +40,7 @@ class Graphs():
     def show(self):
 
         # definicion de graficos de barra
-        # self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(4,0,3)
+        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(4,0,3)
         # self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(5,0,3)
 
 
@@ -59,12 +59,12 @@ class Graphs():
 
         index = list(range(1,len(bar_dict['right'])+1))
         self.figure_bar_r.clear()
-        self.figure_bar_r.add_subplot(111).bar(index, bar_dict['right'])
+        self.figure_bar_r.add_subplot(211).bar(index, bar_dict['right'])
         self.bar_r.draw()
 
-        self.figure_bar_l.clear()
-        self.figure_bar_l.add_subplot(111).bar(index, bar_dict['left'])
-        self.bar_l.draw()
+        # self.figure_bar_l.clear()
+        # self.figure_bar_l.add_subplot(111).bar(index, bar_dict['left'])
+        # self.bar_l.draw()
 
     # Toma los nuevos valores y hace el update de los graficos
     # el update se hace limpiando y volviendo a graficar. (quizas hay otra solucion, la que probe no funcionaba)

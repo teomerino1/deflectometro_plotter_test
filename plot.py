@@ -52,21 +52,21 @@ class Plot():
 
     def scrollbar(self):
         # TODO -> SCROLL (funciona mal, no se ve y solo anda con la ruedita si pones el mouse en la esquina inferior derecha)
-        # main_plot_frame = Frame(self.root)
-        # main_plot_frame.pack(fill=BOTH, expand=1)
+        main_plot_frame = Frame(self.root)
+        main_plot_frame.pack(fill=BOTH, expand=1)
 
-        # canvas = Canvas(main_plot_frame)
-        # canvas.pack(side=LEFT, fill=BOTH, expand=1)
+        canvas = Canvas(main_plot_frame)
+        canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
-        # # Scrollbar 
-        # scrollbar = Scrollbar(self.main_plot_frame, orient = VERTICAL, command=canvas.yview)
-        # # scrollbar.grid(column=1, row=0, sticky='NS')
-        # scrollbar.pack(side=RIGHT, fill=Y)
+        # Scrollbar 
+        scrollbar = Scrollbar(self.main_plot_frame, orient = VERTICAL, command=canvas.yview)
+        # scrollbar.grid(column=1, row=0, sticky='NS')
+        scrollbar.pack(side=RIGHT, fill=Y)
 
-        # canvas.configure(yscrollcommand=scrollbar.set)
-        # canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
 
-        # second_plot_frame = Frame(canvas)
+        second_plot_frame = Frame(canvas)
 
-        # canvas.create_window((0,0), window=second_plot_frame, anchor="nw")
+        canvas.create_window((0,0), window=second_plot_frame, anchor="nw")
         return
