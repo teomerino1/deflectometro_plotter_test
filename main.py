@@ -37,14 +37,19 @@ if __name__ == "__main__":
 
             sleep(1)
             
+            
             data, this_cicle = Reporter.get_new_measurements()
-            
-            
+
+            # print("Estoy en el while. Data:")
+            # print(data)
+            # print("Ciclo:")
+            # print(this_cicle)
+
+
             # primer ciclo
             if data == None and this_cicle == None:
                 continue
 
-            
             Data.data_destruct(data)
 
             # por cada medicion nueva deberia actualizarse el grafico de barras de deflexiones individuales.
