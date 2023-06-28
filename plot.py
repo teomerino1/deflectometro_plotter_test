@@ -42,12 +42,12 @@ class Plot():
         Button(second_plot_frame, text="Atras", command=self.plot_callback).grid(column=0, row=2)
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
-    def new_group_data(self,dict_r, dict_l):
+    def new_group_data_plot(self,dict_r, dict_l):
         self.Table.insert(dict_r, dict_l)
         self.Graphs.update_gmean(dict_r, dict_l)
         # self.update_data(dict_r, dict_l)
     
-    def update_bar(self, hist_dict):
+    def update_bar_plot(self, hist_dict):
         self.Graphs.update_bar(hist_dict)
 
     def scrollbar(self):

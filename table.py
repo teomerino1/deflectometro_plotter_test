@@ -25,6 +25,14 @@ class Table():
         last_rd_l = dict_l['R*D'][len(dict_l['R*D'])-1] # ultimo valor del array
         last_r_d_l = dict_l['D/R'][len(dict_l['D/R'])-1] # ultimo valor del array
 
+
+        print("Last_index_r",last_index_r)
+        print("last_defl_mean_r" ,last_defl_mean_r)
+        print("last_radio_mean_r",last_radio_mean_r)
+        print("last_rd_r",last_rd_r)
+    
+
+
         self.table.insert('', END, values = (
             last_index_r,
             last_defl_mean_r, 

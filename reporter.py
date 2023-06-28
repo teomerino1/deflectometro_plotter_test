@@ -24,10 +24,7 @@ class Reporter():
     def get_new_measurements(self):
 
         cicle = self.database.query('SELECT nro_ciclo FROM ciclo WHERE nro_puesto = {} ORDER BY fecha_hora_inicio DESC LIMIT 1;'.format(self.puesto))
-        ####
-        print("cicle:")
-        print(cicle)
-        ####
+        
         if cicle[0]['nro_ciclo'] > self.last_cicle:
             query = 'SELECT nro_medicion, valor FROM mediciones_ciclo WHERE nro_ciclo = {} AND nro_puesto = {};'.format(self.last_cicle, self.puesto)
             self.last_measurement_data.clear()

@@ -52,13 +52,13 @@ class View():
    
 
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
-    def new_group_data(self, dict_r, dict_l):
-        self.Plot.new_group_data(dict_r, dict_l)
+    def new_group_data_view(self, dict_r, dict_l):
+        self.Plot.new_group_data_plot(dict_r, dict_l)
         # self.Plot.update_table(df)
 
     # Metodo que manda a actualizar el gafico de barras 
-    def update_bar(self, hist_dict):
-        self.Plot.update_bar(hist_dict)
+    def update_bar_view(self, hist_dict):
+        self.Plot.update_bar_plot(hist_dict)
 
     def get_config(self):
         self.Config.get_config()

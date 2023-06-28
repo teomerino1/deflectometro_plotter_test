@@ -70,6 +70,8 @@ class Data():
         self.radio_r.append(data[2]['valor'])
         self.radio_l.append(data[3]['valor'])
 
+       
+
 
         self.defl_r_acum.append(data[0]['valor'])
         self.defl_l_acum.append(data[1]['valor'])

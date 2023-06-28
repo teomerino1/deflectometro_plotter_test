@@ -35,8 +35,7 @@ if __name__ == "__main__":
 
         while True:
 
-            sleep(1)
-            
+            sleep(0.1)
             
             data, this_cicle = Reporter.get_new_measurements()
 
@@ -48,23 +47,34 @@ if __name__ == "__main__":
 
             # primer ciclo
             if data == None and this_cicle == None:
+
                 continue
 
             Data.data_destruct(data)
 
             # por cada medicion nueva deberia actualizarse el grafico de barras de deflexiones individuales.
-            # View.update_bar(Data.get_defl())
+            # View.update_bar_view(Data.get_defl())
+            
 
             # cuando se llega a la cantidad de muestras
             # debemos plotear y actualizar las estructuras
+
             print(Data.cant_mediciones())
+
             if (Data.cant_mediciones()) % muestras == 0:
+
                 Data.update_structures()
+
                 dict_r, dict_l = Data.get_data_dict()
-                View.new_group_data(dict_r, dict_l)
+
+                View.new_group_data_view(dict_r, dict_l)
+
+                
 
     rep_thread = Thread(target=separate) # ejecutamos la logica en un thread distinto mientras el main queda en un loop con la view
+
     rep_thread.daemon = True
+
     rep_thread.start()
 
     root.mainloop()
