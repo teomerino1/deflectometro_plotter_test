@@ -27,7 +27,7 @@ class Plot():
         second_plot_frame.grid(ipadx=3, ipady=5)
         self.second_plot_frame = second_plot_frame
 
-        title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 40))
+        title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 40)) 
         title.grid(row = 0, column = 0,columnspan = 3)
 
         # self.scrollbar()
@@ -37,7 +37,8 @@ class Plot():
         Label(second_plot_frame, text="Cantidad de muestras: %s"%(view.grupos)).grid(column=2, row=1)
 
         self.Table = table.Table(self.second_plot_frame) # instancia de tabla
-        self.Graphs = graphs.Graphs(self.second_plot_frame) # instancia de tabla
+
+        self.Graphs = graphs.Graphs(self.second_plot_frame) # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
 
         Button(second_plot_frame, text="Atras", command=self.plot_callback).grid(column=0, row=2)
 
@@ -47,8 +48,8 @@ class Plot():
         self.Graphs.update_gmean(dict_r, dict_l)
         # self.update_data(dict_r, dict_l)
     
-    def update_bar_plot(self, hist_dict):
-        self.Graphs.update_bar(hist_dict)
+    def update_bar_plot(self, defl_left_right_dict):
+        self.Graphs.update_bar(defl_left_right_dict)
 
     def scrollbar(self):
         # TODO -> SCROLL (funciona mal, no se ve y solo anda con la ruedita si pones el mouse en la esquina inferior derecha)

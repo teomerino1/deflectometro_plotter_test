@@ -57,8 +57,8 @@ class View():
         # self.Plot.update_table(df)
 
     # Metodo que manda a actualizar el gafico de barras 
-    def update_bar_view(self, hist_dict):
-        self.Plot.update_bar_plot(hist_dict)
+    def update_bar_view(self, defl_left_right_dict):
+        self.Plot.update_bar_plot(defl_left_right_dict)
 
     def get_config(self):
         self.Config.get_config()
