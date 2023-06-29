@@ -105,3 +105,16 @@ Tabla 'mediciones_ciclo'
 | valor        | float   | NO   |     | 0       |       |
 +--------------+---------+------+-----+---------+-------+
  ```
+
+
+
+ Observaciones:
+ En graficos las lineas punteadas tipo grilla
+ Graficos diferenciados lado izquierdo-derecho
+ Configuracion inicial para cargar parametros (espesor de ruta, temperatura) que se usan para las formulas
+
+ Para la primera hoja: La "caractula" con datos fijos y modificables. Los modificables: fecha,
+ Segunda y tercera hoja (puede cambiar el orden): La tabla que se actualiza con calculos y el plot de barras de mediciones individuales
+ Las hojas subsiguientes son el resto de los gráficos
+ El numero de puesto de la base de datos determina el cambio entre medicion y medicion y hay que disparar el calculo estadistico
+ La semana del 10 de Julio se necesita empezar a hacer pruebas
