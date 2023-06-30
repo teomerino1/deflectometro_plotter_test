@@ -52,6 +52,8 @@ class Table():
 
             self.table = Treeview(frame, columns=columns, show='headings')
 
+            # frame.config(width=100, height=10)
+
             # TODO -> distinguir de alguna manera si las mediciones son de izquierda o derecha
             self.table.heading("groups_r", text="Groups")
             self.table.heading("radio_r", text="Radio")
