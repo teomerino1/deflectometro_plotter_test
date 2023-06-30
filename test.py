@@ -1,20 +1,27 @@
+import tkinter as tk
+from tkinter import ttk
 
-        
-import matplotlib.pyplot as plt
+root = tk.Tk()
 
-# Crea una figura y un conjunto de subplots
-fig = plt.figure()
-ax = fig.add_subplot(111)
+# Crear el Treeview
+tree = ttk.Treeview(root)
+tree.pack(side="left", fill="y")
 
-# Define los datos para el gráfico de barras
-categorias = ['A', 'B', 'C', 'D']
-valores = [10, 15, 7, 12]
+# Crear el Scrollbar
+scrollbar = ttk.Scrollbar(root, orient="vertical", command=tree.yview)
+scrollbar.pack(side="right", fill="y")
 
-# Crea el gráfico de barras
-ax.bar(categorias, valores)
+# Configurar el Scrollbar para controlar el Treeview
+tree.configure(yscrollcommand=scrollbar.set)
 
-# Ajusta la posición y el tamaño del gráfico dentro de la figura
-ax.set_position([0.3, 0.3, 0.4, 0.8])
+# Añadir elementos al Treeview
+for i in range(50):
+    tree.insert("", "end", text=f"Item {i}")
 
-# Muestra la figura
-plt.show()
+root.mainloop()
+
+
+
+
+
+
