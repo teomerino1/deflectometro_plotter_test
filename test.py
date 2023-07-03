@@ -1,24 +1,13 @@
-import tkinter as tk
-from tkinter import ttk
+import matplotlib.pyplot as plt
 
-root = tk.Tk()
+fig = plt.figure()  # Crear una nueva figura
+ax1 = fig.add_subplot(121)  # Añadir el primer subplot a la figura
+ax2 = fig.add_subplot(122)  # Añadir el segundo subplot a la figura
 
-# Crear el Treeview
-tree = ttk.Treeview(root)
-tree.pack(side="left", fill="y")
+ax1.set_title("Título del primer subplot")  # Establecer el título del primer subplot
+ax2.set_title("Título del segundo subplot")  # Establecer el título del segundo subplot
+plt.show()  # Mostrar la figura con los subplots
 
-# Crear el Scrollbar
-scrollbar = ttk.Scrollbar(root, orient="vertical", command=tree.yview)
-scrollbar.pack(side="right", fill="y")
-
-# Configurar el Scrollbar para controlar el Treeview
-tree.configure(yscrollcommand=scrollbar.set)
-
-# Añadir elementos al Treeview
-for i in range(50):
-    tree.insert("", "end", text=f"Item {i}")
-
-root.mainloop()
 
 
 

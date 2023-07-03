@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
         while True:
 
-            sleep(0.1)
+            # sleep(0.001)
             
             data, this_cicle = Reporter.get_new_measurements()
 
@@ -52,14 +52,14 @@ if __name__ == "__main__":
 
             Data.data_destruct(data)
 
+            print(Data.cant_mediciones())
+
             # por cada medicion nueva deberia actualizarse el grafico de barras de deflexiones individuales.
             View.update_bar_view(Data.get_defl())
             
 
             # cuando se llega a la cantidad de muestras
             # debemos plotear y actualizar las estructuras
-
-            print(Data.cant_mediciones())
 
             if (Data.cant_mediciones()) % muestras == 0:
 

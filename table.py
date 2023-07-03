@@ -61,7 +61,7 @@ class Table():
         # new_table_height = int(self.original_table_height / 2)
 
         # Configurar el alto del Treeview
-        self.table.configure(height=3)
+        self.table.configure(height=7)
 
         # Crear el Scrollbar
         scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
