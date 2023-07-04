@@ -17,14 +17,18 @@ class Graphs():
     # Grafico que corresponde a las deflexiones individuales
     def bar_graph(self, row, column, columnspan,title):
         
-    #     figure = Figure(figsize=(7, 7), dpi=100)
-    #     figure.add_subplot(211).bar([], [], width = 0.1, linewidth=0)
         figure = Figure(figsize=(7, 7), dpi=100)
+
         sub_figure=figure.add_subplot(211)
+
         sub_figure.set_title(title)
+
         sub_figure.bar([], [], width = 0.1, linewidth=0)
+
         bar = FigureCanvasTkAgg(figure,self.frame)
+
         bar_widget = bar.get_tk_widget()
+
         bar_widget.grid(row = row, column = column, columnspan = columnspan)
 
         return figure, bar, bar_widget
@@ -69,12 +73,18 @@ class Graphs():
 
         index = list(range(1,len(defl_left_right_dict['right'])+1))
         self.figure_bar_r.clear()
-        self.figure_bar_r.add_subplot(211).bar(index, defl_left_right_dict['right'])
+        subfigure=self.figure_bar_r.add_subplot(211)
+        subfigure.set_title("Deflexion Derecha")
+        subfigure.bar(index, defl_left_right_dict['right'])
         self.bar_r.draw()
 
         self.figure_bar_l.clear()
-        self.figure_bar_l.add_subplot(211).bar(index, defl_left_right_dict['left'])
+        subfigure=self.figure_bar_l.add_subplot(211)
+        subfigure.set_title("Deflexion Izquierda")
+        subfigure.bar(index, defl_left_right_dict['left'])
         self.bar_l.draw()
+        # self.figure_bar_l.add_subplot(211).bar(index, defl_left_right_dict['left'])
+        
 
     # Toma los nuevos valores y hace el update de los graficos
     # el update se hace limpiando y volviendo a graficar. (quizas hay otra solucion, la que probe no funcionaba)
