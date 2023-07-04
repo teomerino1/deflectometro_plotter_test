@@ -28,28 +28,29 @@ class Graphs():
         return figure, bar, bar_widget
 
     # Grafico que corresponde a las medias del radio
-    # def radio_gmean_graph(self,row, column, columnspan = 3):
-    #     figure = Figure(figsize=(4, 3), dpi=100)
+    def radio_gmean_graph(self,row, column, columnspan = 3):
+        figure = Figure(figsize=(5, 5), dpi=100)
 
-    #     figure.add_subplot(111).scatter([], [])
-    #     graph = FigureCanvasTkAgg(figure, self.frame)
-    #     graph_widget = graph.get_tk_widget()
-    #     graph_widget.grid(row = row, column = column, columnspan = columnspan)
+        figure.add_subplot(121).scatter([], [])
+        graph = FigureCanvasTkAgg(figure, self.frame)
+        graph_widget = graph.get_tk_widget()
+        graph_widget.grid(row = row, column = column, columnspan = columnspan)
 
-    #     return figure, graph, graph_widget
+        return figure, graph, graph_widget
 
     # Metodo donde se inicializan los graficos
     def show(self):
 
         # CREACION
         
+        # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(5,0,3)
+        # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(6,0,3)
+
         self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(10, 1, 1)  # Ajusta las coordenadas para la posición deseada
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(10, 0, 1)
  
 
         # definicion de los graficos de medias de radio
-        # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(5,0,3)
-        # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(6,0,3)
         
         # self.bar_r.draw()
         # self.bar_l.draw()

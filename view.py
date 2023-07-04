@@ -1,4 +1,7 @@
 import tkinter as tk
+from tkinter import *
+from tkinter.ttk import Scrollbar
+
 from tkinter.ttk import Style
 import config
 import plot
@@ -13,15 +16,15 @@ class View():
         temp = None
         grupos = None
         muestras = None
-
         self.is_plotting = False
-
         self.start(root)
-                
         self.Plot = plot.Plot(root,self.plot_callback)
-        
         self.Config = config.Config(root, self.config_callback)
         self.Config.show()
+
+
+
+
         # self.Plot.show()
 
      # Metodo que inicializa la view:
@@ -37,6 +40,27 @@ class View():
         screen_height = root.winfo_screenheight()
 
         root.geometry(f"{screen_width}x{screen_height}")
+
+
+
+
+
+        # self.scrollbar = Scrollbar(root, orient="vertical")
+        # self.scrollbar.pack(side=RIGHT, fill=Y)
+        # root.config(yscrollcommand=self.scrollbar.set)
+        # self.scrollbar.config(command=root.yview)
+        
+        
+        # self.scrollbar.pack(side=RIGHT, fill=Y)
+        # screen_width = root.winfo_screenwidth()
+        # screen_height = root.winfo_screenheight()
+
+        # scrollbar_width = self.scrollbar.winfo_width()  # Obtén el ancho del Scrollbar
+
+        # root.geometry(f"{screen_width - scrollbar_width}x{screen_height}")
+
+
+
 
     # Metodo que borra el frame plot y abre el de config
     def plot_callback(self):
