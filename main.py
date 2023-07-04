@@ -84,13 +84,13 @@ if __name__ == "__main__":
             # cuando se llega a la cantidad de muestras
             # debemos plotear y actualizar las estructuras
 
-            # if ((Data.cant_mediciones()) % muestras == 0):
+            if ((Data.cant_mediciones()) % muestras == 0):
 
-            #     Data.update_structures()
+                Data.update_structures()
 
-            #     dict_r, dict_l = Data.get_data_dict()
+                dict_r, dict_l = Data.get_data_dict()
 
-            #     View.new_group_data_view(dict_r, dict_l)
+                View.new_group_data_view(dict_r, dict_l)
 
                 
 

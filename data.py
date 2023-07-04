@@ -99,10 +99,6 @@ class Data():
         # self.radio_l.append(data[3]['valor'])
 
 
-        self.defl_r.append(defl_r_aux)
-        self.defl_l.append(defl_l_aux)
-        self.radio_r.append(radio_r_aux)
-        self.radio_l.append(radio_l_aux)
        
 
 

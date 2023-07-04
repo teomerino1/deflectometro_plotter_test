@@ -72,12 +72,12 @@ class Table():
 
         # Configurar encabezados y columnas del Treeview
         headers = [
-            ("groups_r", "Groups"),
+            ("groups_r", "Groups R"),
             ("radio_r", "Radio"),
             ("defl_r", "Defl."),
             ("r_d_r", "R*D"),
             ("r/d_r", "R/D"),
-            ("groups_l", "Groups"),
+            ("groups_l", "Groups L"),
             ("radio_l", "Radio"),
             ("defl_l", "Defl."),
             ("r_d_l", "R*D"),

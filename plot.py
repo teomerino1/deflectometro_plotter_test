@@ -77,24 +77,17 @@ class Plot():
         second_plot_frame.grid_columnconfigure(1, weight=1)
         second_plot_frame.grid_columnconfigure(2, weight=1)
         second_plot_frame.grid_columnconfigure(3, weight=1)
-
-
-
         second_plot_frame.grid(ipadx=10, ipady=5)
         self.second_plot_frame = second_plot_frame
+
+        
         title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 15)) 
         title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
         
-        Label(second_plot_frame, text= "Temperatura: %s"%(view.temp)).grid( row=1, column=0, sticky="nw")
-        Label(second_plot_frame, text="Grupos: %s"%(view.muestras)).grid( row=1, column=1, sticky="nw")
-        Label(second_plot_frame, text="Muestras: %s"%(view.grupos)).grid( row=1, column=2 ,sticky="nw")
-        # Label(second_plot_frame, text="Test:").grid( row=1, column=3 ,sticky="nw")
-
-        izquierda = Label(second_plot_frame, text="Deflexión Izquierda",font=(None, 20)) 
-        izquierda.grid(row = 4, column = 0, columnspan = 1)
-        derecha = Label(second_plot_frame, text="Deflexión Derecha",font=(None, 20)) 
-        derecha.grid(row = 4, column = 1, columnspan = 1)
-
+        Label(second_plot_frame, text= "Temperatura: %s"%(view.temp)).grid(row=1, column=0, sticky="nw")
+        Label(second_plot_frame, text="Muestras: %s"%(view.grupos)).grid(row=1, column=1 ,sticky="nw")
+        Label(second_plot_frame, text="Grupos: %s"%(view.muestras)).grid(row=2, column=0, sticky="nw")
+       
         self.Table = table.Table(self.second_plot_frame) # instancia de tabla
 
         self.Graphs = graphs.Graphs(self.second_plot_frame) # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
