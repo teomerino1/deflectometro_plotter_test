@@ -13,9 +13,18 @@ class View():
         global temp
         global grupos
         global muestras
+        global z_ntry 
+        global fh_ntry
+        global ft_ntry 
+        global fc_ntry
         temp = None
         grupos = None
         muestras = None
+        z_ntry = None
+        ft_ntry = None
+        fh_ntry = None
+        fc_ntry = None
+
         self.is_plotting = False
         self.start(root)
         self.Plot = plot.Plot(root,self.plot_callback)

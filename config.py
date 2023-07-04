@@ -30,6 +30,7 @@ class Config():
         config_frame.grid_rowconfigure(5, weight=1)
         config_frame.grid_rowconfigure(6, weight=1)
         config_frame.grid_rowconfigure(7, weight=1)
+        config_frame.grid_rowconfigure(8, weight=1)
 
         # config_frame.grid_rowconfigure(4, weight=1)
         config_frame.grid_columnconfigure(0, weight=1)
@@ -52,6 +53,7 @@ class Config():
         # grupos
         Label(config_frame, text="Tamanio de grupos:").grid(row=2, column=0)
         var = tk.IntVar()
+        self.var = var
         grupos_ntry_50 = Radiobutton(config_frame,text='50', variable=var, value=50)
         grupos_ntry_50.grid(row=2, column=1)
         self.grupos_ntry_50 = grupos_ntry_50
@@ -60,7 +62,7 @@ class Config():
         grupos_ntry_100.grid(row=2, column=2)
         self.grupos_ntry_100 = grupos_ntry_100
 
-        self.var = var
+       
 
         # muestras
         Label(config_frame, text="Cantidad total de muestras:").grid(row=3, column=0)
@@ -92,8 +94,11 @@ class Config():
 
     def close(self):
         # view.temp, view.grupos, view.muestras = self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()
-        view.temp, view.muestras, view.grupos = self.get_config()
+        view.temp, view.muestras, view.grupos, view.z_ntry, view.ft_ntry,view.fh_ntry,view.fc_ntry = self.get_config()
         self.config_frame.destroy()
 
     def get_config(self):
-        return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()
+        return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.z_ntry.get(), self.ft_ntry.get(),self.fh_ntry.get(), self.fc_ntry.get()
+    
+    #  def get_config(self):
+    #     return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()

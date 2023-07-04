@@ -3,6 +3,7 @@ import tkinter as tk
 import data
 import reporter
 import plot
+import config
 from time import sleep
 from threading import Thread
    
@@ -32,6 +33,22 @@ if __name__ == "__main__":
             None
         
         muestras = int(view.muestras)
+        print("Muestras",muestras)
+
+        temp=int(view.temp)
+        print("Temperatura:",temp)
+
+        z=int(view.z_ntry)
+        print("Z:",z)
+
+        ft=int(view.ft_ntry)
+        print("ft:",ft)
+
+        fh=int(view.fh_ntry)
+        print("fh:",fh)
+
+        fc=int(view.fc_ntry)
+        print("fc:",fc)
 
         while True:
 
@@ -61,7 +78,7 @@ if __name__ == "__main__":
             # cuando se llega a la cantidad de muestras
             # debemos plotear y actualizar las estructuras
 
-            if (Data.cant_mediciones()) % muestras == 0:
+            if ((Data.cant_mediciones()) % muestras == 0):
 
                 Data.update_structures()
 
