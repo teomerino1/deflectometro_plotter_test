@@ -29,26 +29,27 @@ if __name__ == "__main__":
     Data = data.Data()
 
     def separate():
+
         while View.on_plot() == False:
             None
         
         muestras = int(view.muestras)
         print("Muestras",muestras)
 
-        temp=int(view.temp)
-        print("Temperatura:",temp)
+        # temp=int(view.temp)
+        # print("Temperatura:",temp)
 
-        z=int(view.z_ntry)
-        print("Z:",z)
+        # z=int(view.z_ntry)
+        # print("Z:",z)
 
-        ft=int(view.ft_ntry)
-        print("ft:",ft)
+        # ft=int(view.ft_ntry)
+        # print("ft:",ft)
 
-        fh=int(view.fh_ntry)
-        print("fh:",fh)
+        # fh=int(view.fh_ntry)
+        # print("fh:",fh)
 
-        fc=int(view.fc_ntry)
-        print("fc:",fc)
+        # fc=int(view.fc_ntry)
+        # print("fc:",fc)
 
         while True:
 
@@ -66,7 +67,12 @@ if __name__ == "__main__":
             if data == None and this_cicle == None:
 
                 continue
+            
+            print("Estoy en el while. Data:")
+            print(data)
 
+
+            # Data.data_destruct(data,z,ft,fh,fc)
             Data.data_destruct(data)
 
             print(Data.cant_mediciones())
@@ -78,13 +84,13 @@ if __name__ == "__main__":
             # cuando se llega a la cantidad de muestras
             # debemos plotear y actualizar las estructuras
 
-            if ((Data.cant_mediciones()) % muestras == 0):
+            # if ((Data.cant_mediciones()) % muestras == 0):
 
-                Data.update_structures()
+            #     Data.update_structures()
 
-                dict_r, dict_l = Data.get_data_dict()
+            #     dict_r, dict_l = Data.get_data_dict()
 
-                View.new_group_data_view(dict_r, dict_l)
+            #     View.new_group_data_view(dict_r, dict_l)
 
                 
 
