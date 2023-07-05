@@ -5,6 +5,7 @@ from tkinter.ttk import Scrollbar
 from tkinter.ttk import Style
 import config
 import plot
+import plot_2
 
 class View():
     def __init__(self, root):
@@ -25,11 +26,16 @@ class View():
         fh_ntry = None
         fc_ntry = None
 
+        #Se crean los objetos Plot y Config como atributos de view 
+        self.Config = config.Config(root, self.go_to_plot1)
+        self.Plot = plot.Plot(root,self.go_to_config)
+        # self.Plot2 = plot_2.Plot2(root,self.plot_2_callback)
         self.is_plotting = False
         self.start(root)
-        self.Plot = plot.Plot(root,self.plot_callback)
-        self.Config = config.Config(root, self.config_callback)
-        self.Config.show()
+       
+       
+      
+       
 
 
 
@@ -38,6 +44,10 @@ class View():
 
      # Metodo que inicializa la view:
     def start(self,root):
+
+        #Se ejecuta el metodo show de Config para que aparezca la ventana principal
+        self.Config.show()
+
         root.title('Deflectómetro')
 
         root.tk.call("source", "azure.tcl")
@@ -71,18 +81,27 @@ class View():
 
 
 
-    # Metodo que borra el frame plot y abre el de config
-    def plot_callback(self):
+    # Metodo que borra el Plot 1 y abre el de Config
+    def go_to_config(self):
         self.Plot.close()
         self.Config.show()
+
+    #Metodo que borra el Plot 2 y abre el Plot 1
+    def plot_2_callback(self):
+        self.Plot2.close()
+        self.Plot.show()
     
-    # Metodo que borra el frame config y abre el de ploteo
-    def config_callback(self):
+    # # Metodo que borra el frame Config y abre el Plot1
+    # def config_callback(self):
+    #     self.Config.close()
+    #     self.Plot.show()
+    #     self.is_plotting = True
+
+    # Metodo que borra el frame Config y abre el Plot1
+    def go_to_plot1(self):
         self.Config.close()
         self.Plot.show()
         self.is_plotting = True
-
-   
 
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l):

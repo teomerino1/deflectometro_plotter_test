@@ -4,7 +4,7 @@ import view
 
 
 class Config():
-    def __init__(self, root, config_calback):
+    def __init__(self, root, go_to_plot1):
         self.root = root
         self.config_frame = None
         self.temp_ntry = None
@@ -17,7 +17,7 @@ class Config():
         self.fh_ntry = None 
         self.fc_ntry = None
         
-        self.config_calback = config_calback
+        self.go_to_plot1 = go_to_plot1
 
 
     def show(self):
@@ -90,7 +90,7 @@ class Config():
         fc_ntry.grid(row=7,column=1)
         self.fc_ntry = fc_ntry
 
-        Button(config_frame, text="Confirmar", command=self.config_calback).grid(row=8, column=0)
+        Button(config_frame, text="Confirmar", command=self.go_to_plot1).grid(row=8, column=0)
 
     def close(self):
         # view.temp, view.grupos, view.muestras = self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()
