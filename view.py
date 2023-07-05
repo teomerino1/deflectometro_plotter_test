@@ -27,9 +27,9 @@ class View():
         fc_ntry = None
 
         #Se crean los objetos Plot y Config como atributos de view 
-        self.Config = config.Config(root, self.go_to_plot1)
-        self.Plot = plot.Plot(root,self.go_to_config)
-        # self.Plot2 = plot_2.Plot2(root,self.plot_2_callback)
+        self.Config = config.Config(root, self.go_to_plot1_from_config)
+        self.Plot = plot.Plot(root,self.go_to_config, self.go_to_plot_2_from_plot_1)
+        self.Plot2 = plot_2.Plot2(root)
         self.is_plotting = False
         self.start(root)
        
@@ -80,29 +80,32 @@ class View():
 
 
 
+    # Metodo que borra el frame Config y abre el Plot1
+    def go_to_plot1_from_config(self):
+        self.Config.close()
+        self.Plot.show()
+        self.is_plotting = True
 
     # Metodo que borra el Plot 1 y abre el de Config
     def go_to_config(self):
         self.Plot.close()
         self.Config.show()
 
-    #Metodo que borra el Plot 2 y abre el Plot 1
-    def plot_2_callback(self):
-        self.Plot2.close()
-        self.Plot.show()
-    
-    # # Metodo que borra el frame Config y abre el Plot1
-    # def config_callback(self):
-    #     self.Config.close()
+
+    # Metodo que borra el Plot 1 y abre el Plot 2
+    def go_to_plot_2_from_plot_1(self):
+        self.Plot.close()
+        self.Plot2.show()
+
+    # def go_to_plot_1_from_plot_2(self):
+    #     self.Plot2.close()
     #     self.Plot.show()
-    #     self.is_plotting = True
 
-    # Metodo que borra el frame Config y abre el Plot1
-    def go_to_plot1(self):
-        self.Config.close()
-        self.Plot.show()
-        self.is_plotting = True
+   
+    
+ 
 
+    
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l):
         self.Plot.new_group_data_plot(dict_r, dict_l)

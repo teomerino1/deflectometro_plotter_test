@@ -15,14 +15,14 @@ from tkinter import ttk
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
 class Plot():
-    def __init__(self,root,go_to_config):
+    def __init__(self,root,go_to_config,go_to_plot_2_from_plot_1):
 
         self.root = root
         self.main_plot_frame = None
         self.second_plot_frame = None
         self.go_to_config = go_to_config
         #############
-        # self.plot_2_callback = plot_2_callback
+        self.go_to_plot_2_from_plot_1 = go_to_plot_2_from_plot_1
         #############
         self.Table = None
         self.Graphs = None
@@ -92,20 +92,25 @@ class Plot():
         title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
         
         Label(second_plot_frame, text= "Temperatura: %s"%(view.temp)).grid(row=1, column=0, sticky="nw")
-        Label(second_plot_frame, text="Muestras: %s"%(view.grupos)).grid(row=1, column=1 ,sticky="nw")
-        Label(second_plot_frame, text="Grupos: %s"%(view.muestras)).grid(row=2, column=0, sticky="nw")
-        Button(second_plot_frame, text="Atras", command=self.go_to_config).grid(column=0, row=3,sticky="nw")
 
+        Label(second_plot_frame, text="Muestras: %s"%(view.grupos)).grid(row=1, column=1 ,sticky="nw")
+
+        Label(second_plot_frame, text="Grupos: %s"%(view.muestras)).grid(row=2, column=0, sticky="nw")
+
+        Button(second_plot_frame, text="Atras", command=self.go_to_config).grid(row=3, column=0, sticky="nw")
+
+        Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1).grid(row=4, column=0,sticky="nw")
 
         self.Table = table.Table(self.second_plot_frame) # instancia de tabla
+
+        self.Graphs = graphs.Graphs(self.second_plot_frame) # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
+        
+       
 
         # scrollbar = Scrollbar(second_plot_frame, orient="vertical", command=self.table.yview)
         # scrollbar.grid(row=0, column=2, rowspan=7, sticky="ns")
         # self.table.configure(yscrollcommand=scrollbar.set)
 
-        self.Graphs = graphs.Graphs(self.second_plot_frame) # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
-        
-        Button(second_plot_frame,text="Next",command=self.go_to_config).grid(column=0,row=4,sticky="nw")
     
        
 
