@@ -72,7 +72,7 @@ class Plot():
 
         self.Table = table.Table(self.second_plot_frame) # instancia de tabla
 
-        self.Graphs = graphs.Graphs(self.second_plot_frame).show_bar_graph() # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
+        self.Graphs = graphs.Graphs(self.second_plot_frame,plot_number=1) # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
         
        
 
@@ -83,20 +83,16 @@ class Plot():
     
        
 
-
-
-
-        
-       
+    def update_bar_plot(self, defl_left_right_dict):
+        self.Graphs.update_bar(defl_left_right_dict)
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
     def new_group_data_plot(self,dict_r, dict_l):
         self.Table.insert(dict_r, dict_l)
-        # self.Graphs.update_gmean(dict_r, dict_l)
+        self.Graphs.update_gmean(dict_r, dict_l)
         # self.update_data(dict_r, dict_l)
     
-    def update_bar_plot(self, defl_left_right_dict):
-        self.Graphs.update_bar(defl_left_right_dict)
+   
 
     # def add_scrollbar(self):
     #     scrollbar = ttk.Scrollbar(self.second_plot_frame, orient="vertical", command=self.table.yview)

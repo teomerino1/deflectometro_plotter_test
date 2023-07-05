@@ -77,20 +77,20 @@ if __name__ == "__main__":
 
             print(Data.cant_mediciones())
 
-            # por cada medicion nueva deberia actualizarse el grafico de barras de deflexiones individuales.
+            # Por cada medicion nueva debe actualizarse el grafico de barras de deflexiones individuales.
             View.update_bar_view(Data.get_defl())
             
 
             # cuando se llega a la cantidad de muestras
             # debemos plotear y actualizar las estructuras
 
-            if ((Data.cant_mediciones()) % muestras == 0):
+            # if ((Data.cant_mediciones()) % muestras == 0):
 
-                Data.update_structures()
+            #     Data.update_structures()
 
-                dict_r, dict_l = Data.get_data_dict()
+            #     dict_r, dict_l = Data.get_data_dict()
 
-                View.new_group_data_view(dict_r, dict_l)
+            #     # View.new_group_data_view(dict_r, dict_l)
 
                 
 

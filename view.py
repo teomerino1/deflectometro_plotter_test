@@ -60,26 +60,6 @@ class View():
 
         root.geometry(f"{screen_width}x{screen_height}")
 
-
-
-
-
-        # self.scrollbar = Scrollbar(root, orient="vertical")
-        # self.scrollbar.pack(side=RIGHT, fill=Y)
-        # root.config(yscrollcommand=self.scrollbar.set)
-        # self.scrollbar.config(command=root.yview)
-        
-        
-        # self.scrollbar.pack(side=RIGHT, fill=Y)
-        # screen_width = root.winfo_screenwidth()
-        # screen_height = root.winfo_screenheight()
-
-        # scrollbar_width = self.scrollbar.winfo_width()  # Obtén el ancho del Scrollbar
-
-        # root.geometry(f"{screen_width - scrollbar_width}x{screen_height}")
-
-
-
     # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
         self.Config.close()
@@ -102,11 +82,7 @@ class View():
         self.Plot2.close()
         self.Plot.show()
 
-   
-    
- 
-
-    
+     
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l):
         self.Plot.new_group_data_plot(dict_r, dict_l)

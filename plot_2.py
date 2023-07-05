@@ -34,7 +34,7 @@ class Plot2():
 
         height = self.root.winfo_screenheight()
 
-        third_plot_frame = Frame(self.root,width=width,height=height)
+        third_plot_frame = Frame(self.root, width=width, height=height)
 
         self.third_plot_frame = third_plot_frame
 
@@ -52,7 +52,7 @@ class Plot2():
 
         next.grid(row=2,column=0,sticky=NW)
 
-        self.Graphs = graphs.Graphs(self.third_plot_frame).show_radio_gmean_graph()
+        self.Graphs = graphs.Graphs(self.third_plot_frame,plot_number=2)
 
         
 
