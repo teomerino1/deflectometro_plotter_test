@@ -18,12 +18,10 @@ class Plot2():
     def __init__(self,root, go_to_plot_1_from_plot_2):
 
         self.root = root
-        self.main_plot_frame = None
-        self.second_plot_frame = None
+        # self.main_plot_frame = None
+        # self.second_plot_frame = None
         self.third_plot_frame = None
         self.go_to_plot_1_from_plot_2 = go_to_plot_1_from_plot_2
-
-        
         self.Graphs = None
 
     # Metodo que elimina todo lo que muestra la pagina
@@ -31,8 +29,6 @@ class Plot2():
         self.third_plot_frame.destroy()
 
     def show(self):
-
-        columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
        
         width = self.root.winfo_screenwidth()
 
@@ -40,13 +36,27 @@ class Plot2():
 
         third_plot_frame = Frame(self.root,width=width,height=height)
 
-        third_plot_frame.grid(rowspan=5,columnspan=5)
-
         self.third_plot_frame = third_plot_frame
-        
-        back = Button(third_plot_frame, text="Atras", command=self.go_to_plot_1_from_plot_2)
 
-        back.grid(row=0, column=1)
+        third_plot_frame.grid(rowspan=3,columnspan=3)
+
+        title = Label(third_plot_frame, text="Grafico de medias y otras cositas mas",font=(None, 25)) 
+
+        title.grid(row = 0, column = 2,sticky=E)
+
+        back = Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
+
+        back.grid(row=0, column=0)
+
+        next = Button(third_plot_frame, text="Next", command=self.go_to_plot_1_from_plot_2)
+
+        next.grid(row=0,column=1)
+
+        self.Graphs = graphs.Graphs(self.third_plot_frame).radio_gmean_graph(5,0,3)
+
+        
+
+
         
 
    
