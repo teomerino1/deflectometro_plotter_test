@@ -29,7 +29,7 @@ class View():
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(root, self.go_to_plot1_from_config)
         self.Plot = plot.Plot(root,self.go_to_config, self.go_to_plot_2_from_plot_1)
-        self.Plot2 = plot_2.Plot2(root)
+        self.Plot2 = plot_2.Plot2(root,self.go_to_plot_1_from_plot_2)
         self.is_plotting = False
         self.start(root)
        
@@ -97,9 +97,10 @@ class View():
         self.Plot.close()
         self.Plot2.show()
 
-    # def go_to_plot_1_from_plot_2(self):
-    #     self.Plot2.close()
-    #     self.Plot.show()
+    # Metodo que borra el Plot 2 y abre el Plot 1
+    def go_to_plot_1_from_plot_2(self):
+        self.Plot2.close()
+        self.Plot.show()
 
    
     

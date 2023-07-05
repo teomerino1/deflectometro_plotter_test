@@ -15,7 +15,7 @@ from tkinter import ttk
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
 class Plot():
-    def __init__(self,root,go_to_config,go_to_plot_2_from_plot_1):
+    def __init__(self,root,go_to_config, go_to_plot_2_from_plot_1):
 
         self.root = root
         self.main_plot_frame = None
@@ -67,6 +67,7 @@ class Plot():
 
         columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
         second_plot_frame = Frame(self.root)
+        second_plot_frame.grid(ipadx=10, ipady=5)
         self.table = Treeview(second_plot_frame, columns=columns, show='headings')
         
         # Configurar el número de filas y columnas
@@ -84,7 +85,7 @@ class Plot():
         second_plot_frame.grid_columnconfigure(1, weight=1)
         second_plot_frame.grid_columnconfigure(2, weight=1)
         second_plot_frame.grid_columnconfigure(3, weight=1)
-        second_plot_frame.grid(ipadx=10, ipady=5)
+       
         self.second_plot_frame = second_plot_frame
 
         
