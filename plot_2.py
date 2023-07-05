@@ -40,19 +40,19 @@ class Plot2():
 
         third_plot_frame.grid(rowspan=3,columnspan=3)
 
-        title = Label(third_plot_frame, text="Grafico de medias y otras cositas mas",font=(None, 25)) 
+        title = Label(third_plot_frame, text="Grafico de medias",font=(None, 20)) 
 
-        title.grid(row = 0, column = 2,sticky=E)
+        title.grid(row = 0, column = 0,sticky=NW)
 
         back = Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
 
-        back.grid(row=0, column=0)
+        back.grid(row=1, column=0,sticky=NW)
 
         next = Button(third_plot_frame, text="Next", command=self.go_to_plot_1_from_plot_2)
 
-        next.grid(row=0,column=1)
+        next.grid(row=2,column=0,sticky=NW)
 
-        self.Graphs = graphs.Graphs(self.third_plot_frame).radio_gmean_graph(5,0,3)
+        self.Graphs = graphs.Graphs(self.third_plot_frame).show_radio_gmean_graph()
 
         
 

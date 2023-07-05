@@ -34,12 +34,22 @@ class Graphs():
         return figure, bar, bar_widget
 
     # Grafico que corresponde a las medias del radio
-    def radio_gmean_graph(self,row, column, columnspan = 3):
-        figure = Figure(figsize=(5, 5), dpi=100)
+    def radio_gmean_graph(self,row, column, columnspan,title):
+        
+        figure = Figure(figsize=(6, 7), dpi=100)
 
-        figure.add_subplot(121).scatter([], [])
+        sub_figure = figure.add_subplot(211)
+        
+        sub_figure.set_title(title)
+
+        sub_figure.scatter([], [])
+
+        # figure.add_subplot(121).scatter([], [])
+
         graph = FigureCanvasTkAgg(figure, self.frame)
+
         graph_widget = graph.get_tk_widget()
+
         graph_widget.grid(row = row, column = column, columnspan = columnspan)
 
         return figure, graph, graph_widget
@@ -62,10 +72,11 @@ class Graphs():
         # self.rad_mean_r.draw()
         # self.rad_mean_l.draw()
 
-    # def show_radio_gmean_graph():
+    def show_radio_gmean_graph(self):
 
-        # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(5,0,3)
-        # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(6,0,3)
+        self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+        self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,2,1,"Radio Derecha")
+       
 
     # Actualiza el grafico de bars de mediciones individuales
     # se pasa como parametro un dict con los datos de los dos lados
