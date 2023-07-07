@@ -6,7 +6,7 @@ import graphs
 from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
-
+import graphs_2
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
@@ -22,39 +22,51 @@ class Plot2():
         # self.second_plot_frame = None
         self.third_plot_frame = None
         self.go_to_plot_1_from_plot_2 = go_to_plot_1_from_plot_2
-        self.Graphs = None
+        self.Graphs2 = None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
+
         self.third_plot_frame.grid_forget()
-        # self.third_plot_frame.destroy()
 
-    def show(self):
+
+    def show(self,a):
        
-        width = self.root.winfo_screenwidth()
+        if(a==0):
 
-        height = self.root.winfo_screenheight()
+            width = self.root.winfo_screenwidth()
 
-        third_plot_frame = Frame(self.root, width=width, height=height)
+            height = self.root.winfo_screenheight()
 
-        self.third_plot_frame = third_plot_frame
+            third_plot_frame = Frame(self.root, width=width, height=height)
 
-        third_plot_frame.grid(rowspan=3,columnspan=3)
+            self.third_plot_frame = third_plot_frame
 
-        title = Label(third_plot_frame, text="Grafico de medias",font=(None, 20)) 
+            third_plot_frame.grid(rowspan=3,columnspan=3)
 
-        title.grid(row = 0, column = 0,sticky=NW)
+            title = Label(third_plot_frame, text="Grafico de medias",font=(None, 20)) 
 
-        back = Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
+            title.grid(row = 0, column = 0,sticky=NW)
 
-        back.grid(row=1, column=0,sticky=NW)
+            back = Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
 
-        next = Button(third_plot_frame, text="Next", command=self.go_to_plot_1_from_plot_2)
+            back.grid(row=1, column=0,sticky=NW)
 
-        next.grid(row=2,column=0,sticky=NW)
+            next = Button(third_plot_frame, text="Next", command=self.go_to_plot_1_from_plot_2)
 
-        self.Graphs = graphs.Graphs(self.third_plot_frame,plot_number=2)
+            next.grid(row=2,column=0,sticky=NW)
 
+            self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame)
+
+        if(a==1):
+
+            self.third_plot_frame.grid(rowspan=3,columnspan=3)
+
+
+
+    def new_group_data_plot2(self,dict_r, dict_l):
+        
+        self.Graphs2.update_gmean(dict_r, dict_l)
         
 
 

@@ -13,7 +13,8 @@ class Graphs():
         self.frame = frame
         self.plot_number=plot_number
         self.show(plot_number)
-
+        self.figure_rad_mean_r=None
+        self.rad_mean_r=None
     # Grafico que corresponde a las deflexiones individuales
     def bar_graph(self, row, column, columnspan,title):
         
@@ -77,6 +78,23 @@ class Graphs():
         subfigure.bar(index, defl_left_right_dict['left'])
 
         self.bar_l.draw()
+
+    # def update_gmean(self, dict_r, dict_l):
+
+    #     self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+    #     self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,2,1,"Radio Derecha")
+    #     self.figure_rad_mean_r.clear()
+    #     subfigure=self.figure_rad_mean_r.add_subplot(211)
+    #     subfigure.set_title("Differentei")
+    #     subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+    #     self.rad_mean_r.draw()
+    #     # self.figure_rad_mean_r.add_subplot(211).scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+    #     # self.rad_mean_r.draw()
+    #     # self.rad_mean_widget_r.draw()
+
+    #     # self.figure_rad_mean_l.clear()
+    #     # self.figure_rad_mean_l.add_subplot(211).scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+    #     # self.rad_mean_l.draw()
 
     def show_bar_graph(self):
 
@@ -154,24 +172,24 @@ class Graphs():
 
     # Toma los nuevos valores y hace el update de los graficos
     # el update se hace limpiando y volviendo a graficar. (quizas hay otra solucion, la que probe no funcionaba)
-    # def update_gmean(self, dict_r, dict_l):
+    def update_gmean(self, dict_r, dict_l):
 
-    #     self.figure_rad_mean_r.clear()
+        self.figure_rad_mean_r.clear()
 
-    #     subfigure = self.figure_rad_mean_r.add_subplot(211)
+        subfigure = self.figure_rad_mean_r.add_subplot(211)
 
-    #     subfigure.set_title("Radio Derecha")
+        subfigure.set_title("Radio Derecha")
 
-    #     subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+        subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
 
-    #     subfigure.draw()
+        subfigure.draw()
 
-        # self.figure_rad_mean_r.add_subplot(211).scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+        self.figure_rad_mean_r.add_subplot(211).scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
 
-        # self.rad_mean_r.draw()
+        self.rad_mean_r.draw()
 
-        # self.figure_rad_mean_l.clear()
-        # self.figure_rad_mean_l.add_subplot(211).scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
-        # self.rad_mean_l.draw()
+        self.figure_rad_mean_l.clear()
+        self.figure_rad_mean_l.add_subplot(211).scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+        self.rad_mean_l.draw()
 
 

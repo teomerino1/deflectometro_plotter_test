@@ -84,27 +84,7 @@ class Plot():
         if(a==1):
 
             self.second_plot_frame.grid(ipadx=10, ipady=5)
-            # self.second_plot_frame.grid_rowconfigure(0, weight=1)
-            # self.second_plot_frame.grid_rowconfigure(1, weight=1)
-            # self.second_plot_frame.grid_rowconfigure(2, weight=1)
-            # self.second_plot_frame.grid_rowconfigure(3, weight=1)
-            # self.second_plot_frame.grid_rowconfigure(4, weight=1)
-            # self.second_plot_frame.grid_rowconfigure(5, weight=1)
-            # self.second_plot_frame.grid_rowconfigure(6, weight=1)
-            # self.second_plot_frame.grid_rowconfigure(7, weight=1)
-            # self.second_plot_frame.grid_rowconfigure(8, weight=1)
-            # config_frame.grid_rowconfigure(4, weight=1)
-            # second_plot_frame.grid_columnconfigure(0, weight=1)
-            # second_plot_frame.grid_columnconfigure(1, weight=1)
-            # second_plot_frame.grid_columnconfigure(2, weight=1)
-            # second_plot_frame.grid_columnconfigure(3, weight=1)
-            # title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
-            # temperatura.grid(row=1, column=0, sticky="nw")
-            # muestras.grid(row=1, column=1 ,sticky="nw")
-            # grupos.grid(row=2, column=0, sticky="nw")
-            # atras.grid(row=3, column=0, sticky="nw")
-            # next.grid(row=4, column=0,sticky="nw")
-
+            
         # scrollbar = Scrollbar(second_plot_frame, orient="vertical", command=self.table.yview)
         # scrollbar.grid(row=0, column=2, rowspan=7, sticky="ns")
         # self.table.configure(yscrollcommand=scrollbar.set)

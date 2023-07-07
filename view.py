@@ -78,7 +78,7 @@ class View():
     # Metodo que borra el Plot 1 y abre el Plot 2
     def go_to_plot_2_from_plot_1(self):
         self.Plot.close()
-        self.Plot2.show()
+        self.Plot2.show(0)
 
     # Metodo que borra el Plot 2 y abre el Plot 1
     def go_to_plot_1_from_plot_2(self):
@@ -89,6 +89,7 @@ class View():
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l):
         self.Plot.new_group_data_plot(dict_r, dict_l)
+        self.Plot2.new_group_data_plot2(dict_r,dict_l)
         # self.Plot.update_table(df)
 
     # Metodo que manda a actualizar el gafico de barras 
