@@ -12,7 +12,7 @@ class Config():
         self.grupos_ntry_100 = None
         self.var = None
         self.muestras_ntry = None
-        self.z_ntry = None 
+        self.espesor = None 
         self.ft_ntry = None
         self.fh_ntry = None 
         self.fc_ntry = None
@@ -70,36 +70,36 @@ class Config():
         muestras_ntry.grid( row=3, column=1)
         self.muestras_ntry = muestras_ntry
 
-        Label(config_frame, text="Z:").grid(row=4, column=0)
-        z_ntry = Entry(config_frame)
-        z_ntry.grid(row=4,column=1)
-        self.z_ntry = z_ntry
+        Label(config_frame, text="Espesor:").grid(row=4, column=0)
+        espesor = Entry(config_frame)
+        espesor.grid(row=4,column=1)
+        self.espesor = espesor
 
-        Label(config_frame, text="Ft:").grid(row=5, column=0)
-        ft_ntry = Entry(config_frame)
-        ft_ntry.grid(row=5,column=1)
-        self.ft_ntry = ft_ntry
+        # Label(config_frame, text="Ft:").grid(row=5, column=0)
+        # ft_ntry = Entry(config_frame)
+        # ft_ntry.grid(row=5,column=1)
+        # self.ft_ntry = ft_ntry
 
-        Label(config_frame, text="Fh:").grid(row=6, column=0)
-        fh_ntry = Entry(config_frame)
-        fh_ntry.grid(row=6,column=1)
-        self.fh_ntry = fh_ntry
+        # Label(config_frame, text="Fh:").grid(row=6, column=0)
+        # fh_ntry = Entry(config_frame)
+        # fh_ntry.grid(row=6,column=1)
+        # self.fh_ntry = fh_ntry
 
-        Label(config_frame, text="Fc:").grid(row=7, column=0)
-        fc_ntry = Entry(config_frame)
-        fc_ntry.grid(row=7,column=1)
-        self.fc_ntry = fc_ntry
+        # Label(config_frame, text="Fc:").grid(row=7, column=0)
+        # fc_ntry = Entry(config_frame)
+        # fc_ntry.grid(row=7,column=1)
+        # self.fc_ntry = fc_ntry
 
-        Button(config_frame, text="Confirmar", command=self.go_to_plot1_from_config).grid(row=8, column=0)
+        Button(config_frame, text="Confirmar", command=self.go_to_plot1_from_config).grid(row=5, column=0)
 
     def close(self):
         # view.temp, view.grupos, view.muestras = self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()
-        view.temp, view.muestras, view.grupos, view.z_ntry, view.ft_ntry,view.fh_ntry,view.fc_ntry = self.get_config()
+        view.temp, view.muestras, view.grupos, view.espesor = self.get_config()
         self.config_frame.grid_forget()
         # self.config_frame.destroy()
 
     def get_config(self):
-        return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.z_ntry.get(), self.ft_ntry.get(),self.fh_ntry.get(), self.fc_ntry.get()
+        return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.espesor.get()
     
     #  def get_config(self):
     #     return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()
