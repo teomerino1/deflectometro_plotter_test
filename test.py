@@ -1,59 +1,37 @@
-import tkinter as tk
+# Imports tkinter and ttk module
+from tkinter import *
+from tkinter.ttk import *
 
-root = tk.Tk()
+# toplevel window
+root = Tk()
 
-config_frame = tk.Frame(root)
-config_frame.grid()
+# method to make widget invisible
+# or remove from toplevel
+def forget(widget):
 
-# Configurar el número de filas y columnas
-config_frame.grid_rowconfigure(0, weight=1)
-config_frame.grid_rowconfigure(1, weight=1)
-config_frame.grid_rowconfigure(2, weight=1)
-config_frame.grid_rowconfigure(3, weight=1)
-# config_frame.grid_rowconfigure(4, weight=1)
-config_frame.grid_columnconfigure(0, weight=1)
-config_frame.grid_columnconfigure(1, weight=1)
-config_frame.grid_columnconfigure(2, weight=1)
-config_frame.grid_columnconfigure(3, weight=1)
-# config_frame.grid_columnconfigure(4, weight=1)
+	# This will remove the widget from toplevel
+	# basically widget do not get deleted
+	# it just becomes invisible and loses its position
+	# and can be retrieve
+	widget.grid_forget()
 
+# method to make widget visible
+def retrieve(widget):
+	widget.grid(row = 0, column = 0, ipady = 10, pady = 10, padx = 5)
 
-# Crear elementos y colocarlos en filas y columnas específicas
-elemento1 = tk.Label(config_frame, text="Elemento 1")
-elemento1.grid(row=0, column=0)
+def print_something():
+	print("Holachei")
+# Button widgets
+b1 = Button(root, text = "Btn 1", command= lambda : print_something())
+b1.grid(row = 0, column = 0, ipady = 10, pady = 10, padx = 5)
 
-elemento2 = tk.Label(config_frame, text="Elemento 2")
-elemento2.grid(row=0, column=1)
+# See, in command forget() method is passed
+b2 = Button(root, text = "Btn 2", command = lambda : forget(b1))
+b2.grid(row = 0, column = 1, ipady = 10, pady = 10, padx = 5)
 
-elemento3 = tk.Label(config_frame, text="Elemento 3")
-elemento3.grid(row=0, column=2)
+# In command retrieve() method is passed
+b3 = Button(root, text = "Btn 3", command = lambda : retrieve(b1))
+b3.grid(row = 0, column = 2, ipady = 10, pady = 10, padx = 5)
 
-elemento4 = tk.Label(config_frame, text="Elemento 4")
-elemento4.grid(row=0, column=3)
-
-elemento5 = tk.Label(config_frame, text="Elemento 5")
-elemento5.grid(row=1, column=0)
-
-elemento6 = tk.Label(config_frame, text="Elemento 6")
-elemento6.grid(row=1, column=1)
-
-elemento7 = tk.Label(config_frame, text="Elemento 7")
-elemento7.grid(row=1, column=2)
-
-elemento8 = tk.Label(config_frame, text="Elemento 8")
-elemento8.grid(row=1, column=3)
-
-elemento9 = tk.Label(config_frame, text="Elemento 9")
-elemento9.grid(row=2, column=0)
-
-elemento10 = tk.Label(config_frame, text="Elemento 10")
-elemento10.grid(row=2, column=1)
-
-elemento11 = tk.Label(config_frame, text="Elemento 11")
-elemento11.grid(row=2, column=2)
-
-elemento12 = tk.Label(config_frame, text="Elemento 12")
-elemento12.grid(row=2, column=3)
-
-root.mainloop()
-
+# infinite loop, interrupted by keyboard or mouse
+mainloop()

@@ -95,7 +95,8 @@ class Config():
     def close(self):
         # view.temp, view.grupos, view.muestras = self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()
         view.temp, view.muestras, view.grupos, view.z_ntry, view.ft_ntry,view.fh_ntry,view.fc_ntry = self.get_config()
-        self.config_frame.destroy()
+        self.config_frame.grid_forget()
+        # self.config_frame.destroy()
 
     def get_config(self):
         return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.z_ntry.get(), self.ft_ntry.get(),self.fh_ntry.get(), self.fc_ntry.get()

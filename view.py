@@ -18,6 +18,7 @@ class View():
         global fh_ntry
         global ft_ntry 
         global fc_ntry
+        global first_time_plot1
         temp = None
         grupos = None
         muestras = None
@@ -25,6 +26,7 @@ class View():
         ft_ntry = None
         fh_ntry = None
         fc_ntry = None
+        
 
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(root, self.go_to_plot1_from_config)
@@ -63,7 +65,8 @@ class View():
     # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
         self.Config.close()
-        self.Plot.show()
+        self.Plot.show(0)
+        # self.Plot.grid_plot1()
         self.is_plotting = True
 
     # Metodo que borra el Plot 1 y abre el de Config
@@ -80,7 +83,7 @@ class View():
     # Metodo que borra el Plot 2 y abre el Plot 1
     def go_to_plot_1_from_plot_2(self):
         self.Plot2.close()
-        self.Plot.show()
+        self.Plot.show(1)
 
      
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
