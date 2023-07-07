@@ -1,5 +1,6 @@
 import numpy as np
 import view
+import math
 
 # Clase donde se encuentran los metodos encargados de crear, mantener y actualizar las estructuras de datos
 # se tienen dos grupos de mediciones, unas de derecha y otra de izquierda.
@@ -75,10 +76,7 @@ class Data():
         # print("Radio r sin compensar:",radio_r_aux)
         # print("Radio l sin compensar:",radio_l_aux)
 
-       
-        # fc=10
-        # # defl_r_aux=defl_r_aux*temp*z*ft*fh*fc
-        # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux= self.compensate(defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux, fc)
+        # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux= self.compensate(defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux, espesor,temp)
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
@@ -162,15 +160,15 @@ class Data():
 
     
     # # Metodo que devuelve los datos compensados con respecto a la temperatura ingresada
-    def compensate(self,defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux, fc):
+    def compensate(self,defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux,espesor,temp):
 
-        defl_r_aux=defl_r_aux*fc
+        defl_r_aux=defl_r_aux/((0.001*espesor*(temp-20))+1)
 
-        defl_l_aux=defl_l_aux*fc 
+        defl_l_aux=defl_l_aux/((0.001*espesor*(temp-20))+1) 
 
-        radio_r_aux=radio_r_aux*fc
+        # radio_r_aux=radio_r_aux*fc
 
-        radio_l_aux=radio_l_aux*fc
+        # radio_l_aux=radio_l_aux*fc
 
         return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        

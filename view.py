@@ -18,7 +18,7 @@ class View():
         global fh_ntry
         global ft_ntry 
         global fc_ntry
-        global first_time_plot1
+    
         temp = None
         grupos = None
         muestras = None

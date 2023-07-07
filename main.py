@@ -39,8 +39,8 @@ if __name__ == "__main__":
         # temp=int(view.temp)
         # print("Temperatura:",temp)
 
-        # z=int(view.z_ntry)
-        # print("Z:",z)
+        espesor=int(view.espesor)
+        print("Espesor:",espesor)
 
         # ft=int(view.ft_ntry)
         # print("ft:",ft)
@@ -72,7 +72,7 @@ if __name__ == "__main__":
             print(data)
 
 
-            # Data.data_destruct(data,z,ft,fh,fc)
+            # Data.data_destruct(data,temp,espesor)
             Data.data_destruct(data)
 
             print(Data.cant_mediciones())
