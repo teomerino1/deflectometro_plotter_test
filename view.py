@@ -26,6 +26,7 @@ class View():
         ft_ntry = None
         fh_ntry = None
         fc_ntry = None
+        
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(root, self.go_to_plot1_from_config)
         self.Plot = plot.Plot(root,self.go_to_config, self.go_to_plot_2_from_plot_1)
@@ -37,12 +38,6 @@ class View():
         
         self.first_time_plot2=True
        
-       
-      
-       
-
-
-
 
         # self.Plot.show()
 
@@ -55,11 +50,13 @@ class View():
         root.title('Deflectómetro')
 
         root.tk.call("source", "azure.tcl")
+
         root.tk.call("set_theme", "light")
 
         style = Style(root)
 
         screen_width = root.winfo_screenwidth()
+
         screen_height = root.winfo_screenheight()
 
         root.geometry(f"{screen_width}x{screen_height}")
@@ -67,6 +64,7 @@ class View():
 
      # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
+
         self.is_plotting = True
 
         if(self.first_time_plot):
@@ -77,37 +75,42 @@ class View():
 
             self.Plot.show(0)
 
+            self.Plot2.show(0)
+
         else:
             self.Config.close()
 
             self.Plot.show(1)
 
-    # # Metodo que borra el frame Config y abre el Plot1
-    # def go_to_plot1_from_config(self):
-    #     self.Config.close()
-    #     self.Plot.show(0)
-    #     # self.Plot.grid_plot1()
-    #     
+       
 
     # Metodo que borra el Plot 1 y abre el de Config
     def go_to_config(self):
+
         self.Plot.close()
+
         self.Config.show()
 
     # Metodo que borra el Plot 1 y abre el Plot 2
     def go_to_plot_2_from_plot_1(self):
+
         if(self.first_time_plot2):
+
             self.first_time_plot2=False
+
             self.Plot.close()
-            self.Plot2.show(0)
-        else:
-            self.Plot.close()
+
+            # self.Plot2.show(0)
+
             self.Plot2.show(1)
 
-    # # Metodo que borra el Plot 1 y abre el Plot 2
-    # def go_to_plot_2_from_plot_1(self):
-    #     self.Plot.close()
-    #     self.Plot2.show(0)
+        else:
+
+            self.Plot.close()
+
+            self.Plot2.show(1)
+
+    
 
     # Metodo que borra el Plot 2 y abre el Plot 1
     def go_to_plot_1_from_plot_2(self):

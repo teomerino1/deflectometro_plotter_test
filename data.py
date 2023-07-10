@@ -82,9 +82,7 @@ class Data():
         self.defl_l.append(defl_l_aux)
         self.radio_r.append(radio_r_aux)
         self.radio_l.append(radio_l_aux)
-
-
-
+        
         # print("Defl r compensada:",defl_r_aux)
         # print("Defl l compensada:",defl_l_aux)
         # print("Radio r compensada:",radio_r_aux)

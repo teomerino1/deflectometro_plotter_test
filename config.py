@@ -75,20 +75,7 @@ class Config():
         espesor.grid(row=4,column=1)
         self.espesor = espesor
 
-        # Label(config_frame, text="Ft:").grid(row=5, column=0)
-        # ft_ntry = Entry(config_frame)
-        # ft_ntry.grid(row=5,column=1)
-        # self.ft_ntry = ft_ntry
-
-        # Label(config_frame, text="Fh:").grid(row=6, column=0)
-        # fh_ntry = Entry(config_frame)
-        # fh_ntry.grid(row=6,column=1)
-        # self.fh_ntry = fh_ntry
-
-        # Label(config_frame, text="Fc:").grid(row=7, column=0)
-        # fc_ntry = Entry(config_frame)
-        # fc_ntry.grid(row=7,column=1)
-        # self.fc_ntry = fc_ntry
+      
 
         Button(config_frame, text="Confirmar", command=self.go_to_plot1_from_config).grid(row=5, column=0)
 

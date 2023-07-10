@@ -35,6 +35,7 @@ class Plot():
     def show(self,a):
 
         if(a==0):
+            
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
             second_plot_frame = Frame(self.root)
             second_plot_frame.grid(ipadx=10, ipady=5)

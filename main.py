@@ -30,26 +30,25 @@ if __name__ == "__main__":
 
     def separate():
 
-        while View.on_plot() == False:
-            None
+
         
-        muestras = int(view.muestras)
+        while (True):
+            
+            muestras = view.muestras
+            
+            temp = view.temp
+            
+            espesor = view.espesor
+
+            if(muestras != None ):
+                
+                break
+            
+            continue
+        
         print("Muestras",muestras)
+       
 
-        # temp=int(view.temp)
-        # print("Temperatura:",temp)
-
-        espesor=int(view.espesor)
-        print("Espesor:",espesor)
-
-        # ft=int(view.ft_ntry)
-        # print("ft:",ft)
-
-        # fh=int(view.fh_ntry)
-        # print("fh:",fh)
-
-        # fc=int(view.fc_ntry)
-        # print("fc:",fc)
 
         while True:
 

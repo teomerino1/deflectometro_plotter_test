@@ -21,6 +21,9 @@ class Plot2():
         # self.main_plot_frame = None
         # self.second_plot_frame = None
         self.third_plot_frame = None
+        self.title = None
+        self.next = None
+        self.back = None  
         self.go_to_plot_1_from_plot_2 = go_to_plot_1_from_plot_2
         self.Graphs2 = None
 
@@ -42,25 +45,38 @@ class Plot2():
 
             self.third_plot_frame = third_plot_frame
 
-            third_plot_frame.grid(rowspan=3,columnspan=3)
+            # third_plot_frame.grid(rowspan=3,columnspan=3)
 
             title = Label(third_plot_frame, text="Grafico de medias",font=(None, 20)) 
 
-            title.grid(row = 0, column = 0,sticky=NW)
+            # title.grid(row = 0, column = 0,sticky=NW)
+
+            self.title=title
 
             back = Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
 
-            back.grid(row=1, column=0,sticky=NW)
+            self.back = back
+            # back.grid(row=1, column=0,sticky=NW)
 
             next = Button(third_plot_frame, text="Next", command=self.go_to_plot_1_from_plot_2)
 
-            next.grid(row=2,column=0,sticky=NW)
+            self.next = next
+            # next.grid(row=2,column=0,sticky=NW)
 
             self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame)
 
         if(a==1):
 
             self.third_plot_frame.grid(rowspan=3,columnspan=3)
+
+            self.title.grid(row = 0, column = 0,sticky=NW)
+
+            self.back.grid(row=1, column=0,sticky=NW)
+
+            self.next.grid(row=2,column=0,sticky=NW)
+
+            
+
 
 
 
