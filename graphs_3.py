@@ -83,7 +83,7 @@ class Graphs3():
 
             # subfigure2.plot(dict_l['Grupo'], dict_l['Defl.'],'o-')
 
-            subfigure2.bar(dict_l['Grupo'], dict_l['Defl.'])
+            subfigure2.bar(dict_l['Grupo'], dict_l['Defl.'], color='black')
 
             subfigure2.grid(axis='both',linestyle='dotted')
         
@@ -103,7 +103,7 @@ class Graphs3():
 
             # subfigure.plot(dict_r['Grupo'], dict_r['Defl.'],'o-')
 
-            subfigure.bar(dict_l['Grupo'], dict_l['Defl.'],color='orange')
+            subfigure.bar(dict_l['Grupo'], dict_l['Defl.'], color='black')
 
             subfigure.grid(axis='both',linestyle='dotted')
             
