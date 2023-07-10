@@ -36,6 +36,8 @@ class Graphs2():
 
         sub_figure.scatter([], [])
 
+        sub_figure.grid(axis='both',linestyle='dotted')
+
         # figure.add_subplot(121).scatter([], [])
 
         graph = FigureCanvasTkAgg(figure, self.frame)
@@ -62,6 +64,8 @@ class Graphs2():
         subfigure.set_title("Radio Derecha")
 
         subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+
+        subfigure.grid(axis='both',linestyle='dotted')
         
         self.rad_mean_r.draw()
        
@@ -74,6 +78,8 @@ class Graphs2():
         subfigure2.set_title("Radio Izquierda")
 
         subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+
+        subfigure.grid(axis='both',linestyle='dotted')
        
         self.rad_mean_l.draw()
       

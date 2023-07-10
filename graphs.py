@@ -27,6 +27,8 @@ class Graphs():
 
         sub_figure.bar([], [], width = 0.1, linewidth=0)
 
+        sub_figure.grid(axis='both',linestyle='dotted')
+
         bar = FigureCanvasTkAgg(figure,self.frame)
 
         bar_widget = bar.get_tk_widget()
@@ -40,6 +42,7 @@ class Graphs():
     def update_bar(self, defl_left_right_dict):
 
         index = list(range(1,len(defl_left_right_dict['right'])+1))
+
         self.figure_bar_r.clear()
 
         subfigure=self.figure_bar_r.add_subplot(211)
@@ -47,6 +50,8 @@ class Graphs():
         subfigure.set_title("Deflexion Derecha")
 
         subfigure.bar(index, defl_left_right_dict['right'])
+
+        subfigure.grid(axis='both',linestyle='dotted')
 
         self.bar_r.draw()
 
