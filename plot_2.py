@@ -7,6 +7,7 @@ from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
 import graphs_2
+import graphs_3
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
@@ -27,6 +28,7 @@ class Plot2():
         self.go_to_plot_1_from_plot_2 = go_to_plot_1_from_plot_2
         self.go_to_plot_3_from_plot2 = go_to_plot_3_from_plot2
         self.Graphs2 = None
+        self.Graphs3 = None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
@@ -59,6 +61,8 @@ class Plot2():
             self.next = next
 
             self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Izquierdo")
+
+            self.Graphs3 = graphs_3.Graphs3(self.third_plot_frame,lado="Izquierdo")
 
         if(a == 1):
 

@@ -7,6 +7,7 @@ from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
 import graphs_2
+import graphs_3
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
@@ -58,6 +59,8 @@ class Plot3():
             self.next = next
 
             self.Graphs2 = graphs_2.Graphs2(self.fourth_plot_frame, lado="Derecho")
+
+            self.Graphs3 = graphs_3.Graphs3(self.fourth_plot_frame, lado="Derecho")
 
         if(a == 1):
 
