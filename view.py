@@ -61,6 +61,12 @@ class View():
 
         root.geometry(f"{screen_width}x{screen_height}")
 
+        ###############################################
+
+        self.Plot.show(0)
+
+        self.Plot2.show(0)
+
 
      # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
@@ -73,7 +79,7 @@ class View():
 
             self.Config.close()
 
-            self.Plot.show(0)
+            self.Plot.show(1)
 
             self.Plot2.show(0)
 

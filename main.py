@@ -48,8 +48,6 @@ if __name__ == "__main__":
         
         print("Muestras",muestras)
        
-
-
         while True:
 
             # sleep(0.001)

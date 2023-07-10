@@ -24,6 +24,12 @@ class Plot():
         #############
         self.go_to_plot_2_from_plot_1 = go_to_plot_2_from_plot_1
         #############
+        self.title = None 
+        self.temperatura = None 
+        self.muestras = None 
+        self.grupos = None 
+        self.atras = None 
+        self.next = None 
         self.Table = None
         self.Graphs = None
 
@@ -35,10 +41,15 @@ class Plot():
     def show(self,a):
 
         if(a==0):
-            
-            columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
+
             second_plot_frame = Frame(self.root)
-            second_plot_frame.grid(ipadx=10, ipady=5)
+
+            self.second_plot_frame = second_plot_frame
+
+            # second_plot_frame.grid(ipadx=10, ipady=5)
+
+            columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
+
             self.table = Treeview(second_plot_frame, columns=columns, show='headings')
             
             # Configurar el número de filas y columnas
@@ -47,36 +58,38 @@ class Plot():
             second_plot_frame.grid_rowconfigure(2, weight=1)
             second_plot_frame.grid_rowconfigure(3, weight=1)
             second_plot_frame.grid_rowconfigure(4, weight=1)
-            second_plot_frame.grid_rowconfigure(5, weight=1)
-            second_plot_frame.grid_rowconfigure(6, weight=1)
-            second_plot_frame.grid_rowconfigure(7, weight=1)
-            second_plot_frame.grid_rowconfigure(8, weight=1)
-            # config_frame.grid_rowconfigure(4, weight=1)
+           
             second_plot_frame.grid_columnconfigure(0, weight=1)
             second_plot_frame.grid_columnconfigure(1, weight=1)
             second_plot_frame.grid_columnconfigure(2, weight=1)
             second_plot_frame.grid_columnconfigure(3, weight=1)
         
-            self.second_plot_frame = second_plot_frame
+            
 
             
             title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 25)) 
-            title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
+            # title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
+            self.title = title
             
             temperatura = Label(second_plot_frame, text= "Temperatura: %s"%(view.temp))
-            temperatura.grid(row=1, column=0, sticky="nw")
+            # temperatura.grid(row=1, column=0, sticky="nw")
+            self.temperatura = temperatura
 
             muestras = Label(second_plot_frame, text="Muestras: %s"%(view.grupos))
-            muestras.grid(row=1, column=1 ,sticky="nw")
+            # muestras.grid(row=1, column=1 ,sticky="nw")
+            self.muestras = muestras 
 
             grupos = Label(second_plot_frame, text="Grupos: %s"%(view.muestras))
-            grupos.grid(row=2, column=0, sticky="nw")
+            # grupos.grid(row=2, column=0, sticky="nw")
+            self.grupos = grupos 
 
             atras = Button(second_plot_frame, text="Atras", command=self.go_to_config)
-            atras.grid(row=3, column=0, sticky="nw")
+            # atras.grid(row=3, column=0, sticky="nw")
+            self.atras = atras 
 
-            next= Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1)
-            next.grid(row=4, column=0,sticky="nw")
+            next = Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1)
+            # next.grid(row=4, column=0,sticky="nw")
+            self.next = next
 
             self.Table = table.Table(self.second_plot_frame) # instancia de tabla
 
@@ -85,6 +98,18 @@ class Plot():
         if(a==1):
 
             self.second_plot_frame.grid(ipadx=10, ipady=5)
+
+            self.title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
+
+            self.temperatura.grid(row=1, column=0, sticky="nw")
+
+            self.muestras.grid(row=1, column=1 ,sticky="nw")
+
+            self.grupos.grid(row=2, column=0, sticky="nw")
+
+            self.atras.grid(row=3, column=0, sticky="nw")
+
+            self.next.grid(row=4, column=0,sticky="nw")
             
         # scrollbar = Scrollbar(second_plot_frame, orient="vertical", command=self.table.yview)
         # scrollbar.grid(row=0, column=2, rowspan=7, sticky="ns")
