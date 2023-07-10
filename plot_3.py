@@ -70,6 +70,6 @@ class Plot3():
             self.next.grid(row=2,column=0,sticky=NW)
 
 
-    def new_group_data_plot2(self,dict_r, dict_l):
+    def new_group_data_plot3(self,dict_r, dict_l):
         
-        self.Graphs2.update_gmean(dict_r, dict_l)
+        self.Graphs2.update_gmean(dict_r, dict_l,lado="Derecho")

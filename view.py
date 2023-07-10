@@ -154,7 +154,7 @@ class View():
 
         self.Plot2.new_group_data_plot2(dict_r,dict_l)
 
-        self.Plot3.new
+        self.Plot3.new_group_data_plot3(dict_r,dict_l)
 
         # self.Plot.update_table(df)
 

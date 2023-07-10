@@ -63,6 +63,8 @@ class Graphs():
 
         subfigure.bar(index, defl_left_right_dict['left'])
 
+        subfigure.grid(axis='both',linestyle='dotted')
+
         self.bar_l.draw()
 
     
