@@ -76,3 +76,5 @@ class Plot3():
     def new_group_data_plot3(self,dict_r, dict_l):
         
         self.Graphs2.update_gmean(dict_r, dict_l,lado="Derecho")
+
+        self.Graphs3.update_deflexiones_gmean(dict_r,dict_l,lado="Derecho")

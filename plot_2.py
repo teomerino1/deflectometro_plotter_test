@@ -78,6 +78,8 @@ class Plot2():
     def new_group_data_plot2(self,dict_r, dict_l):
         
         self.Graphs2.update_gmean(dict_r, dict_l,lado = "Izquierdo")
+
+        self.Graphs3.update_deflexiones_gmean(dict_r, dict_l, lado="Izquierdo")
         
 
 

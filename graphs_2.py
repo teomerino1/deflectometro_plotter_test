@@ -65,7 +65,7 @@ class Graphs2():
 
             # subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
 
-            subfigure2.plot(dict_l['Grupo'], dict_l['Defl.'],'o-')
+            subfigure2.plot(dict_l['Grupo'], dict_l['Radio'],'o-')
 
             subfigure2.grid(axis='both',linestyle='dotted')
         
@@ -83,7 +83,7 @@ class Graphs2():
 
             # subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
 
-            subfigure.plot(dict_r['Grupo'], dict_r['Defl.'],'o-')
+            subfigure.plot(dict_r['Grupo'], dict_r['Radio'],'o-')
 
             subfigure.grid(axis='both',linestyle='dotted')
             
