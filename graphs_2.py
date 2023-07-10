@@ -63,7 +63,9 @@ class Graphs2():
 
             subfigure2.set_title("Radio Izquierda")
 
-            subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+            # subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+
+            subfigure2.plot(dict_l['Grupo'], dict_l['Defl.'],'o-')
 
             subfigure2.grid(axis='both',linestyle='dotted')
         
@@ -79,7 +81,9 @@ class Graphs2():
 
             subfigure.set_title("Radio Derecha")
 
-            subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+            # subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+
+            subfigure.plot(dict_r['Grupo'], dict_r['Defl.'],'o-')
 
             subfigure.grid(axis='both',linestyle='dotted')
             
@@ -93,6 +97,7 @@ class Graphs2():
     def show_radio_gmean_graph(self,lado):
 
         if(lado == "Izquierdo"):
+
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
 
         if(lado == "Derecho"):
