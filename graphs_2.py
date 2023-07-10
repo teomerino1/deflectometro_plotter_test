@@ -9,21 +9,21 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 # Clase donde se inicializan y actualizan los graficos
 
 class Graphs2():
-    def __init__(self, frame):
+    def __init__(self, frame,lado):
         self.frame = frame
-        self.show()
         self.figure_rad_mean_r = None
         self.rad_mean_r = None
         self.rad_mean_widget_l = None
         self.figure_rad_mean_l = None 
         self.rad_mean_l = None 
         self.rad_mean_widget_l = None 
+        self.show(lado)
 
 
 
-    def show(self,):
+    def show(self,lado):
 
-        self.show_radio_gmean_graph()
+        self.show_radio_gmean_graph(lado)
 
     
     def radio_gmean_graph(self,row, column, columnspan,title):
@@ -51,45 +51,53 @@ class Graphs2():
     
   
 
-    def update_gmean(self, dict_r, dict_l):
+    def update_gmean(self, dict_r, dict_l,lado):
 
-        self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+        if(lado == "Izquierdo"):
 
-        self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,2,1,"Radio Derecha")
+            self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+           
+            self.figure_rad_mean_l.clear()
 
-        self.figure_rad_mean_r.clear()
+            subfigure2=self.figure_rad_mean_l.add_subplot(211)
 
-        subfigure=self.figure_rad_mean_r.add_subplot(211)
+            subfigure2.set_title("Radio Izquierda")
 
-        subfigure.set_title("Radio Derecha")
+            subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
 
-        subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
-
-        subfigure.grid(axis='both',linestyle='dotted')
+            subfigure2.grid(axis='both',linestyle='dotted')
         
-        self.rad_mean_r.draw()
-       
-        # self.rad_mean_widget_r.draw()
+            self.rad_mean_l.draw()
 
-        self.figure_rad_mean_l.clear()
+        if(lado == "Derecho"):
 
-        subfigure2=self.figure_rad_mean_l.add_subplot(211)
+            self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
 
-        subfigure2.set_title("Radio Izquierda")
+            self.figure_rad_mean_r.clear()
 
-        subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+            subfigure=self.figure_rad_mean_r.add_subplot(211)
 
-        subfigure.grid(axis='both',linestyle='dotted')
-       
-        self.rad_mean_l.draw()
+            subfigure.set_title("Radio Derecha")
+
+            subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+
+            subfigure.grid(axis='both',linestyle='dotted')
+            
+            self.rad_mean_r.draw()
+        
+            # self.rad_mean_widget_r.draw()
+
       
         
 
-    def show_radio_gmean_graph(self):
+    def show_radio_gmean_graph(self,lado):
 
-        self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+        if(lado == "Izquierdo"):
+            self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
 
-        self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,2,1,"Radio Derecha")
+        if(lado == "Derecho"):
+
+            self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
 
        
 

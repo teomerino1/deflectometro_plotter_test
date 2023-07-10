@@ -6,6 +6,7 @@ from tkinter.ttk import Style
 import config
 import plot
 import plot_2
+import plot_3
 
 class View():
     def __init__(self, root):
@@ -30,9 +31,11 @@ class View():
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(root, self.go_to_plot1_from_config)
 
-        self.Plot = plot.Plot(root,self.go_to_config, self.go_to_plot_2_from_plot_1)
+        self.Plot = plot.Plot(root, self.go_to_config, self.go_to_plot_2_from_plot_1)
 
-        self.Plot2 = plot_2.Plot2(root,self.go_to_plot_1_from_plot_2)
+        self.Plot2 = plot_2.Plot2(root, self.go_to_plot_1_from_plot_2, self.go_to_plot_3_from_plot2)
+
+        self.Plot3 = plot_3.Plot3(root, self.go_to_plot_2_from_plot_3)
 
         self.is_plotting = False
         
@@ -70,6 +73,8 @@ class View():
         self.Plot.show(0)
 
         self.Plot2.show(0)
+
+        self.Plot3.show(0)
 
 
      # Metodo que borra el frame Config y abre el Plot1
@@ -129,6 +134,18 @@ class View():
 
         self.Plot.show(1)
 
+    def go_to_plot_3_from_plot2(self):
+
+        self.Plot2.close()
+
+        self.Plot3.show(1)
+
+    def go_to_plot_2_from_plot_3(self):
+        
+        self.Plot3.close()
+       
+        self.Plot2.show(1)
+
      
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l):
@@ -136,6 +153,8 @@ class View():
         self.Plot.new_group_data_plot(dict_r, dict_l)
 
         self.Plot2.new_group_data_plot2(dict_r,dict_l)
+
+        self.Plot3.new
 
         # self.Plot.update_table(df)
 

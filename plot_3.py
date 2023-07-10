@@ -14,24 +14,23 @@ from tkinter import ttk
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
-class Plot2():
-    def __init__(self,root, go_to_plot_1_from_plot_2,go_to_plot_3_from_plot2):
+class Plot3():
+    def __init__(self,root, go_to_plot_2_from_plot_3):
 
         self.root = root
         # self.main_plot_frame = None
         # self.second_plot_frame = None
-        self.third_plot_frame = None
+        self.fourth_plot_frame = None
         self.title = None
         self.next = None
         self.back = None  
-        self.go_to_plot_1_from_plot_2 = go_to_plot_1_from_plot_2
-        self.go_to_plot_3_from_plot2 = go_to_plot_3_from_plot2
+        self.go_to_plot_1_from_plot_2 = go_to_plot_2_from_plot_3
         self.Graphs2 = None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
 
-        self.third_plot_frame.grid_forget()
+        self.fourth_plot_frame.grid_forget()
 
 
     def show(self,a):
@@ -42,27 +41,27 @@ class Plot2():
 
             height = self.root.winfo_screenheight()
 
-            third_plot_frame = Frame(self.root, width=width, height=height)
+            fourth_plot_frame = Frame(self.root, width=width, height=height)
 
-            self.third_plot_frame = third_plot_frame
+            self.fourth_plot_frame = fourth_plot_frame
 
-            title = Label(third_plot_frame, text="Deflexiones y Radios: Lado Izquierdo",font=(None, 20)) 
+            title = Label(fourth_plot_frame, text="Deflexiones y Radios: Lado Derecho",font=(None, 20)) 
 
             self.title=title
 
-            back = Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
+            back = Button(fourth_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
 
             self.back = back
 
-            next = Button(third_plot_frame, text="Next", command=self.go_to_plot_3_from_plot2)
+            next = Button(fourth_plot_frame, text="Next", command=self.go_to_plot_1_from_plot_2)
 
             self.next = next
 
-            self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Izquierdo")
+            self.Graphs2 = graphs_2.Graphs2(self.fourth_plot_frame, lado="Derecho")
 
         if(a == 1):
 
-            self.third_plot_frame.grid(rowspan=3,columnspan=3)
+            self.fourth_plot_frame.grid(rowspan=3,columnspan=3)
 
             self.title.grid(row = 0, column = 0,sticky=NW)
 
@@ -73,12 +72,4 @@ class Plot2():
 
     def new_group_data_plot2(self,dict_r, dict_l):
         
-        self.Graphs2.update_gmean(dict_r, dict_l,lado = "Izquierdo")
-        
-
-
-        
-
-   
-
-
+        self.Graphs2.update_gmean(dict_r, dict_l)
