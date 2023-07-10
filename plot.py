@@ -40,13 +40,11 @@ class Plot():
 
     def show(self,a):
 
-        if(a==0):
+        if(a == 0):
 
             second_plot_frame = Frame(self.root)
 
             self.second_plot_frame = second_plot_frame
-
-            # second_plot_frame.grid(ipadx=10, ipady=5)
 
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
 
@@ -54,48 +52,52 @@ class Plot():
             
             # Configurar el número de filas y columnas
             second_plot_frame.grid_rowconfigure(0, weight=1)
+
             second_plot_frame.grid_rowconfigure(1, weight=1)
+
             second_plot_frame.grid_rowconfigure(2, weight=1)
+
             second_plot_frame.grid_rowconfigure(3, weight=1)
+
             second_plot_frame.grid_rowconfigure(4, weight=1)
            
             second_plot_frame.grid_columnconfigure(0, weight=1)
+
             second_plot_frame.grid_columnconfigure(1, weight=1)
+
             second_plot_frame.grid_columnconfigure(2, weight=1)
+
             second_plot_frame.grid_columnconfigure(3, weight=1)
         
-            
-
-            
             title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 25)) 
-            # title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
+           
             self.title = title
             
             temperatura = Label(second_plot_frame, text= "Temperatura: %s"%(view.temp))
-            # temperatura.grid(row=1, column=0, sticky="nw")
+        
             self.temperatura = temperatura
 
             muestras = Label(second_plot_frame, text="Muestras: %s"%(view.grupos))
-            # muestras.grid(row=1, column=1 ,sticky="nw")
+           
             self.muestras = muestras 
 
             grupos = Label(second_plot_frame, text="Grupos: %s"%(view.muestras))
-            # grupos.grid(row=2, column=0, sticky="nw")
+          
             self.grupos = grupos 
 
             atras = Button(second_plot_frame, text="Atras", command=self.go_to_config)
-            # atras.grid(row=3, column=0, sticky="nw")
+            
             self.atras = atras 
 
             next = Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1)
-            # next.grid(row=4, column=0,sticky="nw")
+           
             self.next = next
 
             self.Table = table.Table(self.second_plot_frame) # instancia de tabla
 
-            self.Graphs = graphs.Graphs(self.second_plot_frame,plot_number=1) # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
+            self.Graphs = graphs.Graphs(self.second_plot_frame) # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
 
-        if(a==1):
+        if(a == 1):
 
             self.second_plot_frame.grid(ipadx=10, ipady=5)
 
@@ -111,29 +113,24 @@ class Plot():
 
             self.next.grid(row=4, column=0,sticky="nw")
             
-        # scrollbar = Scrollbar(second_plot_frame, orient="vertical", command=self.table.yview)
-        # scrollbar.grid(row=0, column=2, rowspan=7, sticky="ns")
-        # self.table.configure(yscrollcommand=scrollbar.set)
-
     
     def grid_plot1(self):
 
         self.second_plot_frame.grid(ipadx=10, ipady=5)
 
     def update_bar_plot(self, defl_left_right_dict):
+
         self.Graphs.update_bar(defl_left_right_dict)
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
     def new_group_data_plot(self,dict_r, dict_l):
+
         self.Table.insert(dict_r, dict_l)
+
         # self.Graphs.update_gmean(dict_r, dict_l)
+
         # self.update_data(dict_r, dict_l)
     
    
-
-    # def add_scrollbar(self):
-    #     scrollbar = ttk.Scrollbar(self.second_plot_frame, orient="vertical", command=self.table.yview)
-    #     scrollbar.grid(row=2, column=3, sticky="ns")
-    #     self.table.configure(yscrollcommand=scrollbar.set)
 
 

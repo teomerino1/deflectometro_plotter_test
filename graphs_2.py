@@ -52,11 +52,15 @@ class Graphs2():
     def update_gmean(self, dict_r, dict_l):
 
         self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+
         self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,2,1,"Radio Derecha")
 
         self.figure_rad_mean_r.clear()
+
         subfigure=self.figure_rad_mean_r.add_subplot(211)
+
         subfigure.set_title("Radio Derecha")
+
         subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
         
         self.rad_mean_r.draw()
@@ -64,28 +68,24 @@ class Graphs2():
         # self.rad_mean_widget_r.draw()
 
         self.figure_rad_mean_l.clear()
+
         subfigure2=self.figure_rad_mean_l.add_subplot(211)
+
         subfigure2.set_title("Radio Izquierda")
+
         subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
        
         self.rad_mean_l.draw()
-        # self.figure_rad_mean_l.add_subplot(211).scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+      
         
 
     def show_radio_gmean_graph(self):
 
         self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+
         self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,2,1,"Radio Derecha")
 
-        # figure_rad_mean_l, rad_mean_l, rad_mean_widget_l =self.radio_gmean_graph(3,0,1,"Radio Izquierda")
-        # self.figure_rad_mean_l=figure_rad_mean_l
-        # self.rad_mean_l = rad_mean_l
-        # self.rad_mean_widget_l = rad_mean_widget_l
-
-        # figure_rad_mean_r,rad_mean_r,rad_mean_widget_r = self.radio_gmean_graph(3,2,1,"Radio Derecha")
-        # self.figure_rad_mean_r = figure_rad_mean_r
-        # self.rad_mean_r = rad_mean_r
-        # self.rad_mean_widget_r = rad_mean_widget_r
+       
 
 
    
