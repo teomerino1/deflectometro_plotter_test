@@ -148,13 +148,13 @@ class View():
 
      
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
-    def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max):
+    def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
 
         self.Plot.new_group_data_plot(dict_r, dict_l)
 
-        self.Plot2.new_group_data_plot2(dict_r,dict_l, defl_r_max, defl_l_max)
+        self.Plot2.new_group_data_plot2(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car)
 
-        self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_max, defl_l_max)
+        self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car)
 
         # self.Plot.update_table(df)
 

@@ -13,15 +13,20 @@ class Data():
         self.deflexiones_acumulator = [] # acumula los valores de las deflexiones
         self.group_counter = 1 # Contador de grupos
 
-        # Contienen las deflexiones maximas
-        self.defl_l_max = [] 
-        self.defl_r_max = []
         
         # contienen los datos del grupo actual
         self.defl_r = []
         self.defl_l = []
         self.radio_r = []
         self.radio_l = []
+
+        # Contienen las deflexiones maximas
+        self.defl_l_max = [] 
+        self.defl_r_max = []
+
+        # Contienen las desviaciones estandar
+        self.defl_l_car = []
+        self.defl_r_car = []
 
         # acumuladores que contienen todos los datos recolectados durante la ejecucion
         self.defl_r_acum = []
@@ -116,6 +121,9 @@ class Data():
     def get_max_defl(self):
         return self.defl_l_max, self.defl_r_max
     
+    def get_std_defl(self):
+        return self.defl_l_car, self.defl_r_car
+    
     def get_hist_dict(self):
         return self.hist_dict
 
@@ -144,7 +152,12 @@ class Data():
         media_radio_r = round(np.mean(self.radio_r),2)
         media_radio_l = round(np.mean(self.radio_l),2)
 
-        # Obtengo los máximos
+
+        # Obtengo la deflexion caracteristica. Por el momento Z es igual a 2 y el resto (ft, fc, fh) es 1
+        self.defl_l_car.append(  media_defl_l + (2*(np.std(self.defl_l)*2))  )
+        self.defl_r_car.append(  media_defl_r + (2*(np.std(self.defl_r)*2))  )
+
+        # Obtengo los máximos de las deflexiones
         self.defl_l_max.append(np.max(self.defl_l))
         self.defl_r_max.append(np.max(self.defl_r))
 

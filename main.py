@@ -90,7 +90,9 @@ if __name__ == "__main__":
 
                 defl_l_max, defl_r_max = Data.get_max_defl()
 
-                View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max)
+                defl_l_car, defl_r_car = Data.get_std_defl()
+
+                View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
 
                 
 
