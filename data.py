@@ -71,10 +71,10 @@ class Data():
         radio_r_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
 
-        # print("Defl r sin compensar:",defl_r_aux)
-        # print("Defl l sin compensar:",defl_l_aux)
-        # print("Radio r sin compensar:",radio_r_aux)
-        # print("Radio l sin compensar:",radio_l_aux)
+        print("Defl r sin compensar:",defl_r_aux)
+        print("Defl l sin compensar:",defl_l_aux)
+        print("Radio r sin compensar:",radio_r_aux)
+        print("Radio l sin compensar:",radio_l_aux)
 
         # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux= self.compensate(defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux, espesor,temp)
 

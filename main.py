@@ -65,9 +65,9 @@ if __name__ == "__main__":
 
                 continue
             
-            # print("Estoy en el while. Data:")
+            print("Estoy en el while. Data:")
             
-            # print(data)
+            print(data)
 
 
             # Data.data_destruct(data,temp,espesor)

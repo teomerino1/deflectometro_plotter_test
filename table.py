@@ -37,13 +37,13 @@ class Table():
 
         self.table.insert('', END, values = (
             last_index_r,
-            last_defl_mean_r, 
             last_radio_mean_r, 
+            last_defl_mean_r,
             last_rd_r, 
             last_r_d_r, 
             last_index_l, 
+            last_radio_mean_l,
             last_defl_mean_l, 
-            last_radio_mean_l, 
             last_rd_l, 
             last_r_d_l
             )) 
