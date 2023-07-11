@@ -46,7 +46,7 @@ if __name__ == "__main__":
             
             continue
         
-        print("Muestras",muestras)
+        print("Muestras", muestras)
        
         while True:
 
@@ -65,9 +65,9 @@ if __name__ == "__main__":
 
                 continue
             
-            print("Estoy en el while. Data:")
+            # print("Estoy en el while. Data:")
             
-            print(data)
+            # print(data)
 
 
             # Data.data_destruct(data,temp,espesor)
@@ -88,7 +88,9 @@ if __name__ == "__main__":
 
                 dict_r, dict_l = Data.get_data_dict()
 
-                View.new_group_data_view(dict_r, dict_l)
+                defl_l_max, defl_r_max = Data.get_max_defl()
+
+                View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max)
 
                 
 

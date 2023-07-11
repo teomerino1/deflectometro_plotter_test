@@ -12,6 +12,10 @@ class Data():
         self.data_acumulator = None # acumula todo lo que llega de la db
         self.deflexiones_acumulator = [] # acumula los valores de las deflexiones
         self.group_counter = 1 # Contador de grupos
+
+        # Contienen las deflexiones maximas
+        self.defl_l_max = [] 
+        self.defl_r_max = []
         
         # contienen los datos del grupo actual
         self.defl_r = []
@@ -71,10 +75,10 @@ class Data():
         radio_r_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
 
-        print("Defl r sin compensar:",defl_r_aux)
-        print("Defl l sin compensar:",defl_l_aux)
-        print("Radio r sin compensar:",radio_r_aux)
-        print("Radio l sin compensar:",radio_l_aux)
+        # print("Defl r sin compensar:",defl_r_aux)
+        # print("Defl l sin compensar:",defl_l_aux)
+        # print("Radio r sin compensar:",radio_r_aux)
+        # print("Radio l sin compensar:",radio_l_aux)
 
         # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux= self.compensate(defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux, espesor,temp)
 
@@ -109,6 +113,9 @@ class Data():
     def get_data_dict(self):
         return self.data_dict_r, self.data_dict_l
     
+    def get_max_defl(self):
+        return self.defl_l_max, self.defl_r_max
+    
     def get_hist_dict(self):
         return self.hist_dict
 
@@ -130,11 +137,18 @@ class Data():
     # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
     def update_structures(self):
 
+
+        # Obtengo los promedios de cada cosa
         media_defl_r = round(np.mean(self.defl_r),2)
         media_defl_l = round(np.mean(self.defl_l),2)
         media_radio_r = round(np.mean(self.radio_r),2)
         media_radio_l = round(np.mean(self.radio_l),2)
 
+        # Obtengo los máximos
+        self.defl_l_max.append(np.max(self.defl_l))
+        self.defl_r_max.append(np.max(self.defl_r))
+
+        # Los agrego a los diccionarios correspondientes
         self.data_dict_r['Grupo'].append(self.group_counter)
         self.data_dict_r['Radio'].append(media_radio_r)
         self.data_dict_r['Defl.'].append(media_defl_r)

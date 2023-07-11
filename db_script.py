@@ -41,12 +41,13 @@ if __name__ == "__main__":
     for i in range (0,1000):
         print("Insertando datos en la base de datos")
         cursor.execute('INSERT INTO ciclo VALUES(1,%(nro_ciclo)s,800,NOW(),NOW(),200,200,"1","TARDE",1,"1","1")',{'nro_ciclo' : nro_ciclo})
-        print("Inserte:",nro_ciclo)
+        print("Inserte el nro de ciclo:",nro_ciclo)
         print("Insercion nro:",i)
         counter = 1
         for n in range(1,5):
             ran = round(random.uniform(40,55),4)
             cursor.execute('INSERT INTO mediciones_ciclo VALUES(1,%s,%s,%s)',(nro_ciclo,counter,ran))
+            print("Inserte el dato:",ran)
             counter += 1
         nro_ciclo += 1
         sleep(0.2)

@@ -48,7 +48,7 @@ class Graphs3():
 
         return figure, bar, bar_widget
     
-    def update_deflexiones_gmean(self, dict_r, dict_l,lado):
+    def update_deflexiones_gmean(self, dict_r, dict_l, defl_r_max, defl_l_max,lado):
 
         if(lado == "Izquierdo"):
 
@@ -65,6 +65,8 @@ class Graphs3():
             subfigure2.set_ylim(0,100)  
 
             subfigure2.bar(dict_l['Grupo'], dict_l['Defl.'], color='red',width = 3)
+
+            subfigure2.scatter(dict_l['Grupo'], defl_l_max)
 
             subfigure2.grid(axis='both',linestyle='dotted')
         
@@ -85,6 +87,8 @@ class Graphs3():
             subfigure.set_ylim(0,100)
 
             subfigure.bar(dict_r['Grupo'], dict_r['Defl.'], color='red',width = 3)
+
+            subfigure.scatter(dict_r['Grupo'], defl_r_max)
 
             subfigure.grid(axis='both',linestyle='dotted')
             
