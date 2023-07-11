@@ -23,9 +23,13 @@ class Graphs():
 
         sub_figure=figure.add_subplot(211)
 
+        sub_figure.set_xlim(0,1000)
+
+        sub_figure.set_ylim(0,100)
+
         sub_figure.set_title(title)
 
-        sub_figure.bar([], [], width = 0.1, linewidth=0)
+        sub_figure.bar([], [], width = 0.3, linewidth=0.1)
 
         sub_figure.grid(axis='both',linestyle='dotted')
 
@@ -49,6 +53,10 @@ class Graphs():
 
         subfigure.set_title("Deflexion Derecha")
 
+        subfigure.set_xlim(0,500)
+
+        subfigure.set_ylim(0,100)
+
         subfigure.bar(index, defl_left_right_dict['right'])
 
         subfigure.grid(axis='both',linestyle='dotted')
@@ -60,6 +68,10 @@ class Graphs():
         subfigure=self.figure_bar_l.add_subplot(211)
 
         subfigure.set_title("Deflexion Izquierda")
+
+        subfigure.set_xlim(0,500)
+
+        subfigure.set_ylim(0,100)
 
         subfigure.bar(index, defl_left_right_dict['left'])
 

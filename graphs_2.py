@@ -31,6 +31,10 @@ class Graphs2():
         figure = Figure(figsize=(6, 7), dpi=100)
 
         sub_figure = figure.add_subplot(211)
+
+        # sub_figure.set_xlim(0,100)
+
+        # sub_figure.set_ylim(0,100)
         
         sub_figure.set_title(title)
 
@@ -61,6 +65,10 @@ class Graphs2():
 
             subfigure2=self.figure_rad_mean_l.add_subplot(211)
 
+            # subfigure2.set_xlim(0,100)
+
+            # subfigure2.set_ylim(0,100)
+
             subfigure2.set_title("Radio Izquierda")
 
             # subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
@@ -78,6 +86,10 @@ class Graphs2():
             self.figure_rad_mean_r.clear()
 
             subfigure=self.figure_rad_mean_r.add_subplot(211)
+
+            # subfigure.set_xlim(0,100)
+
+            # subfigure.set_ylim(0,100)
 
             subfigure.set_title("Radio Derecha")
 

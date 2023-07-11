@@ -65,8 +65,9 @@ if __name__ == "__main__":
 
                 continue
             
-            print("Estoy en el while. Data:")
-            print(data)
+            # print("Estoy en el while. Data:")
+            
+            # print(data)
 
 
             # Data.data_destruct(data,temp,espesor)
@@ -91,7 +92,7 @@ if __name__ == "__main__":
 
                 
 
-    rep_thread = Thread(target=separate) # ejecutamos la logica en un thread distinto mientras el main queda en un loop con la view
+    rep_thread = Thread(target = separate) # ejecutamos la logica en un thread distinto mientras el main queda en un loop con la view
 
     rep_thread.daemon = True
 

@@ -32,7 +32,11 @@ class Graphs3():
 
         sub_figure.set_title(title)
 
-        sub_figure.bar([], [], width = 0.1, linewidth=0)
+        sub_figure.set_xlim(0,300)
+
+        sub_figure.set_ylim(0,100)
+
+        sub_figure.bar([], [], width = 3, linewidth=0)
 
         sub_figure.grid(axis='both',linestyle='dotted')
 
@@ -44,29 +48,6 @@ class Graphs3():
 
         return figure, bar, bar_widget
     
-        # figure = Figure(figsize=(6, 7), dpi=100)
-
-        # sub_figure = figure.add_subplot(211)
-        
-        # sub_figure.set_title(title)
-
-        # sub_figure.bar([], [])
-
-        # sub_figure.grid(axis='both',linestyle='dotted')
-
-        # # figure.add_subplot(121).scatter([], [])
-
-        # graph = FigureCanvasTkAgg(figure, self.frame)
-
-        # graph_widget = graph.get_tk_widget()
-
-        # graph_widget.grid(row = row, column = column, columnspan = columnspan)
-
-        # return figure, graph, graph_widget
-    
-    
-  
-
     def update_deflexiones_gmean(self, dict_r, dict_l,lado):
 
         if(lado == "Izquierdo"):
@@ -79,11 +60,11 @@ class Graphs3():
 
             subfigure2.set_title("Deflexiones Izquierda")
 
-            # subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+            subfigure2.set_xlim(0,300)
 
-            # subfigure2.plot(dict_l['Grupo'], dict_l['Defl.'],'o-')
+            subfigure2.set_ylim(0,100)  
 
-            subfigure2.bar(dict_l['Grupo'], dict_l['Defl.'], color='black')
+            subfigure2.bar(dict_l['Grupo'], dict_l['Defl.'], color='red',width = 3)
 
             subfigure2.grid(axis='both',linestyle='dotted')
         
@@ -99,11 +80,11 @@ class Graphs3():
 
             subfigure.set_title("Deflexiones Derecha")
 
-            # subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+            subfigure.set_xlim(0,300)
 
-            # subfigure.plot(dict_r['Grupo'], dict_r['Defl.'],'o-')
+            subfigure.set_ylim(0,100)
 
-            subfigure.bar(dict_l['Grupo'], dict_l['Defl.'], color='black')
+            subfigure.bar(dict_r['Grupo'], dict_r['Defl.'], color='red',width = 3)
 
             subfigure.grid(axis='both',linestyle='dotted')
             
