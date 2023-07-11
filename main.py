@@ -40,6 +40,14 @@ if __name__ == "__main__":
             
             espesor = view.espesor
 
+            z = view.z_ntry
+
+            ft = view.ft_ntry
+
+            fh = view.fh_ntry
+
+            fc = view.fc_ntry
+
             if(muestras != None ):
                 
                 break
@@ -47,6 +55,14 @@ if __name__ == "__main__":
             continue
         
         print("Muestras", muestras)
+        
+        print("Ft",ft)
+
+        print("Fh",fh)
+
+        print("Fc",fc)
+
+        print("Z",z)
        
         while True:
 

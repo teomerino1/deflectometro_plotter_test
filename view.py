@@ -19,6 +19,7 @@ class View():
         global fh_ntry
         global ft_ntry 
         global fc_ntry
+        global z_ntry
     
         temp = None
         grupos = None
@@ -27,6 +28,7 @@ class View():
         ft_ntry = None
         fh_ntry = None
         fc_ntry = None
+        z_ntry = None
         
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(root, self.go_to_plot1_from_config)
@@ -93,6 +95,7 @@ class View():
             self.Plot2.show(0)
 
         else:
+
             self.Config.close()
 
             self.Plot.show(1)
@@ -164,8 +167,10 @@ class View():
         self.Plot.update_bar_plot(defl_left_right_dict)
 
     def get_config(self):
+        return self.Config.get_config()
 
-        self.Config.get_config()
+    def get_params(self):
+        return self.Config.get_params()
     
     def on_plot(self):
         return self.is_plotting
