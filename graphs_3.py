@@ -32,7 +32,7 @@ class Graphs3():
 
         sub_figure.set_title(title)
 
-        sub_figure.set_xlim(0,300)
+        sub_figure.set_xlim(0,20)
 
         sub_figure.set_ylim(0,100)
 
@@ -60,11 +60,11 @@ class Graphs3():
 
             subfigure2.set_title("Deflexiones Izquierda")
 
-            subfigure2.set_xlim(0,300)
+            subfigure2.set_xlim(0,20)
 
             subfigure2.set_ylim(0,100)  
 
-            subfigure2.bar(dict_l['Grupo'], dict_l['Defl.'], color='red',width = 3)
+            subfigure2.bar(dict_l['Grupo'], dict_l['Defl.'], color='red',width = 0.5, edgecolor='black')
 
             subfigure2.scatter(dict_l['Grupo'], defl_l_max)
 
@@ -84,12 +84,12 @@ class Graphs3():
 
             subfigure.set_title("Deflexiones Derecha")
 
-            subfigure.set_xlim(0,300)
+            subfigure.set_xlim(0,20)
 
             subfigure.set_ylim(0,100)
 
-            subfigure.bar(dict_r['Grupo'], dict_r['Defl.'], color='red',width = 3)
-
+            subfigure.bar(dict_r['Grupo'], dict_r['Defl.'], color='red',width = 0.5, edgecolor='black')
+ 
             subfigure.scatter(dict_r['Grupo'], defl_r_max)
 
             subfigure.plot(dict_r['Grupo'],defl_r_car)

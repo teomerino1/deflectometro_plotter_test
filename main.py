@@ -76,19 +76,6 @@ if __name__ == "__main__":
         print("Fh:",fh)
         print("Fc:",fc)
         print("Muestras", muestras)
-        
-        # if(ft==None):
-        #     ft=1
-
-        # print("Ft",ft)
-
-        # print("Ft type:",type(ft))
-
-        # print("Fh",fh)
-
-        # print("Fc",fc)
-
-        # print("Z",z)
        
         while True:
 
