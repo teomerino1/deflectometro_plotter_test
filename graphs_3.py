@@ -36,6 +36,10 @@ class Graphs3():
 
         sub_figure.set_ylim(0,100)
 
+        sub_figure.set_xlabel("Progresivas")
+
+        sub_figure.set_ylabel("Deflexiones")
+
         sub_figure.bar([], [], width = 3, linewidth=0)
 
         sub_figure.grid(axis='both',linestyle='dotted')
@@ -56,21 +60,21 @@ class Graphs3():
            
             self.figure_rad_mean_l.clear()
 
-            subfigure2=self.figure_rad_mean_l.add_subplot(211)
+            subfigure_izq = self.figure_rad_mean_l.add_subplot(211)
 
-            subfigure2.set_title("Deflexiones Izquierda")
+            subfigure_izq.set_title("Deflexiones Izquierda")
 
-            subfigure2.set_xlim(0,20)
+            subfigure_izq.set_xlim(0,20)
 
-            subfigure2.set_ylim(0,100)  
+            subfigure_izq.set_ylim(0,100)  
 
-            subfigure2.bar(dict_l['Grupo'], dict_l['Defl.'], color='red',width = 0.5, edgecolor='black')
+            subfigure_izq.bar(dict_l['Grupo'], dict_l['Defl.'], color='red',width = 0.5, edgecolor='black')
 
-            subfigure2.scatter(dict_l['Grupo'], defl_l_max)
+            subfigure_izq.scatter(dict_l['Grupo'], defl_l_max)
 
-            subfigure2.plot(dict_l['Grupo'], defl_l_car)
+            subfigure_izq.plot(dict_l['Grupo'], defl_l_car)
 
-            subfigure2.grid(axis='both',linestyle='dotted')
+            subfigure_izq.grid(axis='both',linestyle='dotted')
         
             self.rad_mean_l.draw()
 
@@ -80,21 +84,21 @@ class Graphs3():
 
             self.figure_rad_mean_r.clear()
 
-            subfigure=self.figure_rad_mean_r.add_subplot(211)
+            subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
-            subfigure.set_title("Deflexiones Derecha")
+            subfigure_der.set_title("Deflexiones Derecha")
 
-            subfigure.set_xlim(0,20)
+            subfigure_der.set_xlim(0,20)
 
-            subfigure.set_ylim(0,100)
+            subfigure_der.set_ylim(0,100)
 
-            subfigure.bar(dict_r['Grupo'], dict_r['Defl.'], color='red',width = 0.5, edgecolor='black')
+            subfigure_der.bar(dict_r['Grupo'], dict_r['Defl.'], color='red',width = 0.5, edgecolor='black')
  
-            subfigure.scatter(dict_r['Grupo'], defl_r_max)
+            subfigure_der.scatter(dict_r['Grupo'], defl_r_max)
 
-            subfigure.plot(dict_r['Grupo'],defl_r_car)
+            subfigure_der.plot(dict_r['Grupo'],defl_r_car)
 
-            subfigure.grid(axis='both',linestyle='dotted')
+            subfigure_der.grid(axis='both',linestyle='dotted')
             
             self.rad_mean_r.draw()
         

@@ -29,6 +29,10 @@ class Graphs():
 
         sub_figure.set_title(title)
 
+        sub_figure.set_xlabel("Nº grupo")
+
+        sub_figure.set_ylabel("Deflexiones")
+
         sub_figure.bar([], [], width = 0.3, linewidth=0.1)
 
         sub_figure.grid(axis='both',linestyle='dotted')
@@ -49,33 +53,41 @@ class Graphs():
 
         self.figure_bar_r.clear()
 
-        subfigure=self.figure_bar_r.add_subplot(211)
+        subfigure_der = self.figure_bar_r.add_subplot(211)
 
-        subfigure.set_title("Deflexion Derecha")
+        subfigure_der.set_title("Deflexion Derecha")
 
-        subfigure.set_xlim(0,500)
+        subfigure_der.set_xlim(0,500)
 
-        subfigure.set_ylim(0,100)
+        subfigure_der.set_ylim(0,100)
 
-        subfigure.bar(index, defl_left_right_dict['right'])
+        subfigure_der.set_xlabel("Nº grupo")
 
-        subfigure.grid(axis='both',linestyle='dotted')
+        subfigure_der.set_ylabel("Deflexiones")
+
+        subfigure_der.bar(index, defl_left_right_dict['right'])
+
+        subfigure_der.grid(axis='both',linestyle='dotted')
 
         self.bar_r.draw()
 
         self.figure_bar_l.clear()
 
-        subfigure=self.figure_bar_l.add_subplot(211)
+        subfigure_izq=self.figure_bar_l.add_subplot(211)
 
-        subfigure.set_title("Deflexion Izquierda")
+        subfigure_izq.set_title("Deflexion Izquierda")
 
-        subfigure.set_xlim(0,500)
+        subfigure_izq.set_xlabel("Nº grupo")
 
-        subfigure.set_ylim(0,100)
+        subfigure_izq.set_ylabel("Deflexiones")
 
-        subfigure.bar(index, defl_left_right_dict['left'])
+        subfigure_izq.set_xlim(0,500)
 
-        subfigure.grid(axis='both',linestyle='dotted')
+        subfigure_izq.set_ylim(0,100)
+
+        subfigure_izq.bar(index, defl_left_right_dict['left'])
+
+        subfigure_izq.grid(axis='both',linestyle='dotted')
 
         self.bar_l.draw()
 

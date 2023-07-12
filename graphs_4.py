@@ -36,6 +36,10 @@ class Graphs4():
 
         sub_figure.set_ylim(0,100)
 
+        sub_figure.set_xlabel("Radio")
+
+        sub_figure.set_ylabel("Defl.")
+
         sub_figure.bar([], [], width = 3, linewidth=0)
 
         sub_figure.grid(axis='both',linestyle='dotted')
@@ -54,17 +58,21 @@ class Graphs4():
         
         self.figure_rad_mean_l.clear()
 
-        subfigure2=self.figure_rad_mean_l.add_subplot(211)
+        subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
 
-        subfigure2.set_xlim(0,20)
+        subfigure_izq.set_xlabel("Radio")
+
+        subfigure_izq.set_ylabel("Defl")
+
+        subfigure_izq.set_xlim(0,20)
 
         # subfigure2.set_ylim(0,100)
 
-        subfigure2.set_title("Informe estadistico: Lado Izquierdo")
+        subfigure_izq.set_title("Informe estadistico: Lado Izquierdo")
 
-        subfigure2.scatter(dict_l['Grupo'], dict_l['Radio'], color = 'r')
+        subfigure_izq.scatter(dict_l['Grupo'], dict_l['Radio'], color = 'r')
 
-        subfigure2.grid(axis='both',linestyle='dotted')
+        subfigure_izq.grid(axis='both',linestyle='dotted')
     
         self.rad_mean_l.draw()
 
@@ -73,17 +81,21 @@ class Graphs4():
 
         self.figure_rad_mean_r.clear()
 
-        subfigure=self.figure_rad_mean_r.add_subplot(211)
+        subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
-        subfigure.set_xlim(0,20)
+        subfigure_der.set_xlabel("Radio")
+
+        subfigure_der.set_ylabel("Defl")
+
+        subfigure_der.set_xlim(0,20)
 
         # subfigure.set_ylim(0,100)
 
-        subfigure.set_title("Informe estadistico: Lado Derecho")
+        subfigure_der.set_title("Informe estadistico: Lado Derecho")
 
-        subfigure.scatter(dict_r['Grupo'], dict_r['Radio'], color = 'r')
+        subfigure_der.scatter(dict_r['Grupo'], dict_r['Radio'], color = 'r')
 
-        subfigure.grid(axis='both',linestyle='dotted')
+        subfigure_der.grid(axis='both',linestyle='dotted')
         
         self.rad_mean_r.draw()
 

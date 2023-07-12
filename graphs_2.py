@@ -38,6 +38,10 @@ class Graphs2():
         
         sub_figure.set_title(title)
 
+        sub_figure.set_xlabel("Nº Grupo")
+
+        sub_figure.set_ylabel("Radio de Curvatura")
+
         sub_figure.scatter([], [])
 
         sub_figure.grid(axis='both',linestyle='dotted')
@@ -63,19 +67,21 @@ class Graphs2():
            
             self.figure_rad_mean_l.clear()
 
-            subfigure2=self.figure_rad_mean_l.add_subplot(211)
+            subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
 
             # subfigure2.set_xlim(0,100)
 
             # subfigure2.set_ylim(0,100)
 
-            subfigure2.set_title("Radio Izquierda")
+            subfigure_izq.set_title("Radio Izquierda")
 
-            # subfigure2.scatter(dict_l['Grupo'], dict_l['Defl.'], color = 'r')
+            subfigure_izq.set_xlabel("Nº Grupo")
 
-            subfigure2.plot(dict_l['Grupo'], dict_l['Radio'],'o-')
+            subfigure_izq.set_xlabel("Radio de curvatura")
 
-            subfigure2.grid(axis='both',linestyle='dotted')
+            subfigure_izq.plot(dict_l['Grupo'], dict_l['Radio'],'o-')
+
+            subfigure_izq.grid(axis='both',linestyle='dotted')
         
             self.rad_mean_l.draw()
 
@@ -85,26 +91,25 @@ class Graphs2():
 
             self.figure_rad_mean_r.clear()
 
-            subfigure=self.figure_rad_mean_r.add_subplot(211)
+            subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
             # subfigure.set_xlim(0,100)
 
             # subfigure.set_ylim(0,100)
 
-            subfigure.set_title("Radio Derecha")
+            subfigure_der.set_title("Radio Derecha")
 
-            # subfigure.scatter(dict_r['Grupo'], dict_r['Defl.'], color = 'r')
+            subfigure_der.set_xlabel("Nº Grupo")
 
-            subfigure.plot(dict_r['Grupo'], dict_r['Radio'],'o-')
+            subfigure_der.set_xlabel("Radio de curvatura")
 
-            subfigure.grid(axis='both',linestyle='dotted')
+            subfigure_der.plot(dict_r['Grupo'], dict_r['Radio'],'o-')
+
+            subfigure_der.grid(axis='both',linestyle='dotted')
             
             self.rad_mean_r.draw()
         
             # self.rad_mean_widget_r.draw()
-
-      
-        
 
     def show_radio_gmean_graph(self,lado):
 
