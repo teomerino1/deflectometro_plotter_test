@@ -8,6 +8,7 @@ import tkinter as tk
 from tkinter import ttk
 import graphs_2
 import graphs_3
+import graphs_4
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
@@ -27,7 +28,7 @@ class Plot4():
         self.back = None  
         self.go_to_plot_3_from_plot_4 = go_to_plot_3_from_plot_4
         self.go_to_plot_5_from_plot_4 = go_to_plot_5_from_plot_4#TODO HACERLO
-        self.Graphs2 = None
+        self.Graphs4 = None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
@@ -58,6 +59,8 @@ class Plot4():
             next = Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4) #TODO Hacer el next al plot 5
 
             self.next = next
+
+            self.Graphs4 = graphs_4.Graphs4(self.fifht_plot_frame)
 
 
         if(a == 1):
