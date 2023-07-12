@@ -8,6 +8,7 @@ import plot
 import plot_2
 import plot_3
 import plot_4
+import plot_5
 
 class View():
     def __init__(self, root):
@@ -40,7 +41,9 @@ class View():
 
         self.Plot3 = plot_3.Plot3(root, self.go_to_plot_2_from_plot_3, self.go_to_plot_4_from_plot_3)
 
-        self.Plot4 = plot_4.Plot4(root, self.go_to_plot_3_from_plot_4)
+        self.Plot4 = plot_4.Plot4(root, self.go_to_plot_3_from_plot_4, self.go_to_plot_5_from_plot_4)
+
+        self.Plot5 = plot_5.Plot5(root,self.go_to_plot_4_from_plot_5)
 
         self.is_plotting = False
         
@@ -82,6 +85,8 @@ class View():
         self.Plot3.show(0)
 
         self.Plot4.show(0)
+
+        self.Plot5.show(0)
 
 
      # Metodo que borra el frame Config y abre el Plot1
@@ -165,6 +170,18 @@ class View():
         self.Plot4.close()
 
         self.Plot3.show(1)
+
+    def go_to_plot_5_from_plot_4(self):
+
+        self.Plot4.close()
+
+        self.Plot5.show(1)
+
+    def go_to_plot_4_from_plot_5(self):
+
+        self.Plot5.close()
+
+        self.Plot4.show(1)
 
      
     # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
