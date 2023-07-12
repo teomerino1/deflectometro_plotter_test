@@ -21,10 +21,10 @@ class Graphs4():
 
     def show(self):
 
-        self.show_deflexiones_gmean_graph()
+        self.show_defl_radios_graph()
 
     
-    def deflexiones_gmean_graph(self,row, column, columnspan,title):
+    def deflexiones_radios_graph(self,row, column, columnspan,title):
         
         figure = Figure(figsize=(7, 7), dpi=100)
 
@@ -48,9 +48,48 @@ class Graphs4():
 
         return figure, bar, bar_widget
     
+    def update_deflexiones_radios_graph(self, dict_r, dict_l):
 
-    def show_deflexiones_gmean_graph(self):
+        self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
+        
+        self.figure_rad_mean_l.clear()
 
-        self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_l = self.deflexiones_gmean_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
+        subfigure2=self.figure_rad_mean_l.add_subplot(211)
 
-        self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_gmean_graph(3,1,1,"Informe estadístico: Lado Derecho")
+        subfigure2.set_xlim(0,20)
+
+        # subfigure2.set_ylim(0,100)
+
+        subfigure2.set_title("Informe estadistico: Lado Izquierdo")
+
+        subfigure2.scatter(dict_l['Grupo'], dict_l['Radio'], color = 'r')
+
+        subfigure2.grid(axis='both',linestyle='dotted')
+    
+        self.rad_mean_l.draw()
+
+
+        self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.deflexiones_radios_graph(3,1,1,"Informe estadistico: Lado Derecho")
+
+        self.figure_rad_mean_r.clear()
+
+        subfigure=self.figure_rad_mean_r.add_subplot(211)
+
+        subfigure.set_xlim(0,20)
+
+        # subfigure.set_ylim(0,100)
+
+        subfigure.set_title("Informe estadistico: Lado Derecho")
+
+        subfigure.scatter(dict_r['Grupo'], dict_r['Radio'], color = 'r')
+
+        subfigure.grid(axis='both',linestyle='dotted')
+        
+        self.rad_mean_r.draw()
+
+
+    def show_defl_radios_graph(self):
+
+        self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_l = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
+
+        self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(3,1,1,"Informe estadístico: Lado Derecho")

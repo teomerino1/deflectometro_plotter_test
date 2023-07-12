@@ -72,3 +72,8 @@ class Plot4():
             self.back.grid(row=1, column=0,sticky=NW)
 
             self.next.grid(row=2,column=0,sticky=NW)
+
+
+    def new_group_data_plot4(self,dict_r,dict_l):
+
+        self.Graphs4.update_deflexiones_radios_graph(dict_r,dict_l)

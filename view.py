@@ -193,6 +193,8 @@ class View():
 
         self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car)
 
+        self.Plot4.new_group_data_plot4(dict_r, dict_l)
+
         # self.Plot.update_table(df)
 
     # Metodo que manda a actualizar el gafico de barras 
