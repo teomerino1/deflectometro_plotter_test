@@ -100,6 +100,7 @@ class Config():
         # self.config_frame.destroy()
 
     def get_config(self):
+
         return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.espesor.get(), self.ft_ntry.get(), self.fh_ntry.get(), self.fc_ntry.get(), self.z_ntry.get()
     
     # def get_params(self):

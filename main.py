@@ -27,11 +27,10 @@ if __name__ == "__main__":
 
     #Creamos un objeto Data
     Data = data.Data()
+    
 
     def separate():
 
-
-        
         while (True):
             
             muestras = view.muestras
@@ -40,29 +39,56 @@ if __name__ == "__main__":
             
             espesor = view.espesor
 
-            z = view.z_ntry
-
-            ft = view.ft_ntry
-
-            fh = view.fh_ntry
-
-            fc = view.fc_ntry
+           
 
             if(muestras != None ):
                 
                 break
             
             continue
-        
+
+        z = view.z_ntry
+
+        ft = view.ft_ntry
+
+        fh = view.fh_ntry
+
+        fc = view.fc_ntry
+
+        if(z==''):
+
+            z = 2
+
+        if(ft==''):
+
+            ft=1
+
+        if(fh==''):
+
+            fh=1
+
+        if(fc==''):
+
+            fc=1
+
+        print("Z:", z)
+        print("Ft:",ft)
+        print("Fh:",fh)
+        print("Fc:",fc)
         print("Muestras", muestras)
         
-        print("Ft",ft)
+        # if(ft==None):
+        #     ft=1
 
-        print("Fh",fh)
+        # print("Ft",ft)
 
-        print("Fc",fc)
+        # print("Ft type:",type(ft))
 
-        print("Z",z)
+        # print("Fh",fh)
+
+        # print("Fc",fc)
+
+        # print("Z",z)
        
         while True:
 
@@ -110,7 +136,7 @@ if __name__ == "__main__":
 
                 View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
 
-                
+    
 
     rep_thread = Thread(target = separate) # ejecutamos la logica en un thread distinto mientras el main queda en un loop con la view
 
