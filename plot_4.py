@@ -15,8 +15,8 @@ from tkinter import ttk
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
-class Plot3():
-    def __init__(self,root, go_to_plot_2_from_plot_3, go_to_plot_4_from_plot_3):
+class Plot4():
+    def __init__(self,root, go_to_plot_3_from_plot_4):
 
         self.root = root
         # self.main_plot_frame = None
@@ -25,9 +25,8 @@ class Plot3():
         self.title = None
         self.next = None
         self.back = None  
-        self.go_to_plot_2_from_plot_3 = go_to_plot_2_from_plot_3
-        self.go_to_plot_4_from_plot_3 = go_to_plot_4_from_plot_3
-        
+        self.go_to_plot_3_from_plot_4 = go_to_plot_3_from_plot_4
+        # self.go_to_plot_5_from_plot_4 #TODO HACERLO!
         self.Graphs2 = None
 
     # Metodo que elimina todo lo que muestra la pagina
@@ -48,21 +47,18 @@ class Plot3():
 
             self.fourth_plot_frame = fourth_plot_frame
 
-            title = Label(fourth_plot_frame, text="Deflexiones y Radios: Lado Derecho",font=(None, 20)) 
+            title = Label(fourth_plot_frame, text="Graficos de deflexiones vs radios",font=(None, 20)) 
 
             self.title=title
 
-            back = Button(fourth_plot_frame, text="Atrás", command=self.go_to_plot_2_from_plot_3)
+            back = Button(fourth_plot_frame, text="Atrás", command=self.go_to_plot_3_from_plot_4)
 
             self.back = back
 
-            next = Button(fourth_plot_frame, text="Next", command=self.go_to_plot_4_from_plot_3)
+            next = Button(fourth_plot_frame, text="Next", command=self.go_to_plot_3_from_plot_4) #TODO Hacer el next al plot 5
 
             self.next = next
 
-            self.Graphs2 = graphs_2.Graphs2(self.fourth_plot_frame, lado="Derecho")
-
-            self.Graphs3 = graphs_3.Graphs3(self.fourth_plot_frame, lado="Derecho")
 
         if(a == 1):
 
@@ -73,10 +69,3 @@ class Plot3():
             self.back.grid(row=1, column=0,sticky=NW)
 
             self.next.grid(row=2,column=0,sticky=NW)
-
-
-    def new_group_data_plot3(self,dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
-        
-        self.Graphs2.update_gmean(dict_r, dict_l,lado="Derecho")
-
-        self.Graphs3.update_deflexiones_gmean(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car, lado="Derecho")

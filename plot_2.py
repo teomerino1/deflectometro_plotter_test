@@ -16,7 +16,7 @@ from tkinter import ttk
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
 class Plot2():
-    def __init__(self,root, go_to_plot_1_from_plot_2,go_to_plot_3_from_plot2):
+    def __init__(self,root, go_to_plot_1_from_plot_2, go_to_plot_3_from_plot2):
 
         self.root = root
         # self.main_plot_frame = None
