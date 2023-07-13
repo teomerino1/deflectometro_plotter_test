@@ -2,139 +2,302 @@ import view
 import tkinter as tk
 import data
 import reporter
-import plot
-import config
-from time import sleep
 from threading import Thread
-   
+import threading
+from timeit import default_timer as timer
 
-if __name__ == "__main__":
 
-    # inicializamos la view
-    # Llamamos al objeto Tk de la libreria tkinker, este crea una ventana principal para la interfaz grafica
-    root = tk.Tk()
-    
-    #Creamos un objeto View y llamamos a la funcion principal de la clase view, le pasamos como parámetro el objeto creado
-    #anteriorimente.Lo que hace la clase view es personalizar la interfaz gráfica 
-    View = view.View(root)
+def process_data(Reporter,View,Data):
 
-    
-    
-    # Creamos un objeto reporter y lo inicializamos. Este objeto es en engarcado de proveer las mediciones de los datos,
-    # los obtiene de la base de datos haciendole distintas querys
-    Reporter = reporter.Reporter()
+    print("LLAMO A LAST MEASUREMENT DESDE EL MAIN")
+    print("Soy el thred", threading.get_ident())
     Reporter.start()
 
-    #Creamos un objeto Data
-    Data = data.Data()
+    while (True):
     
-
-    def separate():
-
-        while (True):
+        muestras = view.muestras
+        
+        if(muestras != None ):
             
-            muestras = view.muestras
-            
-            temp = view.temp
-            
-            espesor = view.espesor
+            break
+        
+        continue
+    
+    temp = view.temp
+        
+    espesor = view.espesor
 
-            if(muestras != None ):
-                
-                break
-            
-            continue
+    z = view.z_ntry
 
-        z = view.z_ntry
+    ft = view.ft_ntry
 
-        ft = view.ft_ntry
+    fh = view.fh_ntry
 
-        fh = view.fh_ntry
+    fc = view.fc_ntry
 
-        fc = view.fc_ntry
+    if(z==''):
 
-        if(z==''):
+        z = 2
 
-            z = 2
+    if(ft==''):
 
-        if(ft==''):
+        ft=1
 
-            ft=1
+    if(fh==''):
 
-        if(fh==''):
+        fh=1
 
-            fh=1
+    if(fc==''):
 
-        if(fc==''):
+        fc=1
 
-            fc=1
+    print("Z:", z)
+    print("Ft:",ft)
+    print("Fh:",fh)
+    print("Fc:",fc)
+    print("Muestras", muestras)
 
-        print("Z:", z)
-        print("Ft:",ft)
-        print("Fh:",fh)
-        print("Fc:",fc)
-        print("Muestras", muestras)
+    while True:
+
+        # print("Voy a obtener nuevas mediciones")
+        # print("Soy el thred", threading.get_ident())
        
-        while True:
+        data, this_cycle = Reporter.get_new_measurements()
 
-            # sleep(0.001)
-            
-            data, this_cicle = Reporter.get_new_measurements()
-
-            # print("Estoy en el while. Data:")
+        # print("Estoy en el while. Data:")
             # print(data)
             # print("Ciclo:")
             # print(this_cicle)
 
-
             # primer ciclo
-            if data == None and this_cicle == None:
+        if(data == None or this_cycle == None):
+            # print("Estoy en el while de data y this cicle None")
+            # print("Soy el thred", threading.get_ident())
+            continue
 
-                print("Estoy en el while de data y this cicle None")
+        
 
-                continue
-            
-            print("Salgo del None while")
-            # print("Estoy en el while. Data:")
-            
-            # print(data)
+        # print("Salgo del None while")
+        # print("Soy el thred", threading.get_ident())
+        # print(Data.cant_mediciones())
+
+        # print("Estoy en el while. Data:")
+        
+        print(data)
+
+        # # Data.data_destruct(data,temp,espesor)
+        Data.data_destruct(data)
+
+        print(Data.cant_mediciones())
+
+        # # Por cada medicion nueva debe actualizarse el grafico de barras de deflexiones individuales.
+        View.update_bar_view(Data.get_defl())
+        
+           
+        # # cuando se llega ca la cantidad de muestras
+        # # debemos plotear y actualizar las estructuras
+
+        if ((Data.cant_mediciones()) % muestras == 0):
+
+            Data.update_structures()
+
+            dict_r, dict_l = Data.get_data_dict()
+
+            defl_l_max, defl_r_max = Data.get_max_defl()
+
+            defl_l_car, defl_r_car = Data.get_std_defl()
+
+            View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
+        
+        # Procesar los datos obtenidos de la base de datos y actualizar las estructuras
+        
+        # Actualizar la vista de la interfaz gráfica
 
 
-            # Data.data_destruct(data,temp,espesor)
-            Data.data_destruct(data)
 
-            print(Data.cant_mediciones())
 
-            # Por cada medicion nueva debe actualizarse el grafico de barras de deflexiones individuales.
-            View.update_bar_view(Data.get_defl())
-            
 
-            # cuando se llega a la cantidad de muestras
-            # debemos plotear y actualizar las estructuras
+def main():
 
-            if ((Data.cant_mediciones()) % muestras == 0):
-
-                Data.update_structures()
-
-                dict_r, dict_l = Data.get_data_dict()
-
-                defl_l_max, defl_r_max = Data.get_max_defl()
-
-                defl_l_car, defl_r_car = Data.get_std_defl()
-
-                View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
-
+    root = tk.Tk()
+    View = view.View(root)
     
-
-    rep_thread = Thread(target = separate) # ejecutamos la logica en un thread distinto mientras el main queda en un loop con la view
-
-    rep_thread.daemon = True
-
-    rep_thread.start()
-
+    Reporter = reporter.Reporter()
+    # Reporter.start()
+    
+    Data = data.Data()
+    
+    # Crear y ejecutar el hilo para procesar los datos
+    data_thread = Thread(target=process_data,args=(Reporter,View,Data))
+    data_thread.daemon = True
+    data_thread.start()
+    
+    # Ejecutar el bucle principal de la interfaz gráfica
     root.mainloop()
 
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+# import view
+# import tkinter as tk
+# import data
+# import reporter
+# import plot
+# import config
+# from time import sleep
+# from threading import Thread
+   
+
+# if __name__ == "__main__":
+
+#     # inicializamos la view
+#     # Llamamos al objeto Tk de la libreria tkinker, este crea una ventana principal para la interfaz grafica
+#     root = tk.Tk()
+    
+#     #Creamos un objeto View y llamamos a la funcion principal de la clase view, le pasamos como parámetro el objeto creado
+#     #anteriorimente.Lo que hace la clase view es personalizar la interfaz gráfica 
+#     View = view.View(root)
+
+    
+    
+#     # Creamos un objeto reporter y lo inicializamos. Este objeto es en engarcado de proveer las mediciones de los datos,
+#     # los obtiene de la base de datos haciendole distintas querys
+#     Reporter = reporter.Reporter()
+#     Reporter.start()
+
+#     #Creamos un objeto Data
+#     Data = data.Data()
+    
+
+#     def separate():
+
+#         while (True):
+            
+#             muestras = view.muestras
+            
+#             temp = view.temp
+            
+#             espesor = view.espesor
+
+#             if(muestras != None ):
+                
+#                 break
+            
+#             continue
+
+#         z = view.z_ntry
+
+#         ft = view.ft_ntry
+
+#         fh = view.fh_ntry
+
+#         fc = view.fc_ntry
+
+#         if(z==''):
+
+#             z = 2
+
+#         if(ft==''):
+
+#             ft=1
+
+#         if(fh==''):
+
+#             fh=1
+
+#         if(fc==''):
+
+#             fc=1
+
+#         print("Z:", z)
+#         print("Ft:",ft)
+#         print("Fh:",fh)
+#         print("Fc:",fc)
+#         print("Muestras", muestras)
+       
+#         while True:
+
+#             # sleep(0.001)
+            
+#             data, this_cicle = Reporter.get_new_measurements()
+
+#             # print("Estoy en el while. Data:")
+#             # print(data)
+#             # print("Ciclo:")
+#             # print(this_cicle)
+
+
+#             # primer ciclo
+#             if data == None and this_cicle == None:
+
+#                 print("Estoy en el while de data y this cicle None")
+
+#                 continue
+            
+#             print("Salgo del None while")
+#             # print("Estoy en el while. Data:")
+            
+#             # print(data)
+
+
+#             # Data.data_destruct(data,temp,espesor)
+#             Data.data_destruct(data)
+
+#             print(Data.cant_mediciones())
+
+#             # Por cada medicion nueva debe actualizarse el grafico de barras de deflexiones individuales.
+#             View.update_bar_view(Data.get_defl())
+            
+
+#             # cuando se llega a la cantidad de muestras
+#             # debemos plotear y actualizar las estructuras
+
+#             if ((Data.cant_mediciones()) % muestras == 0):
+
+#                 Data.update_structures()
+
+#                 dict_r, dict_l = Data.get_data_dict()
+
+#                 defl_l_max, defl_r_max = Data.get_max_defl()
+
+#                 defl_l_car, defl_r_car = Data.get_std_defl()
+
+#                 View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
 
     
 
+#     rep_thread = Thread(target = separate) # ejecutamos la logica en un thread distinto mientras el main queda en un loop con la view
+
+#     rep_thread.daemon = True
+
+#     rep_thread.start()
+
+#     root.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 

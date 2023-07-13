@@ -65,7 +65,7 @@ class Graphs():
 
         subfigure_der.set_ylabel("Deflexiones")
 
-        subfigure_der.bar(index, defl_left_right_dict['right'])
+        subfigure_der.bar(index, defl_left_right_dict['right'],width = 1)
 
         subfigure_der.grid(axis='both',linestyle='dotted')
 
@@ -85,7 +85,7 @@ class Graphs():
 
         subfigure_izq.set_ylim(0,100)
 
-        subfigure_izq.bar(index, defl_left_right_dict['left'])
+        subfigure_izq.bar(index, defl_left_right_dict['left'],width = 1)
 
         subfigure_izq.grid(axis='both',linestyle='dotted')
 
