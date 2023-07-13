@@ -5,17 +5,29 @@ import view
 
 class Config():
     def __init__(self, root, go_to_plot1_from_config):
+        
         self.root = root
+
         self.config_frame = None
+
         self.temp_ntry = None
+
         self.grupos_ntry_50 = None
+
         self.grupos_ntry_100 = None
+
         self.var = None
+
         self.muestras_ntry = None
+
         self.espesor = None 
+
         self.ft_ntry = None
+
         self.fh_ntry = None 
+
         self.fc_ntry = None
+
         self.z_ntry = None
         
         self.go_to_plot1_from_config = go_to_plot1_from_config
@@ -24,6 +36,7 @@ class Config():
     def show(self):
         
         config_frame = tk.Frame()
+
         config_frame.grid_rowconfigure(0, weight=1)
         config_frame.grid_rowconfigure(1, weight=1)
         config_frame.grid_rowconfigure(2, weight=1)
@@ -38,73 +51,98 @@ class Config():
         config_frame.grid_columnconfigure(4, weight=1)
 
         config_frame.grid(ipadx=3, ipady=2)
+
         self.config_frame = config_frame
 
         Label(config_frame, text="Configuración inicial",font=(None, 30)).grid(row=0, column=3, sticky="N")
 
         # temp
         Label(config_frame, text="Temperatura:").grid(row=1, column=0)
+
         temp_ntry = Entry(config_frame)
+
         temp_ntry.grid(row=1, column=1)
+
         self.temp_ntry = temp_ntry
         
         # grupos
         Label(config_frame, text="Tamanio de grupos:").grid(row=2, column=0)
+
         var = tk.IntVar()
+
         self.var = var
+
         grupos_ntry_50 = Radiobutton(config_frame,text='50', variable=var, value=50)
+
         grupos_ntry_50.grid(row=2, column=1)
+
         self.grupos_ntry_50 = grupos_ntry_50
 
         grupos_ntry_100 = Radiobutton(config_frame,text='100', variable=var, value=100)
+
         grupos_ntry_100.grid(row=2, column=2)
+
         self.grupos_ntry_100 = grupos_ntry_100
 
         # muestras
         Label(config_frame, text="Cantidad total de muestras:").grid(row=3, column=0)
+
         muestras_ntry = Entry(config_frame)
+
         muestras_ntry.grid( row=3, column=1)
+
         self.muestras_ntry = muestras_ntry
 
         Label(config_frame, text="Espesor:").grid(row=4, column=0)
+
         espesor = Entry(config_frame)
+
         espesor.grid(row=4,column=1)
+
         self.espesor = espesor
         
         Label(config_frame, text="Ft:").grid(row=5,column=0)
+
         ft = Entry(config_frame)
+
         ft.grid(row=5,column=1)
+
         self.ft_ntry=ft
 
         Label(config_frame, text="Fh:").grid(row=6,column=0)
+
         fh = Entry(config_frame)
+
         fh.grid(row=6,column=1)
+
         self.fh_ntry=fh
 
         Label(config_frame, text="Fc:").grid(row=7,column=0)
+
         fc = Entry(config_frame)
+
         fc.grid(row=7,column=1)
+
         self.fc_ntry=fc
 
         Label(config_frame, text="Z:").grid(row=8,column=0)
+
         z_ntry = Entry(config_frame)
+        
         z_ntry.grid(row=8,column=1)
+
         self.z_ntry=z_ntry
 
         Button(config_frame, text="Confirmar", command=self.go_to_plot1_from_config).grid(row=9, column=0)
 
     def close(self):
-        # view.temp, view.grupos, view.muestras = self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()
+       
         view.temp, view.muestras, view.grupos, view.espesor ,view.ft_ntry, view.fh_ntry, view.fc_ntry, view.z_ntry= self.get_config()
+
         self.config_frame.grid_forget()
-        # self.config_frame.destroy()
+        
 
     def get_config(self):
 
         return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.espesor.get(), self.ft_ntry.get(), self.fh_ntry.get(), self.fc_ntry.get(), self.z_ntry.get()
     
-    # def get_params(self):
-    #     return self.ft_ntry.get(), self.fh_ntry.get(), self.fc_ntry.get()
-    
-    #  def get_config(self):
-    #     return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get()

@@ -127,9 +127,7 @@ class Plot():
 
         self.Table.insert(dict_r, dict_l)
 
-        # self.Graphs.update_gmean(dict_r, dict_l)
 
-        # self.update_data(dict_r, dict_l)
     
    
 

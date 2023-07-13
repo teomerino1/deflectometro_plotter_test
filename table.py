@@ -54,18 +54,18 @@ class Table():
         
         # Crear el Treeview
         self.table = Treeview(self.frame, columns=columns, show='headings')
+
         self.table.grid(row=3, column=0, columnspan=3)
-
-        # self.original_table_height = self.table.winfo_reqheight()
-
-        # new_table_height = int(self.original_table_height / 2)
 
         # Configurar el alto del Treeview
         self.table.configure(height=7)
 
         # Crear el Scrollbar
+
         scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
+
         scrollbar.grid(row=3, column=4, sticky="ns")
+        
         self.table.configure(yscrollcommand=scrollbar.set)
 
         # Configurar encabezados y columnas del Treeview

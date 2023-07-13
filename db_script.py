@@ -50,7 +50,7 @@ if __name__ == "__main__":
             print("Inserte el dato:",ran)
             counter += 1
         nro_ciclo += 1
-        sleep(0.2)
+        sleep(5)
         conn.commit()
 
     cursor.close()

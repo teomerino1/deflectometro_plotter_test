@@ -128,8 +128,6 @@ class View():
 
             self.Plot.close()
 
-            # self.Plot2.show(0)
-
             self.Plot2.show(1)
 
         else:
@@ -195,7 +193,7 @@ class View():
 
         self.Plot4.new_group_data_plot4(dict_r, dict_l)
 
-        # self.Plot.update_table(df)
+        
 
     # Metodo que manda a actualizar el gafico de barras 
     def update_bar_view(self, defl_left_right_dict):

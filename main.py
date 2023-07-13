@@ -39,8 +39,6 @@ if __name__ == "__main__":
             
             espesor = view.espesor
 
-           
-
             if(muestras != None ):
                 
                 break
@@ -92,8 +90,11 @@ if __name__ == "__main__":
             # primer ciclo
             if data == None and this_cicle == None:
 
+                print("Estoy en el while de data y this cicle None")
+
                 continue
             
+            print("Salgo del None while")
             # print("Estoy en el while. Data:")
             
             # print(data)

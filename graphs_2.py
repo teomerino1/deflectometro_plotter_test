@@ -46,8 +46,6 @@ class Graphs2():
 
         sub_figure.grid(axis='both',linestyle='dotted')
 
-        # figure.add_subplot(121).scatter([], [])
-
         graph = FigureCanvasTkAgg(figure, self.frame)
 
         graph_widget = graph.get_tk_widget()
@@ -56,8 +54,6 @@ class Graphs2():
 
         return figure, graph, graph_widget
     
-    
-  
 
     def update_gmean(self, dict_r, dict_l,lado):
 
@@ -71,13 +67,13 @@ class Graphs2():
 
             # subfigure2.set_xlim(0,100)
 
-            # subfigure2.set_ylim(0,100)
+            subfigure_izq.set_ylim(0,100)
 
             subfigure_izq.set_title("Radio Izquierda")
 
             subfigure_izq.set_xlabel("Nº Grupo")
 
-            subfigure_izq.set_xlabel("Radio de curvatura")
+            subfigure_izq.set_ylabel("Radio de curvatura")
 
             subfigure_izq.plot(dict_l['Grupo'], dict_l['Radio'],'o-')
 
@@ -95,13 +91,13 @@ class Graphs2():
 
             # subfigure.set_xlim(0,100)
 
-            # subfigure.set_ylim(0,100)
+            subfigure_der.set_ylim(0,100)
 
             subfigure_der.set_title("Radio Derecha")
 
             subfigure_der.set_xlabel("Nº Grupo")
 
-            subfigure_der.set_xlabel("Radio de curvatura")
+            subfigure_der.set_ylabel("Radio de curvatura")
 
             subfigure_der.plot(dict_r['Grupo'], dict_r['Radio'],'o-')
 

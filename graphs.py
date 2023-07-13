@@ -99,7 +99,6 @@ class Graphs():
 
         self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(10, 1, 1,"Deflexion Derecha")  # Ajusta las coordenadas para la posición deseada
 
-        # definicion de los graficos de medias de radio
 
     def show(self):
 

@@ -64,20 +64,13 @@ class Data():
 
     # Metodo toma lo que devuelve la base de datos y coloca las deflexiones y sus indices en un diccionario.
     def data_destruct(self,data):
-        # if self.data_acumulator != None:
-        #     self.data_acumulator += data
-        # else:
-        #     self.data_acumulator = data
-
-        # for dato in self.data_acumulator:
-        #     self.deflexiones_acumulator.append(dato['valor'])
-        #     nros_medicion.append(dato['nro_medicion'])
-
-         #<- TODO Datos compensados con operación básica, hay que modificarlo cuando pasen el algoritmo
 
         defl_r_aux=data[0]['valor']
+
         defl_l_aux=data[1]['valor']
+
         radio_r_aux=data[2]['valor']
+
         radio_l_aux=data[3]['valor']
 
         # print("Defl r sin compensar:",defl_r_aux)
@@ -88,8 +81,11 @@ class Data():
         # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux= self.compensate(defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux, espesor,temp)
 
         self.defl_r.append(defl_r_aux)
+
         self.defl_l.append(defl_l_aux)
+
         self.radio_r.append(radio_r_aux)
+
         self.radio_l.append(radio_l_aux)
         
         # print("Defl r compensada:",defl_r_aux)
@@ -103,41 +99,50 @@ class Data():
         # self.radio_r.append(data[2]['valor'])
         # self.radio_l.append(data[3]['valor'])
 
-
-       
-
-
         self.defl_r_acum.append(data[0]['valor'])
+
         self.defl_l_acum.append(data[1]['valor'])
+
         self.radio_r_acum.append(data[2]['valor'])
+
         self.radio_l_acum.append(data[3]['valor'])
         
         self.indices = list(range(1,len(self.defl_r)+1))
         # return deflexiones, indices
 
     def get_data_dict(self):
+
         return self.data_dict_r, self.data_dict_l
     
     def get_max_defl(self):
+
         return self.defl_l_max, self.defl_r_max
     
     def get_std_defl(self):
+
         return self.defl_l_car, self.defl_r_car
     
     def get_hist_dict(self):
+
         return self.hist_dict
 
     def cant_mediciones(self):
+
         return len(self.defl_r)
     
     def get_indexes(self):
+
         return self.hist_dict['index']
     
     # Estas dos funciones se pueden usar para pasar los valores para el grafico de barras
     def get_defl(self):
+
         return {
+
                 "right": self.radio_r_acum,
+
                 "left": self.radio_l_acum
+
                }
 
 

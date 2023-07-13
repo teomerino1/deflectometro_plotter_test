@@ -10,14 +10,23 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class Graphs3():
     def __init__(self, frame,lado):
+
         self.frame = frame
+
         self.figure_defl_mean_r = None
+
         self.defl_mean_r = None
+
         self.defl_mean_widget_l = None
+
         self.figure_defl_mean_l = None 
+
         self.defl_mean_l = None 
+
         self.defl_mean_widget_l = None 
+
         self.show(lado)
+
 
     def show(self,lado):
 
@@ -68,6 +77,10 @@ class Graphs3():
 
             subfigure_izq.set_ylim(0,100)  
 
+            subfigure_izq.set_xlabel("Progresivas")
+
+            subfigure_izq.set_ylabel("Deflexiones")
+
             subfigure_izq.bar(dict_l['Grupo'], dict_l['Defl.'], color='red',width = 0.5, edgecolor='black')
 
             subfigure_izq.scatter(dict_l['Grupo'], defl_l_max)
@@ -91,6 +104,10 @@ class Graphs3():
             subfigure_der.set_xlim(0,20)
 
             subfigure_der.set_ylim(0,100)
+
+            subfigure_der.set_xlabel("Progresivas")
+
+            subfigure_der.set_ylabel("Deflexiones")
 
             subfigure_der.bar(dict_r['Grupo'], dict_r['Defl.'], color='red',width = 0.5, edgecolor='black')
  
