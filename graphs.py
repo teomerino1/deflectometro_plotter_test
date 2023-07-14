@@ -49,6 +49,22 @@ class Graphs():
     
     def update_bar(self, defl_left_right_dict):
 
+        # index = list(range(1, len(defl_left_right_dict['right']) + 1))
+    
+        # subfigure_der = self.figure_bar_r.get_axes()[0]
+    
+        # if not subfigure_der.lines:
+        #     # No hay datos anteriores, se agrega una nueva barra
+        #     subfigure_der.bar(index, defl_left_right_dict['right'], width=1)
+        # else:
+        #     # Ya hay datos anteriores, se actualizan las alturas de las barras existentes
+        #     bars = subfigure_der.containers[0]
+        #     for bar, new_height in zip(bars, defl_left_right_dict['right']):
+        #         bar.set_height(new_height)
+        
+        # self.bar_r.draw()
+       
+       
         index = list(range(1,len(defl_left_right_dict['right'])+1))
 
         self.figure_bar_r.clear()
@@ -70,6 +86,7 @@ class Graphs():
         subfigure_der.grid(axis='both',linestyle='dotted')
 
         self.bar_r.draw()
+
 
         self.figure_bar_l.clear()
 
