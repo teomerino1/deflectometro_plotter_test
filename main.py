@@ -47,6 +47,29 @@ def process_data(Reporter, View, Data):
         # Actualizar el gráfico de barras en un hilo separado
         update_bar_thread = Thread(target=View.update_bar_view, args=(Data.get_defl(),))
         update_bar_thread.start()
+        update_bar_thread.join() 
+
+         # # cuando se llega ca la cantidad de muestras
+#         # # debemos plotear y actualizar las estructuras
+
+        if ((Data.cant_mediciones()) % muestras == 0):
+
+            # a=a+1
+
+            Data.update_structures()
+
+            dict_r, dict_l = Data.get_data_dict()
+
+            defl_l_max, defl_r_max = Data.get_max_defl()
+
+            defl_l_car, defl_r_car = Data.get_std_defl()
+
+            View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
+
+            # if(a == 20):
+
+            #     #TODO-> Disparar calculos estadísticos. Si llegamos acá se trabajaron 1000 datos
+
 
 def main():
     root = tk.Tk()
