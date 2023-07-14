@@ -52,11 +52,13 @@ def process_data(Reporter, View, Data):
          # # cuando se llega ca la cantidad de muestras
 #         # # debemos plotear y actualizar las estructuras
 
-        if ((Data.cant_mediciones()) % muestras == 0):
+        if ((Data.cant_mediciones()) % 10 == 0):
 
             # a=a+1
-
-            Data.update_structures()
+            update_structures_thread = Thread(target=Data.update_structures)
+            update_structures_thread.start()
+            update_structures_thread.join()
+            # Data.update_structures()
 
             dict_r, dict_l = Data.get_data_dict()
 
@@ -64,12 +66,27 @@ def process_data(Reporter, View, Data):
 
             defl_l_car, defl_r_car = Data.get_std_defl()
 
-            View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
+            new_group_data_thread = Thread(target=View.new_group_data_view,args=(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,))
+            new_group_data_thread.start()
+            new_group_data_thread.join()
+
+            # View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
 
             # if(a == 20):
 
             #     #TODO-> Disparar calculos estadísticos. Si llegamos acá se trabajaron 1000 datos
 
+# def update_structures_main(Data):
+
+#     Data.update_structures()
+
+#     dict_r, dict_l = Data.get_data_dict()
+
+#     defl_l_max, defl_r_max = Data.get_max_defl()
+
+#     defl_l_car, defl_r_car = Data.get_std_defl()
+
+#     View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
 
 def main():
     root = tk.Tk()
