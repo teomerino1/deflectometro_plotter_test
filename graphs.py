@@ -23,7 +23,7 @@ class Graphs():
 
         sub_figure=figure.add_subplot(211)
 
-        sub_figure.set_xlim(0,1000)
+        # sub_figure.set_xlim(0,1000)
 
         sub_figure.set_ylim(0,100)
 
@@ -57,7 +57,7 @@ class Graphs():
 
         subfigure_der.set_title("Deflexion Derecha")
 
-        subfigure_der.set_xlim(0,500)
+        # subfigure_der.set_xlim(0,500)
 
         subfigure_der.set_ylim(0,100)
 
@@ -81,7 +81,7 @@ class Graphs():
 
         subfigure_izq.set_ylabel("Deflexiones")
 
-        subfigure_izq.set_xlim(0,500)
+        # subfigure_izq.set_xlim(0,500)
 
         subfigure_izq.set_ylim(0,100)
 

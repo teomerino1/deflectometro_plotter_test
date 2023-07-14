@@ -9,8 +9,7 @@ from timeit import default_timer as timer
 
 def process_data(Reporter,View,Data):
 
-    print("LLAMO A LAST MEASUREMENT DESDE EL MAIN")
-    print("Soy el thred", threading.get_ident())
+    
     Reporter.start()
 
     while (True):

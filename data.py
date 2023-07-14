@@ -13,8 +13,7 @@ class Data():
         self.deflexiones_acumulator = [] # acumula los valores de las deflexiones
         self.group_counter = 1 # Contador de grupos
 
-        
-        # contienen los datos del grupo actual
+        # Contienen los datos del grupo actual
         self.defl_r = []
         self.defl_l = []
         self.radio_r = []
@@ -28,7 +27,7 @@ class Data():
         self.defl_l_car = []
         self.defl_r_car = []
 
-        # acumuladores que contienen todos los datos recolectados durante la ejecucion
+        # Acumuladores que contienen todos los datos recolectados durante la ejecucion
         self.defl_r_acum = []
         self.defl_l_acum = []
         self.radio_r_acum = []
@@ -206,5 +205,38 @@ class Data():
     # Metodo donde se realizan los calculos de radio
     def calculations_data():
         None # TODO
+
+    def calculate_stats(self,z,ft,fh,fc): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo
+
+        # Calculo de medias para mediciones totales de cada cosa
+        media_defl_der = round(np.mean(self.defl_r_acum),2)
+        media_defl_izq = round(np.mean(self.defl_l_acum),2)
+        media_rad_der =  round(np.mean(self.radio_r_acum),2)
+        media_rad_izq = round(np.mean(self.defl_l_acum),2)
+        
+        # Calculo de desviaciones estandar deflexiones
+        desv_defl_der = round(np.std(self.defl_r_acum))
+        desv_defl_l = round(np.std(self.defl_l_acum))
+
+        # Calculo de coeficientes de variacion deflexiones
+        coef_var_der = round(desv_defl_der/media_defl_der)*100
+        coef_var_izq = round(desv_defl_l/media_defl_izq)*100
+
+        # Calculo de deflexion caracteristicas
+        defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*z*ft*fh*fc
+        defl_car_izq = round(media_defl_izq + (2*(np.std(self.defl_l_acum)*2)))*z*ft*fh*fc
+
+        # Calculo de D/R medio
+        d_r_der = media_defl_der/media_rad_der
+        d_r_izq = media_defl_izq/media_rad_izq
+
+        # Calculo de D*R medio
+        d_x_r_der = media_defl_der*media_rad_der
+        d_x_r_izq = media_defl_izq*media_rad_izq
+
+        # Calculo de total de mediciones
+        total_mediciones_defl = len(self.defl_l_acum)
+        total_mediciones_rad = len(self.radio_l_acum)
+
 
 
