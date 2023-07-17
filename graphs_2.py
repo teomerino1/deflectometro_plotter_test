@@ -30,11 +30,13 @@ class Graphs2():
         
         figure = Figure(figsize=(6, 7), dpi=100)
 
+        # figure = Figure(figsize=(4, 5), dpi=90)
+
         sub_figure = figure.add_subplot(211)
 
-        # sub_figure.set_xlim(0,100)
+        sub_figure.set_xlim(0,100)
 
-        # sub_figure.set_ylim(0,100)
+        sub_figure.set_ylim(0,100)
         
         sub_figure.set_title(title)
 
@@ -112,11 +114,12 @@ class Graphs2():
         if(lado == "Izquierdo"):
 
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+            # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,2,"Radio Izquierda")
 
         if(lado == "Derecho"):
 
             self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
-
+            # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(4,0,1,"Radio Derecha")
        
 
 

@@ -16,7 +16,7 @@ from tkinter import ttk
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
 class Plot3():
-    def __init__(self,root, go_to_plot_2_from_plot_3, go_to_plot_4_from_plot_3):
+    def __init__(self,root,view_instance):
 
         self.root = root
         # self.main_plot_frame = None
@@ -25,10 +25,10 @@ class Plot3():
         self.title = None
         self.next = None
         self.back = None  
-        self.go_to_plot_2_from_plot_3 = go_to_plot_2_from_plot_3
-        self.go_to_plot_4_from_plot_3 = go_to_plot_4_from_plot_3
-        
-        self.Graphs2 = None
+        # self.go_to_plot_2_from_plot_3 = go_to_plot_2_from_plot_3
+        # self.go_to_plot_4_from_plot_3 = go_to_plot_4_from_plot_3
+        self.view_instance = view_instance
+        self.Graphs2 = None 
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
@@ -80,3 +80,9 @@ class Plot3():
         self.Graphs2.update_gmean(dict_r, dict_l,lado="Derecho")
 
         self.Graphs3.update_deflexiones_gmean(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car, lado="Derecho")
+
+    def go_to_plot_2_from_plot_3(self):
+        self.view_instance.enqueue_transition('go_to_plot_2_from_plot_3')
+
+    def go_to_plot_4_from_plot_3(self):
+        self.view_instance.enqueue_transition('go_to_plot_4_from_plot_3')

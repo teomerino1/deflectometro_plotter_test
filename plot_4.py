@@ -17,7 +17,7 @@ from tkinter import ttk
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
 class Plot4():
-    def __init__(self,root, go_to_plot_3_from_plot_4,go_to_plot_5_from_plot_4):
+    def __init__(self,root, view_instance):
 
         self.root = root
         # self.main_plot_frame = None
@@ -26,8 +26,9 @@ class Plot4():
         self.title = None
         self.next = None
         self.back = None  
-        self.go_to_plot_3_from_plot_4 = go_to_plot_3_from_plot_4
-        self.go_to_plot_5_from_plot_4 = go_to_plot_5_from_plot_4#TODO HACERLO
+        self.view_instance = view_instance
+        # self.go_to_plot_3_from_plot_4 = go_to_plot_3_from_plot_4
+        # self.go_to_plot_5_from_plot_4 = go_to_plot_5_from_plot_4#TODO HACERLO
         self.Graphs4 = None
 
     # Metodo que elimina todo lo que muestra la pagina
@@ -77,3 +78,9 @@ class Plot4():
     def new_group_data_plot4(self,dict_r,dict_l):
 
         self.Graphs4.update_deflexiones_radios_graph(dict_r,dict_l)
+
+    def go_to_plot_3_from_plot_4(self):
+        self.view_instance.enqueue_transition('go_to_plot_3_from_plot_4')
+
+    def go_to_plot_5_from_plot_4(self):
+        self.view_instance.enqueue_transition('go_to_plot_5_from_plot_4')

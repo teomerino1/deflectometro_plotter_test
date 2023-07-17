@@ -16,7 +16,7 @@ from tkinter import ttk
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
 class Plot2():
-    def __init__(self,root, go_to_plot_1_from_plot_2, go_to_plot_3_from_plot2):
+    def __init__(self,root,view_instance):
 
         self.root = root
         # self.main_plot_frame = None
@@ -24,9 +24,10 @@ class Plot2():
         self.third_plot_frame = None
         self.title = None
         self.next = None
-        self.back = None  
-        self.go_to_plot_1_from_plot_2 = go_to_plot_1_from_plot_2
-        self.go_to_plot_3_from_plot2 = go_to_plot_3_from_plot2
+        self.back = None
+        self.view_instance = view_instance  
+        # self.go_to_plot_1_from_plot_2 = go_to_plot_1_from_plot_2
+        # self.go_to_plot_3_from_plot2 = go_to_plot_3_from_plot2
         self.Graphs2 = None
         self.Graphs3 = None
 
@@ -62,11 +63,16 @@ class Plot2():
 
             self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Izquierdo")
 
+            # self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Derecho")
+
             self.Graphs3 = graphs_3.Graphs3(self.third_plot_frame,lado="Izquierdo")
+
+            # self.Graphs3 = graphs_3.Graphs3(self.third_plot_frame,lado="Derecho")
 
         if(a == 1):
 
-            self.third_plot_frame.grid(rowspan=3,columnspan=3)
+            # self.third_plot_frame.grid(rowspan=3,columnspan=3)
+            self.third_plot_frame.grid(rowspan=10,columnspan=10)
 
             self.title.grid(row = 0, column = 0,sticky=NW)
 
@@ -80,8 +86,17 @@ class Plot2():
         self.Graphs2.update_gmean(dict_r, dict_l,lado = "Izquierdo")
 
         self.Graphs3.update_deflexiones_gmean(dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car, lado="Izquierdo")
-        
 
+    def go_to_plot_1_from_plot_2(self):
+        # Encolar la función en la cola del hilo de la clase View
+        # print("go to plot 1 from plot 2")
+        self.view_instance.enqueue_transition('go_to_plot_1_from_plot_2')
+        
+    def go_to_plot_3_from_plot2(self):
+        # Encolar la función en la cola del hilo de la clase View
+        # print("go to plot 3 from plot 2")
+        self.view_instance.enqueue_transition('go_to_plot_3_from_plot_2')
+        
 
         
 

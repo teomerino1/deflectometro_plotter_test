@@ -16,7 +16,7 @@ from tkinter import ttk
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
 class Plot5():
-    def __init__(self,root, go_to_plot_4_from_plot_5):
+    def __init__(self,root,view_instance):
 
         self.root = root
         # self.main_plot_frame = None
@@ -24,7 +24,8 @@ class Plot5():
         self.sixth_plot_frame = None
         self.title = None
         self.back = None  
-        self.go_to_plot_4_from_plot_5 = go_to_plot_4_from_plot_5
+        # self.go_to_plot_4_from_plot_5 = go_to_plot_4_from_plot_5
+        self.view_instance = view_instance
         self.Graphs2 = None
 
         self.huella_ext = None  
@@ -226,6 +227,9 @@ class Plot5():
             self.d_r_med_izq.grid(row=22+2, column=0,sticky=NW)
 
             self.r_x_d_izq.grid(row=23+2, column=0,sticky=NW)
+
+    def go_to_plot_4_from_plot_5(self):
+        self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
 
             
 

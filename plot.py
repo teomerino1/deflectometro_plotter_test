@@ -15,15 +15,16 @@ from tkinter import ttk
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
 class Plot():
-    def __init__(self,root,go_to_config, go_to_plot_2_from_plot_1):
+    def __init__(self,root,view_instance):
 
         self.root = root
         self.main_plot_frame = None
         self.second_plot_frame = None
-        self.go_to_config = go_to_config
+        # self.go_to_config = go_to_config
         #############
-        self.go_to_plot_2_from_plot_1 = go_to_plot_2_from_plot_1
+        # self.go_to_plot_2_from_plot_1 = go_to_plot_2_from_plot_1
         #############
+        self.view_instance = view_instance
         self.title = None 
         self.temperatura = None 
         self.muestras = None 
@@ -127,6 +128,13 @@ class Plot():
 
         self.Table.insert(dict_r, dict_l)
 
+    def go_to_plot_2_from_plot_1(self):
+        # Encolar la función en la cola del hilo de la clase View
+        # print("go to plot 1 from plot 2")
+        self.view_instance.enqueue_transition('go_to_plot_2_from_plot_1')
+        
+    def go_to_config(self):
+        self.view_instance.enqueue_transition('go_to_config')
 
     
    
