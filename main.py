@@ -3,6 +3,7 @@ import tkinter as tk
 import data
 import reporter
 from threading import Thread
+import threading
 
 def process_data(Reporter, View, Data):
     Reporter.start()
@@ -39,55 +40,46 @@ def process_data(Reporter, View, Data):
         data, this_cycle = Reporter.get_new_measurements()
 
         if data is None or this_cycle is None:
+            print("Estoy en None")
             continue
 
         Data.data_destruct(data)
-        print(Data.cant_mediciones())
-
+        cantidad=Data.cant_mediciones()
+        print(cantidad)
+        
+        # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        update_bar_thread = Thread(target=View.update_bar_view, args=(Data.get_defl(),))
-        update_bar_thread.start()
-        update_bar_thread.join() 
+        if(cantidad%20 ==0):
+            update_bar_thread = Thread(target=View.update_bar_view, args=(Data.get_defl(),))
+            print("Soy el thread",threading.get_ident())
+            update_bar_thread.daemon =True
+            update_bar_thread.start()
+
+        continue
+        # update_bar_thread.join() 
 
          # # cuando se llega ca la cantidad de muestras
 #         # # debemos plotear y actualizar las estructuras
 
-        if ((Data.cant_mediciones()) % 10 == 0):
+        # if ((Data.cant_mediciones()) % 10 == 0):
 
-            # a=a+1
-            update_structures_thread = Thread(target=Data.update_structures)
-            update_structures_thread.start()
-            update_structures_thread.join()
-            # Data.update_structures()
+        #     # a=a+1
+        #     update_structures_thread = Thread(target=Data.update_structures)
+        #     update_structures_thread.start()
+        #     update_structures_thread.join()
+        #     # Data.update_structures()
 
-            dict_r, dict_l = Data.get_data_dict()
+        #     dict_r, dict_l = Data.get_data_dict()
 
-            defl_l_max, defl_r_max = Data.get_max_defl()
+        #     defl_l_max, defl_r_max = Data.get_max_defl()
 
-            defl_l_car, defl_r_car = Data.get_std_defl()
+        #     defl_l_car, defl_r_car = Data.get_std_defl()
 
-            new_group_data_thread = Thread(target=View.new_group_data_view,args=(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,))
-            new_group_data_thread.start()
-            new_group_data_thread.join()
+        #     new_group_data_thread = Thread(target=View.new_group_data_view,args=(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,))
+        #     new_group_data_thread.start()
+        #     new_group_data_thread.join()
 
-            # View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
-
-            # if(a == 20):
-
-            #     #TODO-> Disparar calculos estadísticos. Si llegamos acá se trabajaron 1000 datos
-
-# def update_structures_main(Data):
-
-#     Data.update_structures()
-
-#     dict_r, dict_l = Data.get_data_dict()
-
-#     defl_l_max, defl_r_max = Data.get_max_defl()
-
-#     defl_l_car, defl_r_car = Data.get_std_defl()
-
-#     View.new_group_data_view(dict_r, dict_l, defl_r_max, defl_l_max, defl_l_car, defl_r_car)
-
+        
 def main():
     root = tk.Tk()
     View = view.View(root)

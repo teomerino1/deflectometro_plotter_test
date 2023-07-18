@@ -10,11 +10,15 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class Graphs():
     def __init__(self, frame):
+        self.a=None
         self.frame = frame
         # self.plot_number=plot_number
         self.show()
         self.figure_rad_mean_r=None
         self.rad_mean_r=None
+        # self.figure_bar_r = None
+        # self.bar_l=None
+        # self.bar_widget_l=None 
 
     # Grafico que corresponde a las deflexiones individuales
     def bar_graph(self, row, column, columnspan,title):
@@ -23,7 +27,7 @@ class Graphs():
 
         sub_figure=figure.add_subplot(211)
 
-        # sub_figure.set_xlim(0,1000)
+        sub_figure.set_xlim(0,1000)
 
         sub_figure.set_ylim(0,100)
 
@@ -65,57 +69,73 @@ class Graphs():
         # self.bar_r.draw()
        
        
-        index = list(range(1,len(defl_left_right_dict['right'])+1))
-
+        index_der = list(range(1,len(defl_left_right_dict['right'])+1))
+        index_izq = list(range(1,len(defl_left_right_dict['left'])+1))
+        
         self.figure_bar_r.clear()
+        # self.figure_bar_l.clear()
 
         subfigure_der = self.figure_bar_r.add_subplot(211)
+        # subfigure_izq = self.figure_bar_l.add_subplot(211)
 
         subfigure_der.set_title("Deflexion Derecha")
+        # subfigure_izq.set_title("Deflexion Izquierda")
 
-        # subfigure_der.set_xlim(0,500)
+        subfigure_der.set_xlim(0,1000)
+        # subfigure_izq.set_xlim(0,1000)
 
-        subfigure_der.set_ylim(0,100)
+        # subfigure_der.set_ylim(0,100)
+        # # # subfigure_izq.set_ylim(0,100)
 
         subfigure_der.set_xlabel("Nº grupo")
+         # subfigure_izq.set_xlabel("Nº grupo")
 
         subfigure_der.set_ylabel("Deflexiones")
+         # subfigure_izq.set_ylabel("Deflexiones")
 
-        subfigure_der.bar(index, defl_left_right_dict['right'],width = 1)
+        print("Arg 0 derecha (index der):",len(index_der))
+        print("Arg 1 derecha len:",len(defl_left_right_dict['right']))
+        # print("Arg 0 izquierda (index izq):",len(index_izq))
+        # print("Arg 1 izquierda len:",len(defl_left_right_dict['left']))
 
+        subfigure_der.bar(index_der, defl_left_right_dict['right'],width = 1)
+        # subfigure_izq.bar(index_izq, defl_left_right_dict['left'],width = 1)
+       
         subfigure_der.grid(axis='both',linestyle='dotted')
+         # subfigure_izq.grid(axis='both',linestyle='dotted')
 
         self.bar_r.draw()
+        # self.bar_l.draw()
+        
 
+        
 
-        self.figure_bar_l.clear()
+        
 
-        subfigure_izq=self.figure_bar_l.add_subplot(211)
+        
 
-        subfigure_izq.set_title("Deflexion Izquierda")
+        
 
-        subfigure_izq.set_xlabel("Nº grupo")
+       
 
-        subfigure_izq.set_ylabel("Deflexiones")
+       
 
-        # subfigure_izq.set_xlim(0,500)
+        
 
-        subfigure_izq.set_ylim(0,100)
+        
 
-        subfigure_izq.bar(index, defl_left_right_dict['left'],width = 1)
+       
 
-        subfigure_izq.grid(axis='both',linestyle='dotted')
-
-        self.bar_l.draw()
+        
 
     
 
     def show_bar_graph(self):
 
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(10, 0, 1,"Deflexion Izquierda")
-
+        
         self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(10, 1, 1,"Deflexion Derecha")  # Ajusta las coordenadas para la posición deseada
-
+        
 
     def show(self):
 

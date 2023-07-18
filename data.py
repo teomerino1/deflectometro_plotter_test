@@ -137,15 +137,9 @@ class Data():
     def get_defl(self):
 
         return {
-
-                "right": self.radio_r_acum,
-
-                "left": self.radio_l_acum
-
+                "right": self.defl_r_acum,
+                "left": self.defl_l_acum
                }
-
-
-
     # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
     def update_structures(self):
 

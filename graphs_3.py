@@ -41,7 +41,7 @@ class Graphs3():
 
         sub_figure.set_title(title)
 
-        sub_figure.set_xlim(0,20)
+        # sub_figure.set_xlim(0,20)
 
         sub_figure.set_ylim(0,100)
 
@@ -73,7 +73,7 @@ class Graphs3():
 
             subfigure_izq.set_title("Deflexiones Izquierda")
 
-            subfigure_izq.set_xlim(0,20)
+            # subfigure_izq.set_xlim(0,20)
 
             subfigure_izq.set_ylim(0,100)  
 
@@ -101,7 +101,7 @@ class Graphs3():
 
             subfigure_der.set_title("Deflexiones Derecha")
 
-            subfigure_der.set_xlim(0,20)
+            # subfigure_der.set_xlim(0,20)
 
             subfigure_der.set_ylim(0,100)
 

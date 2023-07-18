@@ -155,20 +155,12 @@ class View():
 
             self.Plot2.show(1)
 
-
-   
-
-    
-
     # Metodo que borra el Plot 2 y abre el Plot 1
     def go_to_plot_1_from_plot_2(self):
 
         self.Plot2.close()
 
-        self.Plot.show(1)
-
-   
-        
+        self.Plot.show(1) 
 
     def go_to_plot_3_from_plot2(self):
 
@@ -176,17 +168,11 @@ class View():
 
         self.Plot3.show(1)
 
-  
-
     def go_to_plot_2_from_plot_3(self):
         
         self.Plot3.close()
        
         self.Plot2.show(1)
-
-   
-
-
 
     def go_to_plot_4_from_plot_3(self):
         
@@ -201,17 +187,12 @@ class View():
 
         self.Plot3.show(1)
 
-   
-
 
     def go_to_plot_5_from_plot_4(self):
 
         self.Plot4.close()
 
         self.Plot5.show(1)
-
-        
-  
 
     def go_to_plot_4_from_plot_5(self):
 
