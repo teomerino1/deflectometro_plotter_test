@@ -103,5 +103,4 @@ class Graphs4():
     def show_defl_radios_graph(self):
 
         self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_l = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
-
         self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(3,1,1,"Informe estadístico: Lado Derecho")

@@ -5,6 +5,13 @@ import reporter
 from threading import Thread
 import threading
 
+
+
+def update_all(View,dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,defl_left_right_dict,indexes):
+
+    View.update_bar_view(defl_left_right_dict,indexes)
+    View.new_group_data_view(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car)
+
 def process_data(Reporter, View, Data):
     Reporter.start()
 
@@ -24,13 +31,10 @@ def process_data(Reporter, View, Data):
 
     if z == '':
         z = 2
-
     if ft == '':
         ft = 1
-
     if fh == '':
         fh = 1
-
     if fc == '':
         fc = 1
 
@@ -40,7 +44,7 @@ def process_data(Reporter, View, Data):
         data, this_cycle = Reporter.get_new_measurements()
 
         if data is None or this_cycle is None:
-            print("Estoy en None")
+            # print("Estoy en None")
             continue
 
         Data.data_destruct(data)
@@ -49,35 +53,21 @@ def process_data(Reporter, View, Data):
         
         # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        if(cantidad%20 ==0):
-            update_bar_thread = Thread(target=View.update_bar_view, args=(Data.get_defl(),))
-            print("Soy el thread",threading.get_ident())
-            update_bar_thread.daemon =True
-            update_bar_thread.start()
+        if(cantidad% 20 == 0):
 
+            Data.update_structures()
+            dict_r, dict_l = Data.get_data_dict()
+            defl_l_max, defl_r_max = Data.get_max_defl()
+            defl_l_car, defl_r_car = Data.get_std_defl()
+            defl_left_right_dict=Data.get_defl()
+            indexes=Data.get_indexes()
+
+            update_all_thread = Thread(target=update_all,args=(View,dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,defl_left_right_dict,indexes))
+            update_all_thread.daemon=True 
+            update_all_thread.start()
+             
         continue
-        # update_bar_thread.join() 
-
-         # # cuando se llega ca la cantidad de muestras
-#         # # debemos plotear y actualizar las estructuras
-
-        # if ((Data.cant_mediciones()) % 10 == 0):
-
-        #     # a=a+1
-        #     update_structures_thread = Thread(target=Data.update_structures)
-        #     update_structures_thread.start()
-        #     update_structures_thread.join()
-        #     # Data.update_structures()
-
-        #     dict_r, dict_l = Data.get_data_dict()
-
-        #     defl_l_max, defl_r_max = Data.get_max_defl()
-
-        #     defl_l_car, defl_r_car = Data.get_std_defl()
-
-        #     new_group_data_thread = Thread(target=View.new_group_data_view,args=(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,))
-        #     new_group_data_thread.start()
-        #     new_group_data_thread.join()
+        
 
         
 def main():

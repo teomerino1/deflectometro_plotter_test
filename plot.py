@@ -44,7 +44,6 @@ class Plot():
         if(a == 0):
 
             second_plot_frame = Frame(self.root)
-
             self.second_plot_frame = second_plot_frame
 
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
@@ -53,45 +52,31 @@ class Plot():
             
             # Configurar el número de filas y columnas
             second_plot_frame.grid_rowconfigure(0, weight=1)
-
             second_plot_frame.grid_rowconfigure(1, weight=1)
-
             second_plot_frame.grid_rowconfigure(2, weight=1)
-
             second_plot_frame.grid_rowconfigure(3, weight=1)
-
             second_plot_frame.grid_rowconfigure(4, weight=1)
-           
             second_plot_frame.grid_columnconfigure(0, weight=1)
-
             second_plot_frame.grid_columnconfigure(1, weight=1)
-
             second_plot_frame.grid_columnconfigure(2, weight=1)
-
             second_plot_frame.grid_columnconfigure(3, weight=1)
         
             title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 25)) 
-           
             self.title = title
             
             temperatura = Label(second_plot_frame, text= "Temperatura: %s"%(view.temp))
-        
             self.temperatura = temperatura
 
             muestras = Label(second_plot_frame, text="Muestras: %s"%(view.grupos))
-           
             self.muestras = muestras 
 
             grupos = Label(second_plot_frame, text="Grupos: %s"%(view.muestras))
-          
             self.grupos = grupos 
 
             atras = Button(second_plot_frame, text="Atras", command=self.go_to_config)
-            
             self.atras = atras 
 
             next = Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1)
-           
             self.next = next
 
             self.Table = table.Table(self.second_plot_frame) # instancia de tabla
@@ -101,17 +86,11 @@ class Plot():
         if(a == 1):
 
             self.second_plot_frame.grid(ipadx=10, ipady=5)
-
             self.title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
-
             self.temperatura.grid(row=1, column=0, sticky="nw")
-
             self.muestras.grid(row=1, column=1 ,sticky="nw")
-
             self.grupos.grid(row=2, column=0, sticky="nw")
-
             self.atras.grid(row=3, column=0, sticky="nw")
-
             self.next.grid(row=4, column=0,sticky="nw")
             
     
@@ -119,9 +98,9 @@ class Plot():
 
         self.second_plot_frame.grid(ipadx=10, ipady=5)
 
-    def update_bar_plot(self, defl_left_right_dict):
+    def update_bar_plot(self, defl_left_right_dict,indexes):
 
-        self.Graphs.update_bar(defl_left_right_dict)
+        self.Graphs.update_bar(defl_left_right_dict,indexes)
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
     def new_group_data_plot(self,dict_r, dict_l):

@@ -73,31 +73,20 @@ class View():
 
         #Se ejecuta el metodo show de Config para que aparezca la ventana principal
         self.Config.show()
-
         root.title('Deflectómetro')
-
         root.tk.call("source", "azure.tcl")
-
         root.tk.call("set_theme", "light")
-
         style = Style(root)
-
         screen_width = root.winfo_screenwidth()
-
         screen_height = root.winfo_screenheight()
-
         root.geometry(f"{screen_width}x{screen_height}")
 
         ###############################################
 
         self.Plot.show(0)
-
         self.Plot2.show(0)
-
         self.Plot3.show(0)
-
         self.Plot4.show(0)
-
         self.Plot5.show(0)
 
 
@@ -107,26 +96,20 @@ class View():
         self.is_plotting = True
 
         if(self.first_time_plot):
-
             self.first_time_plot=False
-
             self.Config.close()
-
             self.Plot.show(1)
-
             self.Plot2.show(0)
 
         else:
 
             self.Config.close()
-
             self.Plot.show(1)
 
     # Metodo que borra el Plot 1 y abre el de Config
     def go_to_config(self):
 
         self.Plot.close()
-
         self.Config.show()
 
     # def go_to_config(self):
@@ -142,81 +125,66 @@ class View():
     def go_to_plot_2_from_plot_1(self):
 
         if(self.first_time_plot2):
-
             self.first_time_plot2=False
-
             self.Plot.close()
-
             self.Plot2.show(1)
 
         else:
-
             self.Plot.close()
-
             self.Plot2.show(1)
 
     # Metodo que borra el Plot 2 y abre el Plot 1
     def go_to_plot_1_from_plot_2(self):
 
         self.Plot2.close()
-
         self.Plot.show(1) 
 
     def go_to_plot_3_from_plot2(self):
 
         self.Plot2.close()
-
         self.Plot3.show(1)
 
     def go_to_plot_2_from_plot_3(self):
         
         self.Plot3.close()
-       
         self.Plot2.show(1)
 
     def go_to_plot_4_from_plot_3(self):
         
         self.Plot3.close()
-
         self.Plot4.show(1)
 
         
     def go_to_plot_3_from_plot_4(self):
 
         self.Plot4.close()
-
         self.Plot3.show(1)
 
 
     def go_to_plot_5_from_plot_4(self):
 
         self.Plot4.close()
-
         self.Plot5.show(1)
 
     def go_to_plot_4_from_plot_5(self):
 
         self.Plot5.close()
-
         self.Plot4.show(1)
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
 
         self.Plot.new_group_data_plot(dict_r, dict_l)
-
         self.Plot2.new_group_data_plot2(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car)
-
         self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car)
-
         self.Plot4.new_group_data_plot4(dict_r, dict_l)
 
         
 
     # Metodo que manda a actualizar el gafico de barras 
-    def update_bar_view(self, defl_left_right_dict):
+    def update_bar_view(self, defl_left_right_dict,indexes):
 
-        self.Plot.update_bar_plot(defl_left_right_dict)
+        self.Plot.update_bar_plot(defl_left_right_dict,indexes)
 
     def get_config(self):
         return self.Config.get_config()

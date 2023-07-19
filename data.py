@@ -1,6 +1,7 @@
 import numpy as np
 import view
 import math
+import threading
 
 # Clase donde se encuentran los metodos encargados de crear, mantener y actualizar las estructuras de datos
 # se tienen dos grupos de mediciones, unas de derecha y otra de izquierda.
@@ -32,7 +33,6 @@ class Data():
         self.defl_l_acum = []
         self.radio_r_acum = []
         self.radio_l_acum = []
-
         self.indices = []
 
         # dict individual para el histograma de mediciones
@@ -65,11 +65,8 @@ class Data():
     def data_destruct(self,data):
 
         defl_r_aux=data[0]['valor']
-
         defl_l_aux=data[1]['valor']
-
         radio_r_aux=data[2]['valor']
-
         radio_l_aux=data[3]['valor']
 
         # print("Defl r sin compensar:",defl_r_aux)
@@ -80,11 +77,8 @@ class Data():
         # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux= self.compensate(defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux, espesor,temp)
 
         self.defl_r.append(defl_r_aux)
-
         self.defl_l.append(defl_l_aux)
-
         self.radio_r.append(radio_r_aux)
-
         self.radio_l.append(radio_l_aux)
         
         # print("Defl r compensada:",defl_r_aux)
@@ -99,50 +93,27 @@ class Data():
         # self.radio_l.append(data[3]['valor'])
 
         self.defl_r_acum.append(data[0]['valor'])
-
         self.defl_l_acum.append(data[1]['valor'])
-
         self.radio_r_acum.append(data[2]['valor'])
-
         self.radio_l_acum.append(data[3]['valor'])
-        
-        self.indices = list(range(1,len(self.defl_r)+1))
+    
+        self.indices = list(range(1,len(self.defl_r_acum)+1))
+        print("Indexes:",len(self.indices))
         # return deflexiones, indices
 
-    def get_data_dict(self):
-
-        return self.data_dict_r, self.data_dict_l
-    
-    def get_max_defl(self):
-
-        return self.defl_l_max, self.defl_r_max
-    
-    def get_std_defl(self):
-
-        return self.defl_l_car, self.defl_r_car
-    
-    def get_hist_dict(self):
-
-        return self.hist_dict
-
-    def cant_mediciones(self):
-
-        return len(self.defl_r)
-    
-    def get_indexes(self):
-
-        return self.hist_dict['index']
-    
-    # Estas dos funciones se pueden usar para pasar los valores para el grafico de barras
-    def get_defl(self):
-
-        return {
-                "right": self.defl_r_acum,
-                "left": self.defl_l_acum
-               }
+   
     # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
     def update_structures(self):
 
+        print("Soy el thread",threading.get_ident(),"En update structures")
+
+        # self.defl_r_acum.append(self.defl_r)
+        # self.defl_l_acum.append(self.defl_l)
+        # self.radio_r_acum.append(self.radio_r)
+        # self.radio_l_acum.append(self.radio_l)
+
+        # self.indices = list(range(1,len(self.defl_r_acum)+1))
+        # print("Indexes:",len(self.indices))
 
         # Obtengo los promedios de cada cosa
         media_defl_r = round(np.mean(self.defl_r),2)
@@ -150,6 +121,7 @@ class Data():
         media_radio_r = round(np.mean(self.radio_r),2)
         media_radio_l = round(np.mean(self.radio_l),2)
 
+       
 
         # Obtengo la deflexion caracteristica. Por el momento Z es igual a 2 y el resto (ft, fc, fh) es 1
         self.defl_l_car.append(  media_defl_l + (2*(np.std(self.defl_l)*2))  )
@@ -172,10 +144,9 @@ class Data():
         self.data_dict_l['R*D'].append(round(media_defl_l * media_radio_l,2))
         self.data_dict_l['D/R'].append(round(media_defl_l / media_radio_l,2))
         
-
         self.group_counter += 1
 
-        # limpiamos porque ya se cumplio el grupo
+         # limpiamos porque ya se cumplio el grupo
         self.defl_r.clear()
         self.defl_l.clear()
         self.radio_r.clear()
@@ -186,13 +157,9 @@ class Data():
     def compensate(self,defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux,espesor,temp):
 
         defl_r_aux=defl_r_aux/((0.001*espesor*(temp-20))+1)
-
         defl_l_aux=defl_l_aux/((0.001*espesor*(temp-20))+1) 
-
         # radio_r_aux=radio_r_aux*fc
-
         # radio_l_aux=radio_l_aux*fc
-
         return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        
 
@@ -233,4 +200,28 @@ class Data():
         total_mediciones_rad = len(self.radio_l_acum)
 
 
+    def get_data_dict(self):
+        return self.data_dict_r, self.data_dict_l
+    
+    def get_max_defl(self):
+        return self.defl_l_max, self.defl_r_max
+    
+    def get_std_defl(self):
+        return self.defl_l_car, self.defl_r_car
+    
+    def get_hist_dict(self):
+        return self.hist_dict
 
+    def cant_mediciones(self):
+        return len(self.defl_r)
+    
+    def get_indexes(self):
+        return self.indices
+        # return self.hist_dict['index']
+    
+    # Estas dos funciones se pueden usar para pasar los valores para el grafico de barras
+    def get_defl(self):
+        return {
+                "right": self.defl_r_acum,
+                "left": self.defl_l_acum
+               }

@@ -16,9 +16,8 @@ class Graphs():
         self.show()
         self.figure_rad_mean_r=None
         self.rad_mean_r=None
-        # self.figure_bar_r = None
-        # self.bar_l=None
-        # self.bar_widget_l=None 
+        
+        
 
     # Grafico que corresponde a las deflexiones individuales
     def bar_graph(self, row, column, columnspan,title):
@@ -51,61 +50,54 @@ class Graphs():
     
     
     
-    def update_bar(self, defl_left_right_dict):
+    def update_bar(self, defl_left_right_dict,indexes):
 
-        # index = list(range(1, len(defl_left_right_dict['right']) + 1))
-    
-        # subfigure_der = self.figure_bar_r.get_axes()[0]
-    
-        # if not subfigure_der.lines:
-        #     # No hay datos anteriores, se agrega una nueva barra
-        #     subfigure_der.bar(index, defl_left_right_dict['right'], width=1)
-        # else:
-        #     # Ya hay datos anteriores, se actualizan las alturas de las barras existentes
-        #     bars = subfigure_der.containers[0]
-        #     for bar, new_height in zip(bars, defl_left_right_dict['right']):
-        #         bar.set_height(new_height)
-        
-        # self.bar_r.draw()
-       
-       
-        index_der = list(range(1,len(defl_left_right_dict['right'])+1))
-        index_izq = list(range(1,len(defl_left_right_dict['left'])+1))
-        
         self.figure_bar_r.clear()
-        # self.figure_bar_l.clear()
+        self.figure_bar_l.clear()
 
         subfigure_der = self.figure_bar_r.add_subplot(211)
-        # subfigure_izq = self.figure_bar_l.add_subplot(211)
+        subfigure_izq = self.figure_bar_l.add_subplot(211)
+
+        index_der = list(range(1,len(defl_left_right_dict['right'])+1))
+        index_izq = list(range(1,len(defl_left_right_dict['left'])+1))
+
+        if(len(indexes) != (len(defl_left_right_dict['right']))):
+            print("Corrijo indices:",len(indexes))
+            indexes.append(len(indexes)+1)
+            print("Indexes corrijed:",len(indexes))
+        elif(len(indexes)==len(defl_left_right_dict['right'])):
+            print("Indices iguales!")
+
+        subfigure_der.bar(indexes, defl_left_right_dict['right'],width = 1)
+        subfigure_izq.bar(indexes, defl_left_right_dict['left'],width = 1)
+
+        print("Arg 0 derecha (index der):",len(index_der))
+        print("Arg 1 derecha len:",len(defl_left_right_dict['right']))
+        # print("Arg 0 derecha (index izq):",len(index_der))
+        print("Arg 1 derecha izq:",len(defl_left_right_dict['left']))
+        # print("REAL index IZQ:",len(index_izq))
+        # print("Indexes:",len(indexes))
 
         subfigure_der.set_title("Deflexion Derecha")
-        # subfigure_izq.set_title("Deflexion Izquierda")
+        subfigure_izq.set_title("Deflexion Izquierda")
 
         subfigure_der.set_xlim(0,1000)
-        # subfigure_izq.set_xlim(0,1000)
+        subfigure_izq.set_xlim(0,1000)
 
         # subfigure_der.set_ylim(0,100)
         # # # subfigure_izq.set_ylim(0,100)
 
         subfigure_der.set_xlabel("Nº grupo")
-         # subfigure_izq.set_xlabel("Nº grupo")
+        subfigure_izq.set_xlabel("Nº grupo")
 
         subfigure_der.set_ylabel("Deflexiones")
-         # subfigure_izq.set_ylabel("Deflexiones")
-
-        print("Arg 0 derecha (index der):",len(index_der))
-        print("Arg 1 derecha len:",len(defl_left_right_dict['right']))
-        # print("Arg 0 izquierda (index izq):",len(index_izq))
-        # print("Arg 1 izquierda len:",len(defl_left_right_dict['left']))
-
-        subfigure_der.bar(index_der, defl_left_right_dict['right'],width = 1)
-        # subfigure_izq.bar(index_izq, defl_left_right_dict['left'],width = 1)
+        subfigure_izq.set_ylabel("Deflexiones")
        
         subfigure_der.grid(axis='both',linestyle='dotted')
-         # subfigure_izq.grid(axis='both',linestyle='dotted')
+        subfigure_izq.grid(axis='both',linestyle='dotted')
 
         self.bar_r.draw()
-        # self.bar_l.draw()
+        self.bar_l.draw()
         
 
         

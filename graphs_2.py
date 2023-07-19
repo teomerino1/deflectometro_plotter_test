@@ -33,27 +33,18 @@ class Graphs2():
         # figure = Figure(figsize=(4, 5), dpi=90)
 
         sub_figure = figure.add_subplot(211)
-
         sub_figure.set_xlim(0,100)
-
         sub_figure.set_ylim(0,100)
-        
         sub_figure.set_title(title)
-
         sub_figure.set_xlabel("Nº Grupo")
-
         sub_figure.set_ylabel("Radio de Curvatura")
-
         sub_figure.scatter([], [])
-
         sub_figure.grid(axis='both',linestyle='dotted')
 
         graph = FigureCanvasTkAgg(figure, self.frame)
 
         graph_widget = graph.get_tk_widget()
-
         graph_widget.grid(row = row, column = column, columnspan = columnspan)
-
         return figure, graph, graph_widget
     
 
@@ -62,19 +53,15 @@ class Graphs2():
         if(lado == "Izquierdo"):
 
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
-           
             self.figure_rad_mean_l.clear()
 
             subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
 
             # subfigure2.set_xlim(0,100)
-
             subfigure_izq.set_ylim(0,100)
 
             subfigure_izq.set_title("Radio Izquierda")
-
             subfigure_izq.set_xlabel("Nº Grupo")
-
             subfigure_izq.set_ylabel("Radio de curvatura")
 
             subfigure_izq.plot(dict_l['Grupo'], dict_l['Radio'],'o-')
@@ -94,15 +81,11 @@ class Graphs2():
             # subfigure.set_xlim(0,100)
 
             subfigure_der.set_ylim(0,100)
-
             subfigure_der.set_title("Radio Derecha")
-
             subfigure_der.set_xlabel("Nº Grupo")
-
             subfigure_der.set_ylabel("Radio de curvatura")
 
             subfigure_der.plot(dict_r['Grupo'], dict_r['Radio'],'o-')
-
             subfigure_der.grid(axis='both',linestyle='dotted')
             
             self.rad_mean_r.draw()
@@ -114,12 +97,12 @@ class Graphs2():
         if(lado == "Izquierdo"):
 
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
-            # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,2,"Radio Izquierda")
+            
 
         if(lado == "Derecho"):
 
             self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
-            # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(4,0,1,"Radio Derecha")
+           
        
 
 

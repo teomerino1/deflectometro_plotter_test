@@ -42,42 +42,33 @@ class Plot2():
         if(a == 0):
 
             width = self.root.winfo_screenwidth()
-
             height = self.root.winfo_screenheight()
 
             third_plot_frame = Frame(self.root, width=width, height=height)
-
             self.third_plot_frame = third_plot_frame
 
             title = Label(third_plot_frame, text="Deflexiones y Radios: Lado Izquierdo",font=(None, 20)) 
-
             self.title=title
 
             back = Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
-
             self.back = back
 
             next = Button(third_plot_frame, text="Next", command=self.go_to_plot_3_from_plot2)
-
             self.next = next
 
             self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Izquierdo")
-
+            self.Graphs3 = graphs_3.Graphs3(self.third_plot_frame,lado="Izquierdo")
             # self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Derecho")
 
-            self.Graphs3 = graphs_3.Graphs3(self.third_plot_frame,lado="Izquierdo")
+            
 
             # self.Graphs3 = graphs_3.Graphs3(self.third_plot_frame,lado="Derecho")
 
         if(a == 1):
-
             # self.third_plot_frame.grid(rowspan=3,columnspan=3)
             self.third_plot_frame.grid(rowspan=10,columnspan=10)
-
             self.title.grid(row = 0, column = 0,sticky=NW)
-
             self.back.grid(row=1, column=0,sticky=NW)
-
             self.next.grid(row=2,column=0,sticky=NW)
 
 
