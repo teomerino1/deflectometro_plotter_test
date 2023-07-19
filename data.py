@@ -92,13 +92,13 @@ class Data():
         # self.radio_r.append(data[2]['valor'])
         # self.radio_l.append(data[3]['valor'])
 
-        self.defl_r_acum.append(data[0]['valor'])
-        self.defl_l_acum.append(data[1]['valor'])
-        self.radio_r_acum.append(data[2]['valor'])
-        self.radio_l_acum.append(data[3]['valor'])
-    
-        self.indices = list(range(1,len(self.defl_r_acum)+1))
-        print("Indexes:",len(self.indices))
+        # self.defl_r_acum.append(data[0]['valor'])
+        # self.defl_l_acum.append(data[1]['valor'])
+        # self.radio_r_acum.append(data[2]['valor'])
+        # self.radio_l_acum.append(data[3]['valor'])
+        # print("Defl r acum:",self.defl_r_acum)
+        # self.indices = list(range(1,len(self.defl_r_acum)+1))
+        # print("Indexes:",len(self.indices))
         # return deflexiones, indices
 
    
@@ -107,13 +107,13 @@ class Data():
 
         print("Soy el thread",threading.get_ident(),"En update structures")
 
-        # self.defl_r_acum.append(self.defl_r)
-        # self.defl_l_acum.append(self.defl_l)
-        # self.radio_r_acum.append(self.radio_r)
-        # self.radio_l_acum.append(self.radio_l)
-
-        # self.indices = list(range(1,len(self.defl_r_acum)+1))
-        # print("Indexes:",len(self.indices))
+        
+        self.defl_r_acum.extend(self.defl_r)
+        self.defl_l_acum.extend(self.defl_l)
+        self.radio_r_acum.extend(self.radio_r)
+        self.radio_l_acum.extend(self.radio_l)
+        self.indices = list(range(1,len(self.defl_r_acum)+1))
+        # print("Indexes:",self.indices)
 
         # Obtengo los promedios de cada cosa
         media_defl_r = round(np.mean(self.defl_r),2)
