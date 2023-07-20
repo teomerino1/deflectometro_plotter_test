@@ -154,12 +154,10 @@ class View():
         self.Plot3.close()
         self.Plot4.show(1)
 
-        
     def go_to_plot_3_from_plot_4(self):
 
         self.Plot4.close()
         self.Plot3.show(1)
-
 
     def go_to_plot_5_from_plot_4(self):
 
@@ -183,8 +181,10 @@ class View():
 
     # Metodo que manda a actualizar el gafico de barras 
     def update_bar_view(self, defl_left_right_dict,indexes):
-
         self.Plot.update_bar_plot(defl_left_right_dict,indexes)
+
+    def show_stats_in_plot(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq ,d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
+        self.Plot5.grid_stats(media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq ,d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad)
 
     def get_config(self):
         return self.Config.get_config()
@@ -195,8 +195,6 @@ class View():
     def on_plot(self):
         return self.is_plotting
     
-
-
     def interface_transition_function(self):
             while True:
                 # Utilizar una cola bloqueante para esperar a que se solicite una función de transición

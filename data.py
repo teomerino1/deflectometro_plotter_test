@@ -10,6 +10,8 @@ class Data():
 
     def __init__(self):
 
+
+
         self.data_acumulator = None # acumula todo lo que llega de la db
         self.deflexiones_acumulator = [] # acumula los valores de las deflexiones
         self.group_counter = 1 # Contador de grupos
@@ -58,8 +60,6 @@ class Data():
             "R*D":[],
             "D/R":[],
         } 
-   
-
 
     # Metodo toma lo que devuelve la base de datos y coloca las deflexiones y sus indices en un diccionario.
     def data_destruct(self,data,espesor,temp):
@@ -69,20 +69,20 @@ class Data():
         radio_r_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
 
-        print("Defl r sin compensar:",defl_r_aux)
-        print("Defl l sin compensar:",defl_l_aux)
+        # print("Defl r sin compensar:",defl_r_aux)
+        # print("Defl l sin compensar:",defl_l_aux)
         # print("Radio r sin compensar:",radio_r_aux)
         # print("Radio l sin compensar:",radio_l_aux)
 
-        defl_r_aux,defl_l_aux = self.compensate(defl_r_aux, defl_l_aux, espesor,temp)
+        defl_r_aux,defl_l_aux = self.compensate(defl_r_aux, defl_l_aux, espesor, temp)
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
         self.radio_r.append(radio_r_aux)
         self.radio_l.append(radio_l_aux)
         
-        print("Defl r compensada:",defl_r_aux)
-        print("Defl l compensada:",defl_l_aux)
+        # print("Defl r compensada:",defl_r_aux)
+        # print("Defl l compensada:",defl_l_aux)
         # print("Radio r compensada:",radio_r_aux)
         # print("Radio l compensada:",radio_l_aux)
 
@@ -175,29 +175,31 @@ class Data():
         media_rad_der =  round(np.mean(self.radio_r_acum),2)
         media_rad_izq = round(np.mean(self.defl_l_acum),2)
         
-        # Calculo de desviaciones estandar deflexiones
+        # # Calculo de desviaciones estandar deflexiones
         desv_defl_der = round(np.std(self.defl_r_acum))
         desv_defl_l = round(np.std(self.defl_l_acum))
 
-        # Calculo de coeficientes de variacion deflexiones
+        # # Calculo de coeficientes de variacion deflexiones
         coef_var_der = round(desv_defl_der/media_defl_der)*100
         coef_var_izq = round(desv_defl_l/media_defl_izq)*100
 
-        # Calculo de deflexion caracteristicas
+        # # Calculo de deflexion caracteristicas
         defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*z*ft*fh*fc
         defl_car_izq = round(media_defl_izq + (2*(np.std(self.defl_l_acum)*2)))*z*ft*fh*fc
 
-        # Calculo de D/R medio
-        d_r_der = media_defl_der/media_rad_der
-        d_r_izq = media_defl_izq/media_rad_izq
+        # # Calculo de D/R medio
+        d_r_der = round(media_defl_der/media_rad_der,2)
+        d_r_izq = round(media_defl_izq/media_rad_izq,2)
 
-        # Calculo de D*R medio
-        d_x_r_der = media_defl_der*media_rad_der
-        d_x_r_izq = media_defl_izq*media_rad_izq
+        # # Calculo de D*R medio
+        d_x_r_der = round(media_defl_der*media_rad_der,2)
+        d_x_r_izq = round(media_defl_izq*media_rad_izq,2)
 
-        # Calculo de total de mediciones
+        # # Calculo de total de mediciones
         total_mediciones_defl = len(self.defl_l_acum)
         total_mediciones_rad = len(self.radio_l_acum)
+
+        return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
 
 
     def get_data_dict(self):

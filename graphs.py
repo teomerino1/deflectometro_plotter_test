@@ -17,33 +17,25 @@ class Graphs():
         self.figure_rad_mean_r=None
         self.rad_mean_r=None
         
-        
-
     # Grafico que corresponde a las deflexiones individuales
     def bar_graph(self, row, column, columnspan,title):
         
         figure = Figure(figsize=(7, 7), dpi=100)
-
         sub_figure=figure.add_subplot(211)
 
         sub_figure.set_xlim(0,1000)
-
         sub_figure.set_ylim(0,100)
-
         sub_figure.set_title(title)
 
         sub_figure.set_xlabel("Nº grupo")
-
         sub_figure.set_ylabel("Deflexiones")
 
         sub_figure.bar([], [], width = 0.3, linewidth=0.1)
-
         sub_figure.grid(axis='both',linestyle='dotted')
 
         bar = FigureCanvasTkAgg(figure,self.frame)
 
         bar_widget = bar.get_tk_widget()
-
         bar_widget.grid(row = row, column = column, columnspan = columnspan)
 
         return figure, bar, bar_widget
@@ -99,28 +91,6 @@ class Graphs():
         self.bar_r.draw()
         self.bar_l.draw()
         
-
-        
-
-        
-
-        
-
-        
-
-       
-
-       
-
-        
-
-        
-
-       
-
-        
-
-    
 
     def show_bar_graph(self):
 

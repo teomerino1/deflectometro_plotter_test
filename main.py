@@ -6,6 +6,15 @@ from threading import Thread
 import threading
 
 
+def show_stats(View,Data,z,ft,fh,fc):
+    media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq ,d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =Data.calculate_stats(z,ft,fh,fc)
+    View.show_stats_in_plot(
+        media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
+        desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,
+        defl_car_der,defl_car_izq ,d_r_der,d_r_izq,
+        d_x_r_der, d_x_r_izq, 
+        total_mediciones_defl, total_mediciones_rad
+    )
 
 def update_all(View,dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,defl_left_right_dict,indexes):
 
@@ -24,10 +33,10 @@ def process_data(Reporter, View, Data):
     temp = int(view.temp)
     espesor =int(view.espesor)
 
-    z = view.z_ntry
-    ft = view.ft_ntry
-    fh = view.fh_ntry
-    fc = view.fc_ntry
+    z = int(view.z_ntry)
+    ft = int(view.ft_ntry)
+    fh = int(view.fh_ntry)
+    fc = int(view.fc_ntry)
 
     if z == '':
         z = 2
@@ -41,8 +50,7 @@ def process_data(Reporter, View, Data):
     print("Muestras:",muestras)
     print("Temp:",temp)
     print("Espesor:",espesor)
-    print("Temp type:",type(temp))
-
+    a=0
     while True:
         data, this_cycle = Reporter.get_new_measurements()
 
@@ -57,9 +65,15 @@ def process_data(Reporter, View, Data):
         
         # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        if(cantidad%20 == 0):
-
+        if(cantidad%5 == 0):
+            
             Data.update_structures()
+            a=a+1
+
+            if(a==1):
+                show_stats(View,Data,z,ft,fh,fc)
+
+            
             dict_r, dict_l = Data.get_data_dict()
             defl_l_max, defl_r_max = Data.get_max_defl()
             defl_l_car, defl_r_car = Data.get_std_defl()

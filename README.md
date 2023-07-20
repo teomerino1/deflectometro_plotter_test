@@ -118,3 +118,9 @@ Tabla 'mediciones_ciclo'
  Las hojas subsiguientes son el resto de los gráficos
  El numero de puesto de la base de datos determina el cambio entre medicion y medicion y hay que disparar el calculo estadistico
  La semana del 10 de Julio se necesita empezar a hacer pruebas
+
+ DUDAS REUNION VIERNES:
+ -Los valores de los Radios tambien se compensan? La formula va en valor absoluto? Por el -20
+ -Cuales van a ser el orden de los datos? En data[0], data[1], data[2] y data[3]. Cual es defl_r, defl_l, radio_r, radio_l
+ -Comentar lo de que las deflexiones individuales se actualicen tambien con el grupo. Por ejemplo, cada 50 mediciones
+ -Como son las formulas para el calculo estadistico RADIO CARACTERISTICO?
