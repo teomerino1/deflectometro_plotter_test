@@ -53,7 +53,7 @@ def process_data(Reporter, View, Data):
         
         # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        if(cantidad% 20 == 0):
+        if(cantidad%20 == 0):
 
             Data.update_structures()
             dict_r, dict_l = Data.get_data_dict()
