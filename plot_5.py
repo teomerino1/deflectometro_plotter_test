@@ -257,7 +257,7 @@ class Plot5():
         self.desv_std_der_value=Label(self.sixth_plot_frame, text=desv_defl_der,font=(None, 10)).grid(row=4+1, column=1)
         self.desv_std_izq_value=Label(self.sixth_plot_frame, text=desv_defl_l,font=(None, 10)).grid(row=15+2, column=1)
         self.coef_var_der_value=Label(self.sixth_plot_frame, text=coef_var_der,font=(None, 10)).grid(row=5+1, column=1)
-        self.coef_var_izq=Label(self.sixth_plot_frame, text=coef_var_izq,font=(None, 10)).grid(row=16+2, column=1)
+        self.coef_var_izq_value=Label(self.sixth_plot_frame, text=coef_var_izq,font=(None, 10)).grid(row=16+2, column=1)
         self.defl_car_der_value=Label(self.sixth_plot_frame, text=defl_car_der,font=(None, 10)).grid(row=6+1, column=1)
         self.defl_car_izq_value=Label(self.sixth_plot_frame, text=defl_car_izq,font=(None, 10)).grid(row=17+2, column=1)
         self.d_r_med_der_value=Label(self.sixth_plot_frame, text=d_r_der,font=(None, 10)).grid(row=11+1, column=1)

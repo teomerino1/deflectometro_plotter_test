@@ -65,15 +65,11 @@ def process_data(Reporter, View, Data):
         
         # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        if(cantidad%5 == 0):
+        if(cantidad%20 == 0):
             
             Data.update_structures()
             a=a+1
 
-            if(a==1):
-                show_stats(View,Data,z,ft,fh,fc)
-
-            
             dict_r, dict_l = Data.get_data_dict()
             defl_l_max, defl_r_max = Data.get_max_defl()
             defl_l_car, defl_r_car = Data.get_std_defl()
@@ -83,7 +79,10 @@ def process_data(Reporter, View, Data):
             update_all_thread = Thread(target=update_all,args=(View,dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,defl_left_right_dict,indexes))
             update_all_thread.daemon=True 
             update_all_thread.start()
-             
+
+            if(a==5):
+                show_stats(View,Data,z,ft,fh,fc)
+                break
         continue
         
 
