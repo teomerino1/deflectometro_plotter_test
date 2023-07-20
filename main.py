@@ -21,8 +21,8 @@ def process_data(Reporter, View, Data):
         if muestras is not None:
             break
 
-    temp = view.temp
-    espesor = view.espesor
+    temp = int(view.temp)
+    espesor =int(view.espesor)
 
     z = view.z_ntry
     ft = view.ft_ntry
@@ -39,6 +39,9 @@ def process_data(Reporter, View, Data):
         fc = 1
 
     print("Muestras:",muestras)
+    print("Temp:",temp)
+    print("Espesor:",espesor)
+    print("Temp type:",type(temp))
 
     while True:
         data, this_cycle = Reporter.get_new_measurements()
@@ -47,7 +50,8 @@ def process_data(Reporter, View, Data):
             # print("Estoy en None")
             continue
 
-        Data.data_destruct(data)
+        # Data.data_destruct(data)
+        Data.data_destruct(data,espesor,temp)
         cantidad=Data.cant_mediciones()
         print(cantidad)
         

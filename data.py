@@ -62,27 +62,27 @@ class Data():
 
 
     # Metodo toma lo que devuelve la base de datos y coloca las deflexiones y sus indices en un diccionario.
-    def data_destruct(self,data):
+    def data_destruct(self,data,espesor,temp):
 
         defl_r_aux=data[0]['valor']
         defl_l_aux=data[1]['valor']
         radio_r_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
 
-        # print("Defl r sin compensar:",defl_r_aux)
-        # print("Defl l sin compensar:",defl_l_aux)
+        print("Defl r sin compensar:",defl_r_aux)
+        print("Defl l sin compensar:",defl_l_aux)
         # print("Radio r sin compensar:",radio_r_aux)
         # print("Radio l sin compensar:",radio_l_aux)
 
-        # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux= self.compensate(defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux, espesor,temp)
+        defl_r_aux,defl_l_aux = self.compensate(defl_r_aux, defl_l_aux, espesor,temp)
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
         self.radio_r.append(radio_r_aux)
         self.radio_l.append(radio_l_aux)
         
-        # print("Defl r compensada:",defl_r_aux)
-        # print("Defl l compensada:",defl_l_aux)
+        print("Defl r compensada:",defl_r_aux)
+        print("Defl l compensada:",defl_l_aux)
         # print("Radio r compensada:",radio_r_aux)
         # print("Radio l compensada:",radio_l_aux)
 
@@ -154,13 +154,13 @@ class Data():
 
     
     # # Metodo que devuelve los datos compensados con respecto a la temperatura ingresada
-    def compensate(self,defl_r_aux, defl_l_aux, radio_r_aux, radio_l_aux,espesor,temp):
+    def compensate(self,defl_r_aux, defl_l_aux,espesor,temp):
 
-        defl_r_aux=defl_r_aux/((0.001*espesor*(temp-20))+1)
-        defl_l_aux=defl_l_aux/((0.001*espesor*(temp-20))+1) 
+        defl_r_aux=round((defl_r_aux/((0.001*espesor*(temp-20))+1)),2)
+        defl_l_aux=round((defl_l_aux/((0.001*espesor*(temp-20))+1)),2) 
         # radio_r_aux=radio_r_aux*fc
         # radio_l_aux=radio_l_aux*fc
-        return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
+        return defl_r_aux,defl_l_aux
        
 
     # Metodo donde se realizan los calculos de radio
