@@ -23,7 +23,7 @@ class Graphs():
         figure = Figure(figsize=(7, 7), dpi=100)
         sub_figure=figure.add_subplot(211)
 
-        sub_figure.set_xlim(0,1000)
+        # sub_figure.set_xlim(0,1000)
         sub_figure.set_ylim(0,100)
         sub_figure.set_title(title)
 
@@ -50,8 +50,8 @@ class Graphs():
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-        index_der = list(range(1,len(defl_left_right_dict['right'])+1))
-        index_izq = list(range(1,len(defl_left_right_dict['left'])+1))
+        # index_der = list(range(1,len(defl_left_right_dict['right'])+1))
+        # index_izq = list(range(1,len(defl_left_right_dict['left'])+1))
 
         if(len(indexes) != (len(defl_left_right_dict['right']))):
             print("Corrijo indices:",len(indexes))
@@ -60,21 +60,23 @@ class Graphs():
         elif(len(indexes)==len(defl_left_right_dict['right'])):
             print("Indices iguales!")
 
+        subfigure_der.set_xlim(0,1000)
+        subfigure_izq.set_xlim(0,1000)
+
         subfigure_der.bar(indexes, defl_left_right_dict['right'],width = 1)
         subfigure_izq.bar(indexes, defl_left_right_dict['left'],width = 1)
 
-        print("Arg 0 derecha (index der):",len(index_der))
-        print("Arg 1 derecha len:",len(defl_left_right_dict['right']))
-        # print("Arg 0 derecha (index izq):",len(index_der))
-        print("Arg 1 derecha izq:",len(defl_left_right_dict['left']))
+        # print("Arg 0 derecha (index der):",len(indexes))
+        # print("Arg 1 derecha len:",len(defl_left_right_dict['right']))
+        # # print("Arg 0 derecha (index izq):",len(index_der))
+        # print("Arg 1 derecha izq:",len(defl_left_right_dict['left']))
         # print("REAL index IZQ:",len(index_izq))
         # print("Indexes:",len(indexes))
 
         subfigure_der.set_title("Deflexion Derecha")
         subfigure_izq.set_title("Deflexion Izquierda")
 
-        subfigure_der.set_xlim(0,1000)
-        subfigure_izq.set_xlim(0,1000)
+        
 
         # subfigure_der.set_ylim(0,100)
         # # # subfigure_izq.set_ylim(0,100)

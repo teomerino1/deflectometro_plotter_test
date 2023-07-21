@@ -194,61 +194,36 @@ class Plot5():
         if(a == 1):
 
             self.sixth_plot_frame.grid(rowspan=3,columnspan=3)
-
             self.title.grid(row = 0, column = 0,sticky=NW)
-
             self.back.grid(row=1, column=0,sticky=NW)
-
             self.huella_ext.grid(row=2+1, column=0,sticky=NW)
-
             self.defl_media_der.grid(row=3+1, column=0)
-            
             self.desv_std_der.grid(row=4+1, column=0)
-
             self.coef_var_der.grid(row=5+1, column=0)
-
             self.defl_car_der.grid(row=6+1, column=0)
-
             self.total_med_defl_der.grid(row=7+1, column=0)
-
             self.radio_med_der.grid(row=8+1, column=0)
-
             self.radio_car_der.grid(row=9+1, column=0)
-
             self.total_med_rad_der.grid(row=10+1, column=0)
-
             self.d_r_med_der.grid(row=11+1, column=0)
-
             self.r_x_d_der.grid(row=12+1, column=0)
-
             self.whitespace.grid(row=12+2, column=0,sticky=NW)
-
             self.huella_int.grid(row=13+2, column=0,sticky=NW)
-            
             self.defl_media_izq.grid(row=14+2, column=0)
-
             self.desv_std_izq.grid(row=15+2, column=0)
-
             self.coef_var_izq.grid(row=16+2, column=0)
-
             self.defl_car_izq.grid(row=17+2, column=0)
-
             self.total_med_defl_izq.grid(row=18+2, column=0)
-
             self.radio_med_izq.grid(row=19+2, column=0)
-
             self.radio_car_izq.grid(row=20+2, column=0)
-
             self.total_med_rad_izq.grid(row=21+2, column=0)
-
             self.d_r_med_izq.grid(row=22+2, column=0)
-
             self.r_x_d_izq.grid(row=23+2, column=0)
 
     def go_to_plot_4_from_plot_5(self):
         self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
 
-    def grid_stats(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq ,d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
+    def grid_stats(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
         
         self.defl_media_der_value=Label(self.sixth_plot_frame, text=media_defl_r,font=(None, 10)).grid(row=3+1, column=1)
         self.defl_media_izq_value=Label(self.sixth_plot_frame, text=media_defl_izq,font=(None, 10)).grid(row=14+2, column=1)
@@ -260,6 +235,8 @@ class Plot5():
         self.coef_var_izq_value=Label(self.sixth_plot_frame, text=coef_var_izq,font=(None, 10)).grid(row=16+2, column=1)
         self.defl_car_der_value=Label(self.sixth_plot_frame, text=defl_car_der,font=(None, 10)).grid(row=6+1, column=1)
         self.defl_car_izq_value=Label(self.sixth_plot_frame, text=defl_car_izq,font=(None, 10)).grid(row=17+2, column=1)
+        self.radio_car_der_value=Label(self.sixth_plot_frame, text=rad_car_der,font=(None, 10)).grid(row=9+1, column=1)
+        self.radio_car_izq_value=Label(self.sixth_plot_frame, text=rad_car_izq,font=(None, 10)).grid(row=20+2, column=1)
         self.d_r_med_der_value=Label(self.sixth_plot_frame, text=d_r_der,font=(None, 10)).grid(row=11+1, column=1)
         self.d_r_med_izq_value=Label(self.sixth_plot_frame, text=d_r_izq,font=(None, 10)).grid(row=22+2, column=1)
         self.r_x_d_der_value_=Label(self.sixth_plot_frame, text=d_x_r_der,font=(None, 10)).grid(row=12+1, column=1)

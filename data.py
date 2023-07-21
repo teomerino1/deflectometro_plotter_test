@@ -10,8 +10,6 @@ class Data():
 
     def __init__(self):
 
-
-
         self.data_acumulator = None # acumula todo lo que llega de la db
         self.deflexiones_acumulator = [] # acumula los valores de las deflexiones
         self.group_counter = 1 # Contador de grupos
@@ -29,6 +27,11 @@ class Data():
         # Contienen las desviaciones estandar
         self.defl_l_car = []
         self.defl_r_car = []
+
+        # Unicamente para el ploteo de deflexiones individuales
+        self.defl_bar_l = []
+        self.defl_bar_r = []
+
 
         # Acumuladores que contienen todos los datos recolectados durante la ejecucion
         self.defl_r_acum = []
@@ -65,16 +68,19 @@ class Data():
     def data_destruct(self,data,espesor,temp):
 
         defl_r_aux=data[0]['valor']
-        defl_l_aux=data[1]['valor']
-        radio_r_aux=data[2]['valor']
+        radio_r_aux=data[1]['valor']
+        defl_l_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
+
+        self.defl_bar_l.append(defl_l_aux)
+        self.defl_bar_r.append(defl_r_aux)
 
         # print("Defl r sin compensar:",defl_r_aux)
         # print("Defl l sin compensar:",defl_l_aux)
         # print("Radio r sin compensar:",radio_r_aux)
         # print("Radio l sin compensar:",radio_l_aux)
 
-        defl_r_aux,defl_l_aux = self.compensate(defl_r_aux, defl_l_aux, espesor, temp)
+        # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux, espesor, temp)
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
@@ -86,33 +92,29 @@ class Data():
         # print("Radio r compensada:",radio_r_aux)
         # print("Radio l compensada:",radio_l_aux)
 
-        # # los indices pueden cambiar, definirlo con el cliente
-        # self.defl_r.append(data[0]['valor'])
-        # self.defl_l.append(data[1]['valor'])
-        # self.radio_r.append(data[2]['valor'])
-        # self.radio_l.append(data[3]['valor'])
 
-        # self.defl_r_acum.append(data[0]['valor'])
-        # self.defl_l_acum.append(data[1]['valor'])
-        # self.radio_r_acum.append(data[2]['valor'])
-        # self.radio_l_acum.append(data[3]['valor'])
+        self.defl_r_acum.append(data[0]['valor'])
+        self.radio_r_acum.append(data[1]['valor'])
+        self.defl_l_acum.append(data[2]['valor'])
+        self.radio_l_acum.append(data[3]['valor'])
+
         # print("Defl r acum:",self.defl_r_acum)
         # self.indices = list(range(1,len(self.defl_r_acum)+1))
+        self.indices = list(range(1,len(self.defl_bar_r)+1))
         # print("Indexes:",len(self.indices))
         # return deflexiones, indices
 
-   
+    
+
     # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
     def update_structures(self):
 
         print("Soy el thread",threading.get_ident(),"En update structures")
-
-        
-        self.defl_r_acum.extend(self.defl_r)
-        self.defl_l_acum.extend(self.defl_l)
-        self.radio_r_acum.extend(self.radio_r)
-        self.radio_l_acum.extend(self.radio_l)
-        self.indices = list(range(1,len(self.defl_r_acum)+1))
+        # self.defl_r_acum.extend(self.defl_r)
+        # self.defl_l_acum.extend(self.defl_l)
+        # self.radio_r_acum.extend(self.radio_r)
+        # self.radio_l_acum.extend(self.radio_l)
+        # self.indices = list(range(1,len(self.defl_r_acum)+1))
         # print("Indexes:",self.indices)
 
         # Obtengo los promedios de cada cosa
@@ -120,8 +122,6 @@ class Data():
         media_defl_l = round(np.mean(self.defl_l),2)
         media_radio_r = round(np.mean(self.radio_r),2)
         media_radio_l = round(np.mean(self.radio_l),2)
-
-       
 
         # Obtengo la deflexion caracteristica. Por el momento Z es igual a 2 y el resto (ft, fc, fh) es 1
         self.defl_l_car.append(  media_defl_l + (2*(np.std(self.defl_l)*2))  )
@@ -154,13 +154,13 @@ class Data():
 
     
     # # Metodo que devuelve los datos compensados con respecto a la temperatura ingresada
-    def compensate(self,defl_r_aux, defl_l_aux,espesor,temp):
+    def compensate(self,defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux,espesor,temp):
 
         defl_r_aux=round((defl_r_aux/((0.001*espesor*(temp-20))+1)),2)
         defl_l_aux=round((defl_l_aux/((0.001*espesor*(temp-20))+1)),2) 
-        # radio_r_aux=radio_r_aux*fc
-        # radio_l_aux=radio_l_aux*fc
-        return defl_r_aux,defl_l_aux
+        radio_r_aux=round((radio_r_aux/((0.001*espesor*(temp-20))+1)),2)
+        radio_l_aux=round((radio_l_aux/((0.001*espesor*(temp-20))+1)),2)
+        return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        
 
     # Metodo donde se realizan los calculos de radio
@@ -187,6 +187,10 @@ class Data():
         defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*z*ft*fh*fc
         defl_car_izq = round(media_defl_izq + (2*(np.std(self.defl_l_acum)*2)))*z*ft*fh*fc
 
+        # Calculo de radio caracteristico
+        rad_car_der = round(media_rad_der + (2*(np.std(self.radio_r_acum)*2)))*z*ft*fh*fc
+        rad_car_izq = round(media_rad_izq + (2*(np.std(self.radio_l_acum)*2)))*z*ft*fh*fc
+
         # # Calculo de D/R medio
         d_r_der = round(media_defl_der/media_rad_der,2)
         d_r_izq = round(media_defl_izq/media_rad_izq,2)
@@ -199,7 +203,7 @@ class Data():
         total_mediciones_defl = len(self.defl_l_acum)
         total_mediciones_rad = len(self.radio_l_acum)
 
-        return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
+        return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
 
 
     def get_data_dict(self):
@@ -220,7 +224,13 @@ class Data():
     def get_indexes(self):
         return self.indices
         # return self.hist_dict['index']
-    
+
+    def get_defl_bar(self):
+        return {
+                "right": self.defl_bar_r,
+                "left": self.defl_bar_l
+               }
+
     # Estas dos funciones se pueden usar para pasar los valores para el grafico de barras
     def get_defl(self):
         return {

@@ -7,19 +7,35 @@ import threading
 
 
 def show_stats(View,Data,z,ft,fh,fc):
-    media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq ,d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =Data.calculate_stats(z,ft,fh,fc)
+    media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =Data.calculate_stats(z,ft,fh,fc)
     View.show_stats_in_plot(
         media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
         desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,
-        defl_car_der,defl_car_izq ,d_r_der,d_r_izq,
+        defl_car_der,defl_car_izq ,rad_car_der, rad_car_izq,
+        d_r_der,d_r_izq,
         d_x_r_der, d_x_r_izq, 
         total_mediciones_defl, total_mediciones_rad
     )
 
-def update_all(View,dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,defl_left_right_dict,indexes):
+def update_all(Data,View):
 
-    View.update_bar_view(defl_left_right_dict,indexes)
+    # View.update_bar_view(defl_left_right_dict,indexes)
+    Data.update_structures()
+    dict_r, dict_l = Data.get_data_dict()
+    defl_l_max, defl_r_max = Data.get_max_defl()
+    defl_l_car, defl_r_car = Data.get_std_defl()
+    # defl_left_right_dict=Data.get_defl()
+    # indexes=Data.get_indexes()
     View.new_group_data_view(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car)
+
+def update_defl(Data,View):
+
+    # defl_left_right_dict = Data.get_defl()
+    defl_left_right_dict = Data.get_defl_bar()
+    indexes= Data.get_indexes()
+    View.update_bar_view(defl_left_right_dict,indexes)
+
+
 
 def process_data(Reporter, View, Data):
     Reporter.start()
@@ -59,30 +75,30 @@ def process_data(Reporter, View, Data):
             continue
 
         # Data.data_destruct(data)
+        a=a+1
         Data.data_destruct(data,espesor,temp)
         cantidad=Data.cant_mediciones()
         print(cantidad)
         
         # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        if(cantidad%20 == 0):
+        if(a==4):
+            a=0
+            update_bar_thread = Thread(target=update_defl,args=(Data,View))
+            update_bar_thread.daemon=True
+            update_bar_thread.start()
             
-            Data.update_structures()
-            a=a+1
 
-            dict_r, dict_l = Data.get_data_dict()
-            defl_l_max, defl_r_max = Data.get_max_defl()
-            defl_l_car, defl_r_car = Data.get_std_defl()
-            defl_left_right_dict=Data.get_defl()
-            indexes=Data.get_indexes()
-
-            update_all_thread = Thread(target=update_all,args=(View,dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,defl_left_right_dict,indexes))
+        if( cantidad%50 == 0 ):
+            
+            # a=a+1
+            update_all_thread = Thread(target=update_all,args=(Data,View))
             update_all_thread.daemon=True 
             update_all_thread.start()
 
-            if(a==5):
-                show_stats(View,Data,z,ft,fh,fc)
-                break
+            # if(a==20):
+            #     show_stats(View,Data,z,ft,fh,fc)
+            #     break
         continue
         
 
