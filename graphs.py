@@ -49,7 +49,7 @@ class Graphs():
     
     
     
-    def update_bar(self, defl_r,defl_l,indexes):
+    def update_bar(self, defl_r,defl_l):
 
         self.defl_r_data.extend(defl_r)
         self.defl_l_data.extend(defl_l)
@@ -69,9 +69,12 @@ class Graphs():
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
 
-        subfigure_der.set_xlim(0, 1000)
-        subfigure_izq.set_xlim(0, 1000)
+        # subfigure_der.set_xlim(0, 1000)
+        # subfigure_izq.set_xlim(0, 1000)
         
+        subfigure_der.set_xlim(0, len(self.defl_r_data))
+        subfigure_izq.set_xlim(0, len(self.defl_l_data))
+
 
         # Grafica todos los datos almacenados
         subfigure_der.bar(self.indexes, self.defl_r_data, width=1)

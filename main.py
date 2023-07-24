@@ -18,26 +18,17 @@ def show_stats(View,Data,z,ft,fh,fc):
     )
 
 def update_all(Data,View):
-
-    # View.update_bar_view(defl_left_right_dict,indexes)
     Data.update_structures()
     dict_r, dict_l = Data.get_data_dict()
     defl_l_max, defl_r_max = Data.get_max_defl()
     defl_l_car, defl_r_car = Data.get_std_defl()
-    # defl_left_right_dict=Data.get_defl()
-    # indexes=Data.get_indexes()
     View.new_group_data_view(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car)
 
 def update_defl(Data,View):
-    # defl_left_right_dict = Data.get_defl()
     defl_r, defl_l = Data.update_bar_data()
-    indexes= Data.get_indexes()
-    # print("Indices:",indexes)
-    # print("Defl r:",defl_r)
-    View.update_bar_view(defl_r,defl_l,indexes)
+    # indexes= Data.get_indexes()
+    View.update_bar_view(defl_r,defl_l)
     Data.clear_bar_data()
-
-
 
 def process_data(Reporter, View, Data):
     Reporter.start()
@@ -85,7 +76,7 @@ def process_data(Reporter, View, Data):
         
         # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        if(a==6):
+        if( a==6 ):
             a=0
             update_bar_thread = Thread(target=update_defl,args=(Data,View))
             update_bar_thread.daemon=True

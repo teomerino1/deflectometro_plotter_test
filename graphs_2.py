@@ -22,15 +22,12 @@ class Graphs2():
 
 
     def show(self,lado):
-
         self.show_radio_gmean_graph(lado)
 
     
     def radio_gmean_graph(self,row, column, columnspan,title):
         
         figure = Figure(figsize=(6, 7), dpi=100)
-
-        # figure = Figure(figsize=(4, 5), dpi=90)
 
         sub_figure = figure.add_subplot(211)
         sub_figure.set_xlim(0,100)
@@ -45,6 +42,7 @@ class Graphs2():
 
         graph_widget = graph.get_tk_widget()
         graph_widget.grid(row = row, column = column, columnspan = columnspan)
+
         return figure, graph, graph_widget
     
 
@@ -81,6 +79,7 @@ class Graphs2():
             # subfigure.set_xlim(0,100)
 
             subfigure_der.set_ylim(0,100)
+            
             subfigure_der.set_title("Radio Derecha")
             subfigure_der.set_xlabel("Nº Grupo")
             subfigure_der.set_ylabel("Radio de curvatura")

@@ -66,7 +66,7 @@ class Graphs3():
 
             subfigure_izq = self.figure_rad_mean_l.add_subplot(211)
             subfigure_izq.set_title("Deflexiones Izquierda")
-            subfigure_izq.set_xlim(0,80)
+            # subfigure_izq.set_xlim(0,80)
             subfigure_izq.set_ylim(0,100)  
             subfigure_izq.set_xlabel("Progresivas")
             subfigure_izq.set_ylabel("Deflexiones")
@@ -86,7 +86,7 @@ class Graphs3():
             subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
             subfigure_der.set_title("Deflexiones Derecha")
-            subfigure_der.set_xlim(0,80)
+            # subfigure_der.set_xlim(0,80)
             subfigure_der.set_ylim(0,100)
             subfigure_der.set_xlabel("Progresivas")
             subfigure_der.set_ylabel("Deflexiones")

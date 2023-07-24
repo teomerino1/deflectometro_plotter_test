@@ -55,49 +55,37 @@ class Graphs4():
     def update_deflexiones_radios_graph(self, dict_r, dict_l):
 
         self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
-        
-        self.figure_rad_mean_l.clear()
-
-        subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
-
-        subfigure_izq.set_xlabel("Radio")
-
-        subfigure_izq.set_ylabel("Defl")
-
-        subfigure_izq.set_xlim(0,20)
-
-        # subfigure2.set_ylim(0,100)
-
-        subfigure_izq.set_title("Informe estadistico: Lado Izquierdo")
-
-        subfigure_izq.scatter(dict_l['Grupo'], dict_l['Radio'], color = 'r')
-
-        subfigure_izq.grid(axis='both',linestyle='dotted')
-    
-        self.rad_mean_l.draw()
-
-
         self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.deflexiones_radios_graph(3,1,1,"Informe estadistico: Lado Derecho")
 
+        self.figure_rad_mean_l.clear()
         self.figure_rad_mean_r.clear()
 
+        subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
         subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
+        subfigure_izq.set_xlabel("Radio")
+        subfigure_izq.set_ylabel("Defl")
         subfigure_der.set_xlabel("Radio")
-
         subfigure_der.set_ylabel("Defl")
 
-        subfigure_der.set_xlim(0,20)
-
-        # subfigure.set_ylim(0,100)
-
+        subfigure_izq.set_title("Informe estadistico: Lado Izquierdo")
         subfigure_der.set_title("Informe estadistico: Lado Derecho")
 
+        subfigure_izq.scatter(dict_l['Grupo'], dict_l['Radio'], color = 'r')
+        subfigure_izq.grid(axis='both',linestyle='dotted')
         subfigure_der.scatter(dict_r['Grupo'], dict_r['Radio'], color = 'r')
-
         subfigure_der.grid(axis='both',linestyle='dotted')
-        
+
+        self.rad_mean_l.draw()
         self.rad_mean_r.draw()
+        
+        # subfigure_izq.set_xlim(0,20)
+        # subfigure2.set_ylim(0,100)
+
+        # subfigure_der.set_xlim(0,20)
+        # subfigure.set_ylim(0,100)
+
+        
 
 
     def show_defl_radios_graph(self):

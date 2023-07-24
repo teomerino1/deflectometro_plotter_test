@@ -98,9 +98,9 @@ class Plot():
 
         self.second_plot_frame.grid(ipadx=10, ipady=5)
 
-    def update_bar_plot(self, defl_r,defl_l,indexes):
-
-        self.Graphs.update_bar(defl_r,defl_l,indexes)
+    def update_bar_plot(self, defl_r,defl_l):
+        
+        self.Graphs.update_bar(defl_r,defl_l)
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
     def new_group_data_plot(self,dict_r, dict_l):
@@ -108,8 +108,6 @@ class Plot():
         self.Table.insert(dict_r, dict_l)
 
     def go_to_plot_2_from_plot_1(self):
-        # Encolar la función en la cola del hilo de la clase View
-        # print("go to plot 1 from plot 2")
         self.view_instance.enqueue_transition('go_to_plot_2_from_plot_1')
         
     def go_to_config(self):

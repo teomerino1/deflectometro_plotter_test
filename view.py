@@ -11,6 +11,7 @@ import plot_3
 import plot_4
 import plot_5
 import queue
+import time
 class View():
     def __init__(self, root):
 
@@ -112,15 +113,6 @@ class View():
         self.Plot.close()
         self.Config.show()
 
-    # def go_to_config(self):
-    #     def thread_funcion():
-    #         self.Plot.close()
-
-    #         self.Config.show()
-
-    #     thread= threading.Thread(target=thread_funcion)
-    #     thread.start()
-
     # # Metodo que borra el Plot 1 y abre el Plot 2
     def go_to_plot_2_from_plot_1(self):
 
@@ -180,8 +172,8 @@ class View():
         
 
     # Metodo que manda a actualizar el gafico de barras 
-    def update_bar_view(self, defl_r,defl_l,indexes):
-        self.Plot.update_bar_plot(defl_r,defl_l,indexes)
+    def update_bar_view(self, defl_r,defl_l):
+        self.Plot.update_bar_plot(defl_r,defl_l)
 
     def show_stats_in_plot(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
         self.Plot5.grid_stats(media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad)
@@ -232,6 +224,10 @@ class View():
                 # Indicar que la función se ha procesado y la cola puede esperar nuevamente
                 self.interface_transition_queue.task_done()
 
+                # Pequeño descanso entre actualizaciones de la interfaz para no sobrecargar la CPU
+                time.sleep(0.2)  # Ajusta el tiempo de sleep según tus necesidades
+
+
     def enqueue_transition(self, function_name):
         self.interface_transition_queue.put(function_name)
 
@@ -248,291 +244,5 @@ class View():
 
 
 
-
-
-
-
-
-
-
-# import tkinter as tk
-# from tkinter import *
-# from tkinter.ttk import Scrollbar
-# import threading
-# from threading import Thread
-# from tkinter.ttk import Style
-# import config
-# import plot
-# import plot_2
-# import plot_3
-# import plot_4
-# import plot_5
-
-# class View():
-#     def __init__(self, root):
-
-#         # variable globales
-#         global temp
-#         global grupos
-#         global muestras
-#         global espesor 
-#         global fh_ntry
-#         global ft_ntry 
-#         global fc_ntry
-#         global z_ntry
-    
-#         temp = None
-#         grupos = None
-#         muestras = None
-#         espesor = None
-#         ft_ntry = None
-#         fh_ntry = None
-#         fc_ntry = None
-#         z_ntry = None
-        
-#         #Se crean los objetos Plot y Config como atributos de view 
-#         self.Config = config.Config(root, self.go_to_plot1_from_config)
-
-#         self.Plot = plot.Plot(root, self.go_to_config, self.go_to_plot_2_from_plot_1)
-
-#         self.Plot2 = plot_2.Plot2(root, self.go_to_plot_1_from_plot_2, self.go_to_plot_3_from_plot2)
-
-#         self.Plot3 = plot_3.Plot3(root, self.go_to_plot_2_from_plot_3, self.go_to_plot_4_from_plot_3)
-
-#         self.Plot4 = plot_4.Plot4(root, self.go_to_plot_3_from_plot_4, self.go_to_plot_5_from_plot_4)
-
-#         self.Plot5 = plot_5.Plot5(root,self.go_to_plot_4_from_plot_5)
-
-#         self.is_plotting = False
-        
-#         self.start(root)
-
-#         self.first_time_plot=True
-        
-#         self.first_time_plot2=True
-       
-
-#         # self.Plot.show()
-
-#      # Metodo que inicializa la view:
-#     def start(self,root):
-
-#         #Se ejecuta el metodo show de Config para que aparezca la ventana principal
-#         self.Config.show()
-
-#         root.title('Deflectómetro')
-
-#         root.tk.call("source", "azure.tcl")
-
-#         root.tk.call("set_theme", "light")
-
-#         style = Style(root)
-
-#         screen_width = root.winfo_screenwidth()
-
-#         screen_height = root.winfo_screenheight()
-
-#         root.geometry(f"{screen_width}x{screen_height}")
-
-#         ###############################################
-
-#         self.Plot.show(0)
-
-#         self.Plot2.show(0)
-
-#         self.Plot3.show(0)
-
-#         self.Plot4.show(0)
-
-#         self.Plot5.show(0)
-
-
-#      # Metodo que borra el frame Config y abre el Plot1
-#     def go_to_plot1_from_config(self):
-
-#         self.is_plotting = True
-
-#         if(self.first_time_plot):
-
-#             self.first_time_plot=False
-
-#             self.Config.close()
-
-#             self.Plot.show(1)
-
-#             self.Plot2.show(0)
-
-#         else:
-
-#             self.Config.close()
-
-#             self.Plot.show(1)
-
-
-    
-       
-
-#     # Metodo que borra el Plot 1 y abre el de Config
-#     def go_to_config(self):
-
-#         self.Plot.close()
-
-#         self.Config.show()
-
-#     # def go_to_config(self):
-#     #     def thread_funcion():
-#     #         self.Plot.close()
-
-#     #         self.Config.show()
-
-#     #     thread= threading.Thread(target=thread_funcion)
-#     #     thread.start()
-
-#     # # Metodo que borra el Plot 1 y abre el Plot 2
-#     def go_to_plot_2_from_plot_1(self):
-
-#         if(self.first_time_plot2):
-
-#             self.first_time_plot2=False
-
-#             self.Plot.close()
-
-#             self.Plot2.show(1)
-
-#         else:
-
-#             self.Plot.close()
-
-#             self.Plot2.show(1)
-
-
-#     # # Metodo que borra el Plot 1 y abre el Plot 2
-#     # def go_to_plot_2_from_plot_1(self):
-#     #     def thread_funcion():
-
-#     #         if(self.first_time_plot2):
-
-#     #             self.first_time_plot2=False
-
-#     #             self.Plot.close()
-
-#     #             self.Plot2.show(1)
-
-#     #         else:
-
-#     #             self.Plot.close()
-
-#     #             self.Plot2.show(1)
-#     #     thread= threading.Thread(target=thread_funcion)
-#     #     thread.start()
-
-    
-
-#     # Metodo que borra el Plot 2 y abre el Plot 1
-#     def go_to_plot_1_from_plot_2(self):
-
-#         self.Plot2.close()
-
-#         self.Plot.show(1)
-
-#     #  # Metodo que borra el Plot 2 y abre el Plot 1
-#     # def go_to_plot_1_from_plot_2(self):
-#     #     def thread_funcion():
-#     #         self.Plot2.close()
-
-#     #         self.Plot.show(1)
-#     #     thread=threading.Thread(target=thread_funcion)
-#     #     thread.start()
-        
-
-#     def go_to_plot_3_from_plot2(self):
-
-#         self.Plot2.close()
-
-#         self.Plot3.show(1)
-
-#     # def go_to_plot_3_from_plot2(self):
-#     #     def thread_function():
-
-#     #         self.Plot2.close()
-
-#     #         self.Plot3.show(1)
-#     #     thread=threading.Thread(target=thread_function)
-#     #     thread.start()
-
-
-#     def go_to_plot_2_from_plot_3(self):
-        
-#         self.Plot3.close()
-       
-#         self.Plot2.show(1)
-
-#     # def go_to_plot_2_from_plot_3(self):
-#     #     def thread_function():
-#     #         self.Plot3.close()
-        
-#     #         self.Plot2.show(1)
-#     #     thread=threading.Thread(target=thread_function)
-#     #     thread.start()
-
-
-
-#     def go_to_plot_4_from_plot_3(self):
-        
-#         self.Plot3.close()
-
-#         self.Plot4.show(1)
-
-#     # def go_to_plot_4_from_plot_3(self):
-#     #     def thread_function():
-#     #         self.Plot3.close()
-
-#     #         self.Plot4.show(1)
-#     #     thread=threading.Thread(target=thread_function)
-#     #     thread.start()
-        
-#     def go_to_plot_3_from_plot_4(self):
-
-#         self.Plot4.close()
-
-#         self.Plot3.show(1)
-
-#     # def go_to_plot_3_from_plot_4(self):
-#     #     def thread_function():
-#     #         self.Plot4.close()
-
-#     #         self.Plot3.show(1)
-#     #     thread=threading.Thread(target=thread_function)
-#     #     thread.start()
-
-
-#     def go_to_plot_5_from_plot_4(self):
-
-#         self.Plot4.close()
-
-#         self.Plot5.show(1)
-
-        
-#     # def go_to_plot_5_from_plot_4(self):
-#     #     def thread_function():
-#     #         self.Plot4.close()
-
-#     #         self.Plot5.show(1)
-#     #     thread=threading.Thread(target=thread_function)
-#     #     thread.start()
-
-#     def go_to_plot_4_from_plot_5(self):
-
-#         self.Plot5.close()
-
-#         self.Plot4.show(1)
-
-    # def go_to_plot_4_from_plot_5(self):
-    #     def thread_function():
-    #         self.Plot5.close()
-
-    #         self.Plot4.show(1)
-    #     thread=threading.Thread(target=thread_function)
-    #     thread.start()
      
     

@@ -87,7 +87,7 @@ class Data():
         self.defl_l_acum.append(data[2]['valor'])
         self.radio_l_acum.append(data[3]['valor'])
 
-        self.indices = list(range(1,len(self.defl_bar_r)+1))
+        # self.indices = list(range(1,len(self.defl_bar_r)+1))
        
     # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
 
@@ -102,9 +102,6 @@ class Data():
     def clear_bar_data(self):
         self.defl_bar_r.clear()
         self.defl_bar_l.clear()
-
-
-
 
     def update_structures(self):
 
