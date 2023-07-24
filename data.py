@@ -72,50 +72,44 @@ class Data():
         defl_l_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
 
-        self.defl_bar_l.append(defl_l_aux)
-        self.defl_bar_r.append(defl_r_aux)
-
-        # print("Defl r sin compensar:",defl_r_aux)
-        # print("Defl l sin compensar:",defl_l_aux)
-        # print("Radio r sin compensar:",radio_r_aux)
-        # print("Radio l sin compensar:",radio_l_aux)
-
         # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux, espesor, temp)
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
         self.radio_r.append(radio_r_aux)
         self.radio_l.append(radio_l_aux)
-        
-        # print("Defl r compensada:",defl_r_aux)
-        # print("Defl l compensada:",defl_l_aux)
-        # print("Radio r compensada:",radio_r_aux)
-        # print("Radio l compensada:",radio_l_aux)
 
+        # self.defl_bar_l.append(defl_l_aux)
+        # self.defl_bar_r.append(defl_r_aux)
 
         self.defl_r_acum.append(data[0]['valor'])
         self.radio_r_acum.append(data[1]['valor'])
         self.defl_l_acum.append(data[2]['valor'])
         self.radio_l_acum.append(data[3]['valor'])
 
-        # print("Defl r acum:",self.defl_r_acum)
-        # self.indices = list(range(1,len(self.defl_r_acum)+1))
         self.indices = list(range(1,len(self.defl_bar_r)+1))
-        # print("Indexes:",len(self.indices))
-        # return deflexiones, indices
-
-    
-
+       
     # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
+
+    def update_bar_data(self):
+        self.defl_bar_r.extend(self.defl_r_acum)
+        self.defl_bar_l.extend(self.defl_l_acum)
+        self.defl_r_acum.clear()
+        self.defl_l_acum.clear()
+        return self.defl_bar_l,self.defl_bar_l
+
+
+    def clear_bar_data(self):
+        self.defl_bar_r.clear()
+        self.defl_bar_l.clear()
+
+
+
+
     def update_structures(self):
 
         print("Soy el thread",threading.get_ident(),"En update structures")
-        # self.defl_r_acum.extend(self.defl_r)
-        # self.defl_l_acum.extend(self.defl_l)
-        # self.radio_r_acum.extend(self.radio_r)
-        # self.radio_l_acum.extend(self.radio_l)
-        # self.indices = list(range(1,len(self.defl_r_acum)+1))
-        # print("Indexes:",self.indices)
+
 
         # Obtengo los promedios de cada cosa
         media_defl_r = round(np.mean(self.defl_r),2)
@@ -222,14 +216,13 @@ class Data():
         return len(self.defl_r)
     
     def get_indexes(self):
+        # self.indices = list(range(1,len(self.defl_bar_r)+1))
         return self.indices
         # return self.hist_dict['index']
 
     def get_defl_bar(self):
-        return {
-                "right": self.defl_bar_r,
-                "left": self.defl_bar_l
-               }
+        return  self.defl_bar_r, self.defl_bar_l
+               
 
     # Estas dos funciones se pueden usar para pasar los valores para el grafico de barras
     def get_defl(self):

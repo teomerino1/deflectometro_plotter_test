@@ -98,9 +98,9 @@ class Plot():
 
         self.second_plot_frame.grid(ipadx=10, ipady=5)
 
-    def update_bar_plot(self, defl_left_right_dict,indexes):
+    def update_bar_plot(self, defl_r,defl_l,indexes):
 
-        self.Graphs.update_bar(defl_left_right_dict,indexes)
+        self.Graphs.update_bar(defl_r,defl_l,indexes)
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
     def new_group_data_plot(self,dict_r, dict_l):
