@@ -30,7 +30,7 @@ def update_defl(Data,View):
     View.update_bar_view(defl_r,defl_l)
     Data.clear_bar_data()
 
-def process_data(Reporter, View, Data):
+def process_data(Reporter, View, Data,a):
     Reporter.start()
 
     while True:
@@ -60,7 +60,7 @@ def process_data(Reporter, View, Data):
     print("Temp:",temp)
     print("Espesor:",espesor)
 
-    a=0
+   
     while True:
         data, this_cycle = Reporter.get_new_measurements()
 
@@ -69,15 +69,15 @@ def process_data(Reporter, View, Data):
             continue
 
         # Data.data_destruct(data)
-        a=a+1
+       
         Data.data_destruct(data,espesor,temp)
         cantidad=Data.cant_mediciones()
         print(cantidad)
         
         # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        if( a==6 ):
-            a=0
+        if( cantidad%6==0 ):
+            
             update_bar_thread = Thread(target=update_defl,args=(Data,View))
             update_bar_thread.daemon=True
             update_bar_thread.start()
@@ -99,14 +99,14 @@ def process_data(Reporter, View, Data):
 def main():
     root = tk.Tk()
     
-    
+    a=0
     Reporter = reporter.Reporter()
     Data = data.Data()
 
     View = view.View(root,Data)
     
     # Crear y ejecutar el hilo para procesar los datos
-    data_thread = Thread(target=process_data, args=(Reporter, View, Data))
+    data_thread = Thread(target=process_data, args=(Reporter, View, Data,a))
     data_thread.daemon = True
     data_thread.start()
     

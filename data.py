@@ -46,6 +46,7 @@ class Data():
             "defl": []
         }
 
+        
         # dict que va a contener los datos que se van a mostrar por tabla
         # tambien se usan en los ploteos
         self.data_dict_r = {
@@ -245,7 +246,8 @@ class Data():
         self.defl_bar_l.clear()
         self.defl_bar_r.clear()
         self.hist_dict.clear()
-        self.group_counter = 1 
+        self.group_counter = 1
+        
         self.data_dict_r = {
             "Grupo":[],
             "Radio":[],
