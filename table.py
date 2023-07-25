@@ -55,9 +55,7 @@ class Table():
         self.table.configure(height=7)
 
         # Crear el Scrollbar
-
         scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
-
         scrollbar.grid(row=3, column=4, sticky="ns")
         
         self.table.configure(yscrollcommand=scrollbar.set)
@@ -79,7 +77,17 @@ class Table():
             self.table.heading(column, text=header)
             self.table.column(column, anchor=CENTER, width=100)
 
+  
+    def clear_table(self):
+        # Elimina todos los elementos de la tabla
+        self.table.delete(*self.table.get_children())
 
+    def reset(self):
+        # Agrega aquí cualquier otra lógica específica para reiniciar la tabla
+        # Si tienes algún estado inicial para la tabla, puedes restaurarlo aquí
+        self.clear_table()
+        # Agrega aquí cualquier otro proceso que necesites realizar para reiniciar la tabla
+        self.show(self)
 
 
 

@@ -227,3 +227,38 @@ class Data():
                 "right": self.defl_r_acum,
                 "left": self.defl_l_acum
                }
+    
+    def reset_all(self):
+        self.defl_r.clear()
+        self.defl_l.clear()
+        self.radio_r.clear()
+        self.radio_l.clear()
+        self.defl_l_max.clear()
+        self.defl_r_max.clear()
+        self.defl_r_car.clear()
+        self.defl_l_car.clear()
+        self.defl_l_acum.clear()
+        self.defl_r_acum.clear()
+        self.radio_l_acum.clear()
+        self.radio_r_acum.clear()
+        self.indices.clear()
+        self.defl_bar_l.clear()
+        self.defl_bar_r.clear()
+        self.hist_dict.clear()
+        self.group_counter = 1 
+        self.data_dict_r = {
+            "Grupo":[],
+            "Radio":[],
+            "Defl.":[],
+            "R*D":[],
+            "D/R":[],
+        } 
+        self.data_dict_l = {
+            "Grupo":[],
+            "Radio":[],
+            "Defl.":[],
+            "R*D":[],
+            "D/R":[],
+        } 
+        print("Data dict r",self.data_dict_r)
+        

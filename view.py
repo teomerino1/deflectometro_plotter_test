@@ -13,7 +13,7 @@ import plot_5
 import queue
 import time
 class View():
-    def __init__(self, root):
+    def __init__(self, root,data_instance):
 
         # variable globales
         global temp
@@ -33,6 +33,7 @@ class View():
         fh_ntry = None
         fc_ntry = None
         z_ntry = None
+        self.data_instance = data_instance
         
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(root, self.go_to_plot1_from_config,self)
@@ -162,6 +163,7 @@ class View():
         self.Plot4.show(1)
 
     def reset_all_plots(self):
+        self.Plot.reset_table()
         self.Plot.reset()
         self.Plot2.reset()
         self.Plot3.reset()
@@ -172,6 +174,7 @@ class View():
         self.Plot3.show(0)
         self.Plot4.show(0)
         self.Plot5.show(0)
+        self.data_instance.reset_all()
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):

@@ -94,12 +94,10 @@ class Graphs2():
     def show_radio_gmean_graph(self,lado):
 
         if(lado == "Izquierdo"):
-
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
             
 
         if(lado == "Derecho"):
-
             self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
            
        

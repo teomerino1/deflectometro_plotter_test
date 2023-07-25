@@ -82,7 +82,7 @@ def process_data(Reporter, View, Data):
             update_bar_thread.daemon=True
             update_bar_thread.start()
 
-        if( cantidad%50 == 0 ):
+        if( cantidad%10 == 0 ):
             
             # a=a+1
             update_all_thread = Thread(target=update_all,args=(Data,View))
@@ -98,10 +98,12 @@ def process_data(Reporter, View, Data):
         
 def main():
     root = tk.Tk()
-    View = view.View(root)
+    
     
     Reporter = reporter.Reporter()
     Data = data.Data()
+
+    View = view.View(root,Data)
     
     # Crear y ejecutar el hilo para procesar los datos
     data_thread = Thread(target=process_data, args=(Reporter, View, Data))

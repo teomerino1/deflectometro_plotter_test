@@ -115,6 +115,9 @@ class Plot():
     def go_to_config(self):
         self.view_instance.enqueue_transition('go_to_config')
 
+    def reset_table(self):
+        self.Table.reset()
+
     
    
 
