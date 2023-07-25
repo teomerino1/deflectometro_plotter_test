@@ -30,37 +30,49 @@ def update_defl(Data,View):
     View.update_bar_view(defl_r,defl_l)
     Data.clear_bar_data()
 
-def process_data(Reporter, View, Data,a):
+# def obtain_values():
+    
+#     while True:
+#         muestras = view.muestras
+
+#         if muestras is not None:
+#             break
+
+#     temp = int(view.temp)
+#     espesor =int(view.espesor)
+
+#     z = int(view.z_ntry)
+#     ft = int(view.ft_ntry)
+#     fh = int(view.fh_ntry)
+#     fc = int(view.fc_ntry)
+
+#     if z == '':
+#         z = 2
+#     if ft == '':
+#         ft = 1
+#     if fh == '':
+#         fh = 1
+#     if fc == '':
+#         fc = 1
+
+#     print("Muestras:",muestras)
+#     print("Temp:",temp)
+#     print("Espesor:",espesor)
+#     return muestras,temp,espesor,z,ft,fh,fc
+
+
+def process_data(Reporter, View, Data):
+    
     Reporter.start()
-
+    # temp,grupos,muestras,espesor,ft,fh,fc,z = View.obtain_values()
     while True:
-        muestras = view.muestras
-
-        if muestras is not None:
+        temp,grupos,muestras,espesor,ft,fh,fc,z = View.obtain_values()
+        if temp or espesor is not None:
             break
 
-    temp = int(view.temp)
-    espesor =int(view.espesor)
-
-    z = int(view.z_ntry)
-    ft = int(view.ft_ntry)
-    fh = int(view.fh_ntry)
-    fc = int(view.fc_ntry)
-
-    if z == '':
-        z = 2
-    if ft == '':
-        ft = 1
-    if fh == '':
-        fh = 1
-    if fc == '':
-        fc = 1
-
-    print("Muestras:",muestras)
-    print("Temp:",temp)
     print("Espesor:",espesor)
+    print("Temp:",temp)
 
-   
     while True:
         data, this_cycle = Reporter.get_new_measurements()
 
@@ -68,8 +80,7 @@ def process_data(Reporter, View, Data,a):
             # print("Estoy en None")
             continue
 
-        # Data.data_destruct(data)
-       
+        
         Data.data_destruct(data,espesor,temp)
         cantidad=Data.cant_mediciones()
         print(cantidad)
@@ -99,14 +110,14 @@ def process_data(Reporter, View, Data,a):
 def main():
     root = tk.Tk()
     
-    a=0
+    
     Reporter = reporter.Reporter()
     Data = data.Data()
 
     View = view.View(root,Data)
     
     # Crear y ejecutar el hilo para procesar los datos
-    data_thread = Thread(target=process_data, args=(Reporter, View, Data,a))
+    data_thread = Thread(target=process_data, args=(Reporter, View, Data))
     data_thread.daemon = True
     data_thread.start()
     

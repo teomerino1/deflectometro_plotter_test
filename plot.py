@@ -66,14 +66,14 @@ class Plot():
             title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 25)) 
             self.title = title
             
-            temperatura = Label(second_plot_frame, text= "Temperatura: %s"%(view.temp))
-            self.temperatura = temperatura
+            # temperatura = Label(second_plot_frame, text= "Temperatura: %s"%(view.temp))
+            # self.temperatura = temperatura
 
-            muestras = Label(second_plot_frame, text="Muestras: %s"%(view.grupos))
-            self.muestras = muestras 
+            # muestras = Label(second_plot_frame, text="Muestras: %s"%(view.grupos))
+            # self.muestras = muestras 
 
-            grupos = Label(second_plot_frame, text="Grupos: %s"%(view.muestras))
-            self.grupos = grupos 
+            # grupos = Label(second_plot_frame, text="Grupos: %s"%(view.muestras))
+            # self.grupos = grupos 
 
             atras = Button(second_plot_frame, text="Atras", command=self.go_to_config)
             self.atras = atras 
@@ -89,9 +89,9 @@ class Plot():
 
             self.second_plot_frame.grid(ipadx=10, ipady=5)
             self.title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
-            self.temperatura.grid(row=1, column=0, sticky="nw")
-            self.muestras.grid(row=1, column=1 ,sticky="nw")
-            self.grupos.grid(row=2, column=0, sticky="nw")
+            # self.temperatura.grid(row=1, column=0, sticky="nw")
+            # self.muestras.grid(row=1, column=1 ,sticky="nw")
+            # self.grupos.grid(row=2, column=0, sticky="nw")
             self.atras.grid(row=3, column=0, sticky="nw")
             self.next.grid(row=4, column=0,sticky="nw")
             

@@ -16,23 +16,23 @@ class View():
     def __init__(self, root,data_instance):
 
         # variable globales
-        global temp
-        global grupos
-        global muestras
-        global espesor 
-        global fh_ntry
-        global ft_ntry 
-        global fc_ntry
-        global z_ntry
+        # global temp
+        # global grupos
+        # global muestras
+        # global espesor 
+        # global fh_ntry
+        # global ft_ntry 
+        # global fc_ntry
+        # global z_ntry
     
-        temp = None
-        grupos = None
-        muestras = None
-        espesor = None
-        ft_ntry = None
-        fh_ntry = None
-        fc_ntry = None
-        z_ntry = None
+        self.temp = None
+        self.grupos = None
+        self.muestras = None
+        self.espesor = None
+        self.ft_ntry = None
+        self.fh_ntry = None
+        self.fc_ntry = None
+        self.z_ntry = None
         self.data_instance = data_instance
         
         #Se crean los objetos Plot y Config como atributos de view 
@@ -175,6 +175,14 @@ class View():
         self.Plot4.show(0)
         self.Plot5.show(0)
         self.data_instance.reset_all()
+        self.temp=None
+        self.grupos=None
+        self.muestras=None
+        self.espesor=None
+        self.ft=None
+        self.fh=None
+        self.fc=None
+        self.z=None
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
@@ -201,6 +209,60 @@ class View():
     
     def on_plot(self):
         return self.is_plotting
+    
+    def obtain_values(self):
+    
+       return self.temp, self.grupos, self.muestras, self.espesor, self.ft_ntry, self.fh_ntry, self.fc_ntry, self.z_ntry
+
+    def set_temp(self,temp):
+        self.data_instance.set_temp(temp)
+        self.temp=temp
+
+    def get_temp(self):
+        return self.temp
+
+    def set_grupos(self,grupos):
+        self.grupos=grupos
+
+    def get_grupos(self):
+        return self.grupos
+
+    def set_muestras(self,muestras):
+        self.muestras=muestras
+
+    def get_muestras(self):
+        return self.muestras
+
+    def set_espesor(self,espesor):
+        self.data_instance.set_espesor(espesor)
+        self.espesor=espesor
+
+    def get_espesor(self):
+        return self.espesor
+
+    def set_ft(self,ft):
+        self.ft_ntry=ft
+
+    def get_ft(self):
+        return self.ft_ntry
+
+    def set_fh(self,fh):
+        self.fh_ntry=fh
+
+    def get_fh(self):
+        return self.fh_ntry
+
+    def set_fc(self,fc):
+        self.fc_ntry=fc
+
+    def get_fc(self):
+        return self.fc_ntry
+    
+    def set_z(self,z):
+        self.z_ntry=z 
+
+    def get_z(self):
+        return self.z_ntry
     
     def interface_transition_function(self):
             while True:

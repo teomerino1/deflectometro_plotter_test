@@ -138,7 +138,15 @@ class Config():
         Button(config_frame, text="Resetear", command=self.reset_all_plots).grid(row=11, column=0)
 
     def close(self):
-        view.temp, view.muestras, view.grupos, view.espesor ,view.ft_ntry, view.fh_ntry, view.fc_ntry, view.z_ntry= self.get_config()
+        # view.temp, view.muestras, view.grupos, view.espesor ,view.ft_ntry, view.fh_ntry, view.fc_ntry, view.z_ntry= self.get_config()
+        self.view_instance.set_temp(self.temp_ntry.get())
+        self.view_instance.set_espesor(self.espesor.get())
+        # self.view_instance.set_grupos(self.grupos_ntry_50.get())
+        self.view_instance.set_muestras(self.muestras_ntry.get())
+        self.view_instance.set_ft(self.ft_ntry.get())
+        self.view_instance.set_fh(self.fh_ntry.get())
+        self.view_instance.set_fc(self.fc_ntry.get())
+        self.view_instance.set_z(self.z_ntry.get())
         self.config_frame.grid_forget()
         
 

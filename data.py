@@ -40,6 +40,11 @@ class Data():
         self.radio_l_acum = []
         self.indices = []
 
+        # Variables para el calculo de compensacion
+
+        self.temp = None 
+        self.espesor = None
+
         # dict individual para el histograma de mediciones
         self.hist_dict = {
             "index":[],
@@ -67,6 +72,10 @@ class Data():
 
     # Metodo toma lo que devuelve la base de datos y coloca las deflexiones y sus indices en un diccionario.
     def data_destruct(self,data,espesor,temp):
+
+        # print("Muestras:",muestras)
+        print("Temp:",self.temp)
+        print("Espesor:",self.espesor)   
 
         defl_r_aux=data[0]['valor']
         radio_r_aux=data[1]['valor']
@@ -229,6 +238,12 @@ class Data():
                 "left": self.defl_l_acum
                }
     
+    def set_espesor(self,espesor):
+        self.espesor=espesor
+
+    def set_temp(self,temp):
+        self.temp=temp
+    
     def reset_all(self):
         self.defl_r.clear()
         self.defl_l.clear()
@@ -247,7 +262,6 @@ class Data():
         self.defl_bar_r.clear()
         self.hist_dict.clear()
         self.group_counter = 1
-        
         self.data_dict_r = {
             "Grupo":[],
             "Radio":[],
