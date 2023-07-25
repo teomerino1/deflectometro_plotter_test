@@ -4,7 +4,7 @@ import view
 
 
 class Config():
-    def __init__(self, root, go_to_plot1_from_config):
+    def __init__(self, root, go_to_plot1_from_config,view_instance):
         
         self.root = root
         self.config_frame = None
@@ -23,7 +23,7 @@ class Config():
         self.tramo_ntry = None
         self.subtramo_ntry = None
         self.pav_ntry = None
-        
+        self.view_instance = view_instance
         self.go_to_plot1_from_config = go_to_plot1_from_config
 
 
@@ -133,18 +133,20 @@ class Config():
         pav_ntry.grid(row=5+1,column=4,sticky="NE")
         self.pav_ntry = pav_ntry
 
-
-
         Button(config_frame, text="Confirmar", command=self.go_to_plot1_from_config).grid(row=9, column=0)
 
-    def close(self):
-       
-        view.temp, view.muestras, view.grupos, view.espesor ,view.ft_ntry, view.fh_ntry, view.fc_ntry, view.z_ntry= self.get_config()
+        Button(config_frame, text="Resetear", command=self.reset_all_plots).grid(row=11, column=0)
 
+    def close(self):
+        view.temp, view.muestras, view.grupos, view.espesor ,view.ft_ntry, view.fh_ntry, view.fc_ntry, view.z_ntry= self.get_config()
         self.config_frame.grid_forget()
         
 
     def get_config(self):
-
         return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.espesor.get(), self.ft_ntry.get(), self.fh_ntry.get(), self.fc_ntry.get(), self.z_ntry.get()
     
+    def reset(self):
+        self.config_frame.destroy()
+
+    def reset_all_plots(self):
+        self.view_instance.enqueue_transition('reset_all_plots')

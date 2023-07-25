@@ -35,7 +35,7 @@ class View():
         z_ntry = None
         
         #Se crean los objetos Plot y Config como atributos de view 
-        self.Config = config.Config(root, self.go_to_plot1_from_config)
+        self.Config = config.Config(root, self.go_to_plot1_from_config,self)
 
         # self.Plot = plot.Plot(root, self.go_to_config, self.go_to_plot_2_from_plot_1)
         self.Plot = plot.Plot(root, self)
@@ -161,6 +161,18 @@ class View():
         self.Plot5.close()
         self.Plot4.show(1)
 
+    def reset_all_plots(self):
+        self.Plot.reset()
+        self.Plot2.reset()
+        self.Plot3.reset()
+        self.Plot4.reset()
+        self.Plot5.reset()
+        self.Plot.show(0)
+        self.Plot2.show(0)
+        self.Plot3.show(0)
+        self.Plot4.show(0)
+        self.Plot5.show(0)
+
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
 
@@ -220,6 +232,9 @@ class View():
 
                 elif target_function == 'go_to_plot_4_from_plot_5':
                     self.go_to_plot_4_from_plot_5()
+
+                elif target_function == 'reset_all_plots':
+                    self.reset_all_plots()
 
                 # Indicar que la función se ha procesado y la cola puede esperar nuevamente
                 self.interface_transition_queue.task_done()

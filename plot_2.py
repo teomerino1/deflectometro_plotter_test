@@ -33,9 +33,10 @@ class Plot2():
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
-
         self.third_plot_frame.grid_forget()
 
+    def reset(self):
+        self.third_plot_frame.destroy()
 
     def show(self,a):
        

@@ -102,6 +102,9 @@ class Plot5():
         self.sixth_plot_frame.grid_forget()
 
 
+    def reset(self):
+        self.sixth_plot_frame.destroy()
+
     def show(self,a):
        
         if(a == 0):

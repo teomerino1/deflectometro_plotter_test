@@ -33,9 +33,11 @@ class Plot4():
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
-
         self.fifht_plot_frame.grid_forget()
 
+
+    def reset(self):
+        self.fifht_plot_frame.destroy()
 
     def show(self,a):
        
