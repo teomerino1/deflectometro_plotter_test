@@ -44,6 +44,10 @@ class Data():
 
         self.temp = None 
         self.espesor = None
+        self.ft= None
+        self.fh=None
+        self.fc=None
+        self.z = None
 
         # dict individual para el histograma de mediciones
         self.hist_dict = {
@@ -168,7 +172,7 @@ class Data():
     def calculations_data():
         None # TODO
 
-    def calculate_stats(self,z,ft,fh,fc): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo
+    def calculate_stats(self): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo
 
         # Calculo de medias para mediciones totales de cada cosa
         media_defl_der = round(np.mean(self.defl_r_acum),2)
@@ -185,12 +189,12 @@ class Data():
         coef_var_izq = round(desv_defl_l/media_defl_izq)*100
 
         # # Calculo de deflexion caracteristicas
-        defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*z*ft*fh*fc
-        defl_car_izq = round(media_defl_izq + (2*(np.std(self.defl_l_acum)*2)))*z*ft*fh*fc
+        defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*self.z*self.ft*self.fh*self.fc
+        defl_car_izq = round(media_defl_izq + (2*(np.std(self.defl_l_acum)*2)))*self.z*self.ft*self.fh*self.fc
 
         # Calculo de radio caracteristico
-        rad_car_der = round(media_rad_der + (2*(np.std(self.radio_r_acum)*2)))*z*ft*fh*fc
-        rad_car_izq = round(media_rad_izq + (2*(np.std(self.radio_l_acum)*2)))*z*ft*fh*fc
+        rad_car_der = round(media_rad_der + (2*(np.std(self.radio_r_acum)*2)))*self.z*self.ft*self.fh*self.fc
+        rad_car_izq = round(media_rad_izq + (2*(np.std(self.radio_l_acum)*2)))*self.z*self.ft*self.fh*self.fc
 
         # # Calculo de D/R medio
         d_r_der = round(media_defl_der/media_rad_der,2)
@@ -243,6 +247,18 @@ class Data():
 
     def set_temp(self,temp):
         self.temp=temp
+
+    def set_ft(self,ft):
+        self.ft=ft 
+
+    def set_fc(self,fc):
+        self.fc=fc 
+    
+    def set_fh(self,fh):
+        self.fh=fh 
+
+    def set_z(self,z):
+        self.z=z
     
     def reset_all(self):
         self.defl_r.clear()

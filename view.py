@@ -211,7 +211,6 @@ class View():
         return self.is_plotting
     
     def obtain_values(self):
-    
        return self.temp, self.grupos, self.muestras, self.espesor, self.ft_ntry, self.fh_ntry, self.fc_ntry, self.z_ntry
 
     def set_temp(self,temp):
@@ -241,24 +240,28 @@ class View():
         return self.espesor
 
     def set_ft(self,ft):
+        self.data_instance.set_ft(ft)
         self.ft_ntry=ft
 
     def get_ft(self):
         return self.ft_ntry
 
     def set_fh(self,fh):
+        self.data_instance.set_fc(fh)
         self.fh_ntry=fh
 
     def get_fh(self):
         return self.fh_ntry
 
     def set_fc(self,fc):
+        self.data_instance.set_fc(fc)
         self.fc_ntry=fc
 
     def get_fc(self):
         return self.fc_ntry
     
     def set_z(self,z):
+        self.data_instance.set_z(z)
         self.z_ntry=z 
 
     def get_z(self):

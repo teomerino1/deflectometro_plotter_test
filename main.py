@@ -93,7 +93,7 @@ def process_data(Reporter, View, Data):
             update_bar_thread.daemon=True
             update_bar_thread.start()
 
-        if( cantidad%10 == 0 ):
+        if( cantidad%50 == 0 ):
             
             # a=a+1
             update_all_thread = Thread(target=update_all,args=(Data,View))
