@@ -75,7 +75,7 @@ class Data():
         } 
 
     # Metodo toma lo que devuelve la base de datos y coloca las deflexiones y sus indices en un diccionario.
-    def data_destruct(self,data,espesor,temp):
+    def data_destruct(self,data):
 
         # print("Muestras:",muestras)
         print("Temp:",self.temp)
@@ -86,7 +86,7 @@ class Data():
         defl_l_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
 
-        # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux, espesor, temp)
+        # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux)
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
@@ -106,6 +106,8 @@ class Data():
     # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
 
     def update_bar_data(self):
+        print("Defl r acum:",self.defl_r_acum)
+        print("Defl r bar:",self.defl_r)
         self.defl_bar_r.extend(self.defl_r_acum)
         self.defl_bar_l.extend(self.defl_l_acum)
         self.defl_r_acum.clear()
@@ -120,8 +122,6 @@ class Data():
     def update_structures(self):
 
         print("Soy el thread",threading.get_ident(),"En update structures")
-
-
         # Obtengo los promedios de cada cosa
         media_defl_r = round(np.mean(self.defl_r),2)
         media_defl_l = round(np.mean(self.defl_l),2)
@@ -159,12 +159,12 @@ class Data():
 
     
     # # Metodo que devuelve los datos compensados con respecto a la temperatura ingresada
-    def compensate(self,defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux,espesor,temp):
+    def compensate(self,defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux):
 
-        defl_r_aux=round((defl_r_aux/((0.001*espesor*(temp-20))+1)),2)
-        defl_l_aux=round((defl_l_aux/((0.001*espesor*(temp-20))+1)),2) 
-        radio_r_aux=round((radio_r_aux/((0.001*espesor*(temp-20))+1)),2)
-        radio_l_aux=round((radio_l_aux/((0.001*espesor*(temp-20))+1)),2)
+        defl_r_aux=round((defl_r_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
+        defl_l_aux=round((defl_l_aux/((0.001*self.espesor*(self.temp-20))+1)),2) 
+        radio_r_aux=round((radio_r_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
+        radio_l_aux=round((radio_l_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
         return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        
 
@@ -189,6 +189,14 @@ class Data():
         coef_var_izq = round(desv_defl_l/media_defl_izq)*100
 
         # # Calculo de deflexion caracteristicas
+        print("Media defl der:",media_defl_der)
+        print("Media defl der type:",type(media_defl_der))
+        print("Defl r acum:",self.defl_r_acum)
+        print("Defl r acum type:",type(self.defl_r_acum))
+        print("Ft:",self.ft)
+        print("Fh:",self.fh)
+        print("Fc:",self.fc)
+        print("z:",self.z)
         defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*self.z*self.ft*self.fh*self.fc
         defl_car_izq = round(media_defl_izq + (2*(np.std(self.defl_l_acum)*2)))*self.z*self.ft*self.fh*self.fc
 
@@ -247,18 +255,28 @@ class Data():
 
     def set_temp(self,temp):
         self.temp=temp
+        print("Set TEMP:",self.temp)
+        print("Temp TYPE:",type(self.temp))
 
     def set_ft(self,ft):
-        self.ft=ft 
+        self.ft=ft
+        print("Set FT:",self.ft)
+        print("FT TYPE:",type(self.ft)) 
 
     def set_fc(self,fc):
-        self.fc=fc 
+        self.fc=fc
+        print("Set FC:",self.fc)
+        print("FC TYPE:",type(self.fc)) 
     
     def set_fh(self,fh):
-        self.fh=fh 
+        self.fh=fh
+        print("Set FH:",self.fh)
+        print("FH TYPE:",type(self.fh)) 
 
     def set_z(self,z):
         self.z=z
+        print("Set Z:",self.z)
+        print("Z TYPE:",type(self.z))
     
     def reset_all(self):
         self.defl_r.clear()

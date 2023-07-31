@@ -139,14 +139,22 @@ class Config():
 
     def close(self):
         # view.temp, view.muestras, view.grupos, view.espesor ,view.ft_ntry, view.fh_ntry, view.fc_ntry, view.z_ntry= self.get_config()
-        self.view_instance.set_temp(self.temp_ntry.get())
-        self.view_instance.set_espesor(self.espesor.get())
-        self.view_instance.set_grupos(self.var.get())
-        self.view_instance.set_muestras(self.muestras_ntry.get())
-        self.view_instance.set_ft(self.ft_ntry.get())
-        self.view_instance.set_fh(self.fh_ntry.get())
-        self.view_instance.set_fc(self.fc_ntry.get())
-        self.view_instance.set_z(self.z_ntry.get())
+        self.view_instance.set_temp(int(self.temp_ntry.get()))
+        
+        self.view_instance.set_espesor(int(self.espesor.get()))
+        
+        self.view_instance.set_grupos(int(self.var.get()))
+        
+        # self.view_instance.set_muestras(int(self.muestras_ntry.get()))
+        
+        self.view_instance.set_ft(int(self.ft_ntry.get()))
+       
+        self.view_instance.set_fh(int(self.fh_ntry.get()))
+       
+        self.view_instance.set_fc(int(self.fc_ntry.get()))
+        
+        self.view_instance.set_z(int(self.z_ntry.get()))
+        
         self.config_frame.grid_forget()
         
 

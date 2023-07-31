@@ -247,7 +247,7 @@ class View():
         return self.ft_ntry
 
     def set_fh(self,fh):
-        self.data_instance.set_fc(fh)
+        self.data_instance.set_fh(fh)
         self.fh_ntry=fh
 
     def get_fh(self):
@@ -303,6 +303,17 @@ class View():
 
                 elif target_function == 'reset_all_plots':
                     self.reset_all_plots()
+
+                elif target_function == 'generate_stats':
+                    media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =self.data_instance.calculate_stats()
+                    self.show_stats_in_plot(
+                        media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
+                        desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,
+                        defl_car_der,defl_car_izq ,rad_car_der, rad_car_izq,
+                        d_r_der,d_r_izq,
+                        d_x_r_der, d_x_r_izq, 
+                        total_mediciones_defl, total_mediciones_rad
+                    )
 
                 # Indicar que la función se ha procesado y la cola puede esperar nuevamente
                 self.interface_transition_queue.task_done()

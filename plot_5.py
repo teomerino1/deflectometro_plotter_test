@@ -124,7 +124,7 @@ class Plot5():
             back = Button(sixth_plot_frame, text="Atrás", command=self.go_to_plot_4_from_plot_5)
             self.back = back
 
-            stats = Button(sixth_plot_frame, text="Generar Cálculos", command=self.go_to_plot_4_from_plot_5)
+            stats = Button(sixth_plot_frame, text="Generar Cálculos", command=self.generate_stats)
             self.stats = stats
 
             huella_ext = Label(sixth_plot_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 20))
@@ -228,8 +228,7 @@ class Plot5():
             self.d_r_med_izq.grid(row=22+2, column=0)
             self.r_x_d_izq.grid(row=23+2, column=0)
 
-    def go_to_plot_4_from_plot_5(self):
-        self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
+    
 
     def grid_stats(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
         
@@ -253,3 +252,9 @@ class Plot5():
         self.total_med_defl_izq_value=Label(self.sixth_plot_frame, text=total_mediciones_defl,font=(None, 10)).grid(row=18+2, column=1)
         self.total_med_rad_der_value=Label(self.sixth_plot_frame, text=total_mediciones_rad,font=(None, 10)).grid(row=10+1, column=1)
         self.total_med_rad_izq_value=Label(self.sixth_plot_frame, text=total_mediciones_rad,font=(None, 10)).grid(row=21+2, column=1)
+
+    def go_to_plot_4_from_plot_5(self):
+        self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
+
+    def generate_stats(self):
+        self.view_instance.enqueue_transition('generate_stats')

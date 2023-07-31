@@ -30,59 +30,34 @@ def update_defl(Data,View):
     View.update_bar_view(defl_r,defl_l)
     Data.clear_bar_data()
 
-# def obtain_values():
-    
-#     while True:
-#         muestras = view.muestras
-
-#         if muestras is not None:
-#             break
-
-#     temp = int(view.temp)
-#     espesor =int(view.espesor)
-
-#     z = int(view.z_ntry)
-#     ft = int(view.ft_ntry)
-#     fh = int(view.fh_ntry)
-#     fc = int(view.fc_ntry)
-
-#     if z == '':
-#         z = 2
-#     if ft == '':
-#         ft = 1
-#     if fh == '':
-#         fh = 1
-#     if fc == '':
-#         fc = 1
-
-#     print("Muestras:",muestras)
-#     print("Temp:",temp)
-#     print("Espesor:",espesor)
-#     return muestras,temp,espesor,z,ft,fh,fc
-
 
 def process_data(Reporter, View, Data):
     
-    Reporter.start()
+    
     # temp,grupos,muestras,espesor,ft,fh,fc,z = View.obtain_values()
     while True:
         temp,grupos,muestras,espesor,ft,fh,fc,z = View.obtain_values()
-        if temp or espesor is not None:
+        if temp and espesor and grupos and ft and fh and fc and z is not None:
             break
 
-    print("Espesor:",espesor)
-    print("Temp:",temp)
-    print("Grupos:",grupos)
+    # print("Espesor:",espesor)
+    # print("Temp:",temp)
+    # print("Grupos:",grupos)
+    # print("Ft:",ft)
+    # print("Fh:",fh)
+    # print("Fc:",fc)
+    # print("Z:",z)
+    Reporter.start()
 
     while True:
         data, this_cycle = Reporter.get_new_measurements()
-
+        
         if data is None or this_cycle is None:
             # print("Estoy en None")
             continue
 
         
-        Data.data_destruct(data,espesor,temp)
+        Data.data_destruct(data)
         cantidad=Data.cant_mediciones()
         print(cantidad)
         
