@@ -40,13 +40,7 @@ def process_data(Reporter, View, Data):
         if temp and espesor and grupos and ft and fh and fc and z is not None:
             break
 
-    # print("Espesor:",espesor)
-    # print("Temp:",temp)
-    # print("Grupos:",grupos)
-    # print("Ft:",ft)
-    # print("Fh:",fh)
-    # print("Fc:",fc)
-    # print("Z:",z)
+    
     Reporter.start()
 
     while True:

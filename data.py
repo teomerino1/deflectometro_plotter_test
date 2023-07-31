@@ -32,7 +32,7 @@ class Data():
         self.defl_bar_l = []
         self.defl_bar_r = []
 
-
+        
         # Acumuladores que contienen todos los datos recolectados durante la ejecucion
         self.defl_r_acum = []
         self.defl_l_acum = []
@@ -106,13 +106,13 @@ class Data():
     # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
 
     def update_bar_data(self):
-        print("Defl r acum:",self.defl_r_acum)
-        print("Defl r bar:",self.defl_r)
-        self.defl_bar_r.extend(self.defl_r_acum)
-        self.defl_bar_l.extend(self.defl_l_acum)
-        self.defl_r_acum.clear()
-        self.defl_l_acum.clear()
-        return self.defl_bar_l,self.defl_bar_l
+        self.defl_bar_r.extend(self.defl_r[-6:])
+        self.defl_bar_l.extend(self.defl_l[-6:])
+        # self.defl_r_acum.clear()
+        # self.defl_l_acum.clear()
+        print("Defl r:",self.defl_r)
+        print("Lo que voy a grafica:",self.defl_bar_r)
+        return self.defl_bar_r,self.defl_bar_l
 
 
     def clear_bar_data(self):
