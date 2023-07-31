@@ -56,7 +56,7 @@ class Config():
         self.temp_ntry = temp_ntry
         
         # grupos
-        Label(config_frame, text="Tamanio de grupos:").grid(row=2, column=0)
+        Label(config_frame, text="Tamaño de grupos:").grid(row=2, column=0)
         var = tk.IntVar()
         self.var = var
         grupos_ntry_50 = Radiobutton(config_frame,text='50', variable=var, value=50)
@@ -141,7 +141,7 @@ class Config():
         # view.temp, view.muestras, view.grupos, view.espesor ,view.ft_ntry, view.fh_ntry, view.fc_ntry, view.z_ntry= self.get_config()
         self.view_instance.set_temp(self.temp_ntry.get())
         self.view_instance.set_espesor(self.espesor.get())
-        # self.view_instance.set_grupos(self.grupos_ntry_50.get())
+        self.view_instance.set_grupos(self.var.get())
         self.view_instance.set_muestras(self.muestras_ntry.get())
         self.view_instance.set_ft(self.ft_ntry.get())
         self.view_instance.set_fh(self.fh_ntry.get())

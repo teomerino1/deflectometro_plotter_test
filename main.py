@@ -72,6 +72,7 @@ def process_data(Reporter, View, Data):
 
     print("Espesor:",espesor)
     print("Temp:",temp)
+    print("Grupos:",grupos)
 
     while True:
         data, this_cycle = Reporter.get_new_measurements()
@@ -87,13 +88,13 @@ def process_data(Reporter, View, Data):
         
         # View.update_bar_view(Data.get_defl())
         # Actualizar el gráfico de barras en un hilo separado
-        if( cantidad%6==0 ):
+        if(cantidad%6 == 0):
             
             update_bar_thread = Thread(target=update_defl,args=(Data,View))
             update_bar_thread.daemon=True
             update_bar_thread.start()
 
-        if( cantidad%50 == 0 ):
+        if(cantidad% grupos == 0):
             
             # a=a+1
             update_all_thread = Thread(target=update_all,args=(Data,View))
@@ -103,7 +104,7 @@ def process_data(Reporter, View, Data):
             # if(a==20):
             #     show_stats(View,Data,z,ft,fh,fc)
             #     break
-        continue
+        
         
 
         
