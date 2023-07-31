@@ -24,7 +24,8 @@ class Plot5():
         # self.second_plot_frame = None
         self.sixth_plot_frame = None
         self.title = None
-        self.back = None  
+        self.back = None
+        self.stats = None  
         # self.go_to_plot_4_from_plot_5 = go_to_plot_4_from_plot_5
         self.view_instance = view_instance
         self.Graphs2 = None
@@ -123,6 +124,9 @@ class Plot5():
             back = Button(sixth_plot_frame, text="Atrás", command=self.go_to_plot_4_from_plot_5)
             self.back = back
 
+            stats = Button(sixth_plot_frame, text="Generar Cálculos", command=self.go_to_plot_4_from_plot_5)
+            self.stats = stats
+
             huella_ext = Label(sixth_plot_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 20))
             self.huella_ext = huella_ext
 
@@ -199,6 +203,7 @@ class Plot5():
             self.sixth_plot_frame.grid(rowspan=3,columnspan=3)
             self.title.grid(row = 0, column = 0,sticky=NW)
             self.back.grid(row=1, column=0,sticky=NW)
+            self.stats.grid(row=1,column=1)
             self.huella_ext.grid(row=2+1, column=0,sticky=NW)
             self.defl_media_der.grid(row=3+1, column=0)
             self.desv_std_der.grid(row=4+1, column=0)
