@@ -13,7 +13,7 @@ import plot_5
 import queue
 import time
 class View():
-    def __init__(self, root,data_instance):
+    def __init__(self, root,data_instance,reporter_instance):
 
         # variable globales
         # global temp
@@ -34,6 +34,7 @@ class View():
         self.fc_ntry = None
         self.z_ntry = None
         self.data_instance = data_instance
+        self.reporter_instance = reporter_instance
         
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(root, self.go_to_plot1_from_config,self)
@@ -175,6 +176,7 @@ class View():
         self.Plot4.show(0)
         self.Plot5.show(0)
         self.data_instance.reset_all()
+        self.reporter_instance.reset_reporter()
         self.temp=None
         self.grupos=None
         self.muestras=None

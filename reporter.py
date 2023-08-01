@@ -87,8 +87,10 @@ class Reporter():
         self.puesto = 0  # Registro del puesto actual, todas las mediciones deben pertenecer al mismo puesto
         self.database = db.Database()
         self.puesto_changed = 0
+        self.start()
 
     def start(self):
+        print("ARRANCO")
         self.get_last_measurement()
 
     def set_puesto_change(self, value):
@@ -103,9 +105,8 @@ class Reporter():
         if result:
             self.puesto = result[0]['nro_puesto']
             self.last_cicle = result[0]['nro_ciclo']
-            # print("Result:",result)
-            # print("Puesto:",self.puesto)
-            # print("Ciclo:",self.last_cicle)
+            print("Puesto:",self.puesto)
+            print("Last cicle:",self.last_cicle)
             
 
     def get_last_puesto(self):
@@ -132,6 +133,10 @@ class Reporter():
             return self.last_measurement_data, self.last_cicle
 
         return None, None
+    
+    def reset_reporter(self):
+        self.set_puesto_change(value=0)
+        self.start()
 
 
 

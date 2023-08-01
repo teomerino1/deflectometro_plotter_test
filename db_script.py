@@ -25,7 +25,9 @@ if __name__ == "__main__":
     cursor = conn.cursor(buffered=True,dictionary=True)
 
     #Obtengo el ultimo numero de ciclo y apunto el cursor ahi
-    cursor.execute('SELECT nro_ciclo FROM ciclo ORDER BY nro_ciclo DESC LIMIT 1')
+    # cursor.execute('SELECT nro_ciclo FROM ciclo ORDER BY nro_ciclo DESC LIMIT 1')
+    # cursor.execute('SELECT nro_puesto, nro_ciclo FROM ciclo ORDER BY nro_puesto DESC LIMIT 1')
+    cursor.execute('SELECT nro_puesto, nro_ciclo FROM ciclo ORDER BY fecha_hora_inicio DESC LIMIT 1;')
     print("Cursor:\n")
     print(cursor)
     conn.commit()
@@ -33,35 +35,41 @@ if __name__ == "__main__":
     #Resultado 
     result = cursor.fetchone()
     print("Result:",result)
+    # print("nro_puesto",result[0]['nro_puesto'])
+    # print("nro_ciclo",result[0]['nro_ciclo'])
 
     nro_ciclo = result['nro_ciclo'] + 1
     print("nro_ciclo:",nro_ciclo)
-    # nro_ciclo = 1
+    nro_puesto=result['nro_puesto']
+    print("nro_puesto:",nro_puesto)
 
-    for i in range (0,51):
-        print("Insertando datos en la base de datos con puesto 1")
-        cursor.execute('INSERT INTO ciclo VALUES(1,%(nro_ciclo)s,800,NOW(),NOW(),200,200,"1","TARDE",1,"1","1")',{'nro_ciclo' : nro_ciclo})
+    for i in range (0,12):
+        print("Insertando datos en la base de datos con puesto:",nro_puesto)
+        cursor.execute('INSERT INTO ciclo VALUES(%(nro_puesto)s,%(nro_ciclo)s,800,NOW(),NOW(),200,200,"1","TARDE",1,"1","1")',{'nro_puesto' : nro_puesto,'nro_ciclo':nro_ciclo})
         print("Inserte el nro de ciclo:",nro_ciclo)
         print("Insercion nro:",i)
         counter = 1
         for n in range(1,5):
             ran = round(random.uniform(40,55),4)
-            cursor.execute('INSERT INTO mediciones_ciclo VALUES(1,%s,%s,%s)',(nro_ciclo,counter,ran))
+            cursor.execute('INSERT INTO mediciones_ciclo VALUES(%s,%s,%s,%s)',(nro_puesto,nro_ciclo,counter,ran))
             print("Inserte el dato:",ran)
             counter += 1
         nro_ciclo += 1
         sleep(1)
         conn.commit()
 
+    nro_ciclo=1
+    nro_puesto=nro_puesto+1
+
     for i in range (0,11):
-        print("Insertando datos en la base de datos con puesto 2")
-        cursor.execute('INSERT INTO ciclo VALUES(2,%(nro_ciclo)s,800,NOW(),NOW(),200,200,"1","TARDE",1,"1","1")',{'nro_ciclo' : nro_ciclo})
+        print("Insertando datos en la base de datos con puesto:",nro_puesto)
+        cursor.execute('INSERT INTO ciclo VALUES(%(nro_puesto)s,%(nro_ciclo)s,800,NOW(),NOW(),200,200,"1","TARDE",1,"1","1")',{'nro_puesto' : nro_puesto,'nro_ciclo':nro_ciclo})
         print("Inserte el nro de ciclo:",nro_ciclo)
         print("Insercion nro:",i)
         counter = 1
         for n in range(1,5):
             ran = round(random.uniform(40,55),4)
-            cursor.execute('INSERT INTO mediciones_ciclo VALUES(2,%s,%s,%s)',(nro_ciclo,counter,ran))
+            cursor.execute('INSERT INTO mediciones_ciclo VALUES(%s,%s,%s,%s)',(nro_puesto,nro_ciclo,counter,ran))
             print("Inserte el dato:",ran)
             counter += 1
         nro_ciclo += 1
