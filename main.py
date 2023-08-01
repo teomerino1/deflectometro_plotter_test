@@ -47,29 +47,35 @@ def process_data(Reporter, View, Data):
         data, this_cycle = Reporter.get_new_measurements()
         
         if data is None or this_cycle is None:
-            # print("Estoy en None")
-            continue
+            if(Reporter.get_puesto_change()==1):
+                View.enqueue_transition('generate_stats')
+                break
+            else:
+                continue
 
         
         Data.data_destruct(data)
         cantidad=Data.cant_mediciones()
         print(cantidad)
         
-        # View.update_bar_view(Data.get_defl())
-        # Actualizar el gráfico de barras en un hilo separado
-        if(cantidad%6 == 0):
-            
-            update_bar_thread = Thread(target=update_defl,args=(Data,View))
-            update_bar_thread.daemon=True
-            update_bar_thread.start()
+        if(Reporter.get_puesto_change()==0):
+            print("Get puesto change:",Reporter.get_puesto_change())
+            if(cantidad%6 == 0):
+                
+                update_bar_thread = Thread(target=update_defl,args=(Data,View))
+                update_bar_thread.daemon=True
+                update_bar_thread.start()
 
-        if(cantidad% grupos == 0):
-            
-            # a=a+1
-            update_all_thread = Thread(target=update_all,args=(Data,View))
-            update_all_thread.daemon=True 
-            update_all_thread.start()
+            if(cantidad% grupos == 0):
+                
+                # a=a+1
+                update_all_thread = Thread(target=update_all,args=(Data,View))
+                update_all_thread.daemon=True 
+                update_all_thread.start()
 
+        elif(Reporter.get_puesto_change()==1):
+            ("Me rescato del cambio desde el main")
+            break
             # if(a==20):
             #     show_stats(View,Data,z,ft,fh,fc)
             #     break

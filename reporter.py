@@ -86,9 +86,16 @@ class Reporter():
         self.last_measurement_data = []
         self.puesto = 0  # Registro del puesto actual, todas las mediciones deben pertenecer al mismo puesto
         self.database = db.Database()
+        self.puesto_changed = 0
 
     def start(self):
         self.get_last_measurement()
+
+    def set_puesto_change(self, value):
+        self.puesto_changed=value
+
+    def get_puesto_change(self):
+        return self.puesto_changed
 
     # Método que obtiene el número de ciclo correspondiente a la medición más nueva
     def get_last_measurement(self):
@@ -111,7 +118,9 @@ class Reporter():
     # Método que obtiene las mediciones nuevas de la base
     def get_new_measurements(self):
         if(self.get_last_puesto()!=self.puesto):
-            print("Cambio el puesto")
+            self.set_puesto_change(value=1)
+            print("Cambio el puesto, seteo con value = 1")
+            return None, None
 
         cicle = self.database.query('SELECT nro_ciclo FROM ciclo WHERE nro_puesto = {} ORDER BY fecha_hora_inicio DESC LIMIT 1;'.format(self.puesto))
 

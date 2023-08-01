@@ -108,10 +108,6 @@ class Data():
     def update_bar_data(self):
         self.defl_bar_r.extend(self.defl_r[-6:])
         self.defl_bar_l.extend(self.defl_l[-6:])
-        # self.defl_r_acum.clear()
-        # self.defl_l_acum.clear()
-        print("Defl r:",self.defl_r)
-        print("Lo que voy a grafica:",self.defl_bar_r)
         return self.defl_bar_r,self.defl_bar_l
 
 
@@ -189,14 +185,6 @@ class Data():
         coef_var_izq = round(desv_defl_l/media_defl_izq)*100
 
         # # Calculo de deflexion caracteristicas
-        print("Media defl der:",media_defl_der)
-        print("Media defl der type:",type(media_defl_der))
-        print("Defl r acum:",self.defl_r_acum)
-        print("Defl r acum type:",type(self.defl_r_acum))
-        print("Ft:",self.ft)
-        print("Fh:",self.fh)
-        print("Fc:",self.fc)
-        print("z:",self.z)
         defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*self.z*self.ft*self.fh*self.fc
         defl_car_izq = round(media_defl_izq + (2*(np.std(self.defl_l_acum)*2)))*self.z*self.ft*self.fh*self.fc
 
@@ -255,29 +243,19 @@ class Data():
 
     def set_temp(self,temp):
         self.temp=temp
-        print("Set TEMP:",self.temp)
-        print("Temp TYPE:",type(self.temp))
-
+        
     def set_ft(self,ft):
         self.ft=ft
-        print("Set FT:",self.ft)
-        print("FT TYPE:",type(self.ft)) 
 
     def set_fc(self,fc):
         self.fc=fc
-        print("Set FC:",self.fc)
-        print("FC TYPE:",type(self.fc)) 
-    
+        
     def set_fh(self,fh):
         self.fh=fh
-        print("Set FH:",self.fh)
-        print("FH TYPE:",type(self.fh)) 
-
+        
     def set_z(self,z):
         self.z=z
-        print("Set Z:",self.z)
-        print("Z TYPE:",type(self.z))
-    
+        
     def reset_all(self):
         self.defl_r.clear()
         self.defl_l.clear()
