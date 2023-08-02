@@ -61,7 +61,7 @@ if __name__ == "__main__":
     nro_ciclo=1
     nro_puesto=nro_puesto+1
 
-    for i in range (0,11):
+    for i in range (0,2):
         print("Insertando datos en la base de datos con puesto:",nro_puesto)
         cursor.execute('INSERT INTO ciclo VALUES(%(nro_puesto)s,%(nro_ciclo)s,800,NOW(),NOW(),200,200,"1","TARDE",1,"1","1")',{'nro_puesto' : nro_puesto,'nro_ciclo':nro_ciclo})
         print("Inserte el nro de ciclo:",nro_ciclo)

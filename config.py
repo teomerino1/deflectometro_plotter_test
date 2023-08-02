@@ -8,153 +8,284 @@ class Config():
         
         self.root = root
         self.config_frame = None
+        self.conf_inicial=None
+        self.temp_label=None
         self.temp_ntry = None
+        self.grupos_label=None
         self.grupos_ntry_50 = None
         self.grupos_ntry_100 = None
         self.var = None
+        self.muestras_label=None
         self.muestras_ntry = None
-        self.espesor = None 
+        self.espesor = None
+        self.ft_label=None 
         self.ft_ntry = None
-        self.fh_ntry = None 
+        self.fh_label=None
+        self.fh_ntry = None
+        self.fc_label=None 
         self.fc_ntry = None
+        self.z_label=None
         self.z_ntry = None
+        self.rutal_label=None
         self.ruta_ntry = None
+        self.prov_label=None
         self.prov_ntry = None
+        self.tramo_label=None
         self.tramo_ntry = None
+        self.subtramo_label=None
         self.subtramo_ntry = None
+        self.pav_label=None
         self.pav_ntry = None
+        self.confirmar=None
+        self.resetear=None
         self.view_instance = view_instance
         self.go_to_plot1_from_config = go_to_plot1_from_config
 
 
-    def show(self):
+    def show(self,a):
         
-        config_frame = tk.Frame()
+        if(a==0):
+            config_frame = tk.Frame()
+            self.config_frame = config_frame
+            # config_frame.grid_rowconfigure(0, weight=1)
+            # config_frame.grid_rowconfigure(1, weight=1)
+            # config_frame.grid_rowconfigure(2, weight=1)
+            # config_frame.grid_rowconfigure(3, weight=1)
+            # config_frame.grid_rowconfigure(4, weight=1)
 
-        config_frame.grid_rowconfigure(0, weight=1)
-        config_frame.grid_rowconfigure(1, weight=1)
-        config_frame.grid_rowconfigure(2, weight=1)
-        config_frame.grid_rowconfigure(3, weight=1)
-        config_frame.grid_rowconfigure(4, weight=1)
+            # # config_frame.grid_rowconfigure(4, weight=1)
+            # config_frame.grid_columnconfigure(0, weight=1)
+            # config_frame.grid_columnconfigure(1, weight=1)
+            # config_frame.grid_columnconfigure(2, weight=1)
+            # config_frame.grid_columnconfigure(3, weight=1)
+            # config_frame.grid_columnconfigure(4, weight=1)
 
-        # config_frame.grid_rowconfigure(4, weight=1)
-        config_frame.grid_columnconfigure(0, weight=1)
-        config_frame.grid_columnconfigure(1, weight=1)
-        config_frame.grid_columnconfigure(2, weight=1)
-        config_frame.grid_columnconfigure(3, weight=1)
-        config_frame.grid_columnconfigure(4, weight=1)
+            # config_frame.grid(ipadx=3, ipady=2)
+           
 
-        config_frame.grid(ipadx=3, ipady=2)
-        self.config_frame = config_frame
+            conf_inicial=Label(config_frame, text="Configuración inicial",font=(None, 30))
+            self.conf_inicial=conf_inicial
+            # self.conf_inicial.grid(row=0, column=3, sticky="N")
 
-        Label(config_frame, text="Configuración inicial",font=(None, 30)).grid(row=0, column=3, sticky="N")
+            # temp
+            temp_label=Label(config_frame, text="Temperatura:")
+            self.temp_label=temp_label
+            # self.temp_label.grid(row=1, column=0)
 
-        # temp
-        Label(config_frame, text="Temperatura:").grid(row=1, column=0)
-        temp_ntry = Entry(config_frame)
-        temp_ntry.grid(row=1, column=1)
-        self.temp_ntry = temp_ntry
+            temp_ntry = Entry(config_frame)
+            self.temp_ntry = temp_ntry
+
+            # temp_ntry.grid(row=1, column=1)
+            
+            
+            # grupos
+            grupos_label=Label(config_frame, text="Tamaño de grupos:")
+            self.grupos_label=grupos_label
+            # self.grupos_label.grid(row=2, column=0)
+
+            var = tk.IntVar()
+            self.var = var
+            grupos_ntry_50 = Radiobutton(config_frame,text='50', variable=var, value=50)
+            self.grupos_ntry_50 = grupos_ntry_50
+
+            # grupos_ntry_50.grid(row=2, column=1)
+
+
+            grupos_ntry_100 = Radiobutton(config_frame,text='100', variable=var, value=100)
+            self.grupos_ntry_100 = grupos_ntry_100
+
+            # grupos_ntry_100.grid(row=2, column=2)
+
+
+            # Muestras
+            muestras_label=Label(config_frame, text="Cantidad total de muestras:")
+            self.muestras_label=muestras_label
+            # self.muestras_label.grid(row=3, column=0)
+
+            muestras_ntry = Entry(config_frame)
+            self.muestras_ntry = muestras_ntry
+
+            # muestras_ntry.grid( row=3, column=1)
+            
+            
+            # Espesor
+            espesor_label=Label(config_frame, text="Espesor:")
+            self.espesor_label=espesor_label
+            # self.espesor_label.grid(row=4, column=0)
+            
+            espesor = Entry(config_frame)
+            self.espesor = espesor
+
+            # espesor.grid(row=4,column=1)
+            
+            
+            # Ft
+            ft_label=Label(config_frame, text="Ft:")
+            self.ft_label=ft_label
+            # self.ft_label.grid(row=5,column=0)
+            ft = Entry(config_frame)
+            self.ft_ntry=ft
+
+
+            # ft.grid(row=5,column=1)
+            
+            
+            # Fh
+            fh_label=Label(config_frame, text="Fh:")
+            self.fh_label=fh_label
+            # self.fh_label.grid(row=6,column=0)
+            fh = Entry(config_frame)
+            self.fh_ntry=fh
+
+
+            # fh.grid(row=6,column=1)
+            
+            
+            
+            # Fc
+            fc_label=Label(config_frame, text="Fc:")
+            self.fc_label=fc_label
+            # self.fc_label.grid(row=7,column=0)
+            fc = Entry(config_frame)
+            self.fc_ntry=fc
+
+            # fc.grid(row=7,column=1)
+            
+            
+            
+            # Z
+            z_label=Label(config_frame, text="Z:")
+            self.z_label=z_label
+            # self.z_label.grid(row=8,column=0)
+            z_ntry = Entry(config_frame)
+            self.z_ntry=z_ntry
+
+            # z_ntry.grid(row=8,column=1)
+            
+            
+            # Nº Ruta
+            ruta_label=Label(config_frame, text="Ruta Nº")
+            self.rutal_label=ruta_label
+            # self.rutal_label.grid(row=1+1,column=3,sticky="NE")
+
+            ruta_ntry = Entry(config_frame)
+            self.ruta_ntry = ruta_ntry
+
+            # ruta_ntry.grid(row=1+1,column=4,sticky="NE")
+
+
+            # Provincia
+            prov_label=Label(config_frame, text="Provincia:")
+            self.prov_label=prov_label
+            # self.prov_label.grid(row=2+1,column=3,sticky="NE")
+
+            prov_ntry = Entry(config_frame)
+            self.prov_ntry = prov_ntry
+            # prov_ntry.grid(row=2+1,column=4,sticky="NE")
+            
+            
+            # Tramo
+            tramo_label=Label(config_frame, text="Tramo:")
+            self.tramo_label=tramo_label
+            # self.tramo_label.grid(row=3+1,column=3,sticky="NE")
+
+            tramo_ntry = Entry(config_frame)
+            self.tramo_ntry = tramo_ntry
+            # tramo_ntry.grid(row=3+1,column=4,sticky="NE")
+
+            # Subtramo
+            subtramo_label=Label(config_frame, text="Subtramo:")
+            self.subtramo_label=subtramo_label
+            # self.subtramo_label.grid(row=4+1,column=3,sticky="NE")
+
+            subtramo_ntry = Entry(config_frame)
+            self.subtramo_ntry = subtramo_ntry
+            # subtramo_ntry.grid(row=4+1,column=4,sticky="NE")
+            
+            
+            # Tipo de Pavimento
+            pav_label=Label(config_frame, text="Tipo de Pavimento:")
+            self.pav_label=pav_label
+            # self.pav_label.grid(row=5+1,column=3,sticky="NE")
+
+            pav_ntry = Entry(config_frame)
+            self.pav_ntry = pav_ntry
+            # pav_ntry.grid(row=5+1,column=4,sticky="NE")
+
+
+            confirmar=Button(config_frame, text="Confirmar", command=self.go_to_plot1_from_config)
+            self.confirmar=confirmar
+
+            # self.confirmar.grid(row=9, column=0)
+
+
+            resetear=Button(config_frame, text="Resetear", command=self.reset_all_plots)
+            self.resetear=resetear
+            # self.resetear.grid(row=11, column=0)
+
+        if(a==1):
+
+            self.config_frame.grid_rowconfigure(0, weight=1)
+            self.config_frame.grid_rowconfigure(1, weight=1)
+            self.config_frame.grid_rowconfigure(2, weight=1)
+            self.config_frame.grid_rowconfigure(3, weight=1)
+            self.config_frame.grid_rowconfigure(4, weight=1)
+
+            # config_frame.grid_rowconfigure(4, weight=1)
+            self.config_frame.grid_columnconfigure(0, weight=1)
+            self.config_frame.grid_columnconfigure(1, weight=1)
+            self.config_frame.grid_columnconfigure(2, weight=1)
+            self.config_frame.grid_columnconfigure(3, weight=1)
+            self.config_frame.grid_columnconfigure(4, weight=1)
+
+            self.config_frame.grid(ipadx=3, ipady=2)
+
+            self.conf_inicial.grid(row=0, column=3, sticky="N")
+            self.temp_label.grid(row=1, column=0)
+            self.temp_ntry.grid(row=1, column=1)
+            self.grupos_label.grid(row=2, column=0)
+            self.grupos_ntry_50.grid(row=2, column=1)
+            self.grupos_ntry_100.grid(row=2, column=2)
+            self.muestras_ntry.grid( row=3, column=1)
+            self.muestras_label.grid(row=3, column=0)
+            self.espesor_label.grid(row=4, column=0)
+            self.espesor.grid(row=4,column=1)
+            self.ft_label.grid(row=5,column=0)
+            self.ft_ntry.grid(row=5,column=1)
+            self.fh_ntry.grid(row=6,column=1)
+            self.fh_label.grid(row=6,column=0)
+            self.fc_label.grid(row=7,column=0)
+            self.fc_ntry.grid(row=7,column=1)
+            self.z_label.grid(row=8,column=0)
+            self.z_ntry.grid(row=8,column=1)
+            self.rutal_label.grid(row=1+1,column=3,sticky="NE")
+            self.ruta_ntry.grid(row=1+1,column=4,sticky="NE")
+            self.prov_label.grid(row=2+1,column=3,sticky="NE")
+            self.prov_ntry.grid(row=2+1,column=4,sticky="NE")
+            self.tramo_label.grid(row=3+1,column=3,sticky="NE")
+            self.tramo_ntry.grid(row=3+1,column=4,sticky="NE")
+            self.subtramo_label.grid(row=4+1,column=3,sticky="NE")
+            self.subtramo_ntry.grid(row=4+1,column=4,sticky="NE")
+            self.pav_label.grid(row=5+1,column=3,sticky="NE")
+            self.pav_ntry.grid(row=5+1,column=4,sticky="NE")
+            self.confirmar.grid(row=9, column=0)
+            self.resetear.grid(row=11, column=0)
+
+
+
         
-        # grupos
-        Label(config_frame, text="Tamaño de grupos:").grid(row=2, column=0)
-        var = tk.IntVar()
-        self.var = var
-        grupos_ntry_50 = Radiobutton(config_frame,text='50', variable=var, value=50)
-        grupos_ntry_50.grid(row=2, column=1)
-        self.grupos_ntry_50 = grupos_ntry_50
-
-        grupos_ntry_100 = Radiobutton(config_frame,text='100', variable=var, value=100)
-        grupos_ntry_100.grid(row=2, column=2)
-        self.grupos_ntry_100 = grupos_ntry_100
-
-        # Muestras
-        Label(config_frame, text="Cantidad total de muestras:").grid(row=3, column=0)
-        muestras_ntry = Entry(config_frame)
-        muestras_ntry.grid( row=3, column=1)
-        self.muestras_ntry = muestras_ntry
-
-        # Espesor
-        Label(config_frame, text="Espesor:").grid(row=4, column=0)
-        espesor = Entry(config_frame)
-        espesor.grid(row=4,column=1)
-        self.espesor = espesor
-        
-        # Ft
-        Label(config_frame, text="Ft:").grid(row=5,column=0)
-        ft = Entry(config_frame)
-        ft.grid(row=5,column=1)
-        self.ft_ntry=ft
-
-        # Fh
-        Label(config_frame, text="Fh:").grid(row=6,column=0)
-        fh = Entry(config_frame)
-        fh.grid(row=6,column=1)
-        self.fh_ntry=fh
-
-        # Fc
-        Label(config_frame, text="Fc:").grid(row=7,column=0)
-        fc = Entry(config_frame)
-        fc.grid(row=7,column=1)
-        self.fc_ntry=fc
-
-        # Z
-        Label(config_frame, text="Z:").grid(row=8,column=0)
-        z_ntry = Entry(config_frame)
-        z_ntry.grid(row=8,column=1)
-        self.z_ntry=z_ntry
-
-        # Nº Ruta
-        Label(config_frame, text="Ruta Nº").grid(row=1+1,column=3,sticky="NE")
-        ruta_ntry = Entry(config_frame)
-        ruta_ntry.grid(row=1+1,column=4,sticky="NE")
-        self.ruta_ntry = ruta_ntry
-
-        # Provincia
-        Label(config_frame, text="Provincia:").grid(row=2+1,column=3,sticky="NE")
-        prov_ntry = Entry(config_frame)
-        prov_ntry.grid(row=2+1,column=4,sticky="NE")
-        self.prov_ntry = prov_ntry
-
-        # Tramo
-        Label(config_frame, text="Tramo:").grid(row=3+1,column=3,sticky="NE")
-        tramo_ntry = Entry(config_frame)
-        tramo_ntry.grid(row=3+1,column=4,sticky="NE")
-        self.tramo_ntry = tramo_ntry
-
-        # Subtramo
-        Label(config_frame, text="Subtramo:").grid(row=4+1,column=3,sticky="NE")
-        subtramo_ntry = Entry(config_frame)
-        subtramo_ntry.grid(row=4+1,column=4,sticky="NE")
-        self.subtramo_ntry = subtramo_ntry
-
-        # Tipo de Pavimento
-        Label(config_frame, text="Tipo de Pavimento:").grid(row=5+1,column=3,sticky="NE")
-        pav_ntry = Entry(config_frame)
-        pav_ntry.grid(row=5+1,column=4,sticky="NE")
-        self.pav_ntry = pav_ntry
-
-        Button(config_frame, text="Confirmar", command=self.go_to_plot1_from_config).grid(row=9, column=0)
-
-        Button(config_frame, text="Resetear", command=self.reset_all_plots).grid(row=11, column=0)
 
     def close(self):
         # view.temp, view.muestras, view.grupos, view.espesor ,view.ft_ntry, view.fh_ntry, view.fc_ntry, view.z_ntry= self.get_config()
         self.view_instance.set_temp(int(self.temp_ntry.get()))
-        
         self.view_instance.set_espesor(int(self.espesor.get()))
-        
         self.view_instance.set_grupos(int(self.var.get()))
-        
         # self.view_instance.set_muestras(int(self.muestras_ntry.get()))
-        
         self.view_instance.set_ft(int(self.ft_ntry.get()))
-       
         self.view_instance.set_fh(int(self.fh_ntry.get()))
-       
         self.view_instance.set_fc(int(self.fc_ntry.get()))
-        
         self.view_instance.set_z(int(self.z_ntry.get()))
-        
+        self.view_instance.set_data_ready(value=1)
         self.config_frame.grid_forget()
         
 

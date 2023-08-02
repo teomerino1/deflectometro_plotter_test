@@ -4,10 +4,11 @@ import data
 import reporter
 from threading import Thread
 import threading
+from time import sleep
 
 
-def show_stats(View,Data,z,ft,fh,fc):
-    media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =Data.calculate_stats(z,ft,fh,fc)
+def show_stats(Data,View):
+    media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =Data.calculate_stats()
     View.show_stats_in_plot(
         media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
         desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,
@@ -16,6 +17,7 @@ def show_stats(View,Data,z,ft,fh,fc):
         d_x_r_der, d_x_r_izq, 
         total_mediciones_defl, total_mediciones_rad
     )
+    View.reset_all_data()
 
 def update_all(Data,View):
     Data.update_structures()
@@ -31,29 +33,37 @@ def update_defl(Data,View):
     Data.clear_bar_data()
 
 
-def process_data(Reporter, View, Data):
-    
-    
-    # temp,grupos,muestras,espesor,ft,fh,fc,z = View.obtain_values()
+def obtain_data(Reporter, View, Data):
+
+    Reporter.reset_reporter()
+    Data.reset_all()
+
+    print("Estoy en obtain data")
     while True:
-        temp,grupos,muestras,espesor,ft,fh,fc,z = View.obtain_values()
-        if temp and espesor and grupos and ft and fh and fc and z is not None:
+        if(View.get_data_ready()==1):
             break
+        else: 
+            continue
+    process_data(Reporter,View,Data)
 
-    
+
+def process_data(Reporter,View,Data):
+    print("Estoy en process data")
     Reporter.start()
-
     while True:
         data, this_cycle = Reporter.get_new_measurements()
         
         if data is None or this_cycle is None:
             if(Reporter.get_puesto_change()==1):
-                View.enqueue_transition('generate_stats')
-                break
+                # View.enqueue_transition('generate_stats')
+                show_stats_thread = Thread(target=show_stats,args=(Data,View))
+                show_stats_thread.daemon=True
+                show_stats_thread.start()
+                sleep(2)
+                obtain_data(Reporter,View,Data)
             else:
                 continue
 
-        
         Data.data_destruct(data)
         cantidad=Data.cant_mediciones()
         print(cantidad)
@@ -80,15 +90,14 @@ def process_data(Reporter, View, Data):
         
 def main():
     root = tk.Tk()
-    
-    
+
     Reporter = reporter.Reporter()
     Data = data.Data()
 
     View = view.View(root,Data,Reporter)
     
     # Crear y ejecutar el hilo para procesar los datos
-    data_thread = Thread(target=process_data, args=(Reporter, View, Data))
+    data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
     data_thread.daemon = True
     data_thread.start()
     

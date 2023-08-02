@@ -87,7 +87,7 @@ class Reporter():
         self.puesto = 0  # Registro del puesto actual, todas las mediciones deben pertenecer al mismo puesto
         self.database = db.Database()
         self.puesto_changed = 0
-        self.start()
+        # self.start()
 
     def start(self):
         print("ARRANCO")
@@ -118,6 +118,7 @@ class Reporter():
 
     # Método que obtiene las mediciones nuevas de la base
     def get_new_measurements(self):
+        
         if(self.get_last_puesto()!=self.puesto):
             self.set_puesto_change(value=1)
             print("Cambio el puesto, seteo con value = 1")
@@ -136,7 +137,7 @@ class Reporter():
     
     def reset_reporter(self):
         self.set_puesto_change(value=0)
-        self.start()
+        # self.start()
 
 
 
