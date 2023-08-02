@@ -15,16 +15,6 @@ import time
 class View():
     def __init__(self, root,data_instance,reporter_instance):
 
-        # variable globales
-        # global temp
-        # global grupos
-        # global muestras
-        # global espesor 
-        # global fh_ntry
-        # global ft_ntry 
-        # global fc_ntry
-        # global z_ntry
-    
         self.temp = None
         self.grupos = None
         self.muestras = None
@@ -38,7 +28,7 @@ class View():
         self.data_ready=0
         
         #Se crean los objetos Plot y Config como atributos de view 
-        self.Config = config.Config(root, self.go_to_plot1_from_config,self)
+        self.Config = config.Config(root,self)
         # self.Plot = plot.Plot(root, self.go_to_config, self.go_to_plot_2_from_plot_1)
         self.Plot = plot.Plot(root, self)
         # self.Plot2 = plot_2.Plot2(root, self.go_to_plot_1_from_plot_2, self.go_to_plot_3_from_plot2)
@@ -87,18 +77,10 @@ class View():
 
      # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
-
-        self.is_plotting = True
-
-        if(self.first_time_plot):
-            self.first_time_plot=False
-            self.Config.close()
-            self.Plot.show(1)
-            self.Plot2.show(0)
-        else:
-            self.Config.close()
-            self.Plot.show(1)
-
+        
+        self.Config.close()
+        self.Plot.show(1)
+       
     # Metodo que borra el Plot 1 y abre el de Config
     def go_to_config(self):
 
@@ -284,6 +266,9 @@ class View():
                 # Ejecutar la función de transición de interfaz correspondiente
                 if target_function == 'go_to_config':
                     self.go_to_config()
+
+                if target_function == 'go_to_plot_1_from_config':
+                    self.go_to_plot1_from_config()
 
                 elif target_function == 'go_to_plot_2_from_plot_1':
                     self.go_to_plot_2_from_plot_1()

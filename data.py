@@ -248,16 +248,20 @@ class Data():
         self.temp=temp
         
     def set_ft(self,ft):
+        print("Ft en data:",ft)
         self.ft=ft
 
     def set_fc(self,fc):
         self.fc=fc
+        print("Fc en data:",fc)
         
     def set_fh(self,fh):
         self.fh=fh
-        
+        print("Fh en data:",fh)
+
     def set_z(self,z):
         self.z=z
+        print("Z en data:",z)
         
     def reset_all(self):
         self.defl_r.clear()
