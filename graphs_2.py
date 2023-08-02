@@ -16,7 +16,10 @@ class Graphs2():
         self.rad_mean_widget_l = None
         self.figure_rad_mean_l = None 
         self.rad_mean_l = None 
-        self.rad_mean_widget_l = None 
+        self.rad_mean_widget_l = None
+        self.rad_r_data=[]
+        self.rad_l_data=[]
+        self.indexes=[] 
         self.show(lado)
 
 
@@ -48,46 +51,89 @@ class Graphs2():
 
     def update_gmean(self, dict_r, dict_l,lado):
 
+        self.rad_r_data.extend(dict_r['Radio'][-1:])
+        self.rad_l_data.extend(dict_l['Radio'][-1:])
+        self.indexes=list(range(1,len(self.rad_l_data)+1))
+
         if(lado == "Izquierdo"):
 
-            self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+            # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
             self.figure_rad_mean_l.clear()
-
             subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
 
-            # subfigure2.set_xlim(0,100)
+            subfigure_izq.set_xlim(1,len(self.rad_l_data)+1)
             subfigure_izq.set_ylim(0,100)
+
+            subfigure_izq.plot(self.indexes, self.rad_l_data,'o-')
 
             subfigure_izq.set_title("Radio Izquierda")
             subfigure_izq.set_xlabel("Nº Grupo")
             subfigure_izq.set_ylabel("Radio de curvatura")
 
-            subfigure_izq.plot(dict_l['Grupo'], dict_l['Radio'],'o-')
-
             subfigure_izq.grid(axis='both',linestyle='dotted')
         
-            self.rad_mean_l.draw()
+            self.figure_rad_mean_l.canvas.draw_idle()
 
         if(lado == "Derecho"):
 
-            self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
-
+            # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
             self.figure_rad_mean_r.clear()
-
             subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
-            # subfigure.set_xlim(0,100)
-
+            subfigure_der.set_xlim(1,len(self.rad_r_data)+1)
             subfigure_der.set_ylim(0,100)
+
+            subfigure_der.plot(self.indexes, self.rad_r_data,'o-')
             
             subfigure_der.set_title("Radio Derecha")
             subfigure_der.set_xlabel("Nº Grupo")
             subfigure_der.set_ylabel("Radio de curvatura")
 
-            subfigure_der.plot(dict_r['Grupo'], dict_r['Radio'],'o-')
             subfigure_der.grid(axis='both',linestyle='dotted')
             
-            self.rad_mean_r.draw()
+            self.figure_rad_mean_r.canvas.draw_idle()
+        
+        # if(lado == "Izquierdo"):
+
+        #     self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+        #     self.figure_rad_mean_l.clear()
+
+        #     subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
+
+        #     # subfigure2.set_xlim(0,100)
+        #     subfigure_izq.set_ylim(0,100)
+
+        #     subfigure_izq.set_title("Radio Izquierda")
+        #     subfigure_izq.set_xlabel("Nº Grupo")
+        #     subfigure_izq.set_ylabel("Radio de curvatura")
+
+        #     print("Dict L grupo:",dict_l['Grupo'])
+        #     subfigure_izq.plot(dict_l['Grupo'], dict_l['Radio'],'o-')
+
+        #     subfigure_izq.grid(axis='both',linestyle='dotted')
+        
+        #     self.rad_mean_l.draw()
+
+        # if(lado == "Derecho"):
+
+        #     self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
+
+        #     self.figure_rad_mean_r.clear()
+
+        #     subfigure_der=self.figure_rad_mean_r.add_subplot(211)
+
+        #     # subfigure.set_xlim(0,100)
+
+        #     subfigure_der.set_ylim(0,100)
+            
+        #     subfigure_der.set_title("Radio Derecha")
+        #     subfigure_der.set_xlabel("Nº Grupo")
+        #     subfigure_der.set_ylabel("Radio de curvatura")
+
+        #     subfigure_der.plot(dict_r['Grupo'], dict_r['Radio'],'o-')
+        #     subfigure_der.grid(axis='both',linestyle='dotted')
+            
+        #     self.rad_mean_r.draw()
         
             # self.rad_mean_widget_r.draw()
 

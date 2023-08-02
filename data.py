@@ -126,8 +126,8 @@ class Data():
         media_radio_l = round(np.mean(self.radio_l),2)
 
         # Obtengo la deflexion caracteristica. Por el momento Z es igual a 2 y el resto (ft, fc, fh) es 1
-        self.defl_l_car.append(  media_defl_l + (2*(np.std(self.defl_l)*2))  )
-        self.defl_r_car.append(  media_defl_r + (2*(np.std(self.defl_r)*2))  )
+        self.defl_l_car.append(  media_defl_l + (2*(np.std(self.defl_l)*self.z))*self.ft*self.fh*self.fc  )
+        self.defl_r_car.append(  media_defl_r + (2*(np.std(self.defl_r)*self.z))*self.ft*self.fh*self.fc  )
 
         # Obtengo los máximos de las deflexiones
         self.defl_l_max.append(np.max(self.defl_l))
@@ -248,20 +248,16 @@ class Data():
         self.temp=temp
         
     def set_ft(self,ft):
-        print("Ft en data:",ft)
         self.ft=ft
 
     def set_fc(self,fc):
         self.fc=fc
-        print("Fc en data:",fc)
         
     def set_fh(self,fh):
         self.fh=fh
-        print("Fh en data:",fh)
 
     def set_z(self,z):
         self.z=z
-        print("Z en data:",z)
         
     def reset_all(self):
         self.defl_r.clear()

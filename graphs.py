@@ -59,9 +59,7 @@ class Graphs():
             print("Indices iguales!")
         else:
             print("Indices NO iguales")
-        # print("Self Defl r data:",self.defl_r_data)
-        # print("Self indexes:",self.indexes)
-
+        
         self.figure_bar_r.clear()
         self.figure_bar_l.clear()
 
