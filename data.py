@@ -87,7 +87,7 @@ class Data():
         defl_l_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
 
-        # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux)
+        defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux)
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
@@ -101,11 +101,8 @@ class Data():
         self.radio_r_acum.append(data[1]['valor'])
         self.defl_l_acum.append(data[2]['valor'])
         self.radio_l_acum.append(data[3]['valor'])
-
-        # self.indices = list(range(1,len(self.defl_bar_r)+1))
        
-    # Metodo que se encarga de una vez cumplido el grupo, actualizar las estructuras de datos
-
+    # Metodo que se encarga de una vez cumplido el grupo, actualizar los datos para el grafico de barras
     def update_bar_data(self):
         self.defl_bar_r.extend(self.defl_r[-6:])
         self.defl_bar_l.extend(self.defl_l[-6:])
@@ -165,9 +162,7 @@ class Data():
         return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        
 
-    # Metodo donde se realizan los calculos de radio
-    def calculations_data():
-        None # TODO
+    
 
     def calculate_stats(self): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo
 
@@ -204,8 +199,6 @@ class Data():
         # # Calculo de total de mediciones
         total_mediciones_defl = len(self.defl_l_acum)
         total_mediciones_rad = len(self.radio_l_acum)
-
-        
 
         return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
 

@@ -43,7 +43,7 @@ if __name__ == "__main__":
     nro_puesto=result['nro_puesto']
     print("nro_puesto:",nro_puesto)
 
-    for i in range (0,21):
+    for i in range (0,501):
         print("Insertando datos en la base de datos con puesto:",nro_puesto)
         cursor.execute('INSERT INTO ciclo VALUES(%(nro_puesto)s,%(nro_ciclo)s,800,NOW(),NOW(),200,200,"1","TARDE",1,"1","1")',{'nro_puesto' : nro_puesto,'nro_ciclo':nro_ciclo})
         print("Inserte el nro de ciclo:",nro_ciclo)
@@ -55,7 +55,7 @@ if __name__ == "__main__":
             print("Inserte el dato:",ran)
             counter += 1
         nro_ciclo += 1
-        sleep(1)
+        sleep(1.5)
         conn.commit()
 
     # nro_ciclo=1

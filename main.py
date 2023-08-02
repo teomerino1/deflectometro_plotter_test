@@ -50,6 +50,8 @@ def obtain_data(Reporter, View, Data):
 def process_data(Reporter,View,Data):
     print("Estoy en process data")
     Reporter.start()
+    grupos=View.get_grupos()
+    print("Grupos:",grupos)
     while True:
         data, this_cycle = Reporter.get_new_measurements()
         
@@ -78,7 +80,7 @@ def process_data(Reporter,View,Data):
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 
-            if(cantidad% 10 == 0):
+            if(cantidad% grupos == 0):
                 
                 update_all_thread = Thread(target=update_all,args=(Data,View))
                 update_all_thread.daemon=True 

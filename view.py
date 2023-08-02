@@ -159,8 +159,8 @@ class View():
         # self.z=None
 
     def reset_all_data(self):
-        # self.data_instance.reset_all()
-        # self.reporter_instance.reset_reporter()
+        self.data_instance.reset_all()
+        self.reporter_instance.reset_reporter()
         self.temp=None
         self.grupos=None
         self.muestras=None
@@ -297,6 +297,7 @@ class View():
 
                 elif target_function == 'reset_all_plots':
                     self.reset_all_plots()
+                    self.reset_all_data()
 
                 elif target_function == 'generate_stats':
                     media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =self.data_instance.calculate_stats()
