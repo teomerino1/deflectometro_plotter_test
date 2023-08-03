@@ -7,17 +7,18 @@ import threading
 from time import sleep
 
 
-def show_stats(Data,View):
-    media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =Data.calculate_stats()
-    View.show_stats_in_plot(
-        media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
-        desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,
-        defl_car_der,defl_car_izq ,rad_car_der, rad_car_izq,
-        d_r_der,d_r_izq,
-        d_x_r_der, d_x_r_izq, 
-        total_mediciones_defl, total_mediciones_rad
-    )
-    View.reset_all_data()
+def show_stats(View,Data):
+    # media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =Data.calculate_stats()
+    # View.show_stats_in_plot(
+    #     media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
+    #     desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,
+    #     defl_car_der,defl_car_izq ,rad_car_der, rad_car_izq,
+    #     d_r_der,d_r_izq,
+    #     d_x_r_der, d_x_r_izq, 
+    #     total_mediciones_defl, total_mediciones_rad
+    # )
+    # View.reset_all_data()
+    View.enqueue_transition('generate_stats')
 
 def update_all(Data,View):
     Data.update_structures()
@@ -35,10 +36,10 @@ def update_defl(Data,View):
 
 def obtain_data(Reporter, View, Data):
 
-    Reporter.reset_reporter()
-    Data.reset_all()
+    # Reporter.reset_reporter()
+    # Data.reset_all()
 
-    print("Estoy en obtain data")
+    # print("Estoy en obtain data")
     while True:
         if(View.get_data_ready()==1):
             break
@@ -48,7 +49,7 @@ def obtain_data(Reporter, View, Data):
 
 
 def process_data(Reporter,View,Data):
-    print("Estoy en process data")
+    # print("Estoy en process data")
     Reporter.start()
     grupos=View.get_grupos()
     print("Grupos:",grupos)
@@ -58,21 +59,23 @@ def process_data(Reporter,View,Data):
         if data is None or this_cycle is None:
             if(Reporter.get_puesto_change()==1):
                 # View.enqueue_transition('generate_stats')
-                show_stats_thread = Thread(target=show_stats,args=(Data,View))
-                show_stats_thread.daemon=True
-                show_stats_thread.start()
-                sleep(2)
+                # show_stats_thread = Thread(target=show_stats,args=(View,Data))
+                # show_stats_thread.daemon=True
+                # show_stats_thread.start()
+                View.set_data_ready(value=0)
+                sleep(1)
                 obtain_data(Reporter,View,Data)
             else:
                 continue
 
+        
         Data.data_destruct(data)
         cantidad=Data.cant_mediciones()
-        print(cantidad)
+        # print(cantidad)
         
         if(Reporter.get_puesto_change()==0):
 
-            print("Get puesto change:",Reporter.get_puesto_change())
+            # print("Get puesto change:",Reporter.get_puesto_change())
 
             if(cantidad%6 == 0):
                 
@@ -80,16 +83,13 @@ def process_data(Reporter,View,Data):
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 
-            if(cantidad% grupos == 0):
-                
+            if(cantidad%grupos == 0):
+                print("Graficando mediciones de grupo...")
                 update_all_thread = Thread(target=update_all,args=(Data,View))
                 update_all_thread.daemon=True 
                 update_all_thread.start()
             
-        
-        
-
-        
+             
 def main():
     root = tk.Tk()
 

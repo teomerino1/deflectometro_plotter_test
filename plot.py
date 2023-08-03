@@ -40,6 +40,7 @@ class Plot():
     
     def reset(self):
         self.second_plot_frame.destroy()
+        self.show(0)
 
     def show(self,a):
 

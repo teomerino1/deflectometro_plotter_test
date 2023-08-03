@@ -79,13 +79,19 @@ class Data():
     def data_destruct(self,data):
 
         # print("Muestras:",muestras)
-        print("Temp:",self.temp)
-        print("Espesor:",self.espesor)   
+        # print("Temp:",self.temp)
+        # print("Espesor:",self.espesor)   
 
         defl_r_aux=data[0]['valor']
         radio_r_aux=data[1]['valor']
         defl_l_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
+
+        print("Deflexion derecha:",defl_r_aux)
+        print("Deflexion izquierda:",defl_l_aux)
+        print("Radio derecha:",radio_r_aux)
+        print("Radio Izquierda:",radio_l_aux)
+        print("\n")
 
         defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux)
 
@@ -115,7 +121,7 @@ class Data():
 
     def update_structures(self):
 
-        print("Soy el thread",threading.get_ident(),"En update structures")
+        # print("Soy el thread",threading.get_ident(),"En update structures")
         # Obtengo los promedios de cada cosa
         media_defl_r = round(np.mean(self.defl_r),2)
         media_defl_l = round(np.mean(self.defl_l),2)
@@ -165,6 +171,8 @@ class Data():
     
 
     def calculate_stats(self): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo
+
+        print("Generando Calculos Estadísticos...")
 
         # Calculo de medias para mediciones totales de cada cosa
         media_defl_der = round(np.mean(self.defl_r_acum),2)
@@ -235,21 +243,27 @@ class Data():
                }
     
     def set_espesor(self,espesor):
+        print("Espesor:",espesor)
         self.espesor=espesor
 
     def set_temp(self,temp):
+        print("Temp:",temp)
         self.temp=temp
         
     def set_ft(self,ft):
+        print("Ft:",ft)
         self.ft=ft
 
     def set_fc(self,fc):
+        print("Fc",fc)
         self.fc=fc
         
     def set_fh(self,fh):
+        print("Fh:",fh)
         self.fh=fh
 
     def set_z(self,z):
+        print("Z:",z)
         self.z=z
         
     def reset_all(self):
@@ -283,6 +297,7 @@ class Data():
             "Defl.":[],
             "R*D":[],
             "D/R":[],
-        } 
-        print("Data dict r",self.data_dict_r)
+        }
+         
+        print("Datos reseteados!\n")
         

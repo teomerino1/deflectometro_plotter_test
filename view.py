@@ -142,11 +142,11 @@ class View():
         self.Plot3.reset()
         self.Plot4.reset()
         self.Plot5.reset()
-        self.Plot.show(0)
-        self.Plot2.show(0)
-        self.Plot3.show(0)
-        self.Plot4.show(0)
-        self.Plot5.show(0)
+        # self.Plot.show(0)
+        # self.Plot2.show(0)
+        # self.Plot3.show(0)
+        # self.Plot4.show(0)
+        # self.Plot5.show(0)
         # self.data_instance.reset_all()
         # self.reporter_instance.reset_reporter()
         # self.temp=None
@@ -309,7 +309,8 @@ class View():
                         d_x_r_der, d_x_r_izq, 
                         total_mediciones_defl, total_mediciones_rad
                     )
-                    self.reset_all_data()
+                    # self.set_data_ready(value=0)
+                    # self.reset_all_data()
 
                 # Indicar que la función se ha procesado y la cola puede esperar nuevamente
                 self.interface_transition_queue.task_done()

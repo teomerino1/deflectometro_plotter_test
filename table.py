@@ -16,7 +16,6 @@ class Table():
     def insert(self, dict_r, dict_l):
 
         last_index_r = dict_r['Grupo'][len(dict_r['Grupo'])-1] # ultimo valor del array
-        print("Last_index_r",last_index_r)
         last_defl_mean_r = dict_r['Defl.'][len(dict_r['Defl.'])-1] # ultimo valor del array
         last_radio_mean_r = dict_r['Radio'][len(dict_r['Radio'])-1] # ultimo valor del array
         last_rd_r = dict_r['R*D'][len(dict_r['R*D'])-1] # ultimo valor del array

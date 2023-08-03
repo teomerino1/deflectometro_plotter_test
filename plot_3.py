@@ -36,6 +36,7 @@ class Plot3():
 
     def reset(self):
         self.fourth_plot_frame.destroy()
+        self.show(0)
 
     def show(self,a):
        

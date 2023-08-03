@@ -90,7 +90,7 @@ class Reporter():
         # self.start()
 
     def start(self):
-        print("ARRANCO")
+        # print("ARRANCO")
         self.get_last_measurement()
 
     def set_puesto_change(self, value):
@@ -105,8 +105,8 @@ class Reporter():
         if result:
             self.puesto = result[0]['nro_puesto']
             self.last_cicle = result[0]['nro_ciclo']
-            print("Puesto:",self.puesto)
-            print("Last cicle:",self.last_cicle)
+            # print("Puesto:",self.puesto)
+            # print("Last cicle:",self.last_cicle)
             
 
     def get_last_puesto(self):
@@ -121,7 +121,7 @@ class Reporter():
         
         if(self.get_last_puesto()!=self.puesto):
             self.set_puesto_change(value=1)
-            print("Cambio el puesto, seteo con value = 1")
+            print("Cambio el puesto, realizando calculos estadísticos...\n")
             return None, None
 
         cicle = self.database.query('SELECT nro_ciclo FROM ciclo WHERE nro_puesto = {} ORDER BY fecha_hora_inicio DESC LIMIT 1;'.format(self.puesto))

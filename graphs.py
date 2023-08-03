@@ -56,7 +56,7 @@ class Graphs():
         self.indexes = list(range(len(self.defl_r_data)))
 
         if(len(self.defl_r_data)==len(self.indexes)):
-            print("Indices iguales!")
+            print("Realizando calculos de deflexiones..")
         else:
             print("Indices NO iguales")
         

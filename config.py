@@ -250,6 +250,8 @@ class Config():
     
     def reset(self):
         self.config_frame.destroy()
+        self.show(0)
+        self.show(1)
 
     def reset_all_plots(self):
         self.resetear_label.grid(row=11, column=1)
