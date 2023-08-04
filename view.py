@@ -147,17 +147,7 @@ class View():
         # self.Plot3.show(0)
         # self.Plot4.show(0)
         # self.Plot5.show(0)
-        # self.data_instance.reset_all()
-        # self.reporter_instance.reset_reporter()
-        # self.temp=None
-        # self.grupos=None
-        # self.muestras=None
-        # self.espesor=None
-        # self.ft=None
-        # self.fh=None
-        # self.fc=None
-        # self.z=None
-
+        
     def reset_all_data(self):
         self.data_instance.reset_all()
         self.reporter_instance.reset_reporter()
@@ -170,6 +160,12 @@ class View():
         self.fc=None
         self.z=None
         self.set_data_ready(value=0)
+
+    def download_pdf(self):
+        self.Plot.generar_pdf()
+        # self.Plot2.pdf2()
+        # self.Plot3.pdf3()
+        # self.Plot4.pdf4()
 
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
@@ -311,6 +307,8 @@ class View():
                     )
                     # self.set_data_ready(value=0)
                     # self.reset_all_data()
+                elif target_function=='download_pdf':
+                    self.download_pdf()
 
                 # Indicar que la función se ha procesado y la cola puede esperar nuevamente
                 self.interface_transition_queue.task_done()

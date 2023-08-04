@@ -77,6 +77,8 @@ class Plot4():
 
             self.next.grid(row=2,column=0,sticky=NW)
 
+    def pd4(self):
+        a=1
 
     def new_group_data_plot4(self,dict_r,dict_l):
 

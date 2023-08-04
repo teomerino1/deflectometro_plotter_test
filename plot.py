@@ -10,6 +10,10 @@ from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+
 
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
@@ -96,6 +100,11 @@ class Plot():
             self.atras.grid(row=3, column=0, sticky="nw")
             self.next.grid(row=4, column=0,sticky="nw")
             
+    def generar_pdf(self):
+    # Crear el objeto canvas
+        self.Graphs.donwload_graphs()
+
+    
     
     def grid_plot1(self):
 

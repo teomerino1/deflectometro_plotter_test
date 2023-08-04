@@ -74,6 +74,9 @@ class Plot2():
             self.next.grid(row=2,column=0,sticky=NW)
 
 
+    def pd2(self):
+        a=1
+
     def new_group_data_plot2(self,dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
         
         self.Graphs2.update_gmean(dict_r, dict_l,lado = "Izquierdo")

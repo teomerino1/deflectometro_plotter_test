@@ -5,6 +5,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from matplotlib.backends.backend_pdf import FigureCanvasPdf
+import io
+import PyPDF2
+
 
 # Clase donde se inicializan y actualizan los graficos
 
@@ -95,49 +102,7 @@ class Graphs():
         self.figure_bar_r.canvas.draw_idle()
         self.figure_bar_l.canvas.draw_idle()
 
-
-
-        # self.figure_bar_r.clear()
-        # self.figure_bar_l.clear()
-
-        # subfigure_der = self.figure_bar_r.add_subplot(211)
-        # subfigure_izq = self.figure_bar_l.add_subplot(211)
-
-        # # index_der = list(range(1,len(defl_left_right_dict['right'])+1))
-        # # index_izq = list(range(1,len(defl_left_right_dict['left'])+1))
-
-        # if(len(indexes) != (len(defl_r))):
-        #     print("Corrijo indices:",len(indexes))
-        #     indexes.append(len(indexes)+1)
-        #     print("Indexes corrijed:",len(indexes))
-        # elif(len(indexes)==len(defl_r)):
-        #     print("Indices iguales!")
-
-        # subfigure_der.set_xlim(0,1000)
-        # subfigure_izq.set_xlim(0,1000)
-
-        # subfigure_der.bar(indexes, defl_r,width = 1)
-        # subfigure_izq.bar(indexes, defl_l,width =1)
-
-        # subfigure_der.set_title("Deflexion Derecha")
-        # subfigure_izq.set_title("Deflexion Izquierda")
-
-        
-        # # subfigure_der.set_ylim(0,100)
-        # # # # subfigure_izq.set_ylim(0,100)
-
-        # subfigure_der.set_xlabel("Nº grupo")
-        # subfigure_izq.set_xlabel("Nº grupo")
-
-        # subfigure_der.set_ylabel("Deflexiones")
-        # subfigure_izq.set_ylabel("Deflexiones")
-       
-        # subfigure_der.grid(axis='both',linestyle='dotted')
-        # subfigure_izq.grid(axis='both',linestyle='dotted')
-
-        # self.bar_r.draw()
-        # self.bar_l.draw()
-        
+            
 
     def show_bar_graph(self):
 
@@ -147,5 +112,39 @@ class Graphs():
         
 
     def show(self):
-
         self.show_bar_graph()
+        
+
+    def donwload_graphs(self):
+        
+        print("Ejecuto PDF")
+
+    # Generar PDF para self.figure_bar_r
+        buffer_r = io.BytesIO()
+        figure_canvas_pdf_r = FigureCanvasPdf(self.figure_bar_r.figure)
+        figure_canvas_pdf_r.print_pdf(buffer_r)
+        buffer_r.seek(0)
+
+        # Generar PDF para self.figure_bar_l
+        buffer_l = io.BytesIO()
+        figure_canvas_pdf_l = FigureCanvasPdf(self.figure_bar_l.figure)
+        figure_canvas_pdf_l.print_pdf(buffer_l)
+        buffer_l.seek(0)
+
+        # Combinar los PDFs en un solo documento
+        pdf_writer = PyPDF2.PdfWriter()
+        
+        # Agregar el PDF de self.figure_bar_r al escritor
+        pdf_writer.append(fileobj=buffer_r)
+
+        # Agregar el PDF de self.figure_bar_l al escritor
+        pdf_writer.append(fileobj=buffer_l)
+
+        # Guardar el PDF combinado en un archivo
+        with open('pdf1.pdf', 'wb') as f:
+            pdf_writer.write(f)
+
+        # Cerrar los buffers
+        buffer_r.close()
+        buffer_l.close()
+
