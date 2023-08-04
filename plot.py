@@ -102,12 +102,12 @@ class Plot():
             
     def generar_pdf(self):
     # Crear el objeto canvas
-        self.Graphs.donwload_graphs()
+        # self.Graphs.donwload_graphs()
+        self.Table.donwload_table()
 
     
     
     def grid_plot1(self):
-
         self.second_plot_frame.grid(ipadx=10, ipady=5)
 
     def update_bar_plot(self, defl_r,defl_l):
@@ -116,7 +116,6 @@ class Plot():
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
     def new_group_data_plot(self,dict_r, dict_l):
-
         self.Table.insert(dict_r, dict_l)
 
     def go_to_plot_2_from_plot_1(self):

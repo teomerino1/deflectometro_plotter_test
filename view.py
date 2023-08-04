@@ -163,6 +163,7 @@ class View():
 
     def download_pdf(self):
         self.Plot.generar_pdf()
+        
         # self.Plot2.pdf2()
         # self.Plot3.pdf3()
         # self.Plot4.pdf4()

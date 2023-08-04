@@ -1,6 +1,15 @@
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from matplotlib.backends.backend_pdf import FigureCanvasPdf
+import io
+import PyPDF2
+from tabulate import tabulate
+from tkinter import ttk
+from fpdf import FPDF
 # Clase donde se inicializa y actualiza la tabla
 
 class Table():
@@ -80,6 +89,49 @@ class Table():
     def clear_table(self):
         # Elimina todos los elementos de la tabla
         self.table.delete(*self.table.get_children())
+
+
+    
+
+    def donwload_table(self):
+        print("Ejecuto PDF")
+
+        # Obtener los datos del Treeview
+        data = []
+        for item in self.table.get_children():
+            data.append(self.table.item(item, 'values'))
+
+        # Obtener los encabezados del Treeview
+        headers = self.table['columns']
+
+        # Convertir los datos en una tabla con formato usando tabulate
+        table_str = tabulate(data, headers=headers, tablefmt='plain')
+
+        # Generar PDF con la tabla
+        pdf = FPDF()
+        pdf.add_page()
+
+        # Definir el tamaño y la fuente del texto en el PDF
+        pdf.set_font("Arial", size=11)
+
+        # Ajustar el interlineado
+        pdf.set_auto_page_break(auto=True, margin=15)
+
+        # Crear la tabla en el PDF
+        col_width = 19
+        row_height = 10
+
+        for row in table_str.split('\n'):
+            for item in row.split(None):
+                pdf.cell(col_width, row_height, txt=item, border=1, align='C')
+
+            pdf.ln(row_height)
+
+        # Guardar el PDF en un archivo
+        pdf.output('pdf2.pdf')
+
+
+        
 
     def reset(self):
         # Agrega aquí cualquier otra lógica específica para reiniciar la tabla

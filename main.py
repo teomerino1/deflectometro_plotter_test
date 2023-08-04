@@ -83,7 +83,7 @@ def process_data(Reporter,View,Data):
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 
-            if(cantidad%grupos == 0):
+            if(cantidad%10 == 0):
                 print("Graficando mediciones de grupo...")
                 update_all_thread = Thread(target=update_all,args=(Data,View))
                 update_all_thread.daemon=True 

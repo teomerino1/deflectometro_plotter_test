@@ -21,9 +21,11 @@ class Graphs():
         self.frame = frame
         # self.plot_number=plot_number
         self.show()
-        self.figure_rad_mean_r=None
-        self.rad_mean_r=None
-
+        # self.figure_rad_mean_r=None
+        # self.rad_mean_r=None
+        # self.figure_bar_l=None
+        # self.bar_l=None
+        # self.bar_widget_l=None
         ######################
         # Inicializa las listas para almacenar los datos
         self.defl_r_data = []
@@ -108,7 +110,8 @@ class Graphs():
 
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(10, 0, 1,"Deflexion Izquierda")
         
-        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(10, 1, 1,"Deflexion Derecha")  # Ajusta las coordenadas para la posición deseada
+        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(10, 1, 1,"Deflexion Derecha") 
+        
         
 
     def show(self):
