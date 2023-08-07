@@ -18,6 +18,7 @@ class Table():
         self.frame=frame
         self.show(frame)
         self.original_table_height = None
+        self.grupos=None
           
 
     # Metodo que inserta valores en el diccionario
@@ -49,6 +50,8 @@ class Table():
             last_rd_l, 
             last_r_d_l
             )) 
+
+    
 
 
     def show(self,frame):
@@ -90,12 +93,7 @@ class Table():
         # Elimina todos los elementos de la tabla
         self.table.delete(*self.table.get_children())
 
-
-    
-
     def donwload_table(self):
-        
-
         # Obtener los datos del Treeview
         data = []
         for item in self.table.get_children():

@@ -203,6 +203,7 @@ class View():
 
     def set_grupos(self,grupos):
         self.grupos=grupos
+        self.data_instance.set_grupos(grupos)
 
     def get_grupos(self):
         return self.grupos

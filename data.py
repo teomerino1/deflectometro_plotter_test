@@ -14,6 +14,7 @@ class Data():
         self.data_acumulator = None # acumula todo lo que llega de la db
         self.deflexiones_acumulator = [] # acumula los valores de las deflexiones
         self.group_counter = 1 # Contador de grupos
+        self.grupos=None        #Grupos seleccionados por el usuario
 
         # Contienen los datos del grupo actual
         self.defl_r = []
@@ -100,9 +101,6 @@ class Data():
         self.radio_r.append(radio_r_aux)
         self.radio_l.append(radio_l_aux)
 
-        # self.defl_bar_l.append(defl_l_aux)
-        # self.defl_bar_r.append(defl_r_aux)
-
         self.defl_r_acum.append(data[0]['valor'])
         self.radio_r_acum.append(data[1]['valor'])
         self.defl_l_acum.append(data[2]['valor'])
@@ -137,13 +135,13 @@ class Data():
         self.defl_r_max.append(np.max(self.defl_r))
 
         # Los agrego a los diccionarios correspondientes
-        self.data_dict_r['Grupo'].append(self.group_counter)
+        self.data_dict_r['Grupo'].append(self.group_counter*self.get_grupos())
         self.data_dict_r['Radio'].append(media_radio_r)
         self.data_dict_r['Defl.'].append(media_defl_r)
         self.data_dict_r['R*D'].append(round(media_defl_r * media_radio_r,2))
         self.data_dict_r['D/R'].append(round(media_defl_r / media_radio_r,2))
         
-        self.data_dict_l['Grupo'].append(self.group_counter)
+        self.data_dict_l['Grupo'].append(self.group_counter*self.get_grupos())
         self.data_dict_l['Radio'].append(media_radio_l)
         self.data_dict_l['Defl.'].append(media_defl_l)
         self.data_dict_l['R*D'].append(round(media_defl_l * media_radio_l,2))
@@ -167,9 +165,6 @@ class Data():
         radio_l_aux=round((radio_l_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
         return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        
-
-    
-
     def calculate_stats(self): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo
 
         print("Generando Calculos Estadísticos...")
@@ -265,6 +260,12 @@ class Data():
     def set_z(self,z):
         print("Z:",z)
         self.z=z
+
+    def set_grupos(self,grupos):
+        self.grupos=grupos
+
+    def get_grupos(self):
+        return self.grupos
         
     def reset_all(self):
         self.defl_r.clear()

@@ -71,19 +71,16 @@ def process_data(Reporter,View,Data):
         
         Data.data_destruct(data)
         cantidad=Data.cant_mediciones()
-        # print(cantidad)
+        print(cantidad)
         
         if(Reporter.get_puesto_change()==0):
 
-            # print("Get puesto change:",Reporter.get_puesto_change())
-
-            if(cantidad%6 == 0):
-                
+            if(cantidad%2 == 0):
                 update_bar_thread = Thread(target=update_defl,args=(Data,View))
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 
-            if(cantidad%10 == 0):
+            if(cantidad%grupos == 0):
                 print("Graficando mediciones de grupo...")
                 update_all_thread = Thread(target=update_all,args=(Data,View))
                 update_all_thread.daemon=True 

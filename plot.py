@@ -24,10 +24,6 @@ class Plot():
         self.root = root
         self.main_plot_frame = None
         self.second_plot_frame = None
-        # self.go_to_config = go_to_config
-        #############
-        # self.go_to_plot_2_from_plot_1 = go_to_plot_2_from_plot_1
-        #############
         self.view_instance = view_instance
         self.title = None 
         self.temperatura = None 
@@ -99,18 +95,17 @@ class Plot():
             # self.grupos.grid(row=2, column=0, sticky="nw")
             self.atras.grid(row=3, column=0, sticky="nw")
             self.next.grid(row=4, column=0,sticky="nw")
+
+    
             
     def generar_pdf(self):
         self.Graphs.donwload_graphs()
         self.Table.donwload_table()
 
-    
-    
     def grid_plot1(self):
         self.second_plot_frame.grid(ipadx=10, ipady=5)
 
     def update_bar_plot(self, defl_r,defl_l):
-        
         self.Graphs.update_bar(defl_r,defl_l)
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots

@@ -236,12 +236,12 @@ class Config():
         
         self.view_instance.set_data_ready(value=1)
 
-        self.temp_ntry.delete(0,tk.END)
-        self.espesor.delete(0,tk.END)
-        self.ft_ntry.delete(0,tk.END)
-        self.fh_ntry.delete(0,tk.END)
-        self.fc_ntry.delete(0,tk.END)
-        self.z_ntry.delete(0,tk.END)
+        # self.temp_ntry.delete(0,tk.END)
+        # self.espesor.delete(0,tk.END)
+        # self.ft_ntry.delete(0,tk.END)
+        # self.fh_ntry.delete(0,tk.END)
+        # self.fc_ntry.delete(0,tk.END)
+        # self.z_ntry.delete(0,tk.END)
         
         self.config_frame.grid_forget()
 
