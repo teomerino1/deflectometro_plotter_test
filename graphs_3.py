@@ -58,14 +58,14 @@ class Graphs3():
         bar_widget.grid(row = row, column = column, columnspan = columnspan)
         return figure, bar, bar_widget
     
-    def update_deflexiones_gmean(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car, lado):
+    def update_deflexiones_gmean(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos,lado):
 
         if(lado == "Izquierdo"):
 
             self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
-            self.defl_car_l_data.extend(defl_l_max[-1:])
+            self.defl_car_l_data.extend(defl_l_car[-1:])
             self.defl_max_l_data.extend(defl_l_max[-1:])
-            self.indexes = [x * 50 for x in range(1, len(self.defl_mean_l_data)+1)]
+            self.indexes = [x * grupos for x in range(1, len(self.defl_mean_l_data)+1)]
             # self.indexes=list(range(1,len(self.defl_mean_l_data)+1))
 
             self.figure_defl_mean_l.clear()
@@ -89,9 +89,9 @@ class Graphs3():
         if(lado == "Derecho"):
 
             self.defl_mean_r_data.extend(dict_r['Defl.'][-1:])
-            self.defl_car_r_data.extend(defl_r_max[-1:])
+            self.defl_car_r_data.extend(defl_r_car[-1:])
             self.defl_max_r_data.extend(defl_r_max[-1:])
-            self.indexes = [x * 50 for x in range(1, len(self.defl_mean_r_data)+1)]
+            self.indexes = [x * grupos for x in range(1, len(self.defl_mean_r_data)+1)]
             # self.indexes=list(range(1,len(self.defl_mean_r_data)+1))
             
             self.figure_defl_mean_r.clear()
@@ -115,11 +115,9 @@ class Graphs3():
     def show_deflexiones_gmean_graph(self,lado):
 
         if(lado == "Derecho"):
-
             self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Derecha")
 
         if(lado == "Izquierdo"):
-
             self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Izquierda")
 
 

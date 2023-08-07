@@ -64,9 +64,8 @@ class Plot4():
     def download_graphs(self):
         self.Graphs4.download_graphs4()
 
-    def new_group_data_plot4(self,dict_r,dict_l):
-
-        self.Graphs4.update_deflexiones_radios_graph(dict_r,dict_l)
+    def new_group_data_plot4(self,dict_r,dict_l,grupos):
+        self.Graphs4.update_deflexiones_radios_graph(dict_r,dict_l,grupos)
 
     def go_to_plot_3_from_plot_4(self):
         self.view_instance.enqueue_transition('go_to_plot_3_from_plot_4')

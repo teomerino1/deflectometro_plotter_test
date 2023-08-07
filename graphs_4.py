@@ -49,13 +49,12 @@ class Graphs4():
         bar_widget.grid(row = row, column = column, columnspan = columnspan)
         return figure, bar, bar_widget
     
-    def update_deflexiones_radios_graph(self, dict_r, dict_l):
+    def update_deflexiones_radios_graph(self, dict_r, dict_l,grupos):
 
         self.rad_mean_r_data.extend(dict_r['Radio'][-1:])
         self.rad_mean_l_data.extend(dict_l['Radio'][-1:])
         # self.indexes=list(range(1,len(self.rad_mean_l_data)+1))
-        self.indexes = [x * 50 for x in range(1, len(self.rad_mean_l_data)+1)]
-        
+        self.indexes = [x * grupos for x in range(1, len(self.rad_mean_l_data)+1)]
 
         self.figure_defl_mean_l.clear()
         self.figure_defl_mean_r.clear()

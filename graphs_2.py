@@ -43,11 +43,11 @@ class Graphs2():
         return figure, graph, graph_widget
     
 
-    def update_gmean(self, dict_r, dict_l,lado):
+    def update_gmean(self, dict_r, dict_l,grupos,lado):
 
         self.rad_r_data.extend(dict_r['Radio'][-1:])
         self.rad_l_data.extend(dict_l['Radio'][-1:])
-        self.indexes = [x * 50 for x in range(1, len(self.rad_l_data)+1)]
+        self.indexes = [x * grupos for x in range(1, len(self.rad_l_data)+1)]
 
 
         if(lado == "Izquierdo"):

@@ -169,11 +169,11 @@ class View():
 
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
-    def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
+    def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos):
         self.Plot.new_group_data_plot(dict_r, dict_l)
-        self.Plot2.new_group_data_plot2(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car)
-        self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car)
-        self.Plot4.new_group_data_plot4(dict_r, dict_l)
+        self.Plot2.new_group_data_plot2(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos)
+        self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos)
+        self.Plot4.new_group_data_plot4(dict_r, dict_l,grupos)
 
     # Metodo que manda a actualizar el gafico de barras 
     def update_bar_view(self, defl_r,defl_l):
@@ -204,6 +204,7 @@ class View():
     def set_grupos(self,grupos):
         self.grupos=grupos
         self.data_instance.set_grupos(grupos)
+        
 
     def get_grupos(self):
         return self.grupos

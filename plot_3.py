@@ -68,9 +68,9 @@ class Plot3():
         self.Graphs3.download_graphs3(lado="Derecho")
 
 
-    def new_group_data_plot3(self,dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
-        self.Graphs2.update_gmean(dict_r, dict_l,lado="Derecho")
-        self.Graphs3.update_deflexiones_gmean(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car, lado="Derecho")
+    def new_group_data_plot3(self,dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos):
+        self.Graphs2.update_gmean(dict_r, dict_l,grupos,lado="Derecho")
+        self.Graphs3.update_deflexiones_gmean(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos,lado="Derecho")
 
     def go_to_plot_2_from_plot_3(self):
         self.view_instance.enqueue_transition('go_to_plot_2_from_plot_3')

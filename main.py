@@ -20,12 +20,12 @@ def show_stats(View,Data):
     # View.reset_all_data()
     View.enqueue_transition('generate_stats')
 
-def update_all(Data,View):
+def update_all(Data,View,grupos):
     Data.update_structures()
     dict_r, dict_l = Data.get_data_dict()
     defl_l_max, defl_r_max = Data.get_max_defl()
     defl_l_car, defl_r_car = Data.get_std_defl()
-    View.new_group_data_view(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car)
+    View.new_group_data_view(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,grupos)
 
 def update_defl(Data,View):
     defl_r, defl_l = Data.update_bar_data()
@@ -82,7 +82,7 @@ def process_data(Reporter,View,Data):
 
             if(cantidad%grupos == 0):
                 print("Graficando mediciones de grupo...")
-                update_all_thread = Thread(target=update_all,args=(Data,View))
+                update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 
                 update_all_thread.start()
             
