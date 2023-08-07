@@ -68,8 +68,8 @@ class Graphs():
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-        # subfigure_der.set_xlim(0, 1000)
-        # subfigure_izq.set_xlim(0, 1000)
+        subfigure_der.set_ylim(0, 150)
+        subfigure_izq.set_ylim(0, 150)
         
         subfigure_der.set_xlim(0, len(self.defl_r_data))
         subfigure_izq.set_xlim(0, len(self.defl_l_data))
@@ -102,12 +102,9 @@ class Graphs():
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(10, 0, 1,"Deflexion Izquierda")
         self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(10, 1, 1,"Deflexion Derecha") 
         
-        
-
     def show(self):
         self.show_bar_graph()
         
-
     def donwload_graphs(self):
         print("Ejecuto PDF")
 

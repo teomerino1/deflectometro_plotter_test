@@ -73,7 +73,7 @@ class Graphs3():
             subfigure_izq = self.figure_defl_mean_l.add_subplot(211)
             
             subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-            subfigure_izq.set_ylim(0,100)  
+            subfigure_izq.set_ylim(0,350)  
             
             subfigure_izq.bar(self.indexes, self.defl_mean_l_data, color='red',width = 0.5, edgecolor='black')
             subfigure_izq.scatter(self.indexes, self.defl_max_l_data)
@@ -99,7 +99,7 @@ class Graphs3():
             subfigure_der=self.figure_defl_mean_r.add_subplot(211)
 
             subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-            subfigure_der.set_ylim(0,100)
+            subfigure_der.set_ylim(0,350)
             
             subfigure_der.bar(self.indexes, self.defl_mean_r_data, color='red',width = 0.5, edgecolor='black')
             subfigure_der.scatter(self.indexes, self.defl_max_r_data)

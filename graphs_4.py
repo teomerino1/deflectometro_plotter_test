@@ -64,6 +64,8 @@ class Graphs4():
 
         subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
         subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
+        subfigure_der.set_ylim(0,400)
+        subfigure_izq.set_ylim(0,400)
 
         subfigure_izq.scatter(self.indexes,self.rad_mean_l_data, color = 'r')
         subfigure_der.scatter(self.indexes, self.rad_mean_r_data, color = 'r')
