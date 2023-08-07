@@ -57,7 +57,6 @@ class Data():
             "defl": []
         }
 
-        
         # dict que va a contener los datos que se van a mostrar por tabla
         # tambien se usan en los ploteos
         self.data_dict_r = {
@@ -108,8 +107,8 @@ class Data():
        
     # Metodo que se encarga de una vez cumplido el grupo, actualizar los datos para el grafico de barras
     def update_bar_data(self):
-        self.defl_bar_r.extend(self.defl_r[-6:])
-        self.defl_bar_l.extend(self.defl_l[-6:])
+        self.defl_bar_r.extend(self.defl_r[-2:])
+        self.defl_bar_l.extend(self.defl_l[-2:])
         return self.defl_bar_r,self.defl_bar_l
 
 

@@ -51,18 +51,20 @@ class Graphs4():
     
     def update_deflexiones_radios_graph(self, dict_r, dict_l):
 
-        # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
-        # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.deflexiones_radios_graph(3,1,1,"Informe estadistico: Lado Derecho")
-
         self.rad_mean_r_data.extend(dict_r['Radio'][-1:])
         self.rad_mean_l_data.extend(dict_l['Radio'][-1:])
-        self.indexes=list(range(1,len(self.rad_mean_l_data)+1))
+        # self.indexes=list(range(1,len(self.rad_mean_l_data)+1))
+        self.indexes = [x * 50 for x in range(1, len(self.rad_mean_l_data)+1)]
+        
 
         self.figure_defl_mean_l.clear()
         self.figure_defl_mean_r.clear()
-
+        
         subfigure_izq=self.figure_defl_mean_l.add_subplot(211)
         subfigure_der=self.figure_defl_mean_r.add_subplot(211)
+
+        subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
+        subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
 
         subfigure_izq.scatter(self.indexes,self.rad_mean_l_data, color = 'r')
         subfigure_der.scatter(self.indexes, self.rad_mean_r_data, color = 'r')

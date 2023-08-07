@@ -65,13 +65,14 @@ class Graphs3():
             self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
             self.defl_car_l_data.extend(defl_l_max[-1:])
             self.defl_max_l_data.extend(defl_l_max[-1:])
-            self.indexes=list(range(1,len(self.defl_mean_l_data)+1))
-            # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Izquierda")
+            self.indexes = [x * 50 for x in range(1, len(self.defl_mean_l_data)+1)]
+            # self.indexes=list(range(1,len(self.defl_mean_l_data)+1))
+
             self.figure_defl_mean_l.clear()
 
             subfigure_izq = self.figure_defl_mean_l.add_subplot(211)
             
-            subfigure_izq.set_xlim(0,len(self.defl_mean_l_data)+1)
+            subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
             subfigure_izq.set_ylim(0,100)  
             
             subfigure_izq.bar(self.indexes, self.defl_mean_l_data, color='red',width = 0.5, edgecolor='black')
@@ -90,13 +91,14 @@ class Graphs3():
             self.defl_mean_r_data.extend(dict_r['Defl.'][-1:])
             self.defl_car_r_data.extend(defl_r_max[-1:])
             self.defl_max_r_data.extend(defl_r_max[-1:])
-            self.indexes=list(range(1,len(self.defl_mean_r_data)+1))
-            # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Derecha")
+            self.indexes = [x * 50 for x in range(1, len(self.defl_mean_r_data)+1)]
+            # self.indexes=list(range(1,len(self.defl_mean_r_data)+1))
+            
             self.figure_defl_mean_r.clear()
 
             subfigure_der=self.figure_defl_mean_r.add_subplot(211)
 
-            subfigure_der.set_xlim(0,len(self.defl_mean_r_data)+1)
+            subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
             subfigure_der.set_ylim(0,100)
             
             subfigure_der.bar(self.indexes, self.defl_mean_r_data, color='red',width = 0.5, edgecolor='black')

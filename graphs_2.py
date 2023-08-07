@@ -47,7 +47,8 @@ class Graphs2():
 
         self.rad_r_data.extend(dict_r['Radio'][-1:])
         self.rad_l_data.extend(dict_l['Radio'][-1:])
-        self.indexes=list(range(1,len(self.rad_l_data)+1))
+        self.indexes = [x * 50 for x in range(1, len(self.rad_l_data)+1)]
+
 
         if(lado == "Izquierdo"):
 
@@ -55,7 +56,7 @@ class Graphs2():
             self.figure_rad_mean_l.clear()
             subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
 
-            subfigure_izq.set_xlim(1,len(self.rad_l_data)+1)
+            subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
             subfigure_izq.set_ylim(0,100)
 
             subfigure_izq.plot(self.indexes, self.rad_l_data,'o-')
@@ -74,7 +75,7 @@ class Graphs2():
             self.figure_rad_mean_r.clear()
             subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
-            subfigure_der.set_xlim(1,len(self.rad_r_data)+1)
+            subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
             subfigure_der.set_ylim(0,100)
 
             subfigure_der.plot(self.indexes, self.rad_r_data,'o-')

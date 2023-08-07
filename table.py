@@ -77,12 +77,12 @@ class Table():
             ("radio_r", "Radio"),
             ("defl_r", "Defl."),
             ("r_d_r", "R*D"),
-            ("r/d_r", "R/D"),
+            ("r/d_r", "D/R"),
             ("groups_l", "Groups L"),
             ("radio_l", "Radio"),
             ("defl_l", "Defl."),
             ("r_d_l", "R*D"),
-            ("r/d_l", "R/D")
+            ("r/d_l", "D/R")
         ]
         for column, header in headers:
             self.table.heading(column, text=header)

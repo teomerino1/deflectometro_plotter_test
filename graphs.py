@@ -82,8 +82,8 @@ class Graphs():
         subfigure_der.set_title("Deflexion Derecha")
         subfigure_izq.set_title("Deflexion Izquierda")
 
-        subfigure_der.set_xlabel("Nº grupo")
-        subfigure_izq.set_xlabel("Nº grupo")
+        subfigure_der.set_xlabel("Progresivas [metros]")
+        subfigure_izq.set_xlabel("Progresivas [metros]")
 
         subfigure_der.set_ylabel("Deflexiones")
         subfigure_izq.set_ylabel("Deflexiones")

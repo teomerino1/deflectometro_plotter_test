@@ -53,7 +53,7 @@ class Config():
             self.conf_inicial=conf_inicial
             
             # temp
-            temp_label=Label(config_frame, text="Temperatura:")
+            temp_label=Label(config_frame, text="Temperatura [ºC]:")
             self.temp_label=temp_label
             
             temp_ntry = Entry(config_frame)
@@ -80,7 +80,7 @@ class Config():
             self.muestras_ntry = muestras_ntry
             
             # Espesor
-            espesor_label=Label(config_frame, text="Espesor:")
+            espesor_label=Label(config_frame, text="Espesor [mm]:")
             self.espesor_label=espesor_label
            
             espesor = Entry(config_frame)
