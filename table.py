@@ -94,7 +94,7 @@ class Table():
     
 
     def donwload_table(self):
-        print("Ejecuto PDF")
+        
 
         # Obtener los datos del Treeview
         data = []
@@ -128,10 +128,7 @@ class Table():
             pdf.ln(row_height)
 
         # Guardar el PDF en un archivo
-        pdf.output('pdf2.pdf')
-
-
-        
+        pdf.output('Table.pdf')
 
     def reset(self):
         # Agrega aquí cualquier otra lógica específica para reiniciar la tabla

@@ -17,18 +17,14 @@ from tkinter import ttk
 
 class Plot3():
     def __init__(self,root,view_instance):
-
         self.root = root
-        # self.main_plot_frame = None
-        # self.second_plot_frame = None
         self.fourth_plot_frame = None
         self.title = None
         self.next = None
-        self.back = None  
-        # self.go_to_plot_2_from_plot_3 = go_to_plot_2_from_plot_3
-        # self.go_to_plot_4_from_plot_3 = go_to_plot_4_from_plot_3
+        self.back = None 
         self.view_instance = view_instance
         self.Graphs2 = None 
+        self.Graphs3 = None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
@@ -43,7 +39,6 @@ class Plot3():
         if(a == 0):
 
             width = self.root.winfo_screenwidth()
-
             height = self.root.winfo_screenheight()
 
             fourth_plot_frame = Frame(self.root, width=width, height=height)
@@ -63,22 +58,18 @@ class Plot3():
 
         if(a == 1):
 
-            self.fourth_plot_frame.grid(rowspan=3,columnspan=3)
-
+            self.fourth_plot_frame.grid(rowspan=10,columnspan=10)
             self.title.grid(row = 0, column = 0,sticky=NW)
-
             self.back.grid(row=1, column=0,sticky=NW)
-
             self.next.grid(row=2,column=0,sticky=NW)
 
-    def pd3(self):
-        a=1
+    def download_graphs(self):
+        self.Graphs2.download_graphs2(lado="Derecho")
+        self.Graphs3.download_graphs3(lado="Derecho")
 
 
     def new_group_data_plot3(self,dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
-        
         self.Graphs2.update_gmean(dict_r, dict_l,lado="Derecho")
-
         self.Graphs3.update_deflexiones_gmean(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car, lado="Derecho")
 
     def go_to_plot_2_from_plot_3(self):

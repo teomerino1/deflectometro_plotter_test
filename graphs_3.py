@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_pdf import FigureCanvasPdf
+import io
+import PyPDF2
 
 # Clase donde se inicializan y actualizan los graficos
 
@@ -96,7 +99,6 @@ class Graphs3():
             subfigure_der.set_xlim(0,len(self.defl_mean_r_data)+1)
             subfigure_der.set_ylim(0,100)
             
-
             subfigure_der.bar(self.indexes, self.defl_mean_r_data, color='red',width = 0.5, edgecolor='black')
             subfigure_der.scatter(self.indexes, self.defl_max_r_data)
             subfigure_der.plot(self.indexes, self.defl_car_r_data)
@@ -107,53 +109,52 @@ class Graphs3():
             subfigure_der.set_ylabel("Deflexiones")
             
             self.figure_defl_mean_r.canvas.draw_idle()
-        # if(lado == "Izquierdo"):
-
-        #     self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Izquierda")
-        #     self.figure_rad_mean_l.clear()
-
-        #     subfigure_izq = self.figure_rad_mean_l.add_subplot(211)
-        #     subfigure_izq.set_title("Deflexiones Izquierda")
-        #     # subfigure_izq.set_xlim(0,80)
-        #     subfigure_izq.set_ylim(0,100)  
-        #     subfigure_izq.set_xlabel("Progresivas")
-        #     subfigure_izq.set_ylabel("Deflexiones")
-
-        #     subfigure_izq.bar(dict_l['Grupo'], dict_l['Defl.'], color='red',width = 0.5, edgecolor='black')
-        #     subfigure_izq.scatter(dict_l['Grupo'], defl_l_max)
-        #     subfigure_izq.plot(dict_l['Grupo'], defl_l_car)
-        #     subfigure_izq.grid(axis='both',linestyle='dotted')
         
-        #     self.rad_mean_l.draw()
-
-        # if(lado == "Derecho"):
-
-        #     self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Derecha")
-        #     self.figure_rad_mean_r.clear()
-
-        #     subfigure_der=self.figure_rad_mean_r.add_subplot(211)
-
-        #     subfigure_der.set_title("Deflexiones Derecha")
-        #     # subfigure_der.set_xlim(0,80)
-        #     subfigure_der.set_ylim(0,100)
-        #     subfigure_der.set_xlabel("Progresivas")
-        #     subfigure_der.set_ylabel("Deflexiones")
-
-        #     subfigure_der.bar(dict_r['Grupo'], dict_r['Defl.'], color='red',width = 0.5, edgecolor='black')
-        #     subfigure_der.scatter(dict_r['Grupo'], defl_r_max)
-        #     subfigure_der.plot(dict_r['Grupo'],defl_r_car)
-        #     subfigure_der.grid(axis='both',linestyle='dotted')
-            
-        #     self.rad_mean_r.draw()
-        
-            # self.rad_mean_widget_r.draw()
-
     def show_deflexiones_gmean_graph(self,lado):
 
         if(lado == "Derecho"):
 
-            self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_l = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Derecha")
+            self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Derecha")
 
         if(lado == "Izquierdo"):
 
             self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Izquierda")
+
+
+    def download_graphs3(self,lado):
+
+        if(lado=="Izquierdo"):
+   
+            # Generar PDF para self.figure_bar_l
+            buffer_l = io.BytesIO()
+            figure_canvas_pdf_l = FigureCanvasPdf(self.figure_defl_mean_l.figure)
+            figure_canvas_pdf_l.print_pdf(buffer_l)
+            buffer_l.seek(0)
+
+            # Combinar los PDFs en un solo documento
+            pdf_writer = PyPDF2.PdfWriter()
+            
+            # Agregar el PDF de self.figure_bar_l al escritor
+            pdf_writer.append(fileobj=buffer_l)
+
+            with open('Deflexiones_mean_izq.pdf', 'wb') as f:
+                pdf_writer.write(f)
+            # Cerrar los buffers
+            buffer_l.close()
+
+        if(lado=="Derecho"):
+             # Generar PDF para self.figure_bar_r
+            buffer_r = io.BytesIO()
+            figure_canvas_pdf_r = FigureCanvasPdf(self.figure_defl_mean_r.figure)
+            figure_canvas_pdf_r.print_pdf(buffer_r)
+            buffer_r.seek(0)
+
+            pdf_writer = PyPDF2.PdfWriter()
+            # Agregar el PDF de self.figure_bar_r al escritor
+            pdf_writer.append(fileobj=buffer_r)
+
+             # Guardar el PDF combinado en un archivo
+            with open('Deflexiones_mean_der.pdf', 'wb') as f:
+                pdf_writer.write(f)
+
+            buffer_r.close()

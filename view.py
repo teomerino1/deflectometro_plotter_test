@@ -163,10 +163,9 @@ class View():
 
     def download_pdf(self):
         self.Plot.generar_pdf()
-        
-        # self.Plot2.pdf2()
-        # self.Plot3.pdf3()
-        # self.Plot4.pdf4()
+        self.Plot2.download_graphs()
+        self.Plot3.download_graphs()
+        self.Plot4.download_graphs()
 
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras

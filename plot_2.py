@@ -17,17 +17,12 @@ from tkinter import ttk
 
 class Plot2():
     def __init__(self,root,view_instance):
-
         self.root = root
-        # self.main_plot_frame = None
-        # self.second_plot_frame = None
         self.third_plot_frame = None
         self.title = None
         self.next = None
         self.back = None
         self.view_instance = view_instance  
-        # self.go_to_plot_1_from_plot_2 = go_to_plot_1_from_plot_2
-        # self.go_to_plot_3_from_plot2 = go_to_plot_3_from_plot2
         self.Graphs2 = None
         self.Graphs3 = None
 
@@ -60,11 +55,7 @@ class Plot2():
 
             self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Izquierdo")
             self.Graphs3 = graphs_3.Graphs3(self.third_plot_frame,lado="Izquierdo")
-            # self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Derecho")
-
             
-
-            # self.Graphs3 = graphs_3.Graphs3(self.third_plot_frame,lado="Derecho")
 
         if(a == 1):
             # self.third_plot_frame.grid(rowspan=3,columnspan=3)
@@ -74,8 +65,9 @@ class Plot2():
             self.next.grid(row=2,column=0,sticky=NW)
 
 
-    def pd2(self):
-        a=1
+    def download_graphs(self):
+        self.Graphs2.download_graphs2(lado="Izquierdo")
+        self.Graphs3.download_graphs3(lado="Izquierdo")
 
     def new_group_data_plot2(self,dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car):
         

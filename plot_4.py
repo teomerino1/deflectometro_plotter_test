@@ -20,21 +20,16 @@ class Plot4():
     def __init__(self,root, view_instance):
 
         self.root = root
-        # self.main_plot_frame = None
-        # self.second_plot_frame = None
         self.fifht_plot_frame = None
         self.title = None
         self.next = None
         self.back = None  
         self.view_instance = view_instance
-        # self.go_to_plot_3_from_plot_4 = go_to_plot_3_from_plot_4
-        # self.go_to_plot_5_from_plot_4 = go_to_plot_5_from_plot_4#TODO HACERLO
         self.Graphs4 = None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
         self.fifht_plot_frame.grid_forget()
-
 
     def reset(self):
         self.fifht_plot_frame.destroy()
@@ -45,40 +40,29 @@ class Plot4():
         if(a == 0):
 
             width = self.root.winfo_screenwidth()
-
             height = self.root.winfo_screenheight()
-
             fifht_plot_frame = Frame(self.root, width=width, height=height)
-
             self.fifht_plot_frame = fifht_plot_frame
 
             title = Label(fifht_plot_frame, text="Graficos de deflexiones vs radios",font=(None, 20)) 
-
             self.title=title
 
             back = Button(fifht_plot_frame, text="Atrás", command=self.go_to_plot_3_from_plot_4)
-
             self.back = back
 
             next = Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4) #TODO Hacer el next al plot 5
-
             self.next = next
-
             self.Graphs4 = graphs_4.Graphs4(self.fifht_plot_frame)
-
 
         if(a == 1):
 
             self.fifht_plot_frame.grid(rowspan=3,columnspan=3)
-
             self.title.grid(row = 0, column = 0,sticky=NW)
-
             self.back.grid(row=1, column=0,sticky=NW)
-
             self.next.grid(row=2,column=0,sticky=NW)
 
-    def pd4(self):
-        a=1
+    def download_graphs(self):
+        self.Graphs4.download_graphs4()
 
     def new_group_data_plot4(self,dict_r,dict_l):
 

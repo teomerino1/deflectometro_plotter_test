@@ -101,8 +101,7 @@ class Plot():
             self.next.grid(row=4, column=0,sticky="nw")
             
     def generar_pdf(self):
-    # Crear el objeto canvas
-        # self.Graphs.donwload_graphs()
+        self.Graphs.donwload_graphs()
         self.Table.donwload_table()
 
     

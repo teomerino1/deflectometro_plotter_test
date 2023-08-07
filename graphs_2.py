@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_pdf import FigureCanvasPdf
+import io
+import PyPDF2
 
 # Clase donde se inicializan y actualizan los graficos
 
@@ -22,16 +25,9 @@ class Graphs2():
         self.indexes=[] 
         self.show(lado)
 
-
-
-    def show(self,lado):
-        self.show_radio_gmean_graph(lado)
-
-    
     def radio_gmean_graph(self,row, column, columnspan,title):
         
         figure = Figure(figsize=(6, 7), dpi=100)
-
         sub_figure = figure.add_subplot(211)
         sub_figure.set_xlim(0,100)
         sub_figure.set_ylim(0,100)
@@ -40,9 +36,7 @@ class Graphs2():
         sub_figure.set_ylabel("Radio de Curvatura")
         sub_figure.scatter([], [])
         sub_figure.grid(axis='both',linestyle='dotted')
-
         graph = FigureCanvasTkAgg(figure, self.frame)
-
         graph_widget = graph.get_tk_widget()
         graph_widget.grid(row = row, column = column, columnspan = columnspan)
 
@@ -92,59 +86,54 @@ class Graphs2():
             subfigure_der.grid(axis='both',linestyle='dotted')
             
             self.figure_rad_mean_r.canvas.draw_idle()
+
+    def show(self,lado):
         
-        # if(lado == "Izquierdo"):
-
-        #     self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
-        #     self.figure_rad_mean_l.clear()
-
-        #     subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
-
-        #     # subfigure2.set_xlim(0,100)
-        #     subfigure_izq.set_ylim(0,100)
-
-        #     subfigure_izq.set_title("Radio Izquierda")
-        #     subfigure_izq.set_xlabel("Nº Grupo")
-        #     subfigure_izq.set_ylabel("Radio de curvatura")
-
-        #     print("Dict L grupo:",dict_l['Grupo'])
-        #     subfigure_izq.plot(dict_l['Grupo'], dict_l['Radio'],'o-')
-
-        #     subfigure_izq.grid(axis='both',linestyle='dotted')
+        if(lado == "Derecho"):
+            self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
         
-        #     self.rad_mean_l.draw()
-
-        # if(lado == "Derecho"):
-
-        #     self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
-
-        #     self.figure_rad_mean_r.clear()
-
-        #     subfigure_der=self.figure_rad_mean_r.add_subplot(211)
-
-        #     # subfigure.set_xlim(0,100)
-
-        #     subfigure_der.set_ylim(0,100)
-            
-        #     subfigure_der.set_title("Radio Derecha")
-        #     subfigure_der.set_xlabel("Nº Grupo")
-        #     subfigure_der.set_ylabel("Radio de curvatura")
-
-        #     subfigure_der.plot(dict_r['Grupo'], dict_r['Radio'],'o-')
-        #     subfigure_der.grid(axis='both',linestyle='dotted')
-            
-        #     self.rad_mean_r.draw()
-        
-            # self.rad_mean_widget_r.draw()
-
-    def show_radio_gmean_graph(self,lado):
 
         if(lado == "Izquierdo"):
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
-            
+           
+    def download_graphs2(self,lado):
 
-        if(lado == "Derecho"):
-            self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
+        if(lado=="Izquierdo"):
+   
+            # Generar PDF para self.figure_bar_l
+            buffer_l = io.BytesIO()
+            figure_canvas_pdf_l = FigureCanvasPdf(self.figure_rad_mean_l.figure)
+            figure_canvas_pdf_l.print_pdf(buffer_l)
+            buffer_l.seek(0)
+
+            # Combinar los PDFs en un solo documento
+            pdf_writer = PyPDF2.PdfWriter()
+            
+            # Agregar el PDF de self.figure_bar_l al escritor
+            pdf_writer.append(fileobj=buffer_l)
+
+            with open('pdf1l.pdf', 'wb') as f:
+                pdf_writer.write(f)
+            # Cerrar los buffers
+            buffer_l.close()
+
+        if(lado=="Derecho"):
+             # Generar PDF para self.figure_bar_r
+            buffer_r = io.BytesIO()
+            figure_canvas_pdf_r = FigureCanvasPdf(self.figure_rad_mean_r.figure)
+            figure_canvas_pdf_r.print_pdf(buffer_r)
+            buffer_r.seek(0)
+
+            pdf_writer = PyPDF2.PdfWriter()
+            # Agregar el PDF de self.figure_bar_r al escritor
+            pdf_writer.append(fileobj=buffer_r)
+
+             # Guardar el PDF combinado en un archivo
+            with open('pdf1r.pdf', 'wb') as f:
+                pdf_writer.write(f)
+
+            buffer_r.close()
+
            
        
 

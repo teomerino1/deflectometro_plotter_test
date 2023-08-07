@@ -19,19 +19,12 @@ class Graphs():
     def __init__(self, frame):
         self.a=None
         self.frame = frame
-        # self.plot_number=plot_number
-        self.show()
-        # self.figure_rad_mean_r=None
-        # self.rad_mean_r=None
-        # self.figure_bar_l=None
-        # self.bar_l=None
-        # self.bar_widget_l=None
-        ######################
         # Inicializa las listas para almacenar los datos
         self.defl_r_data = []
         self.defl_l_data = []
         self.indexes = []
-        ######################
+        self.show()
+        
 
     # Grafico que corresponde a las deflexiones individuales
     def bar_graph(self, row, column, columnspan,title):
@@ -75,7 +68,6 @@ class Graphs():
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-
         # subfigure_der.set_xlim(0, 1000)
         # subfigure_izq.set_xlim(0, 1000)
         
@@ -86,7 +78,6 @@ class Graphs():
         # Grafica todos los datos almacenados
         subfigure_der.bar(self.indexes, self.defl_r_data, width=1)
         subfigure_izq.bar(self.indexes, self.defl_l_data, width=1)
-
 
         subfigure_der.set_title("Deflexion Derecha")
         subfigure_izq.set_title("Deflexion Izquierda")
@@ -109,7 +100,6 @@ class Graphs():
     def show_bar_graph(self):
 
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(10, 0, 1,"Deflexion Izquierda")
-        
         self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(10, 1, 1,"Deflexion Derecha") 
         
         
@@ -119,7 +109,6 @@ class Graphs():
         
 
     def donwload_graphs(self):
-        
         print("Ejecuto PDF")
 
     # Generar PDF para self.figure_bar_r
@@ -144,7 +133,7 @@ class Graphs():
         pdf_writer.append(fileobj=buffer_l)
 
         # Guardar el PDF combinado en un archivo
-        with open('pdf1.pdf', 'wb') as f:
+        with open('Deflexiones_individuales.pdf', 'wb') as f:
             pdf_writer.write(f)
 
         # Cerrar los buffers

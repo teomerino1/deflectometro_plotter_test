@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_pdf import FigureCanvasPdf
+import io
+import PyPDF2
+
 
 # Clase donde se inicializan y actualizan los graficos
 
@@ -17,7 +21,6 @@ class Graphs4():
         self.figure_defl_mean_l = None 
         self.defl_mean_l = None 
         self.defl_mean_widget_l = None
-
         self.rad_mean_l_data=[]
         self.rad_mean_r_data=[]
         self.indexes=[] 
@@ -77,17 +80,39 @@ class Graphs4():
 
         self.figure_defl_mean_l.canvas.draw_idle()
         self.figure_defl_mean_r.canvas.draw_idle()
-        
-        # subfigure_izq.set_xlim(0,20)
-        # subfigure2.set_ylim(0,100)
-
-        # subfigure_der.set_xlim(0,20)
-        # subfigure.set_ylim(0,100)
-
-        
-
+    
 
     def show_defl_radios_graph(self):
 
-        self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_l = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
+        self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
         self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(3,1,1,"Informe estadístico: Lado Derecho")
+
+    def download_graphs4(self):
+
+        buffer_r = io.BytesIO()
+        figure_canvas_pdf_r = FigureCanvasPdf(self.figure_defl_mean_r.figure)
+        figure_canvas_pdf_r.print_pdf(buffer_r)
+        buffer_r.seek(0)
+
+        # Generar PDF para self.figure_bar_l
+        buffer_l = io.BytesIO()
+        figure_canvas_pdf_l = FigureCanvasPdf(self.figure_defl_mean_l.figure)
+        figure_canvas_pdf_l.print_pdf(buffer_l)
+        buffer_l.seek(0)
+
+        # Combinar los PDFs en un solo documento
+        pdf_writer = PyPDF2.PdfWriter()
+        
+        # Agregar el PDF de self.figure_bar_r al escritor
+        pdf_writer.append(fileobj=buffer_r)
+
+        # Agregar el PDF de self.figure_bar_l al escritor
+        pdf_writer.append(fileobj=buffer_l)
+
+        # Guardar el PDF combinado en un archivo
+        with open('Informe_estadistico.pdf', 'wb') as f:
+            pdf_writer.write(f)
+
+        # Cerrar los buffers
+        buffer_r.close()
+        buffer_l.close()
