@@ -23,6 +23,8 @@ class Graphs4():
         self.defl_mean_widget_l = None
         self.rad_mean_l_data=[]
         self.rad_mean_r_data=[]
+        self.defl_mean_l_data=[]
+        self.defl_mean_r_data=[]
         self.indexes=[] 
 
         self.show()
@@ -53,6 +55,9 @@ class Graphs4():
 
         self.rad_mean_r_data.extend(dict_r['Radio'][-1:])
         self.rad_mean_l_data.extend(dict_l['Radio'][-1:])
+        self.defl_mean_r_data.extend(dict_r['Defl.'][-1:])
+        self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
+        
         # self.indexes=list(range(1,len(self.rad_mean_l_data)+1))
         self.indexes = [x * grupos for x in range(1, len(self.rad_mean_l_data)+1)]
 
@@ -67,8 +72,8 @@ class Graphs4():
         subfigure_der.set_ylim(0,400)
         subfigure_izq.set_ylim(0,400)
 
-        subfigure_izq.scatter(self.indexes,self.rad_mean_l_data, color = 'r')
-        subfigure_der.scatter(self.indexes, self.rad_mean_r_data, color = 'r')
+        subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
+        subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
         
         subfigure_izq.grid(axis='both',linestyle='dotted')
         subfigure_der.grid(axis='both',linestyle='dotted')

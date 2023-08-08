@@ -32,8 +32,9 @@ class Graphs():
         figure = Figure(figsize=(7, 7), dpi=100)
         sub_figure=figure.add_subplot(211)
 
-        # sub_figure.set_xlim(0,1000)
+        
         sub_figure.set_ylim(0,100)
+        sub_figure.set_xlim(0,10)
         sub_figure.set_title(title)
 
         sub_figure.set_xlabel("Nº grupo")

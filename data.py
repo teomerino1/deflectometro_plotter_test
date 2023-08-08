@@ -165,7 +165,27 @@ class Data():
     def calculate_stats(self): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo
 
         print("Generando Calculos Estadísticos...")
-
+        if(self.defl_r_acum==[] or self.defl_l_acum==[] or self.radio_r_acum==[] or self.radio_l_acum==[]):
+            print("Detecto que alguno es None")
+            media_defl_der=0
+            media_defl_izq=0
+            media_rad_der=0
+            media_rad_izq=0
+            desv_defl_der=0
+            desv_defl_l=0
+            coef_var_der=0
+            coef_var_izq=0
+            defl_car_der=0
+            defl_car_izq=0
+            rad_car_der=0
+            rad_car_izq=0
+            d_r_der=0
+            d_r_izq=0
+            d_x_r_der=0
+            d_x_r_izq=0
+            total_mediciones_defl=0
+            total_mediciones_rad=0
+            return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
         # Calculo de medias para mediciones totales de cada cosa
         media_defl_der = round(np.mean(self.defl_r_acum),2)
         media_defl_izq = round(np.mean(self.defl_l_acum),2)

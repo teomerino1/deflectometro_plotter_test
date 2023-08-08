@@ -220,8 +220,13 @@ class Config():
     def close(self):
 
         self.view_instance.set_temp(int(self.temp_ntry.get()))
-        self.view_instance.set_espesor(int(self.espesor.get()))
+        
         self.view_instance.set_grupos(int(self.var.get()))
+
+        if(self.espesor.get()==''):
+            print("Espesor flaiao")
+        else:
+            self.view_instance.set_espesor(int(self.espesor.get()))
 
         if(self.ft_ntry.get()==''):
             self.view_instance.set_ft(1)
@@ -243,7 +248,7 @@ class Config():
         else:
             self.view_instance.set_z(int(self.z_ntry.get()))
 
-        self.view_instance.set_muestras(int(self.muestras_ntry.get()))
+        # self.view_instance.set_muestras(int(self.muestras_ntry.get()))
         
         self.view_instance.set_data_ready(value=1)
 
