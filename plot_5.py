@@ -209,7 +209,7 @@ class Plot5():
             self.title.grid(row = 0, column = 0,sticky=NW)
             self.back.grid(row=1, column=0,sticky=NW)
             self.stats.grid(row=1,column=1)
-            self.pdf.grid(row=25,column=1)
+            self.pdf.grid(row=1,column=2)
             self.huella_ext.grid(row=2+1, column=0,sticky=NW)
             self.defl_media_der.grid(row=3+1, column=0)
             self.desv_std_der.grid(row=4+1, column=0)

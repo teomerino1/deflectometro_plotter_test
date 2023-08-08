@@ -111,14 +111,11 @@ class Data():
         self.defl_bar_l.extend(self.defl_l[-2:])
         return self.defl_bar_r,self.defl_bar_l
 
-
     def clear_bar_data(self):
         self.defl_bar_r.clear()
         self.defl_bar_l.clear()
 
     def update_structures(self):
-
-        # print("Soy el thread",threading.get_ident(),"En update structures")
         # Obtengo los promedios de cada cosa
         media_defl_r = round(np.mean(self.defl_r),2)
         media_defl_l = round(np.mean(self.defl_l),2)
@@ -179,8 +176,8 @@ class Data():
         desv_defl_l = round(np.std(self.defl_l_acum))
 
         # # Calculo de coeficientes de variacion deflexiones
-        coef_var_der = round(desv_defl_der/media_defl_der)*100
-        coef_var_izq = round(desv_defl_l/media_defl_izq)*100
+        coef_var_der = round((desv_defl_der/media_defl_der)*100,2)
+        coef_var_izq = round((desv_defl_l/media_defl_izq)*100,2)
 
         # # Calculo de deflexion caracteristicas
         defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*self.z*self.ft*self.fh*self.fc
