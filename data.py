@@ -157,8 +157,9 @@ class Data():
 
         defl_r_aux=round((defl_r_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
         defl_l_aux=round((defl_l_aux/((0.001*self.espesor*(self.temp-20))+1)),2) 
-        radio_r_aux=round((radio_r_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
-        radio_l_aux=round((radio_l_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
+        radio_r_aux=round((defl_r_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
+        radio_l_aux=round((defl_l_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
+        
         return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        
     def calculate_stats(self): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo

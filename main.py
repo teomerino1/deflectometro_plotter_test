@@ -52,10 +52,17 @@ def process_data(Reporter,View,Data):
     # print("Estoy en process data")
     Reporter.start()
     grupos=View.get_grupos()
+    muestras=View.get_muestras()
+    print("Muestras:",muestras)
     print("Grupos:",grupos)
+    a=0
     while True:
         data, this_cycle = Reporter.get_new_measurements()
         
+        if(a==muestras):
+            print("SE PINCHUSKI")
+            break 
+
         if data is None or this_cycle is None:
             if(Reporter.get_puesto_change()==1):
                 # View.enqueue_transition('generate_stats')
@@ -71,6 +78,7 @@ def process_data(Reporter,View,Data):
         
         Data.data_destruct(data)
         cantidad=Data.cant_mediciones()
+        a=a+1
         print(cantidad)
         
         if(Reporter.get_puesto_change()==0):

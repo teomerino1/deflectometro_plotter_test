@@ -205,7 +205,6 @@ class View():
         self.grupos=grupos
         self.data_instance.set_grupos(grupos)
         
-
     def get_grupos(self):
         return self.grupos
 
