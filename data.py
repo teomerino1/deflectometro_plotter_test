@@ -100,10 +100,10 @@ class Data():
         self.radio_r.append(radio_r_aux)
         self.radio_l.append(radio_l_aux)
 
-        self.defl_r_acum.append(data[0]['valor'])
-        self.radio_r_acum.append(data[1]['valor'])
-        self.defl_l_acum.append(data[2]['valor'])
-        self.radio_l_acum.append(data[3]['valor'])
+        self.defl_r_acum.append(defl_r_aux)
+        self.radio_r_acum.append(radio_r_aux)
+        self.defl_l_acum.append(defl_l_aux)
+        self.radio_l_acum.append(radio_l_aux)
        
     # Metodo que se encarga de una vez cumplido el grupo, actualizar los datos para el grafico de barras
     def update_bar_data(self):
@@ -180,12 +180,12 @@ class Data():
         coef_var_izq = round((desv_defl_l/media_defl_izq)*100,2)
 
         # # Calculo de deflexion caracteristicas
-        defl_car_der = round(media_defl_der + (2*(np.std(self.defl_r_acum)*2)))*self.z*self.ft*self.fh*self.fc
-        defl_car_izq = round(media_defl_izq + (2*(np.std(self.defl_l_acum)*2)))*self.z*self.ft*self.fh*self.fc
+        defl_car_der = round((media_defl_der + (2*desv_defl_der*self.z))*self.ft*self.fh*self.fc,2)
+        defl_car_izq = round((media_defl_izq + (2*desv_defl_l*self.z))*self.ft*self.fh*self.fc,2)
 
         # Calculo de radio caracteristico
-        rad_car_der = round(media_rad_der + (2*(np.std(self.radio_r_acum)*2)))*self.z*self.ft*self.fh*self.fc
-        rad_car_izq = round(media_rad_izq + (2*(np.std(self.radio_l_acum)*2)))*self.z*self.ft*self.fh*self.fc
+        rad_car_der = round((media_rad_der + (2*(np.std(self.radio_r_acum)))*self.z)*self.ft*self.fh*self.fc,2)
+        rad_car_izq = round((media_rad_izq + (2*(np.std(self.radio_l_acum)))*self.z)*self.ft*self.fh*self.fc,2)
 
         # # Calculo de D/R medio
         d_r_der = round(media_defl_der/media_rad_der,2)
