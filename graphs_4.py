@@ -30,9 +30,7 @@ class Graphs4():
         self.show()
 
     def show(self):
-
         self.show_defl_radios_graph()
-
     
     def deflexiones_radios_graph(self,row, column, columnspan,title):
         
@@ -103,8 +101,6 @@ class Graphs4():
         subfigure_izq.grid(axis='both',linestyle='dotted')
         subfigure_der.grid(axis='both',linestyle='dotted')
 
-        
-        
         subfigure_izq.set_xlabel("Radio")
         subfigure_izq.set_ylabel("Defl")
         subfigure_der.set_xlabel("Radio")
@@ -118,7 +114,6 @@ class Graphs4():
     
 
     def show_defl_radios_graph(self):
-
         self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
         self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(3,1,1,"Informe estadístico: Lado Derecho")
 

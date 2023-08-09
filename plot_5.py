@@ -12,6 +12,10 @@ import graphs_3
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from io import BytesIO
 
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
@@ -238,26 +242,88 @@ class Plot5():
 
     def grid_stats(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
         
-        self.defl_media_der_value=Label(self.sixth_plot_frame, text=media_defl_r,font=(None, 10)).grid(row=3+1, column=1)
-        self.defl_media_izq_value=Label(self.sixth_plot_frame, text=media_defl_izq,font=(None, 10)).grid(row=14+2, column=1)
-        self.radio_med_der_value=Label(self.sixth_plot_frame, text=media_rad_der,font=(None, 10)).grid(row=8+1, column=1)
-        self.radio_med_izq_value=Label(self.sixth_plot_frame, text=media_rad_izq,font=(None, 10)).grid(row=19+2, column=1)
-        self.desv_std_der_value=Label(self.sixth_plot_frame, text=desv_defl_der,font=(None, 10)).grid(row=4+1, column=1)
-        self.desv_std_izq_value=Label(self.sixth_plot_frame, text=desv_defl_l,font=(None, 10)).grid(row=15+2, column=1)
-        self.coef_var_der_value=Label(self.sixth_plot_frame, text=coef_var_der,font=(None, 10)).grid(row=5+1, column=1)
-        self.coef_var_izq_value=Label(self.sixth_plot_frame, text=coef_var_izq,font=(None, 10)).grid(row=16+2, column=1)
-        self.defl_car_der_value=Label(self.sixth_plot_frame, text=defl_car_der,font=(None, 10)).grid(row=6+1, column=1)
-        self.defl_car_izq_value=Label(self.sixth_plot_frame, text=defl_car_izq,font=(None, 10)).grid(row=17+2, column=1)
-        self.radio_car_der_value=Label(self.sixth_plot_frame, text=rad_car_der,font=(None, 10)).grid(row=9+1, column=1)
-        self.radio_car_izq_value=Label(self.sixth_plot_frame, text=rad_car_izq,font=(None, 10)).grid(row=20+2, column=1)
-        self.d_r_med_der_value=Label(self.sixth_plot_frame, text=d_r_der,font=(None, 10)).grid(row=11+1, column=1)
-        self.d_r_med_izq_value=Label(self.sixth_plot_frame, text=d_r_izq,font=(None, 10)).grid(row=22+2, column=1)
-        self.r_x_d_der_value_=Label(self.sixth_plot_frame, text=d_x_r_der,font=(None, 10)).grid(row=12+1, column=1)
-        self.r_x_d_izq_value=Label(self.sixth_plot_frame, text=d_x_r_izq,font=(None, 10)).grid(row=23+2, column=1)
-        self.total_med_defl_der_value=Label(self.sixth_plot_frame, text=total_mediciones_defl,font=(None, 10)).grid(row=7+1, column=1)
-        self.total_med_defl_izq_value=Label(self.sixth_plot_frame, text=total_mediciones_defl,font=(None, 10)).grid(row=18+2, column=1)
-        self.total_med_rad_der_value=Label(self.sixth_plot_frame, text=total_mediciones_rad,font=(None, 10)).grid(row=10+1, column=1)
-        self.total_med_rad_izq_value=Label(self.sixth_plot_frame, text=total_mediciones_rad,font=(None, 10)).grid(row=21+2, column=1)
+        defl_media_der_value=Label(self.sixth_plot_frame, text=media_defl_r,font=(None, 10))
+        self.defl_media_der_value=defl_media_der_value
+        self.defl_media_der_value.grid(row=3+1, column=1)
+
+        # print("Type:",type(self.defl_media_der_value))
+        defl_media_izq_value=Label(self.sixth_plot_frame, text=media_defl_izq,font=(None, 10))
+        self.defl_media_izq_value=defl_media_izq_value
+        self.defl_media_izq_value.grid(row=14+2, column=1)
+
+        radio_med_der_value=Label(self.sixth_plot_frame, text=media_rad_der,font=(None, 10))
+        self.radio_med_der_value=radio_med_der_value
+        self.radio_med_der_value.grid(row=8+1, column=1)
+
+        self.radio_med_izq_value=Label(self.sixth_plot_frame, text=media_rad_izq,font=(None, 10))
+        radio_med_izq_value=Label(self.sixth_plot_frame, text=media_rad_izq,font=(None, 10))
+        self.radio_med_izq_value=radio_med_izq_value
+        self.radio_med_izq_value.grid(row=19+2, column=1)
+
+        desv_std_der_value=Label(self.sixth_plot_frame, text=desv_defl_der,font=(None, 10))
+        self.desv_std_der_value=desv_std_der_value
+        self.desv_std_der_value.grid(row=4+1, column=1)
+
+        desv_std_izq_value=Label(self.sixth_plot_frame, text=desv_defl_l,font=(None, 10))
+        self.desv_std_izq_value=desv_std_izq_value
+        self.desv_std_izq_value.grid(row=15+2, column=1)
+
+        coef_var_der_value=Label(self.sixth_plot_frame, text=coef_var_der,font=(None, 10))
+        self.coef_var_der_value=coef_var_der_value
+        self.coef_var_der_value.grid(row=5+1, column=1)
+
+        coef_var_izq_value=Label(self.sixth_plot_frame, text=coef_var_izq,font=(None, 10))
+        self.coef_var_izq_value=coef_var_izq_value
+        self.coef_var_izq_value.grid(row=16+2, column=1)
+
+        defl_car_der_value=Label(self.sixth_plot_frame, text=defl_car_der,font=(None, 10))
+        self.defl_car_der_value=defl_car_der_value
+        self.defl_car_der_value.grid(row=6+1, column=1)
+
+
+        defl_car_izq_value=Label(self.sixth_plot_frame, text=defl_car_izq,font=(None, 10))
+        self.defl_car_izq_value=defl_car_izq_value
+        self.defl_car_izq_value.grid(row=17+2, column=1)
+
+        radio_car_der_value=Label(self.sixth_plot_frame, text=rad_car_der,font=(None, 10))
+        self.radio_car_der_value=radio_car_der_value
+        self.radio_car_der_value.grid(row=9+1, column=1)
+
+        radio_car_izq_value=Label(self.sixth_plot_frame, text=rad_car_izq,font=(None, 10))
+        self.radio_car_izq_value=radio_car_izq_value
+        self.radio_car_izq_value.grid(row=20+2, column=1)
+
+        d_r_med_der_value=Label(self.sixth_plot_frame, text=d_r_der,font=(None, 10))
+        self.d_r_med_der_value=d_r_med_der_value
+        self.d_r_med_der_value.grid(row=11+1, column=1)
+
+        d_r_med_izq_value=Label(self.sixth_plot_frame, text=d_r_izq,font=(None, 10))
+        self.d_r_med_izq_value=d_r_med_izq_value
+        self.d_r_med_izq_value.grid(row=22+2, column=1)
+
+        r_x_d_der_value=Label(self.sixth_plot_frame, text=d_x_r_der,font=(None, 10))
+        self.r_x_d_der_value=r_x_d_der_value
+        self.r_x_d_der_value.grid(row=12+1, column=1)
+
+        r_x_d_izq_value=Label(self.sixth_plot_frame, text=d_x_r_izq,font=(None, 10))
+        self.r_x_d_izq_value=r_x_d_izq_value
+        self.r_x_d_izq_value.grid(row=23+2, column=1)
+
+        total_med_defl_der_value=Label(self.sixth_plot_frame, text=total_mediciones_defl,font=(None, 10))
+        self.total_med_defl_der_value=total_med_defl_der_value
+        self.total_med_defl_der_value.grid(row=7+1, column=1)
+
+        total_med_defl_izq_value=Label(self.sixth_plot_frame, text=total_mediciones_defl,font=(None, 10))
+        self.total_med_defl_izq_value=total_med_defl_izq_value
+        self.total_med_defl_izq_value.grid(row=18+2, column=1)
+
+        total_med_rad_der_value=Label(self.sixth_plot_frame, text=total_mediciones_rad,font=(None, 10))
+        self.total_med_rad_der_value=total_med_rad_der_value
+        self.total_med_rad_der_value.grid(row=10+1, column=1)
+
+        total_med_rad_izq_value=Label(self.sixth_plot_frame, text=total_mediciones_rad,font=(None, 10))
+        self.total_med_rad_izq_value=total_med_rad_izq_value
+        self.total_med_rad_izq_value.grid(row=21+2, column=1)
 
     def go_to_plot_4_from_plot_5(self):
         self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
@@ -266,4 +332,69 @@ class Plot5():
         self.view_instance.enqueue_transition('generate_stats')
 
     def download_pdf(self):
-        self.view_instance.enqueue_transition('download_pdf')
+        self.download_stats()
+        # self.view_instance.enqueue_transition('download_pdf')
+
+    def download_stats(self):
+        buffer = BytesIO()
+
+        doc = SimpleDocTemplate(buffer, pagesize=letter)
+        elements = []
+
+        labels_der = [
+            self.defl_media_der, self.desv_std_der, 
+            self.coef_var_der, self.defl_car_der, self.total_med_defl_der, 
+            self.radio_med_der, self.radio_car_der, self.total_med_rad_der, 
+            self.d_r_med_der, self.r_x_d_der 
+        ]
+        
+        labels_izq= [
+            self.defl_media_izq, self.desv_std_izq, 
+            self.coef_var_izq, self.defl_car_izq, self.total_med_defl_izq,
+            self.radio_med_izq, self.radio_car_izq, self.total_med_rad_izq, 
+            self.d_r_med_izq, self.r_x_d_izq
+        ]
+
+        labels_der_values=[
+            self.defl_media_der_value, self.desv_std_der_value, 
+            self.coef_var_der_value, self.defl_car_der_value, self.total_med_defl_der_value, 
+            self.radio_med_der_value, self.radio_car_der_value, self.total_med_rad_der_value, 
+            self.d_r_med_der_value, self.r_x_d_der_value 
+        ]
+
+        labels_izq_values= [
+            self.defl_media_izq_value, self.desv_std_izq_value, 
+            self.coef_var_izq_value, self.defl_car_izq_value, self.total_med_defl_izq_value,
+            self.radio_med_izq_value, self.radio_car_izq_value, self.total_med_rad_izq_value, 
+            self.d_r_med_izq_value, self.r_x_d_izq_value
+        ]
+
+        # Agregar los primeros elementos individuales
+        tabla_der = [[self.huella_ext.cget("text")]]
+        tabla_izq = [[self.huella_int.cget("text")]]
+        
+        for label, value in zip(labels_der, labels_der_values):
+            tabla_der.append([label.cget("text"), value.cget("text")])
+        
+        for label, value in zip(labels_izq, labels_izq_values):
+            tabla_izq.append([label.cget("text"), value.cget("text")])
+
+        table_style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                                  ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                                  # ... otros estilos de tabla ...
+                                  ])
+
+        table_der = Table(tabla_der, colWidths=[200, 200], rowHeights=20)
+        table_der.setStyle(table_style)
+        elements.append(table_der)
+
+        table_izq = Table(tabla_izq, colWidths=[200, 200], rowHeights=20)
+        table_izq.setStyle(table_style)
+        elements.append(table_izq)
+
+        doc.build(elements)
+
+        buffer.seek(0)
+
+        with open("tables.pdf", "wb") as f:
+            f.write(buffer.read())
