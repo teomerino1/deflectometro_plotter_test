@@ -27,8 +27,8 @@ def update_all(Data,View,grupos):
     defl_l_car, defl_r_car = Data.get_std_defl()
     View.new_group_data_view(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,grupos)
 
-def update_defl(Data,View):
-    defl_r, defl_l = Data.update_bar_data()
+def update_defl_one(Data,View,amount):
+    defl_r, defl_l = Data.update_bar_data(amount)
     # indexes= Data.get_indexes()
     View.update_bar_view(defl_r,defl_l)
     Data.clear_bar_data()
@@ -56,6 +56,7 @@ def process_data(Reporter,View,Data):
     print("Muestras:",muestras)
     print("Grupos:",grupos)
     a=0
+    b=0
     while True:
         data, this_cycle = Reporter.get_new_measurements()
         
@@ -83,8 +84,17 @@ def process_data(Reporter,View,Data):
         
         if(Reporter.get_puesto_change()==0):
 
-            if(cantidad%2 == 0):
-                update_bar_thread = Thread(target=update_defl,args=(Data,View))
+            if(a>=20):
+                b=b+1
+                if(b==10):
+                    print("Grafico de a 10")
+                    b=0
+                    update_bar_thread = Thread(target=update_defl_one,args=(Data,View,10))
+                    update_bar_thread.daemon=True
+                    update_bar_thread.start()
+            else:
+                print("Grafico de a 1")
+                update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 

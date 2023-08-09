@@ -106,9 +106,9 @@ class Data():
         self.radio_l_acum.append(radio_l_aux)
        
     # Metodo que se encarga de una vez cumplido el grupo, actualizar los datos para el grafico de barras
-    def update_bar_data(self):
-        self.defl_bar_r.extend(self.defl_r[-2:])
-        self.defl_bar_l.extend(self.defl_l[-2:])
+    def update_bar_data(self,amount):
+        self.defl_bar_r.extend(self.defl_r[-amount:])
+        self.defl_bar_l.extend(self.defl_l[-amount:])
         return self.defl_bar_r,self.defl_bar_l
 
     def clear_bar_data(self):
@@ -186,6 +186,7 @@ class Data():
             total_mediciones_defl=0
             total_mediciones_rad=0
             return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
+       
         # Calculo de medias para mediciones totales de cada cosa
         media_defl_der = round(np.mean(self.defl_r_acum),2)
         media_defl_izq = round(np.mean(self.defl_l_acum),2)
@@ -201,12 +202,12 @@ class Data():
         coef_var_izq = round((desv_defl_l/media_defl_izq)*100,2)
 
         # # Calculo de deflexion caracteristicas
-        defl_car_der = round((media_defl_der + (2*desv_defl_der*self.z))*self.ft*self.fh*self.fc,2)
-        defl_car_izq = round((media_defl_izq + (2*desv_defl_l*self.z))*self.ft*self.fh*self.fc,2)
+        defl_car_der = round((media_defl_der + (desv_defl_der*self.z))*self.ft*self.fh*self.fc,2)
+        defl_car_izq = round((media_defl_izq + (desv_defl_l*self.z))*self.ft*self.fh*self.fc,2)
 
         # Calculo de radio caracteristico
-        rad_car_der = round((media_rad_der + (2*(np.std(self.radio_r_acum)))*self.z)*self.ft*self.fh*self.fc,2)
-        rad_car_izq = round((media_rad_izq + (2*(np.std(self.radio_l_acum)))*self.z)*self.ft*self.fh*self.fc,2)
+        rad_car_der = round((media_rad_der + ((np.std(self.radio_r_acum)))*self.z)*self.ft*self.fh*self.fc,2)
+        rad_car_izq = round((media_rad_izq + ((np.std(self.radio_l_acum)))*self.z)*self.ft*self.fh*self.fc,2)
 
         # # Calculo de D/R medio
         d_r_der = round(media_defl_der/media_rad_der,2)

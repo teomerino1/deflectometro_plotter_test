@@ -23,6 +23,7 @@ class Graphs():
         self.defl_r_data = []
         self.defl_l_data = []
         self.indexes = []
+        self.flag=0
         self.show()
         
 
@@ -62,6 +63,10 @@ class Graphs():
             print("Realizando calculos de deflexiones..")
         else:
             print("Indices NO iguales")
+
+        # if(len(self.indexes>=100)):
+        #     print("Seteando flag")
+        #     self.set_flag(1)
         
         self.figure_bar_r.clear()
         self.figure_bar_l.clear()
@@ -96,8 +101,6 @@ class Graphs():
         self.figure_bar_r.canvas.draw_idle()
         self.figure_bar_l.canvas.draw_idle()
 
-            
-
     def show_bar_graph(self):
 
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(10, 0, 1,"Deflexion Izquierda")
@@ -105,6 +108,13 @@ class Graphs():
         
     def show(self):
         self.show_bar_graph()
+
+
+    def set_flag(self,flag):
+        self.flag=flag
+
+    def get_flag(self):
+        return self.flag
         
     def donwload_graphs(self):
         print("Ejecuto PDF")
