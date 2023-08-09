@@ -61,6 +61,15 @@ class Graphs4():
         # self.indexes=list(range(1,len(self.rad_mean_l_data)+1))
         self.indexes = [x * grupos for x in range(1, len(self.rad_mean_l_data)+1)]
 
+        # Agregar cálculos para las leyendas
+        promedio_x_izq = sum(self.defl_mean_l_data) / len(self.defl_mean_l_data)
+        promedio_producto_izq = sum(x * y for x, y in zip(self.defl_mean_l_data, self.rad_mean_l_data)) / len(self.rad_mean_l_data)
+        promedio_division_izq = sum(x / y for x, y in zip(self.defl_mean_l_data, self.rad_mean_l_data)) / len(self.rad_mean_l_data)
+
+        promedio_x_der = sum(self.defl_mean_r_data) / len(self.defl_mean_r_data)
+        promedio_producto_der = sum(x * y for x, y in zip(self.defl_mean_r_data, self.rad_mean_r_data)) / len(self.rad_mean_r_data)
+        promedio_division_der = sum(x / y for x, y in zip(self.defl_mean_r_data, self.rad_mean_r_data)) / len(self.rad_mean_r_data)
+
         self.figure_defl_mean_l.clear()
         self.figure_defl_mean_r.clear()
         
@@ -74,10 +83,28 @@ class Graphs4():
 
         subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
         subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
-        
+
+
+        # Agregar anotaciones con la información de los cálculos
+        subfigure_izq.annotate(
+            f'R med.: {promedio_x_izq:.2f}\n'
+            f'RxD m: {promedio_producto_izq:.2f}\n'
+            f'D/R m: {promedio_division_izq:.2f}',
+            xy=(0.05, 0.95), xycoords='axes fraction',
+            fontsize=10, ha='left', va='top')
+
+        subfigure_der.annotate(
+            f'R med.: {promedio_x_der:.2f}\n'
+            f'RxD m: {promedio_producto_der:.2f}\n'
+            f'D/R m: {promedio_division_der:.2f}',
+            xy=(0.05, 0.95), xycoords='axes fraction',
+            fontsize=10, ha='left', va='top')
+
         subfigure_izq.grid(axis='both',linestyle='dotted')
         subfigure_der.grid(axis='both',linestyle='dotted')
 
+        
+        
         subfigure_izq.set_xlabel("Radio")
         subfigure_izq.set_ylabel("Defl")
         subfigure_der.set_xlabel("Radio")

@@ -248,7 +248,7 @@ class Config():
         else:
             self.view_instance.set_z(int(self.z_ntry.get()))
 
-        # self.view_instance.set_muestras(int(self.muestras_ntry.get()))
+        self.view_instance.set_muestras(int(self.muestras_ntry.get()))
         
         self.view_instance.set_data_ready(value=1)
 

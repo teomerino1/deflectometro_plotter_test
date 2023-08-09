@@ -57,16 +57,14 @@ class Graphs():
 
         self.defl_r_data.extend(defl_r)
         self.defl_l_data.extend(defl_l)
-        self.indexes = list(range(len(self.defl_r_data)))
+        self.indexes = list(range(1,len(self.defl_r_data)+1))
 
         if(len(self.defl_r_data)==len(self.indexes)):
             print("Realizando calculos de deflexiones..")
         else:
             print("Indices NO iguales")
 
-        # if(len(self.indexes>=100)):
-        #     print("Seteando flag")
-        #     self.set_flag(1)
+       
         
         self.figure_bar_r.clear()
         self.figure_bar_l.clear()
@@ -77,13 +75,13 @@ class Graphs():
         subfigure_der.set_ylim(0, 150)
         subfigure_izq.set_ylim(0, 150)
         
-        subfigure_der.set_xlim(0, len(self.defl_r_data))
-        subfigure_izq.set_xlim(0, len(self.defl_l_data))
+        subfigure_der.set_xlim(1, len(self.defl_r_data)+1)
+        subfigure_izq.set_xlim(1, len(self.defl_l_data)+1)
 
 
         # Grafica todos los datos almacenados
-        subfigure_der.bar(self.indexes, self.defl_r_data, width=1)
-        subfigure_izq.bar(self.indexes, self.defl_l_data, width=1)
+        subfigure_der.bar(self.indexes, self.defl_r_data, width=0.8)
+        subfigure_izq.bar(self.indexes, self.defl_l_data, width=0.8)
 
         subfigure_der.set_title("Deflexion Derecha")
         subfigure_izq.set_title("Deflexion Izquierda")

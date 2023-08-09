@@ -60,23 +60,19 @@ def process_data(Reporter,View,Data):
     while True:
         data, this_cycle = Reporter.get_new_measurements()
         
-        if(a==muestras):
-            print("SE PINCHUSKI")
-            break 
-
         if data is None or this_cycle is None:
-            if(Reporter.get_puesto_change()==1):
+            if(Reporter.get_puesto_change()==1 or a==muestras):
                 # View.enqueue_transition('generate_stats')
                 # show_stats_thread = Thread(target=show_stats,args=(View,Data))
                 # show_stats_thread.daemon=True
                 # show_stats_thread.start()
+                print("Vuelvo a empezar")
                 View.set_data_ready(value=0)
                 sleep(1)
                 obtain_data(Reporter,View,Data)
             else:
                 continue
 
-        
         Data.data_destruct(data)
         cantidad=Data.cant_mediciones()
         a=a+1
@@ -84,7 +80,7 @@ def process_data(Reporter,View,Data):
         
         if(Reporter.get_puesto_change()==0):
 
-            if(a>=20):
+            if(a>=100):
                 b=b+1
                 if(b==10):
                     print("Grafico de a 10")
@@ -98,7 +94,7 @@ def process_data(Reporter,View,Data):
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 
-            if(cantidad%grupos == 0):
+            if(cantidad%10 == 0):
                 print("Graficando mediciones de grupo...")
                 update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 
