@@ -139,7 +139,7 @@ class Graphs():
         pdf_writer.append(fileobj=buffer_l)
 
         # Guardar el PDF combinado en un archivo
-        with open('Deflexiones_individuales.pdf', 'wb') as f:
+        with open('pdf2.pdf', 'wb') as f:
             pdf_writer.write(f)
 
         # Cerrar los buffers

@@ -48,9 +48,15 @@ class Plot2():
             self.title=title
 
             back = Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2)
+            # style = ttk.Style()
+            # style.configure("Custom.TButton", background="blue", foreground="white")
+            # back = ttk.Button(third_plot_frame, text="Atras", command=self.go_to_plot_1_from_plot_2, style="Custom.TButton")
             self.back = back
 
             next = Button(third_plot_frame, text="Next", command=self.go_to_plot_3_from_plot2)
+            # style = ttk.Style()
+            # style.configure("Custom.TButton", background="blue", foreground="white")
+            # next = ttk.Button(third_plot_frame, text="Next", command=self.go_to_plot_3_from_plot2, style="Custom.TButton")
             self.next = next
 
             self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Izquierdo")

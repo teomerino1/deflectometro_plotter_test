@@ -48,10 +48,17 @@ class Plot4():
             self.title=title
 
             back = Button(fifht_plot_frame, text="Atrás", command=self.go_to_plot_3_from_plot_4)
+            # style = ttk.Style()
+            # style.configure("Custom.TButton", background="blue", foreground="white")
+            # back = ttk.Button(fifht_plot_frame, text="Atras", command=self.go_to_plot_3_from_plot_4, style="Custom.TButton")
             self.back = back
 
-            next = Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4) #TODO Hacer el next al plot 5
+            next = Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4) 
+            # style = ttk.Style()
+            # style.configure("Custom.TButton", background="blue", foreground="white")
+            # next = ttk.Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4, style="Custom.TButton")
             self.next = next
+
             self.Graphs4 = graphs_4.Graphs4(self.fifht_plot_frame)
 
         if(a == 1):

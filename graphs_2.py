@@ -113,7 +113,7 @@ class Graphs2():
             # Agregar el PDF de self.figure_bar_l al escritor
             pdf_writer.append(fileobj=buffer_l)
 
-            with open('pdf1l.pdf', 'wb') as f:
+            with open('pdf2l.pdf', 'wb') as f:
                 pdf_writer.write(f)
             # Cerrar los buffers
             buffer_l.close()
@@ -130,7 +130,7 @@ class Graphs2():
             pdf_writer.append(fileobj=buffer_r)
 
              # Guardar el PDF combinado en un archivo
-            with open('pdf1r.pdf', 'wb') as f:
+            with open('pdf2r.pdf', 'wb') as f:
                 pdf_writer.write(f)
 
             buffer_r.close()

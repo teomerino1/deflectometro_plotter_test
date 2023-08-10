@@ -134,8 +134,11 @@ class Plot5():
             self.title = title
 
             back = Button(sixth_plot_frame, text="Atrás", command=self.go_to_plot_4_from_plot_5)
+            # style = ttk.Style()
+            # style.configure("Custom.TButton", background="blue", foreground="white")
+            # back = ttk.Button(sixth_plot_frame, text="Atras", command=self.go_to_plot_4_from_plot_5, style="Custom.TButton")
             self.back = back
-
+            
             stats = Button(sixth_plot_frame, text="Generar Cálculos", command=self.generate_stats)
             self.stats = stats
 
@@ -338,34 +341,38 @@ class Plot5():
         self.view_instance.enqueue_transition('generate_stats')
 
     def download_pdf(self):
-        self.download_stats()
+        self.view_instance.enqueue_transition('download_pdf')
+        # self.download_stats()
         # self.add_image_header()
         # self.add_data_tables()
         # self.view_instance.enqueue_transition('download_pdf')
 
+
     def download_stats(self):
-        output_pdf_path = 'tables.pdf'
-        image_path = '/home/amoyano/Documents/deflectometro_plotter_test/img/INFAS.png'
+        # output_pdf_path = 'tables.pdf'
+        # image_path = '/home/amoyano/Documents/deflectometro_plotter_test/img/INFAS.png'
         
-        img_width = 99
-        img_height = 55
+        # img_width = 99
+        # img_height = 55
         
-        pdf_width, pdf_height = letter
-        margin = 0.1 * inch
+        # pdf_width, pdf_height = letter
+        # margin = 0.1 * inch
         
+        # # Crear el buffer para el PDF usando ReportLab
+        # buffer = BytesIO()
+        # doc = SimpleDocTemplate(buffer, pagesize=letter)
+        # elements = []
+        
+        # # # Agregar la imagen al array de elementos
+        # img = Image(image_path, width=img_width, height=img_height)
+        # # img.hAlign = 'LEFT'
+        # img.vAlign='TOP'
+        # elements.append(img)
+
         # Crear el buffer para el PDF usando ReportLab
         buffer = BytesIO()
         doc = SimpleDocTemplate(buffer, pagesize=letter)
         elements = []
-        
-        # # Agregar la imagen al array de elementos
-        img = Image(image_path, width=img_width, height=img_height)
-        # img.hAlign = 'LEFT'
-        img.vAlign='TOP'
-        elements.append(img)
-
-        
-        
         labels_der = [
             self.defl_media_der, self.desv_std_der, 
             self.coef_var_der, self.defl_car_der, self.total_med_defl_der, 
@@ -421,109 +428,8 @@ class Plot5():
 
         buffer.seek(0)
 
-        with open("tables.pdf", "wb") as f:
+        with open("pdf5.pdf", "wb") as f:
             f.write(buffer.read())
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # def download_stats(self):
-        
-    #     output_pdf_path = 'tables.pdf'
-    #     image_path = '/home/amoyano/Documents/deflectometro_plotter_test/img/INFAS.png'
-    #     img = utils.ImageReader(image_path)
-       
-    #     img_width=99
-    #     img_height=55
-       
-    #     pdf_width, pdf_height = letter
-    #     margin = 0.1 * inch
-        
-    #     c = canvas.Canvas(output_pdf_path, pagesize=(letter))
-       
-    #     # Agregar la imagen en la esquina superior izquierda
-    #     c.drawImage(image_path, margin, pdf_height - margin - img_height, width=img_width, height=img_height)
-        
-    #     # Guardar el PDF resultante
-    #     c.save()
-        
-    # # Rutas de los archivos
-        
-    #     buffer = BytesIO()
-
-    #     doc = SimpleDocTemplate(buffer, pagesize=letter)
-    #     elements = []
-
-    #     labels_der = [
-    #         self.defl_media_der, self.desv_std_der, 
-    #         self.coef_var_der, self.defl_car_der, self.total_med_defl_der, 
-    #         self.radio_med_der, self.radio_car_der, self.total_med_rad_der, 
-    #         self.d_r_med_der, self.r_x_d_der 
-    #     ]
-        
-    #     labels_izq= [
-    #         self.defl_media_izq, self.desv_std_izq, 
-    #         self.coef_var_izq, self.defl_car_izq, self.total_med_defl_izq,
-    #         self.radio_med_izq, self.radio_car_izq, self.total_med_rad_izq, 
-    #         self.d_r_med_izq, self.r_x_d_izq
-    #     ]
-
-        # labels_der_values=[
-        #     self.defl_media_der_value, self.desv_std_der_value, 
-        #     self.coef_var_der_value, self.defl_car_der_value, self.total_med_defl_der_value, 
-        #     self.radio_med_der_value, self.radio_car_der_value, self.total_med_rad_der_value, 
-        #     self.d_r_med_der_value, self.r_x_d_der_value 
-        # ]
-
-        # labels_izq_values= [
-        #     self.defl_media_izq_value, self.desv_std_izq_value, 
-        #     self.coef_var_izq_value, self.defl_car_izq_value, self.total_med_defl_izq_value,
-        #     self.radio_med_izq_value, self.radio_car_izq_value, self.total_med_rad_izq_value, 
-        #     self.d_r_med_izq_value, self.r_x_d_izq_value
-        # ]
-
-        # Agregar los primeros elementos individuales
-        # tabla_der = [[self.huella_ext.cget("text")]]
-        # tabla_izq = [[self.huella_int.cget("text")]]
-        
-        # for label, value in zip(labels_der, labels_der_values):
-        #     tabla_der.append([label.cget("text"), value.cget("text")])
-        
-        # for label, value in zip(labels_izq, labels_izq_values):
-        #     tabla_izq.append([label.cget("text"), value.cget("text")])
-
-        # table_style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        #                           ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        #                           # ... otros estilos de tabla ...
-        #                           ])
-
-        # table_der = Table(tabla_der, colWidths=[200, 200], rowHeights=30)
-        # table_der.setStyle(table_style)
-        # elements.append(table_der)
-
-        # table_izq = Table(tabla_izq, colWidths=[200, 200], rowHeights=30)
-        # table_izq.setStyle(table_style)
-        # elements.append(table_izq)
-
-        # doc.build(elements)
-
-        # buffer.seek(0)
-
-        # with open("tables.pdf", "wb") as f:
-        #     f.write(buffer.read())
 
   

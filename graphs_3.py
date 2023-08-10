@@ -139,7 +139,7 @@ class Graphs3():
             # Agregar el PDF de self.figure_bar_l al escritor
             pdf_writer.append(fileobj=buffer_l)
 
-            with open('Deflexiones_mean_izq.pdf', 'wb') as f:
+            with open('pdf3l.pdf', 'wb') as f:
                 pdf_writer.write(f)
             # Cerrar los buffers
             buffer_l.close()
@@ -156,7 +156,7 @@ class Graphs3():
             pdf_writer.append(fileobj=buffer_r)
 
              # Guardar el PDF combinado en un archivo
-            with open('Deflexiones_mean_der.pdf', 'wb') as f:
+            with open('pdf3r.pdf', 'wb') as f:
                 pdf_writer.write(f)
 
             buffer_r.close()

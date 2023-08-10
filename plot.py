@@ -53,19 +53,8 @@ class Plot():
 
             self.table = Treeview(second_plot_frame, columns=columns, show='headings')
             
-            # Configurar el número de filas y columnas
-            second_plot_frame.grid_rowconfigure(0, weight=1)
-            second_plot_frame.grid_rowconfigure(1, weight=1)
-            second_plot_frame.grid_rowconfigure(2, weight=1)
-            second_plot_frame.grid_rowconfigure(3, weight=1)
-            second_plot_frame.grid_rowconfigure(4, weight=1)
-            second_plot_frame.grid_columnconfigure(0, weight=1)
-            second_plot_frame.grid_columnconfigure(1, weight=1)
-            second_plot_frame.grid_columnconfigure(2, weight=1)
-            second_plot_frame.grid_columnconfigure(3, weight=1)
-        
-            title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 25)) 
-            self.title = title
+            # title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 25)) 
+            # self.title = title
             
             # temperatura = Label(second_plot_frame, text= "Temperatura: %s"%(view.temp))
             # self.temperatura = temperatura
@@ -77,9 +66,15 @@ class Plot():
             # self.grupos = grupos 
 
             atras = Button(second_plot_frame, text="Atras", command=self.go_to_config)
-            self.atras = atras 
+            # style = ttk.Style()
+            # style.configure("Custom.TButton", background="blue", foreground="white")
+            # atras = ttk.Button(second_plot_frame, text="Atras", command=self.go_to_config, style="Custom.TButton")
+            self.atras=atras
 
             next = Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1)
+            # style = ttk.Style()
+            # style.configure("Custom.TButton", background="blue", foreground="white")
+            # next = ttk.Button(second_plot_frame, text="Next", command=self.go_to_plot_2_from_plot_1, style="Custom.TButton")
             self.next = next
 
             self.Table = table.Table(self.second_plot_frame) # instancia de tabla
@@ -88,19 +83,18 @@ class Plot():
 
         if(a == 1):
 
-            self.second_plot_frame.grid(ipadx=10, ipady=5)
-            self.title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
+            self.second_plot_frame.grid(ipadx=10, ipady=5,sticky="nwsew")
+            # self.title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
             # self.temperatura.grid(row=1, column=0, sticky="nw")
             # self.muestras.grid(row=1, column=1 ,sticky="nw")
             # self.grupos.grid(row=2, column=0, sticky="nw")
-            self.atras.grid(row=3, column=0, sticky="nw")
-            self.next.grid(row=4, column=0,sticky="nw")
-
-    
+            self.atras.grid(row=0, column=0, sticky="nw")
+            self.next.grid(row=1, column=0,sticky="nw")
             
     def generar_pdf(self):
-        self.Graphs.donwload_graphs()
         self.Table.donwload_table()
+        self.Graphs.donwload_graphs()
+        
 
     def grid_plot1(self):
         self.second_plot_frame.grid(ipadx=10, ipady=5)

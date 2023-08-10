@@ -140,7 +140,7 @@ class Graphs4():
         pdf_writer.append(fileobj=buffer_l)
 
         # Guardar el PDF combinado en un archivo
-        with open('Informe_estadistico.pdf', 'wb') as f:
+        with open('pdf4.pdf', 'wb') as f:
             pdf_writer.write(f)
 
         # Cerrar los buffers

@@ -60,7 +60,7 @@ class Table():
         # Crear el Treeview
         self.table = Treeview(self.frame, columns=columns, show='headings')
 
-        self.table.grid(row=3, column=0, columnspan=3)
+        self.table.grid(row=1, column=0, columnspan=3)
 
         # Configurar el alto del Treeview
         self.table.configure(height=7)
@@ -70,6 +70,7 @@ class Table():
         scrollbar.grid(row=3, column=4, sticky="ns")
         
         self.table.configure(yscrollcommand=scrollbar.set)
+        
 
         # Configurar encabezados y columnas del Treeview
         headers = [
@@ -95,6 +96,7 @@ class Table():
 
     def donwload_table(self):
         # Obtener los datos del Treeview
+        print("GENERO PDF DE LA TABLA")
         data = []
         for item in self.table.get_children():
             data.append(self.table.item(item, 'values'))
@@ -126,7 +128,7 @@ class Table():
             pdf.ln(row_height)
 
         # Guardar el PDF en un archivo
-        pdf.output('Table.pdf')
+        pdf.output('pdf1.pdf')
 
     def reset(self):
         # Agrega aquí cualquier otra lógica específica para reiniciar la tabla

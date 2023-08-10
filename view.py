@@ -12,6 +12,9 @@ import plot_4
 import plot_5
 import queue
 import time
+import PyPDF2
+import os
+from time import sleep
 class View():
     def __init__(self, root,data_instance,reporter_instance):
 
@@ -166,6 +169,40 @@ class View():
         self.Plot2.download_graphs()
         self.Plot3.download_graphs()
         self.Plot4.download_graphs()
+        self.Plot5.download_stats()
+        sleep(1)
+        self.combine_pdf()
+
+
+    def combine_pdf(self):
+        pdf_files = [
+            "pdf1.pdf",
+            "pdf2.pdf",
+            "pdf2l.pdf",
+            "pdf3l.pdf",
+            "pdf2r.pdf",
+            "pdf3r.pdf",
+            "pdf4.pdf",
+            "pdf5.pdf"
+        ]
+        output_filename = "results.pdf"
+
+        pdf_merger = PyPDF2.PdfMerger()
+        
+        # Combining PDFs
+        for pdf_file in pdf_files:
+            pdf_merger.append(pdf_file)
+        
+        # Writing the merged PDF to the output file
+        with open(output_filename, "wb") as output_pdf:
+            pdf_merger.write(output_pdf)
+        
+        # Closing the merger
+        pdf_merger.close()
+        
+        # Deleting input PDFs
+        for pdf_file in pdf_files:
+            os.remove(pdf_file)
 
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
@@ -312,13 +349,16 @@ class View():
                     # self.set_data_ready(value=0)
                     # self.reset_all_data()
                 elif target_function=='download_pdf':
+                    # pdf_thread = Thread(target=download_pdf)
+                    # pdf_thread.daemon=True
+                    # pdf_thread.start()
                     self.download_pdf()
 
                 # Indicar que la función se ha procesado y la cola puede esperar nuevamente
                 self.interface_transition_queue.task_done()
 
-                # Pequeño descanso entre actualizaciones de la interfaz para no sobrecargar la CPU
-                time.sleep(0.2)  # Ajusta el tiempo de sleep según tus necesidades
+                # # Pequeño descanso entre actualizaciones de la interfaz para no sobrecargar la CPU
+                # time.sleep()  # Ajusta el tiempo de sleep según tus necesidades
 
 
     def enqueue_transition(self, function_name):
