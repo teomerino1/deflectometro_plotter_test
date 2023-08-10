@@ -1,21 +1,27 @@
 from tkinter import *
 from tkinter.ttk import Label, Frame, Button, Scrollbar
-import view
-import table
-import graphs
-import data
+
 from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
-import graphs_2
-import graphs_3
+
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle,Spacer, Image, Paragraph
+from reportlab.lib.units import inch
+from reportlab.lib import utils
+from reportlab.lib.styles import getSampleStyleSheet
 from io import BytesIO
+from reportlab.platypus import SimpleDocTemplate, Image, Spacer
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, PageTemplate,Image, Spacer
+from reportlab.lib import utils
+from reportlab.pdfgen import canvas
+
 
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
@@ -333,14 +339,33 @@ class Plot5():
 
     def download_pdf(self):
         self.download_stats()
+        # self.add_image_header()
+        # self.add_data_tables()
         # self.view_instance.enqueue_transition('download_pdf')
 
     def download_stats(self):
+        output_pdf_path = 'tables.pdf'
+        image_path = '/home/amoyano/Documents/deflectometro_plotter_test/img/INFAS.png'
+        
+        img_width = 99
+        img_height = 55
+        
+        pdf_width, pdf_height = letter
+        margin = 0.1 * inch
+        
+        # Crear el buffer para el PDF usando ReportLab
         buffer = BytesIO()
-
         doc = SimpleDocTemplate(buffer, pagesize=letter)
         elements = []
+        
+        # # Agregar la imagen al array de elementos
+        img = Image(image_path, width=img_width, height=img_height)
+        # img.hAlign = 'LEFT'
+        img.vAlign='TOP'
+        elements.append(img)
 
+        
+        
         labels_der = [
             self.defl_media_der, self.desv_std_der, 
             self.coef_var_der, self.defl_car_der, self.total_med_defl_der, 
@@ -384,11 +409,11 @@ class Plot5():
                                   # ... otros estilos de tabla ...
                                   ])
 
-        table_der = Table(tabla_der, colWidths=[200, 200], rowHeights=20)
+        table_der = Table(tabla_der, colWidths=[200, 200], rowHeights=25)
         table_der.setStyle(table_style)
         elements.append(table_der)
 
-        table_izq = Table(tabla_izq, colWidths=[200, 200], rowHeights=20)
+        table_izq = Table(tabla_izq, colWidths=[200, 200], rowHeights=25)
         table_izq.setStyle(table_style)
         elements.append(table_izq)
 
@@ -398,3 +423,107 @@ class Plot5():
 
         with open("tables.pdf", "wb") as f:
             f.write(buffer.read())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # def download_stats(self):
+        
+    #     output_pdf_path = 'tables.pdf'
+    #     image_path = '/home/amoyano/Documents/deflectometro_plotter_test/img/INFAS.png'
+    #     img = utils.ImageReader(image_path)
+       
+    #     img_width=99
+    #     img_height=55
+       
+    #     pdf_width, pdf_height = letter
+    #     margin = 0.1 * inch
+        
+    #     c = canvas.Canvas(output_pdf_path, pagesize=(letter))
+       
+    #     # Agregar la imagen en la esquina superior izquierda
+    #     c.drawImage(image_path, margin, pdf_height - margin - img_height, width=img_width, height=img_height)
+        
+    #     # Guardar el PDF resultante
+    #     c.save()
+        
+    # # Rutas de los archivos
+        
+    #     buffer = BytesIO()
+
+    #     doc = SimpleDocTemplate(buffer, pagesize=letter)
+    #     elements = []
+
+    #     labels_der = [
+    #         self.defl_media_der, self.desv_std_der, 
+    #         self.coef_var_der, self.defl_car_der, self.total_med_defl_der, 
+    #         self.radio_med_der, self.radio_car_der, self.total_med_rad_der, 
+    #         self.d_r_med_der, self.r_x_d_der 
+    #     ]
+        
+    #     labels_izq= [
+    #         self.defl_media_izq, self.desv_std_izq, 
+    #         self.coef_var_izq, self.defl_car_izq, self.total_med_defl_izq,
+    #         self.radio_med_izq, self.radio_car_izq, self.total_med_rad_izq, 
+    #         self.d_r_med_izq, self.r_x_d_izq
+    #     ]
+
+        # labels_der_values=[
+        #     self.defl_media_der_value, self.desv_std_der_value, 
+        #     self.coef_var_der_value, self.defl_car_der_value, self.total_med_defl_der_value, 
+        #     self.radio_med_der_value, self.radio_car_der_value, self.total_med_rad_der_value, 
+        #     self.d_r_med_der_value, self.r_x_d_der_value 
+        # ]
+
+        # labels_izq_values= [
+        #     self.defl_media_izq_value, self.desv_std_izq_value, 
+        #     self.coef_var_izq_value, self.defl_car_izq_value, self.total_med_defl_izq_value,
+        #     self.radio_med_izq_value, self.radio_car_izq_value, self.total_med_rad_izq_value, 
+        #     self.d_r_med_izq_value, self.r_x_d_izq_value
+        # ]
+
+        # Agregar los primeros elementos individuales
+        # tabla_der = [[self.huella_ext.cget("text")]]
+        # tabla_izq = [[self.huella_int.cget("text")]]
+        
+        # for label, value in zip(labels_der, labels_der_values):
+        #     tabla_der.append([label.cget("text"), value.cget("text")])
+        
+        # for label, value in zip(labels_izq, labels_izq_values):
+        #     tabla_izq.append([label.cget("text"), value.cget("text")])
+
+        # table_style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        #                           ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        #                           # ... otros estilos de tabla ...
+        #                           ])
+
+        # table_der = Table(tabla_der, colWidths=[200, 200], rowHeights=30)
+        # table_der.setStyle(table_style)
+        # elements.append(table_der)
+
+        # table_izq = Table(tabla_izq, colWidths=[200, 200], rowHeights=30)
+        # table_izq.setStyle(table_style)
+        # elements.append(table_izq)
+
+        # doc.build(elements)
+
+        # buffer.seek(0)
+
+        # with open("tables.pdf", "wb") as f:
+        #     f.write(buffer.read())
+
+  
