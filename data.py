@@ -93,7 +93,8 @@ class Data():
         print("Radio Izquierda:",radio_l_aux)
         print("\n")
 
-        # defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux)
+        defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux)
+
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
@@ -117,26 +118,22 @@ class Data():
 
     def update_structures(self):
         # Obtengo los promedios de cada cosa
-        print("Radio izquierda:",self.radio_l)
-        print("Defl izquierda:",self.defl_l)
+       
         media_defl_r = round(np.mean(self.defl_r),2)
         media_defl_l = round(np.mean(self.defl_l),2)
         media_radio_r = round(np.mean(self.radio_r),2)
         media_radio_l = round(np.mean(self.radio_l),2)
 
-        print("Media radio r:",media_radio_r)
-        print("Media defl r:",media_defl_r)
+       
 
         # Obtengo la deflexion caracteristica. Por el momento Z es igual a 2 y el resto (ft, fc, fh) es 1
         self.defl_l_car.append(  (media_defl_l + ((np.std(self.defl_l)*self.z)))*self.ft*self.fh*self.fc  )
         self.defl_r_car.append(  (media_defl_r + ((np.std(self.defl_r)*self.z)))*self.ft*self.fh*self.fc  )
         
-    
-
         # Obtengo los máximos de las deflexiones
         self.defl_l_max.append(np.max(self.defl_l))
         self.defl_r_max.append(np.max(self.defl_r))
-        print("Deflexion maxima derecha:",self.defl_r_max)
+        
 
         # Los agrego a los diccionarios correspondientes
         self.data_dict_r['Grupo'].append(self.group_counter*self.get_grupos())
@@ -165,8 +162,8 @@ class Data():
 
         defl_r_aux=round((defl_r_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
         defl_l_aux=round((defl_l_aux/((0.001*self.espesor*(self.temp-20))+1)),2) 
-        radio_r_aux=round((defl_r_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
-        radio_l_aux=round((defl_l_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
+        radio_r_aux=round((radio_r_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
+        radio_l_aux=round((radio_l_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
         
         return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        
@@ -202,7 +199,7 @@ class Data():
         media_rad_izq = round(np.mean(self.defl_l_acum),2)
         
         # # Calculo de desviaciones estandar deflexiones
-        desv_defl_der = round(np.std(self.defl_r_acum))
+        desv_defl_der = round(np.std(self.defl_r_acum),2)
         desv_defl_l = round(np.std(self.defl_l_acum))
 
         # # Calculo de coeficientes de variacion deflexiones

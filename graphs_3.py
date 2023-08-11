@@ -65,11 +65,9 @@ class Graphs3():
             self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
             self.defl_car_l_data.extend(defl_l_car[-1:])
             self.defl_max_l_data.extend(defl_l_max[-1:])
-            print("Deflexion caracteristica izquierda recibida en graphs:",self.defl_car_l_data)
-            print("Deflexion maxima izquierda recibida en graphs:",self.defl_max_l_data)
             self.indexes = [x * grupos for x in range(1, len(self.defl_mean_l_data)+1)]
             # self.indexes=list(range(1,len(self.defl_mean_l_data)+1))
-
+          
             self.figure_defl_mean_l.clear()
 
             subfigure_izq = self.figure_defl_mean_l.add_subplot(211)
@@ -95,8 +93,6 @@ class Graphs3():
             self.defl_car_r_data.extend(defl_r_car[-1:])
             self.defl_max_r_data.extend(defl_r_max[-1:])
             self.indexes = [x * grupos for x in range(1, len(self.defl_mean_r_data)+1)]
-            print("Deflexion caracteristica derecha recibida en graphs:",self.defl_car_r_data)
-            print("Deflexion maxima derecha recibida en graphs:",self.defl_max_r_data)
             # self.indexes=list(range(1,len(self.defl_mean_r_data)+1))
             
             self.figure_defl_mean_r.clear()

@@ -8,16 +8,7 @@ from time import sleep
 
 
 def show_stats(View,Data):
-    # media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =Data.calculate_stats()
-    # View.show_stats_in_plot(
-    #     media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
-    #     desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,
-    #     defl_car_der,defl_car_izq ,rad_car_der, rad_car_izq,
-    #     d_r_der,d_r_izq,
-    #     d_x_r_der, d_x_r_izq, 
-    #     total_mediciones_defl, total_mediciones_rad
-    # )
-    # View.reset_all_data()
+    
     View.enqueue_transition('generate_stats')
 
 def update_all(Data,View,grupos):
@@ -25,10 +16,6 @@ def update_all(Data,View,grupos):
     dict_r, dict_l = Data.get_data_dict()
     defl_l_max, defl_r_max = Data.get_max_defl()
     defl_l_car, defl_r_car = Data.get_car_defl()
-    print("Deflexion izquierda caracteristica que se envia a graphs:",defl_l_car)
-    print("Deflexion izquierda maxima enviada a graphs:",defl_l_max)
-    print("Deflexion derecha caracteristica que se envia a graphs:",defl_r_car)
-    print("Deflexion derecha maxima enviada a graphs:",defl_r_max)
     View.new_group_data_view(dict_r,dict_l,defl_r_car,defl_l_car,defl_r_max,defl_l_max,grupos)
 
 def update_defl_one(Data,View,amount):
@@ -39,11 +26,7 @@ def update_defl_one(Data,View,amount):
 
 
 def obtain_data(Reporter, View, Data):
-
-    # Reporter.reset_reporter()
-    # Data.reset_all()
-
-    # print("Estoy en obtain data")
+    print("Soy el hilo:",threading.get_ident(), "En el obtain data")
     while True:
         if(View.get_data_ready()==1):
             break
@@ -54,6 +37,7 @@ def obtain_data(Reporter, View, Data):
 
 def process_data(Reporter,View,Data):
     # print("Estoy en process data")
+    print("Soy el hilo:",threading.get_ident(), "En process data")
     Reporter.start()
     grupos=View.get_grupos()
     muestras=View.get_muestras()
@@ -65,12 +49,10 @@ def process_data(Reporter,View,Data):
         data, this_cycle = Reporter.get_new_measurements()
         
         if data is None or this_cycle is None:
-            if(Reporter.get_puesto_change()==1 or a==muestras):
-                # View.enqueue_transition('generate_stats')
-                # show_stats_thread = Thread(target=show_stats,args=(View,Data))
-                # show_stats_thread.daemon=True
-                # show_stats_thread.start()
+            if(Reporter.get_puesto_change()==1 or a==muestras or View.get_reset()==1):
+                
                 print("Vuelvo a empezar")
+                View.set_reset(0)
                 View.set_data_ready(value=0)
                 sleep(1)
                 obtain_data(Reporter,View,Data)
@@ -83,7 +65,6 @@ def process_data(Reporter,View,Data):
         print(cantidad)
         
         if(Reporter.get_puesto_change()==0):
-
             if(a>=100):
                 b=b+1
                 if(b==10):
@@ -101,7 +82,29 @@ def process_data(Reporter,View,Data):
                 update_all_thread.daemon=True 
                 update_all_thread.start()
             
-             
+def obtain_and_process_data(Reporter, View, Data):
+    while True:
+        if View.get_data_ready() == 1:
+            process_data(Reporter, View, Data)
+
+# def main():
+#     root = tk.Tk()
+
+#     Reporter = reporter.Reporter()
+#     Data = data.Data()
+
+#     View = view.View(root, Data, Reporter)
+    
+#     # Crear y ejecutar el hilo para obtener y procesar los datos
+#     data_process_thread = Thread(target=obtain_and_process_data, args=(Reporter, View, Data))
+#     data_process_thread.daemon = True
+#     data_process_thread.start()
+    
+#     # Ejecutar el bucle principal de la interfaz gráfica
+#     root.mainloop()
+
+# if __name__ == "__main__":
+#     main()           
 def main():
     root = tk.Tk()
 
@@ -114,6 +117,7 @@ def main():
     data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
     data_thread.daemon = True
     data_thread.start()
+    print("Soy el hilo:",threading.get_ident(), "En el main")
     
     # Ejecutar el bucle principal de la interfaz gráfica
     root.mainloop()

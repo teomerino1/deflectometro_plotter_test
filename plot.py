@@ -65,13 +65,7 @@ class Plot():
             self.Graphs = graphs.Graphs(self.second_plot_frame) # insta ncia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
 
         if(a == 1):
-
-            # self.second_plot_frame.grid(ipadx=10, ipady=5,sticky="nwsew")
             self.second_plot_frame.grid(row=0, column=0, sticky="nsew")  
-            # self.title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
-            # self.temperatura.grid(row=1, column=0, sticky="nw")
-            # self.muestras.grid(row=1, column=1 ,sticky="nw")
-            # self.grupos.grid(row=2, column=0, sticky="nw")
             self.atras.grid(row=0, column=0, sticky="nw")
             self.next.grid(row=1, column=0,sticky="nw")
             

@@ -57,21 +57,21 @@ class Config():
             self.conf_inicial=conf_inicial
 
             # Cargar y mostrar una imagen en un Label
-            image_cba = tk.PhotoImage(file="/home/amoyano/Documents/deflectometro_plotter_test/img/Cordoba.png")  # Cambia la ruta a la ubicación de tu imagen
+            image_cba = tk.PhotoImage(file="Cordoba.png")  # Cambia la ruta a la ubicación de tu imagen
             image_label = Label(config_frame, image=image_cba)
             image_label.image = image_cba  # Importante: mantener una referencia a la imagen
             self.image_label = image_label
 
             # Cargar y mostrar una imagen en un Label usando Pillow (PIL)
-            image_infas = Image.open("/home/amoyano/Documents/deflectometro_plotter_test/img/INFAS.png")
-            image_infas = image_infas.resize((298, 110), Image.ANTIALIAS)  # Ajusta el tamaño si es necesario
+            image_infas = Image.open("INFAS.png")
+            image_infas = image_infas.resize((298, 110))  # Ajusta el tamaño si es necesario
             photo_infas = ImageTk.PhotoImage(image_infas)
             image_label_infas = Label(config_frame, image=photo_infas)
             image_label_infas.image = photo_infas
             self.image_infas = image_label_infas
 
-            image_invel = Image.open("/home/amoyano/Documents/deflectometro_plotter_test/img/INVEL_va.png") 
-            image_invel = image_invel.resize((201, 97), Image.ANTIALIAS) 
+            image_invel = Image.open("INVEL_va.png") 
+            image_invel = image_invel.resize((201, 97)) 
             photo_invel = ImageTk.PhotoImage(image_invel)
             image_label_invel = Label(config_frame, image=photo_invel)
             image_label_invel.image = photo_invel  # Importante: mantener una referencia a la imagen
@@ -107,7 +107,7 @@ class Config():
             self.muestras_ntry = muestras_ntry
             
             # Espesor
-            espesor_label=Label(config_frame, text="Espesor [mm]:",font=(None, 15))
+            espesor_label=Label(config_frame, text="Espesor [cm]:",font=(None, 15))
             self.espesor_label=espesor_label
            
             espesor = Entry(config_frame,width=10)
@@ -236,27 +236,27 @@ class Config():
         if(self.espesor.get()==''):
             print("Espesor flaiao")
         else:
-            self.view_instance.set_espesor(int(self.espesor.get()))
+            self.view_instance.set_espesor(float(self.espesor.get()))
 
         if(self.ft_ntry.get()==''):
             self.view_instance.set_ft(1)
         else:
-            self.view_instance.set_ft(int(self.ft_ntry.get()))
+            self.view_instance.set_ft(float(self.ft_ntry.get()))
 
         if(self.fh_ntry.get()==''):
             self.view_instance.set_fh(1)
         else:
-            self.view_instance.set_fh(int(self.fh_ntry.get()))
+            self.view_instance.set_fh(float(self.fh_ntry.get()))
 
         if(self.fc_ntry.get()==''):
             self.view_instance.set_fc(1)
         else:
-            self.view_instance.set_fc(int(self.fc_ntry.get()))
+            self.view_instance.set_fc(float(self.fc_ntry.get()))
 
         if(self.z_ntry.get()==''):
             self.view_instance.set_z(2)
         else:
-            self.view_instance.set_z(int(self.z_ntry.get()))
+            self.view_instance.set_z(float(self.z_ntry.get()))
 
         if(self.muestras_ntry.get()==''):
             self.view_instance.set_muestras(10000)
