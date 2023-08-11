@@ -51,17 +51,12 @@ class Table():
             last_r_d_l
             )) 
 
-    
-
-
     def show(self,frame):
         columns = ("groups_r", "radio_r", "defl_r", "r_d_r", "r/d_r","groups_l", "radio_l", "defl_l", "r_d_l", "r/d_l")
         
         # Crear el Treeview
         self.table = Treeview(self.frame, columns=columns, show='headings')
-
         self.table.grid(row=1, column=0, columnspan=3)
-
         # Configurar el alto del Treeview
         self.table.configure(height=7)
 
@@ -71,7 +66,6 @@ class Table():
         
         self.table.configure(yscrollcommand=scrollbar.set)
         
-
         # Configurar encabezados y columnas del Treeview
         headers = [
             ("groups_r", "Groups R"),

@@ -46,44 +46,28 @@ class Plot():
 
         if(a == 0):
 
-            second_plot_frame = Frame(self.root)
+            width = self.root.winfo_screenwidth()
+            height = self.root.winfo_screenheight()
+            second_plot_frame = Frame(self.root,width=width,height=height)
             self.second_plot_frame = second_plot_frame
-
+            
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
 
             self.table = Treeview(second_plot_frame, columns=columns, show='headings')
             
-            # title = Label(second_plot_frame, text="Plantilla general de resultados estadisticos",font=(None, 25)) 
-            # self.title = title
-            
-            # temperatura = Label(second_plot_frame, text= "Temperatura: %s"%(view.temp))
-            # self.temperatura = temperatura
-
-            # muestras = Label(second_plot_frame, text="Muestras: %s"%(view.grupos))
-            # self.muestras = muestras 
-
-            # grupos = Label(second_plot_frame, text="Grupos: %s"%(view.muestras))
-            # self.grupos = grupos 
-
             atras = Button(second_plot_frame, text="Atras", command=self.go_to_config)
-            # style = ttk.Style()
-            # style.configure("Custom.TButton", background="blue", foreground="white")
-            # atras = ttk.Button(second_plot_frame, text="Atras", command=self.go_to_config, style="Custom.TButton")
             self.atras=atras
 
             next = Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1)
-            # style = ttk.Style()
-            # style.configure("Custom.TButton", background="blue", foreground="white")
-            # next = ttk.Button(second_plot_frame, text="Next", command=self.go_to_plot_2_from_plot_1, style="Custom.TButton")
             self.next = next
 
             self.Table = table.Table(self.second_plot_frame) # instancia de tabla
-
-            self.Graphs = graphs.Graphs(self.second_plot_frame) # instancia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
+            self.Graphs = graphs.Graphs(self.second_plot_frame) # insta ncia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
 
         if(a == 1):
 
-            self.second_plot_frame.grid(ipadx=10, ipady=5,sticky="nwsew")
+            # self.second_plot_frame.grid(ipadx=10, ipady=5,sticky="nwsew")
+            self.second_plot_frame.grid(row=0, column=0, sticky="nsew")  
             # self.title.grid(row = 0, column = 0, columnspan = 1,sticky="nw")
             # self.temperatura.grid(row=1, column=0, sticky="nw")
             # self.muestras.grid(row=1, column=1 ,sticky="nw")

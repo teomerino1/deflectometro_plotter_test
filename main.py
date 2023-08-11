@@ -24,8 +24,12 @@ def update_all(Data,View,grupos):
     Data.update_structures()
     dict_r, dict_l = Data.get_data_dict()
     defl_l_max, defl_r_max = Data.get_max_defl()
-    defl_l_car, defl_r_car = Data.get_std_defl()
-    View.new_group_data_view(dict_r,dict_l,defl_l_max,defl_r_max,defl_l_car,defl_r_car,grupos)
+    defl_l_car, defl_r_car = Data.get_car_defl()
+    print("Deflexion izquierda caracteristica que se envia a graphs:",defl_l_car)
+    print("Deflexion izquierda maxima enviada a graphs:",defl_l_max)
+    print("Deflexion derecha caracteristica que se envia a graphs:",defl_r_car)
+    print("Deflexion derecha maxima enviada a graphs:",defl_r_max)
+    View.new_group_data_view(dict_r,dict_l,defl_r_car,defl_l_car,defl_r_max,defl_l_max,grupos)
 
 def update_defl_one(Data,View,amount):
     defl_r, defl_l = Data.update_bar_data(amount)
@@ -83,19 +87,16 @@ def process_data(Reporter,View,Data):
             if(a>=100):
                 b=b+1
                 if(b==10):
-                    print("Grafico de a 10")
                     b=0
                     update_bar_thread = Thread(target=update_defl_one,args=(Data,View,10))
                     update_bar_thread.daemon=True
                     update_bar_thread.start()
             else:
-                print("Grafico de a 1")
                 update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 
-            if(cantidad%10 == 0):
-                print("Graficando mediciones de grupo...")
+            if(cantidad%5 == 0):
                 update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 
                 update_all_thread.start()

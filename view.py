@@ -206,10 +206,10 @@ class View():
 
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
-    def new_group_data_view(self, dict_r, dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos):
+    def new_group_data_view(self, dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos):
         self.Plot.new_group_data_plot(dict_r, dict_l)
-        self.Plot2.new_group_data_plot2(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos)
-        self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_max, defl_l_max, defl_r_car, defl_l_car,grupos)
+        self.Plot2.new_group_data_plot2(dict_r,dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos)
+        self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos)
         self.Plot4.new_group_data_plot4(dict_r, dict_l,grupos)
 
     # Metodo que manda a actualizar el gafico de barras 
