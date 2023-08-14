@@ -47,13 +47,13 @@ class Plot3():
             title = Label(fourth_plot_frame, text="Deflexiones y Radios: Lado Derecho",font=(None, 20)) 
             self.title=title
 
-            back = Button(fourth_plot_frame, text="Atrás", command=self.go_to_plot_2_from_plot_3)
+            back = ttk.Button(fourth_plot_frame, text="Atrás", command=self.go_to_plot_2_from_plot_3,style="TButton")
             # style = ttk.Style()
             # style.configure("Custom.TButton", background="blue", foreground="white")
             # back = ttk.Button(fourth_plot_frame, text="Atras", command=self.go_to_plot_2_from_plot_3, style="Custom.TButton")
             self.back = back
 
-            next = Button(fourth_plot_frame, text="Next", command=self.go_to_plot_4_from_plot_3)
+            next = ttk.Button(fourth_plot_frame, text="Next", command=self.go_to_plot_4_from_plot_3,style="TButton")
             # style = ttk.Style()
             # style.configure("Custom.TButton", background="blue", foreground="white")
             # next = ttk.Button(fourth_plot_frame, text="Next", command=self.go_to_plot_4_from_plot_3, style="Custom.TButton")

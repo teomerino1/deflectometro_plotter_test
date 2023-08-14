@@ -47,13 +47,13 @@ class Plot4():
             title = Label(fifht_plot_frame, text="Graficos de deflexiones vs radios",font=(None, 20)) 
             self.title=title
 
-            back = Button(fifht_plot_frame, text="Atrás", command=self.go_to_plot_3_from_plot_4)
+            back = ttk.Button(fifht_plot_frame, text="Atrás", command=self.go_to_plot_3_from_plot_4,style="TButton")
             # style = ttk.Style()
             # style.configure("Custom.TButton", background="blue", foreground="white")
             # back = ttk.Button(fifht_plot_frame, text="Atras", command=self.go_to_plot_3_from_plot_4, style="Custom.TButton")
             self.back = back
 
-            next = Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4) 
+            next = ttk.Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4,style="TButton") 
             # style = ttk.Style()
             # style.configure("Custom.TButton", background="blue", foreground="white")
             # next = ttk.Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4, style="Custom.TButton")

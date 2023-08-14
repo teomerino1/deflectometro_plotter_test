@@ -133,16 +133,16 @@ class Plot5():
             title = Label(sixth_plot_frame, text="Plantilla de resultados estadísticos",font=(None, 30)) 
             self.title = title
 
-            back = Button(sixth_plot_frame, text="Atrás", command=self.go_to_plot_4_from_plot_5)
+            back = ttk.Button(sixth_plot_frame, text="Atrás", command=self.go_to_plot_4_from_plot_5,style="TButton")
             # style = ttk.Style()
             # style.configure("Custom.TButton", background="blue", foreground="white")
             # back = ttk.Button(sixth_plot_frame, text="Atras", command=self.go_to_plot_4_from_plot_5, style="Custom.TButton")
             self.back = back
             
-            stats = Button(sixth_plot_frame, text="Generar Cálculos", command=self.generate_stats)
+            stats = ttk.Button(sixth_plot_frame, text="Generar Cálculos", command=self.generate_stats,style="TButton")
             self.stats = stats
 
-            pdf = Button(sixth_plot_frame, text="Descargar PDF", command=self.download_pdf)
+            pdf = ttk.Button(sixth_plot_frame, text="Descargar PDF", command=self.download_pdf,style="TButton")
             self.pdf = pdf
 
             huella_ext = Label(sixth_plot_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 20))

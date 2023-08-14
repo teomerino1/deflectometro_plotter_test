@@ -19,6 +19,7 @@ def update_all(Data,View,grupos):
     View.new_group_data_view(dict_r,dict_l,defl_r_car,defl_l_car,defl_r_max,defl_l_max,grupos)
 
 def update_defl_one(Data,View,amount):
+    # print("Soy el hilo:",threading.get_ident(), "tirando deflexiones")
     defl_r, defl_l = Data.update_bar_data(amount)
     # indexes= Data.get_indexes()
     View.update_bar_view(defl_r,defl_l)
@@ -26,7 +27,7 @@ def update_defl_one(Data,View,amount):
 
 
 def obtain_data(Reporter, View, Data):
-    print("Soy el hilo:",threading.get_ident(), "En el obtain data")
+    # print("Soy el hilo:",threading.get_ident(), "En el obtain data")
     while True:
         if(View.get_data_ready()==1):
             break
@@ -37,7 +38,7 @@ def obtain_data(Reporter, View, Data):
 
 def process_data(Reporter,View,Data):
     # print("Estoy en process data")
-    print("Soy el hilo:",threading.get_ident(), "En process data")
+    # print("Soy el hilo:",threading.get_ident(), "En process data")
     Reporter.start()
     grupos=View.get_grupos()
     muestras=View.get_muestras()
@@ -87,27 +88,10 @@ def obtain_and_process_data(Reporter, View, Data):
         if View.get_data_ready() == 1:
             process_data(Reporter, View, Data)
 
-# def main():
-#     root = tk.Tk()
-
-#     Reporter = reporter.Reporter()
-#     Data = data.Data()
-
-#     View = view.View(root, Data, Reporter)
-    
-#     # Crear y ejecutar el hilo para obtener y procesar los datos
-#     data_process_thread = Thread(target=obtain_and_process_data, args=(Reporter, View, Data))
-#     data_process_thread.daemon = True
-#     data_process_thread.start()
-    
-#     # Ejecutar el bucle principal de la interfaz gráfica
-#     root.mainloop()
-
-# if __name__ == "__main__":
-#     main()           
+           
 def main():
     root = tk.Tk()
-
+   
     Reporter = reporter.Reporter()
     Data = data.Data()
 
@@ -117,7 +101,7 @@ def main():
     data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
     data_thread.daemon = True
     data_thread.start()
-    print("Soy el hilo:",threading.get_ident(), "En el main")
+    # print("Soy el hilo:",threading.get_ident(), "En el main")
     
     # Ejecutar el bucle principal de la interfaz gráfica
     root.mainloop()

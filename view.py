@@ -33,15 +33,10 @@ class View():
         
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(root,self)
-        # self.Plot = plot.Plot(root, self.go_to_config, self.go_to_plot_2_from_plot_1)
         self.Plot = plot.Plot(root, self)
-        # self.Plot2 = plot_2.Plot2(root, self.go_to_plot_1_from_plot_2, self.go_to_plot_3_from_plot2)
         self.Plot2 = plot_2.Plot2(root,self)
-        # self.Plot3 = plot_3.Plot3(root, self.go_to_plot_2_from_plot_3, self.go_to_plot_4_from_plot_3)
         self.Plot3 = plot_3.Plot3(root,self)
-        # self.Plot4 = plot_4.Plot4(root, self.go_to_plot_3_from_plot_4, self.go_to_plot_5_from_plot_4)
         self.Plot4 =plot_4.Plot4(root,self)
-        # self.Plot5 = plot_5.Plot5(root,self.go_to_plot_4_from_plot_5)
         self.Plot5= plot_5.Plot5(root,self)
         self.is_plotting = False
         self.first_time_plot=True
@@ -58,8 +53,6 @@ class View():
      # Metodo que inicializa la view:
     def start(self,root):
 
-        #Se ejecuta el metodo show de Config para que aparezca la ventana principal
-        # self.Config.show(a)
         root.title('Deflectómetro')
         root.tk.call("source", "azure.tcl")
         root.tk.call("set_theme", "light")

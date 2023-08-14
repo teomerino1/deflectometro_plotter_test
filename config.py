@@ -2,7 +2,8 @@ import tkinter as tk
 from tkinter.ttk import Label, Button, Entry, Radiobutton
 import view
 from PIL import Image, ImageTk 
-
+from tkinter import font
+from tkinter import ttk
 
 class Config():
     def __init__(self, root,view_instance):
@@ -51,10 +52,22 @@ class Config():
         
         if(a==0):
             config_frame = tk.Frame()
+            # config_frame.configure(bg="lightgray")
             self.config_frame = config_frame
             
-            conf_inicial=Label(config_frame, text="Configuración inicial",font=(None, 30))
-            self.conf_inicial=conf_inicial
+            # conf_inicial=Label(config_frame, text="Configuración inicial",font=(None, 30))
+            # self.conf_inicial=conf_inicial
+
+            # Define una fuente personalizada
+            custom_font = font.Font(family="Helvetica", size=16, weight="bold")
+
+            conf_inicial = ttk.Label(config_frame, text="Configuración inicial", font=custom_font)
+            self.conf_inicial = conf_inicial
+
+            conf_inicial = ttk.Label(config_frame, text="Configuración inicial", font=custom_font, padding=10)
+
+            # Configura el color de fondo y el color del texto
+            self.conf_inicial.configure(background="lightgray")
 
             # Cargar y mostrar una imagen en un Label
             image_cba = tk.PhotoImage(file="Cordoba.png")  # Cambia la ruta a la ubicación de tu imagen
@@ -180,8 +193,14 @@ class Config():
             pav_ntry = Entry(config_frame)
             self.pav_ntry = pav_ntry
 
-            confirmar=Button(config_frame, text="Confirmar", command=self.go_to_plot_1_from_config)
+            # confirmar=Button(config_frame, text="Confirmar", command=self.go_to_plot_1_from_config)
+            # self.confirmar=confirmar
+
+
+            confirmar = ttk.Button(config_frame, text="Confirmar", command=self.go_to_plot_1_from_config,
+            style="TButton")
             self.confirmar=confirmar
+              
 
             resetear=Button(config_frame, text="Resetear", command=self.reset_all_plots)
             self.resetear=resetear

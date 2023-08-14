@@ -22,7 +22,7 @@ class Plot():
     def __init__(self,root,view_instance):
 
         self.root = root
-        self.main_plot_frame = None
+        
         self.second_plot_frame = None
         self.view_instance = view_instance
         self.title = None 
@@ -55,14 +55,15 @@ class Plot():
 
             self.table = Treeview(second_plot_frame, columns=columns, show='headings')
             
-            atras = Button(second_plot_frame, text="Atras", command=self.go_to_config)
+            atras = ttk.Button(second_plot_frame, text="Atras", command=self.go_to_config,style="TButton")
             self.atras=atras
 
-            next = Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1)
+            next = ttk.Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
             self.Table = table.Table(self.second_plot_frame) # instancia de tabla
             self.Graphs = graphs.Graphs(self.second_plot_frame) # insta ncia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
+            
 
         if(a == 1):
             self.second_plot_frame.grid(row=0, column=0, sticky="nsew")  
