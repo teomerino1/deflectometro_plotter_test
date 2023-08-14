@@ -33,7 +33,6 @@ class Graphs():
         figure = Figure(figsize=(7, 7), dpi=100)
         sub_figure=figure.add_subplot(211)
 
-        # sub_figure.set_facecolor("lightgray")
         sub_figure.set_ylim(0,100)
         sub_figure.set_xlim(0,10)
         sub_figure.set_title(title)
@@ -49,7 +48,7 @@ class Graphs():
 
         bar_widget = bar.get_tk_widget()
         bar_widget.grid(row = row, column = column, columnspan = columnspan)
-        # bar_widget.configure(bg="lightgray")
+        
 
         return figure, bar, bar_widget
         

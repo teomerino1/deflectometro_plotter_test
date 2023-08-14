@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter.ttk import Label, Button, Entry, Radiobutton
+from tkinter.ttk import Label, Button, Entry, Radiobutton,Frame
 import view
 from PIL import Image, ImageTk 
 from tkinter import font
@@ -51,8 +51,9 @@ class Config():
     def show(self,a):
         
         if(a==0):
-            config_frame = tk.Frame()
-            # config_frame.configure(bg="lightgray")
+            # config_frame = tk.Frame()
+            config_frame = Frame(self.root)
+           
             self.config_frame = config_frame
             
             # conf_inicial=Label(config_frame, text="Configuración inicial",font=(None, 30))
@@ -61,23 +62,21 @@ class Config():
             # Define una fuente personalizada
             custom_font = font.Font(family="Helvetica", size=16, weight="bold")
 
-            conf_inicial = ttk.Label(config_frame, text="Configuración inicial", font=custom_font)
+            conf_inicial = ttk.Label(self.config_frame, text="Configuración inicial", font=(custom_font,30))
             self.conf_inicial = conf_inicial
 
-            conf_inicial = ttk.Label(config_frame, text="Configuración inicial", font=custom_font, padding=10)
-
-            # Configura el color de fondo y el color del texto
-            self.conf_inicial.configure(background="lightgray")
+            # conf_inicial = ttk.Label(config_frame, text="Configuración inicial", font=custom_font, padding=10)
 
             # Cargar y mostrar una imagen en un Label
             image_cba = tk.PhotoImage(file="Cordoba.png")  # Cambia la ruta a la ubicación de tu imagen
-            image_label = Label(config_frame, image=image_cba)
+            image_label = Label(self.config_frame, image=image_cba)
             image_label.image = image_cba  # Importante: mantener una referencia a la imagen
             self.image_label = image_label
 
             # Cargar y mostrar una imagen en un Label usando Pillow (PIL)
             image_infas = Image.open("INFAS.png")
-            image_infas = image_infas.resize((298, 110))  # Ajusta el tamaño si es necesario
+            # image_infas = image_infas.resize((298, 110))  # Ajusta el tamaño si es necesario
+            image_infas = image_infas.resize((250, 97)) 
             photo_infas = ImageTk.PhotoImage(image_infas)
             image_label_infas = Label(config_frame, image=photo_infas)
             image_label_infas.image = photo_infas
@@ -91,127 +90,127 @@ class Config():
             self.image_invel = image_label_invel
             
             # temp
-            temp_label=Label(config_frame, text="Temperatura [ºC]:",font=(None, 15))
+            temp_label=Label(self.config_frame, text="Temperatura [ºC]:",font=(None, 15))
             self.temp_label=temp_label
             
-            temp_ntry = Entry(config_frame,width=10)
+            temp_ntry = Entry(self.config_frame,width=10)
             temp_ntry.insert(0, "20")
             self.temp_ntry = temp_ntry
 
             # grupos
-            grupos_label=Label(config_frame, text="Tamaño de grupos:",font=(None, 15))
+            grupos_label=Label(self.config_frame, text="Tamaño de grupos:",font=(None, 15))
             self.grupos_label=grupos_label
             
             var = tk.IntVar()
             var.set(100)
             self.var = var
-            grupos_ntry_50 = Radiobutton(config_frame,text='50', variable=var, value=50)
+            grupos_ntry_50 = Radiobutton(self.config_frame,text='50', variable=var, value=50)
             self.grupos_ntry_50 = grupos_ntry_50
 
-            grupos_ntry_100 = Radiobutton(config_frame,text='100', variable=var, value=100)
+            grupos_ntry_100 = Radiobutton(self.config_frame,text='100', variable=var, value=100)
             self.grupos_ntry_100 = grupos_ntry_100
 
             # Muestras
-            muestras_label=Label(config_frame, text="Cantidad total de muestras:",font=(None, 15))
+            muestras_label=Label(self.config_frame, text="Cantidad total de muestras:",font=(None, 15))
             self.muestras_label=muestras_label
            
 
-            muestras_ntry = Entry(config_frame,width=10)
+            muestras_ntry = Entry(self.config_frame,width=10)
             self.muestras_ntry = muestras_ntry
             
             # Espesor
-            espesor_label=Label(config_frame, text="Espesor [cm]:",font=(None, 15))
+            espesor_label=Label(self.config_frame, text="Espesor [cm]:",font=(None, 15))
             self.espesor_label=espesor_label
            
-            espesor = Entry(config_frame,width=10)
+            espesor = Entry(self.config_frame,width=10)
             self.espesor = espesor
 
             # Ft
-            ft_label=Label(config_frame, text="Ft:",font=(None, 15))
+            ft_label=Label(self.config_frame, text="Ft:",font=(None, 15))
             self.ft_label=ft_label
             
-            ft = Entry(config_frame,width=10)
+            ft = Entry(self.config_frame,width=10)
             ft.insert(0, "1") 
             self.ft_ntry=ft
         
             # Fh
-            fh_label=Label(config_frame, text="Fh:",font=(None, 15))
+            fh_label=Label(self.config_frame, text="Fh:",font=(None, 15))
             self.fh_label=fh_label
 
-            fh = Entry(config_frame,width=10)
+            fh = Entry(self.config_frame,width=10)
             fh.insert(0, "1")
             self.fh_ntry=fh
 
             # Fc
-            fc_label=Label(config_frame, text="Fc:",font=(None, 15))
+            fc_label=Label(self.config_frame, text="Fc:",font=(None, 15))
             self.fc_label=fc_label
            
-            fc = Entry(config_frame,width=10)
+            fc = Entry(self.config_frame,width=10)
             fc.insert(0, "1")
             self.fc_ntry=fc
 
             # Z
-            z_label=Label(config_frame, text="Z:",font=(None, 15))
+            z_label=Label(self.config_frame, text="Z:",font=(None, 15))
             self.z_label=z_label
           
-            z_ntry = Entry(config_frame,width=10)
+            z_ntry = Entry(self.config_frame,width=10)
             z_ntry.insert(0, "2")
             self.z_ntry=z_ntry
 
             # Nº Ruta
-            ruta_label=Label(config_frame, text="Ruta Nº",font=(None, 15))
+            ruta_label=Label(self.config_frame, text="Ruta Nº",font=(None, 15))
             self.rutal_label=ruta_label
         
-            ruta_ntry = Entry(config_frame)
+            ruta_ntry = Entry(self.config_frame)
             self.ruta_ntry = ruta_ntry
 
             # Provincia
-            prov_label=Label(config_frame, text="Provincia:",font=(None, 15))
+            prov_label=Label(self.config_frame, text="Provincia:",font=(None, 15))
             self.prov_label=prov_label
 
-            prov_ntry = Entry(config_frame)
+            prov_ntry = Entry(self.config_frame)
             self.prov_ntry = prov_ntry
             
             # Tramo
-            tramo_label=Label(config_frame, text="Tramo:",font=(None, 15))
+            tramo_label=Label(self.config_frame, text="Tramo:",font=(None, 15))
             self.tramo_label=tramo_label
             
-            tramo_ntry = Entry(config_frame)
+            tramo_ntry = Entry(self.config_frame)
             self.tramo_ntry = tramo_ntry
           
             # Subtramo
-            subtramo_label=Label(config_frame, text="Subtramo:",font=(None, 15))
+            subtramo_label=Label(self.config_frame, text="Subtramo:",font=(None, 15))
             self.subtramo_label=subtramo_label
            
-            subtramo_ntry = Entry(config_frame)
+            subtramo_ntry = Entry(self.config_frame)
             self.subtramo_ntry = subtramo_ntry
            
             # Tipo de Pavimento
-            pav_label=Label(config_frame, text="Tipo de Pavimento:",font=(None, 15))
+            pav_label=Label(self.config_frame, text="Tipo de Pavimento:",font=(None, 15))
             self.pav_label=pav_label
             
-            pav_ntry = Entry(config_frame)
+            pav_ntry = Entry(self.config_frame)
             self.pav_ntry = pav_ntry
 
             # confirmar=Button(config_frame, text="Confirmar", command=self.go_to_plot_1_from_config)
             # self.confirmar=confirmar
 
 
-            confirmar = ttk.Button(config_frame, text="Confirmar", command=self.go_to_plot_1_from_config,
+            confirmar = ttk.Button(self.config_frame, text="Confirmar", command=self.go_to_plot_1_from_config,
             style="TButton")
             self.confirmar=confirmar
               
 
-            resetear=Button(config_frame, text="Resetear", command=self.reset_all_plots)
+            resetear=Button(self.config_frame, text="Resetear", command=self.reset_all_plots)
             self.resetear=resetear
            
-            resetear_label=Label(config_frame, text="Reset OK!:",font=(None, 15))
+            resetear_label=Label(self.config_frame, text="Reset OK!:",font=(None, 15))
             self.resetear_label=resetear_label
             
         if(a==1):
 
             self.config_frame.grid()
-            self.conf_inicial.grid(row=0, column=0, sticky="NW",pady=(10, 0))
+            self.conf_inicial.grid(row=0, column=4, sticky="NE",pady=(10, 0))
             self.temp_label.grid(row=1, column=0,pady=(10, 0))
             self.temp_ntry.grid(row=1, column=1,pady=(10, 0),sticky="nw")
             self.grupos_label.grid(row=2, column=0,pady=(10, 0))
@@ -229,21 +228,21 @@ class Config():
             self.fc_ntry.grid(row=7,column=1,pady=(10, 0),sticky="NW")
             self.z_label.grid(row=8,column=0,pady=(10, 0))
             self.z_ntry.grid(row=8,column=1,pady=(10, 0),sticky="nw")
-            self.rutal_label.grid(row=1,column=3,sticky="NW",pady=(10, 0))
-            self.ruta_ntry.grid(row=1,column=4,sticky="NW",pady=(10, 0))
-            self.prov_label.grid(row=2,column=3,sticky="NW",pady=(10, 0))
-            self.prov_ntry.grid(row=2,column=4,sticky="NW",pady=(10, 0))
-            self.tramo_label.grid(row=3,column=3,sticky="NW",pady=(10, 0))
-            self.tramo_ntry.grid(row=3,column=4,sticky="NW",pady=(10, 0))
-            self.subtramo_label.grid(row=4,column=3,sticky="NW",pady=(10, 0))
-            self.subtramo_ntry.grid(row=4,column=4,sticky="NW",pady=(10, 0))
-            self.pav_label.grid(row=5,column=3,sticky="NW",pady=(10, 0))
-            self.pav_ntry.grid(row=5,column=4,sticky="NW",pady=(10, 0))
+            self.rutal_label.grid(row=1,column=5,sticky="NW",pady=(10,0))
+            self.ruta_ntry.grid(row=1,column=6,sticky="NW",pady=(10, 0))
+            self.prov_label.grid(row=2,column=5,sticky="NW",pady=(10, 0))
+            self.prov_ntry.grid(row=2,column=6,sticky="NW",pady=(10, 0))
+            self.tramo_label.grid(row=3,column=5,sticky="NW",pady=(10, 0))
+            self.tramo_ntry.grid(row=3,column=6,sticky="NW",pady=(10, 0))
+            self.subtramo_label.grid(row=4,column=5,sticky="NW",pady=(10, 0))
+            self.subtramo_ntry.grid(row=4,column=6,sticky="NW",pady=(10, 0))
+            self.pav_label.grid(row=5,column=5,sticky="NW",pady=(10, 0))
+            self.pav_ntry.grid(row=5,column=6,sticky="NW",pady=(10, 0))
             self.confirmar.grid(row=9, column=0,pady=(10, 0))
             self.resetear.grid(row=11, column=0,pady=(10, 0))
             self.image_label.grid(row=12,column=0,pady=(100, 0))
-            self.image_infas.grid(row=12,column=2,pady=(100, 20))
-            self.image_invel.grid(row=12,column=4,pady=(100, 20),sticky="SE")
+            self.image_infas.grid(row=12,column=4,pady=(100, 0),sticky="SE")
+            self.image_invel.grid(row=12,column=7,pady=(130, 0),sticky="SE")
             
 
     def close(self):

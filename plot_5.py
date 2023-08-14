@@ -30,14 +30,11 @@ class Plot5():
     def __init__(self,root,view_instance):
 
         self.root = root
-        # self.main_plot_frame = None
-        # self.second_plot_frame = None
         self.sixth_plot_frame = None
         self.title = None
         self.back = None
         self.stats = None 
         self.pdf = None 
-        # self.go_to_plot_4_from_plot_5 = go_to_plot_4_from_plot_5
         self.view_instance = view_instance
         self.Graphs2 = None
 
@@ -123,7 +120,6 @@ class Plot5():
         if(a == 0):
 
             width = self.root.winfo_screenwidth()
-
             height = self.root.winfo_screenheight()
 
             sixth_plot_frame = Frame(self.root, width=width, height=height)

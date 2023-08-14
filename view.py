@@ -4,6 +4,7 @@ from tkinter.ttk import Scrollbar
 import threading
 from threading import Thread
 from tkinter.ttk import Style
+from ttkthemes import ThemedTk
 import config
 import plot
 import plot_2
@@ -18,6 +19,7 @@ from time import sleep
 class View():
     def __init__(self, root,data_instance,reporter_instance):
 
+        self.root=root
         self.temp = None
         self.grupos = None
         self.muestras = None
@@ -32,12 +34,12 @@ class View():
         self.reset=None
         
         #Se crean los objetos Plot y Config como atributos de view 
-        self.Config = config.Config(root,self)
-        self.Plot = plot.Plot(root, self)
-        self.Plot2 = plot_2.Plot2(root,self)
-        self.Plot3 = plot_3.Plot3(root,self)
-        self.Plot4 =plot_4.Plot4(root,self)
-        self.Plot5= plot_5.Plot5(root,self)
+        self.Config = config.Config(self.root,self)
+        self.Plot = plot.Plot(self.root, self)
+        self.Plot2 = plot_2.Plot2(self.root,self)
+        self.Plot3 = plot_3.Plot3(self.root,self)
+        self.Plot4 =plot_4.Plot4(self.root,self)
+        self.Plot5= plot_5.Plot5(self.root,self)
         self.is_plotting = False
         self.first_time_plot=True
         self.first_time_plot2=True
@@ -53,13 +55,18 @@ class View():
      # Metodo que inicializa la view:
     def start(self,root):
 
-        root.title('Deflectómetro')
-        root.tk.call("source", "azure.tcl")
-        root.tk.call("set_theme", "light")
+        self.root.title('Deflectómetro')
+        self.root.tk.call("source", "azure.tcl")
+        self.root.tk.call("set_theme", "light")
         style = Style(root)
-        screen_width = root.winfo_screenwidth()
-        screen_height = root.winfo_screenheight()
-        root.geometry(f"{screen_width}x{screen_height}")
+        self.root.attributes('-zoomed', True) 
+        
+        # screen_width = self.root.winfo_screenwidth()
+        # screen_height = self.root.winfo_screenheight()
+        # self.root.grid_rowconfigure(0, weight=1)
+        # self.root.grid_columnconfigure(0, weight=1)
+        # self.root.attributes('-fullscreen',True)
+        # self.root.geometry(f"{screen_width}x{screen_height}")
 
         ###############################################
 

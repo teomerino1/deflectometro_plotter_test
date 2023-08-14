@@ -22,7 +22,6 @@ class Plot():
     def __init__(self,root,view_instance):
 
         self.root = root
-        
         self.second_plot_frame = None
         self.view_instance = view_instance
         self.title = None 
@@ -46,19 +45,20 @@ class Plot():
 
         if(a == 0):
 
-            width = self.root.winfo_screenwidth()
-            height = self.root.winfo_screenheight()
-            second_plot_frame = Frame(self.root,width=width,height=height)
+            # width = self.root.winfo_screenwidth()
+            # height = self.root.winfo_screenheight()
+            # second_plot_frame = Frame(self.root,width=width,height=height)
+            second_plot_frame = Frame(self.root)
             self.second_plot_frame = second_plot_frame
             
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
 
-            self.table = Treeview(second_plot_frame, columns=columns, show='headings')
+            self.table = Treeview(self.second_plot_frame, columns=columns, show='headings')
             
-            atras = ttk.Button(second_plot_frame, text="Atras", command=self.go_to_config,style="TButton")
+            atras = ttk.Button(self.second_plot_frame, text="Atras", command=self.go_to_config,style="TButton")
             self.atras=atras
 
-            next = ttk.Button(second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1,style="TButton")
+            next = ttk.Button(self.second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
             self.Table = table.Table(self.second_plot_frame) # instancia de tabla
@@ -66,7 +66,9 @@ class Plot():
             
 
         if(a == 1):
-            self.second_plot_frame.grid(row=0, column=0, sticky="nsew")  
+            # self.second_plot_frame.grid(row=0, column=0, sticky="nsew")
+            # self.second_plot_frame.grid(row=0, column=0)
+            self.second_plot_frame.grid(sticky="nsew")  
             self.atras.grid(row=0, column=0, sticky="nw")
             self.next.grid(row=1, column=0,sticky="nw")
             

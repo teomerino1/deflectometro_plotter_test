@@ -1,9 +1,11 @@
 import view
 import tkinter as tk
+from tkinter import ttk
 import data
 import reporter
 from threading import Thread
 import threading
+from ttkthemes import ThemedTk
 from time import sleep
 
 
@@ -90,11 +92,12 @@ def obtain_and_process_data(Reporter, View, Data):
 
            
 def main():
+
     root = tk.Tk()
-   
+
+    
     Reporter = reporter.Reporter()
     Data = data.Data()
-
     View = view.View(root,Data,Reporter)
     
     # Crear y ejecutar el hilo para procesar los datos
