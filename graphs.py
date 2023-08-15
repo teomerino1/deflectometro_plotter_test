@@ -109,7 +109,10 @@ class Graphs():
 
     def get_flag(self):
         return self.flag
-        
+    
+    def get_max(self):
+        return max(self.defl_l_data)
+    
     def donwload_graphs(self):
         print("Ejecuto PDF")
 

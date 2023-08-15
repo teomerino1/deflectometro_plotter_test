@@ -21,7 +21,6 @@ class Graphs3():
         self.figure_defl_mean_l = None 
         self.defl_mean_l = None 
         self.defl_mean_widget_l = None
-
         self.defl_mean_l_data=[]
         self.defl_mean_r_data=[]
         self.defl_car_l_data=[]

@@ -76,7 +76,9 @@ class Plot():
         self.Table.donwload_table()
         self.Graphs.donwload_graphs()
         
-
+    def get_prog_max(self):
+        return self.Graphs.get_max()
+    
     def grid_plot1(self):
         self.second_plot_frame.grid(ipadx=10, ipady=5)
 

@@ -16,6 +16,12 @@ import time
 import PyPDF2
 import os
 from time import sleep
+import datetime
+from reportlab.lib.pagesizes import letter, landscape
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Spacer, Paragraph, Table, TableStyle
+
 class View():
     def __init__(self, root,data_instance,reporter_instance):
 
@@ -28,6 +34,14 @@ class View():
         self.fh_ntry = None
         self.fc_ntry = None
         self.z_ntry = None
+        self.ruta_ntry=None
+        self.provincia_ntry=None
+        self.tramo_ntry=None
+        self.subtramo_ntry=None
+        self.pavimento_ntry=None
+        self.operador_ntry=None
+        self.chofer_ntry=None
+        self.apoyo_ntry=None
         self.data_instance = data_instance
         self.reporter_instance = reporter_instance
         self.data_ready=0
@@ -105,37 +119,30 @@ class View():
 
     # Metodo que borra el Plot 2 y abre el Plot 1
     def go_to_plot_1_from_plot_2(self):
-
         self.Plot2.close()
         self.Plot.show(1) 
 
     def go_to_plot_3_from_plot2(self):
-
         self.Plot2.close()
         self.Plot3.show(1)
 
     def go_to_plot_2_from_plot_3(self):
-        
         self.Plot3.close()
         self.Plot2.show(1)
 
     def go_to_plot_4_from_plot_3(self):
-        
         self.Plot3.close()
         self.Plot4.show(1)
 
     def go_to_plot_3_from_plot_4(self):
-
         self.Plot4.close()
         self.Plot3.show(1)
 
     def go_to_plot_5_from_plot_4(self):
-
         self.Plot4.close()
         self.Plot5.show(1)
 
     def go_to_plot_4_from_plot_5(self):
-
         self.Plot5.close()
         self.Plot4.show(1)
 
@@ -146,11 +153,7 @@ class View():
         self.Plot3.reset()
         self.Plot4.reset()
         self.Plot5.reset()
-        # self.Plot.show(0)
-        # self.Plot2.show(0)
-        # self.Plot3.show(0)
-        # self.Plot4.show(0)
-        # self.Plot5.show(0)
+        
         
     def reset_all_data(self):
         self.data_instance.reset_all()
@@ -172,13 +175,83 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        self.Plot.generar_pdf()
-        self.Plot2.download_graphs()
-        self.Plot3.download_graphs()
-        self.Plot4.download_graphs()
-        self.Plot5.download_stats()
-        sleep(1)
-        self.combine_pdf()
+        self.generar_carátula("informe.pdf")
+        # self.Plot.generar_pdf()
+        # self.Plot2.download_graphs()
+        # self.Plot3.download_graphs()
+        # self.Plot4.download_graphs()
+        # self.Plot5.download_stats()
+        # sleep(1)
+        # self.combine_pdf()
+
+    def generar_carátula(self,filename):
+        informe = "INFORME DEFLECTOMETRO LACROIX"
+        cosas = "DEFLEXIONES, VALORES MEDIOS, CARACTERISTICOS, RADIOS DE CURVATURA Y ANALISIS ESTADISTICO"
+        ruta = self.get_ruta()
+        provincia = self.get_provincia()
+        tramo = self.get_tramo()
+        subtramo = self.get_subtramo()
+        pavimento = self.get_pavimento()
+        prog_max = 3000
+        fecha = datetime.datetime.now()
+        chofer = self.get_chofer()
+        apoyo = self.get_apoyo()
+        operador = self.get_operador()
+
+        doc = SimpleDocTemplate(filename, pagesize=landscape(letter))
+
+        styles = getSampleStyleSheet()
+        center_style = ParagraphStyle(name='CenterStyle', alignment=1)
+
+        story = []
+
+        # Agregar el título y subtítulo
+        title = Paragraph(informe, styles['Title'])
+        subtitle = Paragraph(cosas, styles['Heading2'])
+        title_subtitle_table = Table([[title], [subtitle]])
+        title_subtitle_table.setStyle(TableStyle([
+            ('VALIGN', (0, 0), (0, 1), 'MIDDLE'),
+            ('ALIGN', (0, 0), (0, 1), 'CENTER'),
+            ('TEXTCOLOR', (0, 0), (0, 1), colors.black),
+            ('FONTNAME', (0, 0), (0, 1), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (0, 0), 60),  # Tamaño de fuente del título
+            ('FONTSIZE', (0, 1), (0, 1), 50),  # Tamaño de fuente del subtítulo
+            ('BOTTOMPADDING', (0, 0), (0, 0), 10),
+            ('BOTTOMPADDING', (0, 1), (0, 1), 0)
+        ]))
+        story.append(title_subtitle_table)
+
+        story.append(Spacer(1, 20))  # Espacio en blanco
+
+        # Agregar el resto de la información centrada
+        centered_info_paragraphs = [
+        Paragraph(f"Ruta: {ruta}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Provincia: {provincia}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Tramo: {tramo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Subtramo: {subtramo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Pavimento: {pavimento}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Programa Máximo: {prog_max}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Fecha: {fecha.strftime('%Y-%m-%d %H:%M:%S')}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Chofer: {chofer}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Apoyo: {apoyo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        Spacer(1, 20),  # Agregar un espacio en blanco
+        Paragraph(f"Operador: {operador}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+        ]
+
+        story.extend(centered_info_paragraphs)
+
+        doc.build(story)
+
+
+
 
 
     def combine_pdf(self):
@@ -298,6 +371,55 @@ class View():
 
     def get_data_ready(self):
         return self.data_ready
+    
+    def set_ruta(self,ruta):
+        self.ruta_ntry=ruta
+
+    def get_ruta(self):
+        return self.ruta_ntry
+    
+    def set_provincia(self,provincia):
+        self.provincia_ntry=provincia
+
+    def get_provincia(self):
+        return self.provincia_ntry
+    
+    def set_tramo(self,tramo):
+        self.tramo_ntry=tramo
+
+    def get_tramo(self):
+        return self.tramo_ntry
+    
+    def set_subtramo(self,subtramo):
+        self.subtramo_ntry=subtramo
+
+    def get_subtramo(self):
+        return self.subtramo_ntry
+    
+    def set_pavimento(self,pavimento):
+        self.pavimento_ntry=pavimento
+
+    def get_pavimento(self):
+        return self.pavimento_ntry
+    
+    def set_chofer(self,chofer):
+        self.chofer_ntry=chofer
+
+    def get_chofer(self):
+        return self.chofer_ntry
+    
+    def set_operador(self,operador):
+        self.operador_ntry=operador
+
+    def get_operador(self):
+        return self.operador_ntry
+    
+    def set_apoyo(self,apoyo):
+        self.apoyo_ntry=apoyo
+
+    def get_apoyo(self):
+        return self.apoyo_ntry
+
     
     def interface_transition_function(self):
             while True:

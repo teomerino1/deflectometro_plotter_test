@@ -41,6 +41,12 @@ class Config():
         self.subtramo_ntry = None
         self.pav_label=None
         self.pav_ntry = None
+        self.operador_ntry=None
+        self.operador_label=None
+        self.chofer_ntry=None
+        self.chofer_label=None
+        self.apoyo_ntry=None
+        self.apoyo_label=None
         self.confirmar=None
         self.resetear=None
         self.resetear_label=None
@@ -192,15 +198,28 @@ class Config():
             pav_ntry = Entry(self.config_frame)
             self.pav_ntry = pav_ntry
 
-            # confirmar=Button(config_frame, text="Confirmar", command=self.go_to_plot_1_from_config)
-            # self.confirmar=confirmar
+            operador_label=Label(self.config_frame, text="Operador:",font=(None, 15))
+            self.operador_label=operador_label
 
+            operador_ntry=Entry(self.config_frame)
+            self.operador_ntry=operador_ntry
 
+            chofer_label=Label(self.config_frame, text="Chofer:",font=(None, 15))
+            self.chofer_label=chofer_label
+
+            chofer_ntry=Entry(self.config_frame)
+            self.chofer_ntry=chofer_ntry
+
+            apoyo_label=Label(self.config_frame, text="Apoyo:",font=(None, 15))
+            self.apoyo_label=apoyo_label
+            
+            apoyo_ntry=Entry(self.config_frame)
+            self.apoyo_ntry=apoyo_ntry
+          
             confirmar = ttk.Button(self.config_frame, text="Confirmar", command=self.go_to_plot_1_from_config,
             style="TButton")
             self.confirmar=confirmar
               
-
             resetear=Button(self.config_frame, text="Resetear", command=self.reset_all_plots)
             self.resetear=resetear
            
@@ -238,6 +257,12 @@ class Config():
             self.subtramo_ntry.grid(row=4,column=6,sticky="NW",pady=(10, 0))
             self.pav_label.grid(row=5,column=5,sticky="NW",pady=(10, 0))
             self.pav_ntry.grid(row=5,column=6,sticky="NW",pady=(10, 0))
+            self.operador_label.grid(row=6,column=5,sticky="NW",pady=(10, 0))
+            self.operador_ntry.grid(row=6,column=6,sticky="NW",pady=(10, 0))
+            self.chofer_label.grid(row=7,column=5,sticky="NW",pady=(10, 0))
+            self.chofer_ntry.grid(row=7,column=6,sticky="NW",pady=(10, 0))
+            self.apoyo_label.grid(row=8,column=5,sticky="NW",pady=(10, 0))
+            self.apoyo_ntry.grid(row=8,column=6,sticky="NW",pady=(10, 0))
             self.confirmar.grid(row=9, column=0,pady=(10, 0))
             self.resetear.grid(row=11, column=0,pady=(10, 0))
             self.image_label.grid(row=12,column=0,pady=(100, 0))
@@ -280,7 +305,16 @@ class Config():
             self.view_instance.set_muestras(10000)
         else:
             self.view_instance.set_muestras(int(self.muestras_ntry.get()))
-        
+
+        self.view_instance.set_ruta(self.ruta_ntry.get())
+        self.view_instance.set_provincia(self.prov_ntry.get())
+        self.view_instance.set_tramo(self.tramo_ntry.get())
+        self.view_instance.set_subtramo(self.subtramo_ntry.get())
+        self.view_instance.set_pavimento(self.pav_ntry.get())
+        self.view_instance.set_chofer(self.chofer_ntry.get())
+        self.view_instance.set_operador(self.operador_ntry.get())
+        self.view_instance.set_apoyo(self.apoyo_ntry.get())
+
         self.view_instance.set_data_ready(value=1)
 
         self.config_frame.grid_forget()
