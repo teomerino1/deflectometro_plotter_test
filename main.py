@@ -10,7 +10,6 @@ from time import sleep
 
 
 def show_stats(View,Data):
-    
     View.enqueue_transition('generate_stats')
 
 def update_all(Data,View,grupos):

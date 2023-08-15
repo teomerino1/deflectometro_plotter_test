@@ -68,9 +68,9 @@ class Plot():
         if(a == 1):
             # self.second_plot_frame.grid(row=0, column=0, sticky="nsew")
             # self.second_plot_frame.grid(row=0, column=0)
-            self.second_plot_frame.grid(sticky="nsew")  
+            self.second_plot_frame.grid()  
             self.atras.grid(row=0, column=0, sticky="nw")
-            self.next.grid(row=1, column=0,sticky="nw")
+            self.next.grid(row=0, column=2,padx=20,sticky="ne")
             
     def generar_pdf(self):
         self.Table.donwload_table()

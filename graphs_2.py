@@ -57,7 +57,7 @@ class Graphs2():
             subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
 
             subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-            subfigure_izq.set_ylim(0,500)
+            subfigure_izq.set_ylim(0,max(self.rad_l_data)+50)
 
             subfigure_izq.plot(self.indexes, self.rad_l_data,'o-')
 
@@ -76,7 +76,7 @@ class Graphs2():
             subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
             subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-            subfigure_der.set_ylim(0,500)
+            subfigure_der.set_ylim(0, max(self.rad_r_data)+50)
 
             subfigure_der.plot(self.indexes, self.rad_r_data,'o-')
             

@@ -75,7 +75,7 @@ class Graphs3():
             subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
             subfigure_izq.set_ylim(0,350)  
             
-            subfigure_izq.bar(self.indexes, self.defl_mean_l_data, color='red', width=0.5, edgecolor='black')
+            subfigure_izq.bar(self.indexes, self.defl_mean_l_data, color='black', width=1, edgecolor='black')
             subfigure_izq.plot(self.indexes, self.defl_car_l_data)
             subfigure_izq.scatter(self.indexes, self.defl_max_l_data)
             subfigure_izq.legend(['Defl. Caracterist','Defl. Máxima', 'Defl. Promedio'])  # Leyendas para el scatter y el plot
@@ -102,7 +102,7 @@ class Graphs3():
             subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
             subfigure_der.set_ylim(0,350)
             
-            subfigure_der.bar(self.indexes, self.defl_mean_r_data, color='red', width=0.5, edgecolor='black')
+            subfigure_der.bar(self.indexes, self.defl_mean_r_data, color='black', width=1, edgecolor='black')
             subfigure_der.plot(self.indexes, self.defl_car_r_data)
             subfigure_der.scatter(self.indexes, self.defl_max_r_data)
             subfigure_der.legend(['Defl. Caracterist','Defl. Máxima', 'Defl. Promedio'])  # Leyendas para el scatter y el plot

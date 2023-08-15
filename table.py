@@ -56,15 +56,16 @@ class Table():
         
         # Crear el Treeview
         self.table = Treeview(self.frame, columns=columns, show='headings')
-        self.table.grid(row=1, column=0, columnspan=3)
+        # self.table.grid(row=1, column=0, columnspan=3)
+        self.table.grid(row=1, column=1,columnspan=2,pady=30)
         # Configurar el alto del Treeview
         self.table.configure(height=7)
 
         # Crear el Scrollbar
-        scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
-        scrollbar.grid(row=3, column=4, sticky="ns")
+        # scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
+        # scrollbar.grid(row=3, column=4, sticky="ns")
         
-        self.table.configure(yscrollcommand=scrollbar.set)
+        # self.table.configure(yscrollcommand=scrollbar.set)
         
         # Configurar encabezados y columnas del Treeview
         headers = [

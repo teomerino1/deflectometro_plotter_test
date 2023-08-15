@@ -30,7 +30,7 @@ class Graphs():
     # Grafico que corresponde a las deflexiones individuales
     def bar_graph(self, row, column, columnspan,title):
         
-        figure = Figure(figsize=(7, 7), dpi=100)
+        figure = Figure(figsize=(6, 7), dpi=100)
         sub_figure=figure.add_subplot(211)
 
         sub_figure.set_ylim(0,100)
@@ -52,9 +52,6 @@ class Graphs():
 
         return figure, bar, bar_widget
         
-    
-    
-    
     def update_bar(self, defl_r,defl_l):
 
         self.defl_r_data.extend(defl_r)
@@ -72,12 +69,11 @@ class Graphs():
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-        subfigure_der.set_ylim(0, 150)
-        subfigure_izq.set_ylim(0, 150)
+        subfigure_der.set_ylim(0, (max(self.defl_r_data)+100))
+        subfigure_izq.set_ylim(0, (max(self.defl_l_data)+100))
         
         subfigure_der.set_xlim(1, len(self.defl_r_data)+1)
         subfigure_izq.set_xlim(1, len(self.defl_l_data)+1)
-
 
         # Grafica todos los datos almacenados
         subfigure_der.bar(self.indexes, self.defl_r_data, width=0.8)
@@ -101,8 +97,8 @@ class Graphs():
 
     def show_bar_graph(self):
         
-        self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(10, 0, 1,"Deflexion Izquierda")
-        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(10, 1, 1,"Deflexion Derecha") 
+        self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(3, 1, 1,"Deflexion Izquierda")
+        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(3, 2, 1,"Deflexion Derecha") 
 
     def show(self):
         self.show_bar_graph()
