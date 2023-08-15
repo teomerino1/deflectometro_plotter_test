@@ -17,7 +17,7 @@ import PyPDF2
 import os
 from time import sleep
 import datetime
-from reportlab.lib.pagesizes import letter, landscape
+from reportlab.lib.pagesizes import letter, landscape,A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Spacer, Paragraph, Table, TableStyle
@@ -198,30 +198,34 @@ class View():
         apoyo = self.get_apoyo()
         operador = self.get_operador()
 
-        doc = SimpleDocTemplate(filename, pagesize=landscape(letter))
+        doc = SimpleDocTemplate(filename, pagesize=A4)
 
         styles = getSampleStyleSheet()
         center_style = ParagraphStyle(name='CenterStyle', alignment=1)
 
         story = []
 
-        # Agregar el título y subtítulo
+        # Modificar los tamaños de fuente en los estilos
+        styles['Title'].fontSize = 30
+        styles['Heading2'].fontSize = 20
+
+        # Agregar el título y subtítulo con espacio en blanco
         title = Paragraph(informe, styles['Title'])
         subtitle = Paragraph(cosas, styles['Heading2'])
-        title_subtitle_table = Table([[title], [subtitle]])
+        title_subtitle_table = Table([[title], [Spacer(1, 20)], [subtitle]])
         title_subtitle_table.setStyle(TableStyle([
-            ('VALIGN', (0, 0), (0, 1), 'MIDDLE'),
-            ('ALIGN', (0, 0), (0, 1), 'CENTER'),
-            ('TEXTCOLOR', (0, 0), (0, 1), colors.black),
-            ('FONTNAME', (0, 0), (0, 1), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (0, 0), 60),  # Tamaño de fuente del título
-            ('FONTSIZE', (0, 1), (0, 1), 50),  # Tamaño de fuente del subtítulo
+            ('VALIGN', (0, 0), (0, 2), 'MIDDLE'),
+            ('ALIGN', (0, 0), (0, 2), 'CENTER'),
+            ('TEXTCOLOR', (0, 0), (0, 2), colors.black),
+            ('FONTNAME', (0, 0), (0, 2), 'Helvetica-Bold'),
             ('BOTTOMPADDING', (0, 0), (0, 0), 10),
-            ('BOTTOMPADDING', (0, 1), (0, 1), 0)
+            ('BOTTOMPADDING', (0, 1), (0, 1), 30),  # Agregar espacio en blanco
+            ('BOTTOMPADDING', (0, 2), (0, 2), 0),
+            ('ALIGN', (0, 2), (0, 2), 'CENTER')  # Centrar el subtítulo
         ]))
         story.append(title_subtitle_table)
 
-        story.append(Spacer(1, 20))  # Espacio en blanco
+        story.append(Spacer(1, 30))  # Espacio en blanco
 
         # Agregar el resto de la información centrada
         centered_info_paragraphs = [
