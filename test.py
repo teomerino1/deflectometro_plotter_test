@@ -1,32 +1,45 @@
-import concurrent.futures
-import math
-
-PRIMES = [
-    112272535095293,
-    112582705942171,
-    1122736541785293,
-    115280095190773,
-    115797848077099,
-    1099726899285419]
-
-def is_prime(n):
-    if n < 2:
-        return False
-    if n == 2:
-        return True
-    if n % 2 == 0:
-        return False
-
-    sqrt_n = int(math.floor(math.sqrt(n)))
-    for i in range(3, sqrt_n + 1, 2):
-        if n % i == 0:
-            return False
-    return True
-
-def main():
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        for number, prime in zip(PRIMES, executor.map(is_prime, PRIMES)):
-            print('%d is prime: %s' % (number, prime))
-
-if __name__ == '__main__':
-    main()
+import matplotlib
+from matplotlib import pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+  
+# customizing runtime configuration stored
+# in matplotlib.rcParams
+plt.rcParams["figure.figsize"] = [7.00, 3.50]
+plt.rcParams["figure.autolayout"] = True
+  
+fig1 = plt.figure()
+plt.plot([17, 45, 7, 8, 7], color='orange')
+  
+fig2 = plt.figure()
+plt.plot([13, 25, 1, 6, 3], color='blue')
+  
+Fig3 = plt.figure()
+plt.plot([22, 11, 2, 1, 23], color='green')
+  
+  
+def save_image(filename):
+    
+    # PdfPages is a wrapper around pdf 
+    # file so there is no clash and create
+    # files with no error.
+    p = PdfPages(filename)
+      
+    # get_fignums Return list of existing 
+    # figure numbers
+    fig_nums = plt.get_fignums()  
+    figs = [plt.figure(n) for n in fig_nums]
+      
+    # iterating over the numbers in list
+    for fig in figs: 
+        
+        # and saving the files
+        fig.savefig(p, format='pdf') 
+      
+    # close the object
+    p.close()  
+  
+# name your Pdf file
+filename = "multi_plot_image.pdf"  
+  
+# call the function
+save_image(filename) 

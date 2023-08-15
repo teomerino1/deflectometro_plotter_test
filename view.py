@@ -154,7 +154,6 @@ class View():
         self.Plot4.reset()
         self.Plot5.reset()
         
-        
     def reset_all_data(self):
         self.data_instance.reset_all()
         self.reporter_instance.reset_reporter()
@@ -175,14 +174,14 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        self.generar_carátula("informe.pdf")
+        # self.generar_carátula("informe.pdf")
         self.Plot.generar_pdf()
-        self.Plot2.download_graphs()
-        self.Plot3.download_graphs()
-        self.Plot4.download_graphs()
-        self.Plot5.download_stats()
-        sleep(1)
-        self.combine_pdf()
+        # self.Plot2.download_graphs()
+        # self.Plot3.download_graphs()
+        # self.Plot4.download_graphs()
+        # self.Plot5.download_stats()
+        # sleep(1)
+        # self.combine_pdf()
 
     def generar_carátula(self,filename):
         informe = "INFORME DEFLECTOMETRO LACROIX"
@@ -223,8 +222,8 @@ class View():
             ('BOTTOMPADDING', (0, 2), (0, 2), 0),
             ('ALIGN', (0, 2), (0, 2), 'CENTER')  # Centrar el subtítulo
         ]))
-        story.append(title_subtitle_table)
 
+        story.append(title_subtitle_table)
         story.append(Spacer(1, 30))  # Espacio en blanco
 
         # Agregar el resto de la información centrada
@@ -251,7 +250,6 @@ class View():
         ]
 
         story.extend(centered_info_paragraphs)
-
         doc.build(story)
 
 

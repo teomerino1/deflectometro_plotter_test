@@ -5,12 +5,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import letter,A4
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from matplotlib.backends.backend_pdf import FigureCanvasPdf
 import io
 import PyPDF2
+from PyPDF2 import PdfWriter,PdfReader
+import os
 
 
 # Clase donde se inicializan y actualizan los graficos
@@ -114,36 +116,85 @@ class Graphs():
         return max(self.defl_l_data)
     
     def donwload_graphs(self):
-        print("Ejecuto PDF")
+       
 
-    # Generar PDF para self.figure_bar_r
-        buffer_r = io.BytesIO()
-        figure_canvas_pdf_r = FigureCanvasPdf(self.figure_bar_r.figure)
-        figure_canvas_pdf_r.figure.set_size_inches(8.27, 11.69)
-        figure_canvas_pdf_r.print_pdf(buffer_r)
-        buffer_r.seek(0)
+        # Ajustar los límites para eliminar espacio en blanco
+        self.figure_bar_l.gca().set_ylim(0, 1)  # Ajustar límites en el eje y según tu necesidad
+        self.figure_bar_r.gca().set_ylim(0, 1)  # Ajustar límites en el eje y según tu necesidad
 
-        # Generar PDF para self.figure_bar_l
-        buffer_l = io.BytesIO()
-        figure_canvas_pdf_l = FigureCanvasPdf(self.figure_bar_l.figure)
-        figure_canvas_pdf_l.figure.set_size_inches(8.27, 11.69)
-        figure_canvas_pdf_l.print_pdf(buffer_l)
-        buffer_l.seek(0)
+        self.figure_bar_l.savefig('figure_bar_l.png', bbox_inches='tight')
+        self.figure_bar_r.savefig('figure_bar_r.png', bbox_inches='tight')
+    # Guardar figuras en archivos separados
+        # self.figure_bar_l.savefig('figure_bar_l.png')  # Guardar como imagen en lugar de PDF
+        # self.figure_bar_r.savefig('figure_bar_r.png')  # Guardar como imagen en lugar de PDF
 
-        # Combinar los PDFs en un solo documento
-        pdf_writer = PyPDF2.PdfWriter()
+        # Crear un nuevo PDF con ambas figuras
+        output_pdf = 'combined_graphs.pdf'
         
-        # Agregar el PDF de self.figure_bar_r al escritor
-        pdf_writer.append(fileobj=buffer_r)
+        c = canvas.Canvas(output_pdf, pagesize=A4)
 
-        # Agregar el PDF de self.figure_bar_l al escritor
-        pdf_writer.append(fileobj=buffer_l)
+        # Agregar la primera figura en la posición deseada
+        c.drawImage('figure_bar_l.png', 10, 0)
 
-        # Guardar el PDF combinado en un archivo
-        with open('pdf2.pdf', 'wb') as f:
-            pdf_writer.write(f)
+        # Agregar la segunda figura debajo de la primera
+        c.drawImage('figure_bar_r.png', 10, 500)
 
-        # Cerrar los buffers
-        buffer_r.close()
-        buffer_l.close()
+        # Guardar el contenido en el PDF
+        c.save()
+
+    # Eliminar los archivos temporales de las figuras individuales
+    # (si lo deseas)
+        # os.remove('figure_bar_l.png')
+        # os.remove('figure_bar_r.png')
+
+
+
+
+
+
+        # self.figure_bar_l.savefig('test.pdf')
+        # self.figure_bar_r.savefig('test.pdf')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # buffer_r = io.BytesIO()
+        # figure_canvas_pdf_r = FigureCanvasPdf(self.figure_bar_r.figure)
+        # figure_canvas_pdf_r.figure.set_size_inches(8.27, 11.69)
+        # figure_canvas_pdf_r.print_pdf(buffer_r)
+        # buffer_r.seek(0)
+
+        # # Generar PDF para self.figure_bar_l
+        # buffer_l = io.BytesIO()
+        # figure_canvas_pdf_l = FigureCanvasPdf(self.figure_bar_l.figure)
+        # figure_canvas_pdf_l.figure.set_size_inches(8.27, 11.69)
+        # figure_canvas_pdf_l.print_pdf(buffer_l)
+        # buffer_l.seek(0)
+
+        # # Combinar los PDFs en un solo documento
+        # pdf_writer = PyPDF2.PdfWriter()
+        
+        # # Agregar el PDF de self.figure_bar_r al escritor
+        # pdf_writer.append(fileobj=buffer_r)
+
+        # # Agregar el PDF de self.figure_bar_l al escritor
+        # pdf_writer.append(fileobj=buffer_l)
+
+        # # Guardar el PDF combinado en un archivo
+        # with open('pdf2.pdf', 'wb') as f:
+        #     pdf_writer.write(f)
+
+        # # Cerrar los buffers
+        # buffer_r.close()
+        # buffer_l.close()
 
