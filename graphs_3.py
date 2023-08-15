@@ -129,6 +129,7 @@ class Graphs3():
             # Generar PDF para self.figure_bar_l
             buffer_l = io.BytesIO()
             figure_canvas_pdf_l = FigureCanvasPdf(self.figure_defl_mean_l.figure)
+            figure_canvas_pdf_l.figure.set_size_inches(8.27, 11.69)
             figure_canvas_pdf_l.print_pdf(buffer_l)
             buffer_l.seek(0)
 
@@ -147,6 +148,7 @@ class Graphs3():
              # Generar PDF para self.figure_bar_r
             buffer_r = io.BytesIO()
             figure_canvas_pdf_r = FigureCanvasPdf(self.figure_defl_mean_r.figure)
+            figure_canvas_pdf_r.figure.set_size_inches(8.27, 11.69)
             figure_canvas_pdf_r.print_pdf(buffer_r)
             buffer_r.seek(0)
 
