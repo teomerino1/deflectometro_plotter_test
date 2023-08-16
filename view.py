@@ -175,8 +175,8 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        self.generar_carátula("caratula.pdf")
-        # self.Plot.generar_pdf()
+        # self.generar_carátula("caratula.pdf")
+        self.Plot.generar_pdf()
         # self.Plot2.download_graphs()
         # self.Plot3.download_graphs()
         # self.Plot4.download_graphs()

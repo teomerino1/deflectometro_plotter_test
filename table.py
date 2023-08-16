@@ -52,7 +52,7 @@ class Table():
             )) 
 
     def show(self,frame):
-        columns = ("groups_r", "radio_r", "defl_r", "r_d_r", "r/d_r","groups_l", "radio_l", "defl_l", "r_d_l", "r/d_l")
+        columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r","Grupos_L", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
         
         # Crear el Treeview
         self.table = Treeview(self.frame, columns=columns, show='headings')
@@ -69,22 +69,21 @@ class Table():
         
         # Configurar encabezados y columnas del Treeview
         headers = [
-            ("groups_r", "Groups R"),
-            ("radio_r", "Radio"),
-            ("defl_r", "Defl."),
-            ("r_d_r", "R*D"),
-            ("r/d_r", "D/R"),
-            ("groups_l", "Groups L"),
-            ("radio_l", "Radio"),
-            ("defl_l", "Defl."),
-            ("r_d_l", "R*D"),
-            ("r/d_l", "D/R")
+            ("Grupos_r", "Groups R"),
+            ("Radio_r", "Radio"),
+            ("Defl_r", "Defl."),
+            ("R*D_r", "R*D"),
+            ("R/D_r", "D/R"),
+            ("Grupos_L", "Groups L"),
+            ("Radio_L", "Radio"),
+            ("Defl_L", "Defl."),
+            ("R*D_L", "R*D"),
+            ("R/D_L", "D/R")
         ]
         for column, header in headers:
             self.table.heading(column, text=header)
             self.table.column(column, anchor=CENTER, width=100)
 
-  
     def clear_table(self):
         # Elimina todos los elementos de la tabla
         self.table.delete(*self.table.get_children())
@@ -105,12 +104,12 @@ class Table():
             pdf = FPDF()
             pdf.add_page()
             # Definir el tamaño y la fuente del texto en el PDF
-            pdf.set_font("Arial", size=11)
+            pdf.set_font("Arial", size=9)
             # Ajustar el interlineado
             pdf.set_auto_page_break(auto=True, margin=15)
             # Crear la tabla en el PDF
             col_width = 19
-            row_height = 10
+            row_height = 5
             for row in table_str.split('\n'):
                 for item in row.split(None):
                     pdf.cell(col_width, row_height, txt=item, border=1, align='C')

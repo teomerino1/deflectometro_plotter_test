@@ -74,7 +74,7 @@ class Plot():
             
     def generar_pdf(self):
         self.Table.donwload_table()
-        self.Graphs.donwload_graphs()
+        # self.Graphs.donwload_graphs()
         
     def get_prog_max(self):
         return self.Graphs.get_max()
