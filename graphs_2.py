@@ -100,17 +100,19 @@ class Graphs2():
            
     def download_graphs2(self,lado):
         
-        output_pdf = 'combined_graphs2.pdf'
+        if(self.rad_l_data==[] or self.rad_r_data==[]):
+            return
+        
+        else:
+            if(lado=="Izquierdo"):
 
-        if(lado=="Izquierdo"):
+                self.figure_rad_mean_l.gca().set_ylim(0, max(self.rad_l_data)+50)  # Ajustar límites en el eje y según tu necesidad
+                self.figure_rad_mean_l.savefig('figure_rad_l.png', bbox_inches='tight')
 
-            self.figure_rad_mean_l.gca().set_ylim(0, max(self.rad_l_data)+50)  # Ajustar límites en el eje y según tu necesidad
-            self.figure_rad_mean_l.savefig('figure_rad_l.png', bbox_inches='tight')
-
-        if(lado=="Derecho"):
-            
-            self.figure_rad_mean_r.gca().set_ylim(0, max(self.rad_r_data)+50)  # Ajustar límites en el eje y según tu necesidad
-            self.figure_rad_mean_r.savefig('figure_rad_r.png', bbox_inches='tight')
+            if(lado=="Derecho"):
+                
+                self.figure_rad_mean_r.gca().set_ylim(0, max(self.rad_r_data)+50)  # Ajustar límites en el eje y según tu necesidad
+                self.figure_rad_mean_r.savefig('figure_rad_r.png', bbox_inches='tight')
             
            
         

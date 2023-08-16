@@ -122,27 +122,26 @@ class Graphs4():
 
     def download_graphs4(self):
 
-        # Ajustar los límites para eliminar espacio en blanco
-        self.figure_defl_mean_l.gca().set_ylim(0,max(self.rad_mean_r_data)+200)   # Ajustar límites en el eje y según tu necesidad
-        self.figure_defl_mean_r.gca().set_ylim(0,max(self.rad_mean_l_data)+200)   # Ajustar límites en el eje y según tu necesidad
+        if(self.rad_mean_r_data==[] or self.rad_mean_l_data==[]):
+            return
+        else:
+            # Ajustar los límites para eliminar espacio en blanco
+            self.figure_defl_mean_l.gca().set_ylim(0,max(self.rad_mean_r_data)+200)   # Ajustar límites en el eje y según tu necesidad
+            self.figure_defl_mean_r.gca().set_ylim(0,max(self.rad_mean_l_data)+200)   # Ajustar límites en el eje y según tu necesidad
 
-        self.figure_defl_mean_l.savefig('radios_l.png', bbox_inches='tight')
-        self.figure_defl_mean_r.savefig('radios_r.png', bbox_inches='tight')
-    
-        # Crear un nuevo PDF con ambas figuras
-        output_pdf = 'radios.pdf'
+            self.figure_defl_mean_l.savefig('radios_l.png', bbox_inches='tight')
+            self.figure_defl_mean_r.savefig('radios_r.png', bbox_inches='tight')
         
-        c = canvas.Canvas(output_pdf, pagesize=A4)
-
-        # Agregar la primera figura en la posición deseada
-        c.drawImage('radios_l.png', 10, 0)
-
-        # Agregar la segunda figura debajo de la primera
-        c.drawImage('radios_r.png', 10, 500)
-
-        # Guardar el contenido en el PDF
-        c.save()
-        
-        os.remove('radios_l.png')
-        os.remove('radios_r.png')
+            # Crear un nuevo PDF con ambas figuras
+            output_pdf = 'radios.pdf'
+            c = canvas.Canvas(output_pdf, pagesize=A4)
+            # Agregar la primera figura en la posición deseada
+            c.drawImage('radios_l.png', 10, 0)
+            # Agregar la segunda figura debajo de la primera
+            c.drawImage('radios_r.png', 10, 500)
+            # Guardar el contenido en el PDF
+            c.save()
+            
+            os.remove('radios_l.png')
+            os.remove('radios_r.png')
         

@@ -91,40 +91,37 @@ class Table():
 
     def donwload_table(self):
         # Obtener los datos del Treeview
-        print("GENERO PDF DE LA TABLA")
-        data = []
-        for item in self.table.get_children():
-            data.append(self.table.item(item, 'values'))
-
-        # Obtener los encabezados del Treeview
-        headers = self.table['columns']
-
-        # Convertir los datos en una tabla con formato usando tabulate
-        table_str = tabulate(data, headers=headers, tablefmt='plain')
-
-        # Generar PDF con la tabla
-        pdf = FPDF()
-        pdf.add_page()
-
-        # Definir el tamaño y la fuente del texto en el PDF
-        pdf.set_font("Arial", size=11)
-
-        # Ajustar el interlineado
-        pdf.set_auto_page_break(auto=True, margin=15)
-
-        # Crear la tabla en el PDF
-        col_width = 19
-        row_height = 10
-
-        for row in table_str.split('\n'):
-            for item in row.split(None):
-                pdf.cell(col_width, row_height, txt=item, border=1, align='C')
-
-            pdf.ln(row_height)
-
-        # Guardar el PDF en un archivo
-        pdf.output('tabla.pdf')
-
+        items = self.table.get_children()
+        if items:  # Si hay al menos un elemento
+            print("La tabla tiene elementos.")
+            data = []
+            for item in self.table.get_children():
+                data.append(self.table.item(item, 'values'))
+            # Obtener los encabezados del Treeview
+            headers = self.table['columns']
+            # Convertir los datos en una tabla con formato usando tabulate
+            table_str = tabulate(data, headers=headers, tablefmt='plain')
+            # Generar PDF con la tabla
+            pdf = FPDF()
+            pdf.add_page()
+            # Definir el tamaño y la fuente del texto en el PDF
+            pdf.set_font("Arial", size=11)
+            # Ajustar el interlineado
+            pdf.set_auto_page_break(auto=True, margin=15)
+            # Crear la tabla en el PDF
+            col_width = 19
+            row_height = 10
+            for row in table_str.split('\n'):
+                for item in row.split(None):
+                    pdf.cell(col_width, row_height, txt=item, border=1, align='C')
+                pdf.ln(row_height)
+            # Guardar el PDF en un archivo
+            pdf.output('tabla.pdf')
+            
+        else:
+            print("No hay nada")
+            return
+        
     def reset(self):
         # Agrega aquí cualquier otra lógica específica para reiniciar la tabla
         # Si tienes algún estado inicial para la tabla, puedes restaurarlo aquí

@@ -345,27 +345,13 @@ class Plot5():
 
 
     def download_stats(self):
-        # output_pdf_path = 'tables.pdf'
-        # image_path = '/home/amoyano/Documents/deflectometro_plotter_test/img/INFAS.png'
         
-        # img_width = 99
-        # img_height = 55
-        
-        # pdf_width, pdf_height = letter
-        # margin = 0.1 * inch
-        
-        # # Crear el buffer para el PDF usando ReportLab
-        # buffer = BytesIO()
-        # doc = SimpleDocTemplate(buffer, pagesize=letter)
-        # elements = []
-        
-        # # # Agregar la imagen al array de elementos
-        # img = Image(image_path, width=img_width, height=img_height)
-        # # img.hAlign = 'LEFT'
-        # img.vAlign='TOP'
-        # elements.append(img)
 
         # Crear el buffer para el PDF usando ReportLab
+        if(self.defl_car_der_value==None):
+            print("Me doy cuenta q es noneing")
+            return 
+        
         buffer = BytesIO()
         doc = SimpleDocTemplate(buffer, pagesize=letter)
         elements = []

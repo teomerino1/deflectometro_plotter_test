@@ -176,7 +176,7 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        self.generar_carátula("informe.pdf")
+        
         self.Plot.generar_pdf()
         self.Plot2.download_graphs()
         self.Plot3.download_graphs()
@@ -262,49 +262,55 @@ class View():
 
         output1="pdf2.pdf"
         output2="pdf3.pdf"
+        image_path = 'figure_defl_mean_l.png'
         
-        c = canvas.Canvas(output1, pagesize=A4)
-        c.drawImage('figure_defl_mean_l.png',10, 0)
-        c.drawImage('figure_rad_l.png', 10,500)
-        c.save()
+        if os.path.exists(image_path): 
 
-        c = canvas.Canvas(output2, pagesize=A4)
-        c.drawImage('figure_defl_mean_r.png', 10, 0)
-        c.drawImage('figure_rad_r.png', 10, 500)
-        c.save()
+            self.generar_carátula("informe.pdf")
+            c = canvas.Canvas(output1, pagesize=A4)
+            c.drawImage('figure_defl_mean_l.png',10, 0)
+            c.drawImage('figure_rad_l.png', 10,500)
+            c.save()
 
-        pdf_files = [
-            "informe.pdf",
-            "tabla.pdf",    
-            "defl_individuales.pdf",
-            "pdf2.pdf",
-            "pdf3.pdf",
-            "radios.pdf",
-            "pdf5.pdf"
-        ]
-        output_filename = "results.pdf"
+            c = canvas.Canvas(output2, pagesize=A4)
+            c.drawImage('figure_defl_mean_r.png', 10, 0)
+            c.drawImage('figure_rad_r.png', 10, 500)
+            c.save()
 
-        pdf_merger = PyPDF2.PdfMerger()
-        
-        # Combining PDFs
-        for pdf_file in pdf_files:
-            pdf_merger.append(pdf_file)
-        
-        # Writing the merged PDF to the output file
-        with open(output_filename, "wb") as output_pdf:
-            pdf_merger.write(output_pdf)
-        
-        # Closing the merger
-        pdf_merger.close()
-        
-        # Deleting input PDFs
-        for pdf_file in pdf_files:
-            os.remove(pdf_file)
+            pdf_files = [
+                "informe.pdf",
+                "tabla.pdf",    
+                "defl_individuales.pdf",
+                "pdf2.pdf",
+                "pdf3.pdf",
+                "radios.pdf",
+                "pdf5.pdf"
+            ]
+            output_filename = "results.pdf"
 
-        os.remove('figure_defl_mean_l.png')
-        os.remove('figure_defl_mean_r.png')
-        os.remove('figure_rad_r.png')
-        os.remove('figure_rad_l.png')
+            pdf_merger = PyPDF2.PdfMerger()
+            
+            # Combining PDFs
+            for pdf_file in pdf_files:
+                pdf_merger.append(pdf_file)
+            
+            # Writing the merged PDF to the output file
+            with open(output_filename, "wb") as output_pdf:
+                pdf_merger.write(output_pdf)
+            
+            # Closing the merger
+            pdf_merger.close()
+            
+            # Deleting input PDFs
+            for pdf_file in pdf_files:
+                os.remove(pdf_file)
+
+            os.remove('figure_defl_mean_l.png')
+            os.remove('figure_defl_mean_r.png')
+            os.remove('figure_rad_r.png')
+            os.remove('figure_rad_l.png')
+        else:
+            return
 
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras

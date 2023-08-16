@@ -126,14 +126,17 @@ class Graphs3():
 
     def download_graphs3(self,lado):
 
-        if(lado=="Izquierdo"):
+        if(self.defl_mean_l_data==[] or self.defl_mean_r_data==[]):
+            return
+        else:
+            if(lado=="Izquierdo"):
 
-            self.figure_defl_mean_l.gca().set_ylim(0, max(self.defl_mean_l_data)+50)   # Ajustar límites en el eje y según tu necesidad
-            self.figure_defl_mean_l.savefig('figure_defl_mean_l.png', bbox_inches='tight')
-            
-        if(lado=="Derecho"):
-            
-            self.figure_defl_mean_r.gca().set_ylim(0, max(self.defl_mean_r_data)+50)  # Ajustar límites en el eje y según tu necesidad
-            self.figure_defl_mean_r.savefig('figure_defl_mean_r.png', bbox_inches='tight')
-            
+                self.figure_defl_mean_l.gca().set_ylim(0, max(self.defl_mean_l_data)+50)   # Ajustar límites en el eje y según tu necesidad
+                self.figure_defl_mean_l.savefig('figure_defl_mean_l.png', bbox_inches='tight')
+                
+            if(lado=="Derecho"):
+                
+                self.figure_defl_mean_r.gca().set_ylim(0, max(self.defl_mean_r_data)+50)  # Ajustar límites en el eje y según tu necesidad
+                self.figure_defl_mean_r.savefig('figure_defl_mean_r.png', bbox_inches='tight')
+                
            
