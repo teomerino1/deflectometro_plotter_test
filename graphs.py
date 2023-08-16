@@ -98,7 +98,6 @@ class Graphs():
         self.figure_bar_l.canvas.draw_idle()
 
     def show_bar_graph(self):
-        
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(3, 1, 1,"Deflexion Izquierda")
         self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(3, 2, 1,"Deflexion Derecha") 
 
@@ -123,24 +122,18 @@ class Graphs():
         else:
             self.figure_bar_l.gca().set_ylim(0, (max(self.defl_l_data)+100))
             self.figure_bar_r.gca().set_ylim(0, (max(self.defl_r_data)+100))  # Ajustar límites en el eje y según tu necesidad
-
             self.figure_bar_l.savefig('figure_bar_l.png', bbox_inches='tight')
             self.figure_bar_r.savefig('figure_bar_r.png', bbox_inches='tight')
         
             # Crear un nuevo PDF con ambas figuras
             output_pdf = 'defl_individuales.pdf'
-            
             c = canvas.Canvas(output_pdf, pagesize=A4)
-
             # Agregar la primera figura en la posición deseada
             c.drawImage('figure_bar_l.png', 10, 0)
-
             # Agregar la segunda figura debajo de la primera
             c.drawImage('figure_bar_r.png', 10, 500)
-
             # Guardar el contenido en el PDF
             c.save()
-
             os.remove('figure_bar_l.png')
             os.remove('figure_bar_r.png')
 

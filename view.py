@@ -23,6 +23,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Spacer, Paragraph, Table, TableStyle
 from reportlab.lib.pagesizes import letter,A4
 from reportlab.pdfgen import canvas
+from tkinter import messagebox
 
 class View():
     def __init__(self, root,data_instance,reporter_instance):
@@ -460,6 +461,9 @@ class View():
                     self.go_to_config()
 
                 if target_function == 'go_to_plot_1_from_config':
+                    if(self.get_data_ready()==1):
+                        messagebox.showwarning("Aviso","Debe resetear los datos antes de intentar modificarlos")
+                        continue
                     self.go_to_plot1_from_config()
 
                 elif target_function == 'go_to_plot_2_from_plot_1':
@@ -490,7 +494,8 @@ class View():
                 elif target_function == 'reset_all_plots':
                     self.reset_all_plots()
                     self.reset_all_data()
-                    self.set_reset(1)
+                    # self.set_reset(1)
+                    messagebox.showinfo("Aviso", "Datos reseteados!")
 
                 elif target_function == 'generate_stats':
                     media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =self.data_instance.calculate_stats()
