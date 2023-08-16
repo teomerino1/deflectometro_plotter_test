@@ -117,19 +117,15 @@ class Graphs():
     
     def donwload_graphs(self):
        
-
         # Ajustar los límites para eliminar espacio en blanco
-        self.figure_bar_l.gca().set_ylim(0, 1)  # Ajustar límites en el eje y según tu necesidad
-        self.figure_bar_r.gca().set_ylim(0, 1)  # Ajustar límites en el eje y según tu necesidad
+        self.figure_bar_l.gca().set_ylim(0, (max(self.defl_l_data)+100))
+        self.figure_bar_r.gca().set_ylim(0, (max(self.defl_r_data)+100))  # Ajustar límites en el eje y según tu necesidad
 
         self.figure_bar_l.savefig('figure_bar_l.png', bbox_inches='tight')
         self.figure_bar_r.savefig('figure_bar_r.png', bbox_inches='tight')
-    # Guardar figuras en archivos separados
-        # self.figure_bar_l.savefig('figure_bar_l.png')  # Guardar como imagen en lugar de PDF
-        # self.figure_bar_r.savefig('figure_bar_r.png')  # Guardar como imagen en lugar de PDF
-
+    
         # Crear un nuevo PDF con ambas figuras
-        output_pdf = 'combined_graphs.pdf'
+        output_pdf = 'defl_individuales.pdf'
         
         c = canvas.Canvas(output_pdf, pagesize=A4)
 
@@ -142,18 +138,8 @@ class Graphs():
         # Guardar el contenido en el PDF
         c.save()
 
-    # Eliminar los archivos temporales de las figuras individuales
-    # (si lo deseas)
-        # os.remove('figure_bar_l.png')
-        # os.remove('figure_bar_r.png')
-
-
-
-
-
-
-        # self.figure_bar_l.savefig('test.pdf')
-        # self.figure_bar_r.savefig('test.pdf')
+        os.remove('figure_bar_l.png')
+        os.remove('figure_bar_r.png')
 
 
 
@@ -161,40 +147,5 @@ class Graphs():
 
 
 
-
-
-
-
-
-
-
-        # buffer_r = io.BytesIO()
-        # figure_canvas_pdf_r = FigureCanvasPdf(self.figure_bar_r.figure)
-        # figure_canvas_pdf_r.figure.set_size_inches(8.27, 11.69)
-        # figure_canvas_pdf_r.print_pdf(buffer_r)
-        # buffer_r.seek(0)
-
-        # # Generar PDF para self.figure_bar_l
-        # buffer_l = io.BytesIO()
-        # figure_canvas_pdf_l = FigureCanvasPdf(self.figure_bar_l.figure)
-        # figure_canvas_pdf_l.figure.set_size_inches(8.27, 11.69)
-        # figure_canvas_pdf_l.print_pdf(buffer_l)
-        # buffer_l.seek(0)
-
-        # # Combinar los PDFs en un solo documento
-        # pdf_writer = PyPDF2.PdfWriter()
-        
-        # # Agregar el PDF de self.figure_bar_r al escritor
-        # pdf_writer.append(fileobj=buffer_r)
-
-        # # Agregar el PDF de self.figure_bar_l al escritor
-        # pdf_writer.append(fileobj=buffer_l)
-
-        # # Guardar el PDF combinado en un archivo
-        # with open('pdf2.pdf', 'wb') as f:
-        #     pdf_writer.write(f)
-
-        # # Cerrar los buffers
-        # buffer_r.close()
-        # buffer_l.close()
+       
 

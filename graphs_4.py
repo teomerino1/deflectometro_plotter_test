@@ -8,6 +8,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.backends.backend_pdf import FigureCanvasPdf
 import io
 import PyPDF2
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter,A4
+import os
 
 
 # Clase donde se inicializan y actualizan los graficos
@@ -34,7 +37,7 @@ class Graphs4():
     
     def deflexiones_radios_graph(self,row, column, columnspan,title):
         
-        figure = Figure(figsize=(7, 7), dpi=100)
+        figure = Figure(figsize=(6, 7), dpi=100)
         sub_figure=figure.add_subplot(211)
         sub_figure.set_title(title)
         sub_figure.set_xlim(0,20)
@@ -76,8 +79,8 @@ class Graphs4():
 
         subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
         subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-        subfigure_der.set_ylim(0,400)
-        subfigure_izq.set_ylim(0,400)
+        subfigure_der.set_ylim(0,max(self.rad_mean_r_data)+200)  
+        subfigure_izq.set_ylim(0,max(self.rad_mean_l_data)+200)  
 
         subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
         subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
@@ -119,32 +122,27 @@ class Graphs4():
 
     def download_graphs4(self):
 
-        buffer_r = io.BytesIO()
-        figure_canvas_pdf_r = FigureCanvasPdf(self.figure_defl_mean_r.figure)
-        figure_canvas_pdf_r.figure.set_size_inches(8.27, 11.69)
-        figure_canvas_pdf_r.print_pdf(buffer_r)
-        buffer_r.seek(0)
+        # Ajustar los límites para eliminar espacio en blanco
+        self.figure_defl_mean_l.gca().set_ylim(0,max(self.rad_mean_r_data)+200)   # Ajustar límites en el eje y según tu necesidad
+        self.figure_defl_mean_r.gca().set_ylim(0,max(self.rad_mean_l_data)+200)   # Ajustar límites en el eje y según tu necesidad
 
-        # Generar PDF para self.figure_bar_l
-        buffer_l = io.BytesIO()
-        figure_canvas_pdf_l = FigureCanvasPdf(self.figure_defl_mean_l.figure)
-        figure_canvas_pdf_l.figure.set_size_inches(8.27, 11.69)
-        figure_canvas_pdf_l.print_pdf(buffer_l)
-        buffer_l.seek(0)
-
-        # Combinar los PDFs en un solo documento
-        pdf_writer = PyPDF2.PdfWriter()
+        self.figure_defl_mean_l.savefig('radios_l.png', bbox_inches='tight')
+        self.figure_defl_mean_r.savefig('radios_r.png', bbox_inches='tight')
+    
+        # Crear un nuevo PDF con ambas figuras
+        output_pdf = 'radios.pdf'
         
-        # Agregar el PDF de self.figure_bar_r al escritor
-        pdf_writer.append(fileobj=buffer_r)
+        c = canvas.Canvas(output_pdf, pagesize=A4)
 
-        # Agregar el PDF de self.figure_bar_l al escritor
-        pdf_writer.append(fileobj=buffer_l)
+        # Agregar la primera figura en la posición deseada
+        c.drawImage('radios_l.png', 10, 0)
 
-        # Guardar el PDF combinado en un archivo
-        with open('pdf4.pdf', 'wb') as f:
-            pdf_writer.write(f)
+        # Agregar la segunda figura debajo de la primera
+        c.drawImage('radios_r.png', 10, 500)
 
-        # Cerrar los buffers
-        buffer_r.close()
-        buffer_l.close()
+        # Guardar el contenido en el PDF
+        c.save()
+        
+        os.remove('radios_l.png')
+        os.remove('radios_r.png')
+        

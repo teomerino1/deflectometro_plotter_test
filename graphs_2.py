@@ -8,7 +8,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.backends.backend_pdf import FigureCanvasPdf
 import io
 import PyPDF2
-
+from reportlab.lib.pagesizes import letter,A4
+from reportlab.pdfgen import canvas
 # Clase donde se inicializan y actualizan los graficos
 
 class Graphs2():
@@ -98,44 +99,25 @@ class Graphs2():
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
            
     def download_graphs2(self,lado):
+        
+        output_pdf = 'combined_graphs2.pdf'
 
         if(lado=="Izquierdo"):
-   
-            # Generar PDF para self.figure_bar_l
-            buffer_l = io.BytesIO()
-            figure_canvas_pdf_l = FigureCanvasPdf(self.figure_rad_mean_l.figure)
-            figure_canvas_pdf_l.figure.set_size_inches(8.27, 11.69)
-            figure_canvas_pdf_l.print_pdf(buffer_l)
-            buffer_l.seek(0)
 
-            # Combinar los PDFs en un solo documento
-            pdf_writer = PyPDF2.PdfWriter()
-            
-            # Agregar el PDF de self.figure_bar_l al escritor
-            pdf_writer.append(fileobj=buffer_l)
-
-            with open('pdf2l.pdf', 'wb') as f:
-                pdf_writer.write(f)
-            # Cerrar los buffers
-            buffer_l.close()
+            self.figure_rad_mean_l.gca().set_ylim(0, max(self.rad_l_data)+50)  # Ajustar límites en el eje y según tu necesidad
+            self.figure_rad_mean_l.savefig('figure_rad_l.png', bbox_inches='tight')
 
         if(lado=="Derecho"):
-             # Generar PDF para self.figure_bar_r
-            buffer_r = io.BytesIO()
-            figure_canvas_pdf_r = FigureCanvasPdf(self.figure_rad_mean_r.figure)
-            figure_canvas_pdf_r.figure.set_size_inches(8.27, 11.69)
-            figure_canvas_pdf_r.print_pdf(buffer_r)
-            buffer_r.seek(0)
+            
+            self.figure_rad_mean_r.gca().set_ylim(0, max(self.rad_r_data)+50)  # Ajustar límites en el eje y según tu necesidad
+            self.figure_rad_mean_r.savefig('figure_rad_r.png', bbox_inches='tight')
+            
+           
+        
+        
+        
 
-            pdf_writer = PyPDF2.PdfWriter()
-            # Agregar el PDF de self.figure_bar_r al escritor
-            pdf_writer.append(fileobj=buffer_r)
-
-             # Guardar el PDF combinado en un archivo
-            with open('pdf2r.pdf', 'wb') as f:
-                pdf_writer.write(f)
-
-            buffer_r.close()
+        
 
            
        

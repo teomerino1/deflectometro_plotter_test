@@ -8,6 +8,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.backends.backend_pdf import FigureCanvasPdf
 import io
 import PyPDF2
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter,A4
 
 # Clase donde se inicializan y actualizan los graficos
 
@@ -38,7 +40,7 @@ class Graphs3():
     
     def deflexiones_gmean_graph(self,row, column, columnspan,title):
         
-        figure = Figure(figsize=(7, 7), dpi=100)
+        figure = Figure(figsize=(6, 7), dpi=100)
 
         sub_figure=figure.add_subplot(211)
         sub_figure.set_title(title)
@@ -72,7 +74,7 @@ class Graphs3():
             subfigure_izq = self.figure_defl_mean_l.add_subplot(211)
             
             subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-            subfigure_izq.set_ylim(0,350)  
+            subfigure_izq.set_ylim(0,max(self.defl_mean_l_data)+50)  
             
             subfigure_izq.bar(self.indexes, self.defl_mean_l_data, color='black', width=1, edgecolor='black')
             subfigure_izq.plot(self.indexes, self.defl_car_l_data)
@@ -99,7 +101,7 @@ class Graphs3():
             subfigure_der=self.figure_defl_mean_r.add_subplot(211)
 
             subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-            subfigure_der.set_ylim(0,350)
+            subfigure_der.set_ylim(0,max(self.defl_mean_r_data)+50)
             
             subfigure_der.bar(self.indexes, self.defl_mean_r_data, color='black', width=1, edgecolor='black')
             subfigure_der.plot(self.indexes, self.defl_car_r_data)
@@ -125,39 +127,13 @@ class Graphs3():
     def download_graphs3(self,lado):
 
         if(lado=="Izquierdo"):
-   
-            # Generar PDF para self.figure_bar_l
-            buffer_l = io.BytesIO()
-            figure_canvas_pdf_l = FigureCanvasPdf(self.figure_defl_mean_l.figure)
-            figure_canvas_pdf_l.figure.set_size_inches(8.27, 11.69)
-            figure_canvas_pdf_l.print_pdf(buffer_l)
-            buffer_l.seek(0)
 
-            # Combinar los PDFs en un solo documento
-            pdf_writer = PyPDF2.PdfWriter()
+            self.figure_defl_mean_l.gca().set_ylim(0, max(self.defl_mean_l_data)+50)   # Ajustar límites en el eje y según tu necesidad
+            self.figure_defl_mean_l.savefig('figure_defl_mean_l.png', bbox_inches='tight')
             
-            # Agregar el PDF de self.figure_bar_l al escritor
-            pdf_writer.append(fileobj=buffer_l)
-
-            with open('pdf3l.pdf', 'wb') as f:
-                pdf_writer.write(f)
-            # Cerrar los buffers
-            buffer_l.close()
-
         if(lado=="Derecho"):
-             # Generar PDF para self.figure_bar_r
-            buffer_r = io.BytesIO()
-            figure_canvas_pdf_r = FigureCanvasPdf(self.figure_defl_mean_r.figure)
-            figure_canvas_pdf_r.figure.set_size_inches(8.27, 11.69)
-            figure_canvas_pdf_r.print_pdf(buffer_r)
-            buffer_r.seek(0)
-
-            pdf_writer = PyPDF2.PdfWriter()
-            # Agregar el PDF de self.figure_bar_r al escritor
-            pdf_writer.append(fileobj=buffer_r)
-
-             # Guardar el PDF combinado en un archivo
-            with open('pdf3r.pdf', 'wb') as f:
-                pdf_writer.write(f)
-
-            buffer_r.close()
+            
+            self.figure_defl_mean_r.gca().set_ylim(0, max(self.defl_mean_r_data)+50)  # Ajustar límites en el eje y según tu necesidad
+            self.figure_defl_mean_r.savefig('figure_defl_mean_r.png', bbox_inches='tight')
+            
+           

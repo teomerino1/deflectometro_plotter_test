@@ -123,7 +123,7 @@ class Table():
             pdf.ln(row_height)
 
         # Guardar el PDF en un archivo
-        pdf.output('pdf1.pdf')
+        pdf.output('tabla.pdf')
 
     def reset(self):
         # Agrega aquí cualquier otra lógica específica para reiniciar la tabla

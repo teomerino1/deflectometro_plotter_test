@@ -21,6 +21,8 @@ from reportlab.lib.pagesizes import letter, landscape,A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Spacer, Paragraph, Table, TableStyle
+from reportlab.lib.pagesizes import letter,A4
+from reportlab.pdfgen import canvas
 
 class View():
     def __init__(self, root,data_instance,reporter_instance):
@@ -174,14 +176,14 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        # self.generar_carátula("informe.pdf")
+        self.generar_carátula("informe.pdf")
         self.Plot.generar_pdf()
-        # self.Plot2.download_graphs()
-        # self.Plot3.download_graphs()
-        # self.Plot4.download_graphs()
-        # self.Plot5.download_stats()
-        # sleep(1)
-        # self.combine_pdf()
+        self.Plot2.download_graphs()
+        self.Plot3.download_graphs()
+        self.Plot4.download_graphs()
+        self.Plot5.download_stats()
+        sleep(1)
+        self.combine_pdf()
 
     def generar_carátula(self,filename):
         informe = "INFORME DEFLECTOMETRO LACROIX"
@@ -257,15 +259,27 @@ class View():
 
 
     def combine_pdf(self):
+
+        output1="pdf2.pdf"
+        output2="pdf3.pdf"
+        
+        c = canvas.Canvas(output1, pagesize=A4)
+        c.drawImage('figure_defl_mean_l.png',10, 0)
+        c.drawImage('figure_rad_l.png', 10,500)
+        c.save()
+
+        c = canvas.Canvas(output2, pagesize=A4)
+        c.drawImage('figure_defl_mean_r.png', 10, 0)
+        c.drawImage('figure_rad_r.png', 10, 500)
+        c.save()
+
         pdf_files = [
             "informe.pdf",
-            "pdf1.pdf",
+            "tabla.pdf",    
+            "defl_individuales.pdf",
             "pdf2.pdf",
-            "pdf2l.pdf",
-            "pdf3l.pdf",
-            "pdf2r.pdf",
-            "pdf3r.pdf",
-            "pdf4.pdf",
+            "pdf3.pdf",
+            "radios.pdf",
             "pdf5.pdf"
         ]
         output_filename = "results.pdf"
@@ -286,6 +300,11 @@ class View():
         # Deleting input PDFs
         for pdf_file in pdf_files:
             os.remove(pdf_file)
+
+        os.remove('figure_defl_mean_l.png')
+        os.remove('figure_defl_mean_r.png')
+        os.remove('figure_rad_r.png')
+        os.remove('figure_rad_l.png')
 
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
