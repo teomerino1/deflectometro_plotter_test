@@ -61,12 +61,16 @@ class Graphs3():
     
     def update_deflexiones_gmean(self, dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos,lado):
 
+        self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
+        self.defl_car_l_data.extend(defl_l_car[-1:])
+        self.defl_max_l_data.extend(defl_l_max[-1:])
+        self.indexes = [x * grupos for x in range(1, len(self.defl_mean_l_data)+1)]
+        self.defl_mean_r_data.extend(dict_r['Defl.'][-1:])
+        self.defl_car_r_data.extend(defl_r_car[-1:])
+        self.defl_max_r_data.extend(defl_r_max[-1:])
+        self.indexes = [x * grupos for x in range(1, len(self.defl_mean_r_data)+1)]
+        
         if(lado == "Izquierdo"):
-
-            self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
-            self.defl_car_l_data.extend(defl_l_car[-1:])
-            self.defl_max_l_data.extend(defl_l_max[-1:])
-            self.indexes = [x * grupos for x in range(1, len(self.defl_mean_l_data)+1)]
             # self.indexes=list(range(1,len(self.defl_mean_l_data)+1))
           
             self.figure_defl_mean_l.clear()
@@ -89,11 +93,6 @@ class Graphs3():
             self.figure_defl_mean_l.canvas.draw_idle()
 
         if(lado == "Derecho"):
-
-            self.defl_mean_r_data.extend(dict_r['Defl.'][-1:])
-            self.defl_car_r_data.extend(defl_r_car[-1:])
-            self.defl_max_r_data.extend(defl_r_max[-1:])
-            self.indexes = [x * grupos for x in range(1, len(self.defl_mean_r_data)+1)]
             # self.indexes=list(range(1,len(self.defl_mean_r_data)+1))
             
             self.figure_defl_mean_r.clear()
@@ -125,8 +124,11 @@ class Graphs3():
 
 
     def download_graphs3(self,lado):
+        print("Defl mean l data:",self.defl_mean_l_data)
+        print("Defl mean r data:",self.defl_mean_r_data)
 
         if(self.defl_mean_l_data==[] or self.defl_mean_r_data==[]):
+            print("Detecto en graphs3 que es none")
             return
         else:
             if(lado=="Izquierdo"):

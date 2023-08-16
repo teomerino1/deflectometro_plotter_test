@@ -262,8 +262,8 @@ class View():
 
         output1="pdf2.pdf"
         output2="pdf3.pdf"
-        image_path = 'figure_defl_mean_l.png'
-        
+        # image_path = 'figure_defl_mean_l.png'
+        image_path='figure_rad_l.png'
         if os.path.exists(image_path): 
 
             self.generar_carátula("informe.pdf")
@@ -310,6 +310,7 @@ class View():
             os.remove('figure_rad_r.png')
             os.remove('figure_rad_l.png')
         else:
+            print("Detecto que la imagen no existe")
             return
 
 

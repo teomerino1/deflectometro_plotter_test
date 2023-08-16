@@ -123,6 +123,7 @@ class Graphs4():
     def download_graphs4(self):
 
         if(self.rad_mean_r_data==[] or self.rad_mean_l_data==[]):
+            print("Detecto en graphs4 que es none")
             return
         else:
             # Ajustar los límites para eliminar espacio en blanco
