@@ -4,7 +4,8 @@ import view
 from PIL import Image, ImageTk 
 from tkinter import font
 from tkinter import ttk
-
+from reportlab.pdfgen import canvas
+from tkinter import messagebox
 class Config():
     def __init__(self, root,view_instance):
         
@@ -272,6 +273,27 @@ class Config():
 
     def close(self):
 
+        data=[
+            self.apoyo_ntry,
+            self.chofer_ntry,
+            self.espesor,
+            self.fc_ntry,
+            self.fh_ntry,
+            self.ft_ntry,
+            self.pav_ntry,
+            self.prov_ntry,
+            self.ruta_ntry,
+            self.subtramo_ntry,
+            self.tramo_ntry,
+            self.z_ntry,
+            self.operador_ntry
+            ]
+
+        for data in data:
+            if(data.get()==''):
+                messagebox.showwarning("Aviso","Deben llenarse todos los campos antes de continuar")
+                return
+
         self.view_instance.set_temp(int(self.temp_ntry.get()))
         
         self.view_instance.set_grupos(int(self.var.get()))
@@ -302,7 +324,7 @@ class Config():
             self.view_instance.set_z(float(self.z_ntry.get()))
 
         if(self.muestras_ntry.get()==''):
-            self.view_instance.set_muestras(10000)
+            self.view_instance.set_muestras(1000000)
         else:
             self.view_instance.set_muestras(int(self.muestras_ntry.get()))
 
