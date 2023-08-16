@@ -13,7 +13,7 @@ import io
 import PyPDF2
 from PyPDF2 import PdfWriter,PdfReader
 import os
-
+from tkinter import messagebox
 
 # Clase donde se inicializan y actualizan los graficos
 
@@ -112,7 +112,10 @@ class Graphs():
         return self.flag
     
     def get_max(self):
-        return max(self.defl_l_data)
+        if(self.defl_l_data==[]):
+            messagebox.showwarning("Aviso","No hay datos para mostrar en PDF")
+        else:
+            return max(self.defl_l_data)
     
     def donwload_graphs(self):
        

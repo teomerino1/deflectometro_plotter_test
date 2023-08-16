@@ -98,13 +98,11 @@ class View():
 
      # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
-        
         self.Config.close()
         self.Plot.show(1)
        
     # Metodo que borra el Plot 1 y abre el de Config
     def go_to_config(self):
-
         self.Plot.close()
         self.Config.show(1)
 
@@ -177,14 +175,14 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        
-        self.Plot.generar_pdf()
-        self.Plot2.download_graphs()
-        self.Plot3.download_graphs()
-        self.Plot4.download_graphs()
-        self.Plot5.download_stats()
-        sleep(1)
-        self.combine_pdf()
+        self.generar_carátula("caratula.pdf")
+        # self.Plot.generar_pdf()
+        # self.Plot2.download_graphs()
+        # self.Plot3.download_graphs()
+        # self.Plot4.download_graphs()
+        # self.Plot5.download_stats()
+        # sleep(1)
+        # self.combine_pdf()
 
     def generar_carátula(self,filename):
         informe = "INFORME DEFLECTOMETRO LACROIX"
@@ -194,7 +192,9 @@ class View():
         tramo = self.get_tramo()
         subtramo = self.get_subtramo()
         pavimento = self.get_pavimento()
-        prog_max = 3000
+        
+        # prog_max = self.Plot.get_prog_max()
+        prog_max=3000
         fecha = datetime.datetime.now()
         chofer = self.get_chofer()
         apoyo = self.get_apoyo()
@@ -227,37 +227,40 @@ class View():
         ]))
 
         story.append(title_subtitle_table)
-        story.append(Spacer(1, 30))  # Espacio en blanco
+        story.append(Spacer(1, 50))  # Espacio en blanco
 
         # Agregar el resto de la información centrada
         centered_info_paragraphs = [
-        Paragraph(f"Ruta: {ruta}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Provincia: {provincia}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Tramo: {tramo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Subtramo: {subtramo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Pavimento: {pavimento}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Programa Máximo: {prog_max}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Fecha: {fecha.strftime('%Y-%m-%d %H:%M:%S')}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Chofer: {chofer}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Apoyo: {apoyo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-        Spacer(1, 20),  # Agregar un espacio en blanco
-        Paragraph(f"Operador: {operador}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+            Paragraph(f"Ruta: {ruta}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Provincia: {provincia}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Tramo: {tramo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Subtramo: {subtramo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Pavimento: {pavimento}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Progresiva Inicial: 0", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Progresiva Final: {prog_max}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
+            Spacer(1, 150),
+        ]
+        story.extend(centered_info_paragraphs)
+
+        down_info_paragraphs=[
+            Paragraph(f"Fecha: {fecha.strftime('%Y-%m-%d %H:%M:%S')}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Chofer: {chofer}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Apoyo: {apoyo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Operador: {operador}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
         ]
 
-        story.extend(centered_info_paragraphs)
+        story.extend(down_info_paragraphs
+                     )
         doc.build(story)
-
-
-
-
 
     def combine_pdf(self):
 
@@ -310,6 +313,9 @@ class View():
             os.remove('figure_defl_mean_r.png')
             os.remove('figure_rad_r.png')
             os.remove('figure_rad_l.png')
+
+            messagebox.showinfo("Aviso","PDF generado en Desktop:")
+
         else:
             print("Detecto que la imagen no existe")
             return
