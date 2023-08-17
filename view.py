@@ -318,6 +318,7 @@ class View():
 
         else:
             print("Detecto que la imagen no existe")
+            messagebox.showwarning("Aviso","Faltan datos para generar el PDF.")
             return
 
 

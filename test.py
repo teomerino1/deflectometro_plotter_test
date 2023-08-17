@@ -1,45 +1,35 @@
-import matplotlib
-from matplotlib import pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
-  
-# customizing runtime configuration stored
-# in matplotlib.rcParams
-plt.rcParams["figure.figsize"] = [7.00, 3.50]
-plt.rcParams["figure.autolayout"] = True
-  
-fig1 = plt.figure()
-plt.plot([17, 45, 7, 8, 7], color='orange')
-  
-fig2 = plt.figure()
-plt.plot([13, 25, 1, 6, 3], color='blue')
-  
-Fig3 = plt.figure()
-plt.plot([22, 11, 2, 1, 23], color='green')
-  
-  
-def save_image(filename):
-    
-    # PdfPages is a wrapper around pdf 
-    # file so there is no clash and create
-    # files with no error.
-    p = PdfPages(filename)
-      
-    # get_fignums Return list of existing 
-    # figure numbers
-    fig_nums = plt.get_fignums()  
-    figs = [plt.figure(n) for n in fig_nums]
-      
-    # iterating over the numbers in list
-    for fig in figs: 
+from tkinter import *
+from tkinter.ttk import Treeview
+
+class MyTableApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Tabla de Mediciones")
         
-        # and saving the files
-        fig.savefig(p, format='pdf') 
-      
-    # close the object
-    p.close()  
-  
-# name your Pdf file
-filename = "multi_plot_image.pdf"  
-  
-# call the function
-save_image(filename) 
+        # columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r","Grupos_L", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
+        columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
+        
+        # Crear el Treeview
+        self.table = Treeview(self.frame, columns=columns, show='headings')
+        # self.table.grid(row=1, column=0, columnspan=3)
+        self.table.grid(row=1, column=1,columnspan=2,pady=30)
+        # Configurar el alto del Treeview
+        self.table.configure(height=7)
+        
+        headers = [
+            ("Grupos_r", "Grupos"),
+            ("Radio_r", "Radio"),
+            ("Defl_r", "Defl."),
+            ("R*D_r", "R*D"),
+            ("R/D_r", "D/R"),
+            # ("Grupos_L", "Groups L"),
+            ("Radio_L", "Radio"),
+            ("Defl_L", "Defl."),
+            ("R*D_L", "R*D"),
+            ("R/D_L", "D/R")
+        ]
+
+if __name__ == "__main__":
+    root = Tk()
+    app = MyTableApp(root)
+    root.mainloop()

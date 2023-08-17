@@ -31,7 +31,7 @@ class Table():
         last_rd_r = dict_r['R*D'][len(dict_r['R*D'])-1] # ultimo valor del array
         last_r_d_r = dict_r['D/R'][len(dict_r['D/R'])-1] # ultimo valor del array
 
-        last_index_l = dict_l['Grupo'][len(dict_l['Grupo'])-1] # ultimo valor del array
+        # last_index_l = dict_l['Grupo'][len(dict_l['Grupo'])-1] # ultimo valor del array
         last_defl_mean_l = dict_l['Defl.'][len(dict_l['Defl.'])-1] # ultimo valor del array
         last_radio_mean_l = dict_l['Radio'][len(dict_l['Radio'])-1] # ultimo valor del array
         last_rd_l = dict_l['R*D'][len(dict_l['R*D'])-1] # ultimo valor del array
@@ -44,7 +44,7 @@ class Table():
             last_defl_mean_r,
             last_rd_r, 
             last_r_d_r, 
-            last_index_l, 
+            # last_index_l, 
             last_radio_mean_l,
             last_defl_mean_l, 
             last_rd_l, 
@@ -52,29 +52,32 @@ class Table():
             )) 
 
     def show(self,frame):
-        columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r","Grupos_L", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
-        
+        columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
+
+# Crear el marco adicional para los encabezados
+        header_frame = Frame(self.frame)
+        header_frame.grid(row=0, column=1, columnspan=10, pady=10)
+
+        # Agregar etiquetas para los encabezados "DERECHA" e "IZQUIERDA"
+        label_der = Label(header_frame, text="Huella Externa (DER)", font=("Helvetica", 25, "bold"))
+        label_der.grid(row=0, column=0,padx=110, pady=0, sticky=NW)
+
+        label_izq = Label(header_frame, text="Huella Interna (IZQ)", font=("Helvetica", 25, "bold"))
+        label_izq.grid(row=0, column=1,pady=0, sticky=N)
+
         # Crear el Treeview
         self.table = Treeview(self.frame, columns=columns, show='headings')
-        # self.table.grid(row=1, column=0, columnspan=3)
-        self.table.grid(row=1, column=1,columnspan=2,pady=30)
+        self.table.grid(row=1, column=1, columnspan=2, pady=0)
+
         # Configurar el alto del Treeview
         self.table.configure(height=7)
 
-        # Crear el Scrollbar
-        scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
-        scrollbar.grid(row=1, column=3, sticky="ns")
-        
-        self.table.configure(yscrollcommand=scrollbar.set)
-        
-        # Configurar encabezados y columnas del Treeview
         headers = [
-            ("Grupos_r", "Groups R"),
+            ("Grupos_r", "Grupos"),
             ("Radio_r", "Radio"),
             ("Defl_r", "Defl."),
             ("R*D_r", "R*D"),
             ("R/D_r", "D/R"),
-            ("Grupos_L", "Groups L"),
             ("Radio_L", "Radio"),
             ("Defl_L", "Defl."),
             ("R*D_L", "R*D"),
@@ -83,6 +86,62 @@ class Table():
         for column, header in headers:
             self.table.heading(column, text=header)
             self.table.column(column, anchor=CENTER, width=100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r","Grupos_L", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
+        # columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
+        
+        # # Crear el Treeview
+        # self.table = Treeview(self.frame, columns=columns, show='headings')
+        # # self.table.grid(row=1, column=0, columnspan=3)
+        # self.table.grid(row=1, column=1,columnspan=2,pady=30)
+        # # Configurar el alto del Treeview
+        # self.table.configure(height=7)
+        # self.table.heading("#0", text="DERECHA", anchor="center")
+        # # Crear el Scrollbar
+        # # scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
+        # # scrollbar.grid(row=1, column=3, sticky="ns")
+        # # self.table.configure(yscrollcommand=scrollbar.set)
+        
+        # headers = [
+        #     ("Grupos_r", "Grupos"),
+        #     ("Radio_r", "Radio Derecha"),
+        #     ("Defl_r", "Defl. Derecha"),
+        #     ("R*D_r", "R*D Derecha"),
+        #     ("R/D_r", "D/R Derecha"),
+        #     ("Radio_L", "Radio Izquierda"),
+        #     ("Defl_L", "Defl. Izquierda"),
+        #     ("R*D_L", "R*D Izquierda"),
+        #     ("R/D_L", "D/R Izquierda")
+        # ]
+        # for column, header in headers:
+        #     self.table.heading(column, text=header)
+        #     self.table.column(column, anchor=CENTER, width=100)
+        # Configurar encabezados y columnas del Treeview
+        # headers = [
+        #     ("Grupos_r", "Groups R"),
+        #     ("Radio_r", "Radio"),
+        #     ("Defl_r", "Defl."),
+        #     ("R*D_r", "R*D"),
+        #     ("R/D_r", "D/R"),
+        #     ("Grupos_L", "Groups L"),
+        #     ("Radio_L", "Radio"),
+        #     ("Defl_L", "Defl."),
+        #     ("R*D_L", "R*D"),
+        #     ("R/D_L", "D/R")
+        # ]
+        
 
     def clear_table(self):
         # Elimina todos los elementos de la tabla
@@ -93,7 +152,9 @@ class Table():
         items = self.table.get_children()
         if items:  # Si hay al menos un elemento
             print("La tabla tiene elementos.")
+
             data = []
+
             for item in self.table.get_children():
                 data.append(self.table.item(item, 'values'))
             # Obtener los encabezados del Treeview
