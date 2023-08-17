@@ -62,10 +62,10 @@ class Table():
         self.table.configure(height=7)
 
         # Crear el Scrollbar
-        # scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
-        # scrollbar.grid(row=3, column=4, sticky="ns")
+        scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
+        scrollbar.grid(row=1, column=3, sticky="ns")
         
-        # self.table.configure(yscrollcommand=scrollbar.set)
+        self.table.configure(yscrollcommand=scrollbar.set)
         
         # Configurar encabezados y columnas del Treeview
         headers = [
@@ -104,7 +104,7 @@ class Table():
             pdf = FPDF()
             pdf.add_page()
             # Definir el tamaño y la fuente del texto en el PDF
-            pdf.set_font("Arial", size=9)
+            pdf.set_font("Arial", size=12)
             # Ajustar el interlineado
             pdf.set_auto_page_break(auto=True, margin=15)
             # Crear la tabla en el PDF
