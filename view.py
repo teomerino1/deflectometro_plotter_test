@@ -292,10 +292,12 @@ class View():
             ]
             # output_filename = "results.pdf"
             # Obtener la fecha y hora actual
+            puesto=self.reporter_instance.get_puesto()
             current_datetime = datetime.datetime.now()
             formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
 
-            output_filename = f"Informes/{formatted_datetime}_results.pdf" 
+            # output_filename = f"Informes/{formatted_datetime}_results.pdf" 
+            output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
             # output_filename = "Informes/results.pdf"
 
             pdf_merger = PyPDF2.PdfMerger()
@@ -320,7 +322,7 @@ class View():
             os.remove('figure_rad_r.png')
             os.remove('figure_rad_l.png')
 
-            messagebox.showinfo("Aviso","PDF generado en Desktop:")
+            messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes':")
 
         else:
             print("Detecto que la imagen no existe")
