@@ -26,7 +26,6 @@ def update_defl_one(Data,View,amount):
     View.update_bar_view(defl_r,defl_l)
     Data.clear_bar_data()
 
-
 def obtain_data(Reporter, View, Data):
     # print("Soy el hilo:",threading.get_ident(), "En el obtain data")
     while True:
@@ -35,7 +34,6 @@ def obtain_data(Reporter, View, Data):
         else: 
             continue
     process_data(Reporter,View,Data)
-
 
 def process_data(Reporter,View,Data):
     # print("Estoy en process data")
@@ -89,12 +87,9 @@ def obtain_and_process_data(Reporter, View, Data):
         if View.get_data_ready() == 1:
             process_data(Reporter, View, Data)
 
-           
 def main():
 
     root = tk.Tk()
-
-    
     Reporter = reporter.Reporter()
     Data = data.Data()
     View = view.View(root,Data,Reporter)

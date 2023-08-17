@@ -175,14 +175,14 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        # self.generar_carátula("caratula.pdf")
+        self.generar_carátula("caratula.pdf")
         self.Plot.generar_pdf()
-        # self.Plot2.download_graphs()
-        # self.Plot3.download_graphs()
-        # self.Plot4.download_graphs()
-        # self.Plot5.download_stats()
-        # sleep(1)
-        # self.combine_pdf()
+        self.Plot2.download_graphs()
+        self.Plot3.download_graphs()
+        self.Plot4.download_graphs()
+        self.Plot5.download_stats()
+        sleep(1)
+        self.combine_pdf()
 
     def generar_carátula(self,filename):
         informe = "INFORME DEFLECTOMETRO LACROIX"
@@ -193,8 +193,8 @@ class View():
         subtramo = self.get_subtramo()
         pavimento = self.get_pavimento()
         
-        # prog_max = self.Plot.get_prog_max()
-        prog_max=3000
+        prog_max = self.Plot.get_prog_max()
+        # prog_max=3000
         fecha = datetime.datetime.now()
         chofer = self.get_chofer()
         apoyo = self.get_apoyo()
@@ -290,7 +290,13 @@ class View():
                 "pdf3.pdf",
                 "radios.pdf"
             ]
-            output_filename = "results.pdf"
+            # output_filename = "results.pdf"
+            # Obtener la fecha y hora actual
+            current_datetime = datetime.datetime.now()
+            formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
+
+            output_filename = f"Informes/{formatted_datetime}_results.pdf" 
+            # output_filename = "Informes/results.pdf"
 
             pdf_merger = PyPDF2.PdfMerger()
             

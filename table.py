@@ -157,7 +157,7 @@ class Table():
             pdf.set_auto_page_break(auto=True, margin=15)
             # Crear la tabla en el PDF
             col_width = 22
-            row_height = 5
+            row_height = 6
             for row in table_str.split('\n'):
                 for item in row.split(None):
                     pdf.cell(col_width, row_height, txt=item, border=1, align='C')
