@@ -283,12 +283,12 @@ class View():
 
             pdf_files = [
                 "informe.pdf",
+                "pdf5.pdf",
                 "tabla.pdf",    
                 "defl_individuales.pdf",
                 "pdf2.pdf",
                 "pdf3.pdf",
-                "radios.pdf",
-                "pdf5.pdf"
+                "radios.pdf"
             ]
             output_filename = "results.pdf"
 

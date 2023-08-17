@@ -31,7 +31,7 @@ class Table():
         last_rd_r = dict_r['R*D'][len(dict_r['R*D'])-1] # ultimo valor del array
         last_r_d_r = dict_r['D/R'][len(dict_r['D/R'])-1] # ultimo valor del array
 
-        # last_index_l = dict_l['Grupo'][len(dict_l['Grupo'])-1] # ultimo valor del array
+        last_index_l = dict_l['Grupo'][len(dict_l['Grupo'])-1] # ultimo valor del array
         last_defl_mean_l = dict_l['Defl.'][len(dict_l['Defl.'])-1] # ultimo valor del array
         last_radio_mean_l = dict_l['Radio'][len(dict_l['Radio'])-1] # ultimo valor del array
         last_rd_l = dict_l['R*D'][len(dict_l['R*D'])-1] # ultimo valor del array
@@ -44,7 +44,7 @@ class Table():
             last_defl_mean_r,
             last_rd_r, 
             last_r_d_r, 
-            # last_index_l, 
+            # last_index_l,
             last_radio_mean_l,
             last_defl_mean_l, 
             last_rd_l, 
@@ -52,7 +52,7 @@ class Table():
             )) 
 
     def show(self,frame):
-        columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
+        columns = ("Grupos", "Radio_Der.", "Defl_Der.", "R*D_Der.", "R/D_Der.", "Radio_Izq.", "Defl_Izq.", "R*D_Izq.", "R/D_Izq.")
 
 # Crear el marco adicional para los encabezados
         header_frame = Frame(self.frame)
@@ -73,34 +73,22 @@ class Table():
         self.table.configure(height=7)
 
         headers = [
-            ("Grupos_r", "Grupos"),
-            ("Radio_r", "Radio"),
-            ("Defl_r", "Defl."),
-            ("R*D_r", "R*D"),
-            ("R/D_r", "D/R"),
-            ("Radio_L", "Radio"),
-            ("Defl_L", "Defl."),
-            ("R*D_L", "R*D"),
-            ("R/D_L", "D/R")
+            ("Grupos", "Grupos"),
+            ("Radio_Der.", "Radio"),
+            ("Defl_Der.", "Defl."),
+            ("R*D_Der.", "R*D"),
+            ("R/D_Der.", "D/R"),
+            ("Radio_Izq.", "Radio"),
+            ("Defl_Izq.", "Defl."),
+            ("R*D_Izq.", "R*D"),
+            ("R/D_Izq.", "D/R")
         ]
         for column, header in headers:
             self.table.heading(column, text=header)
-            self.table.column(column, anchor=CENTER, width=100)
-
-
-
-
-
-
-
-
-
-
-
-
+            self.table.column(column, anchor=CENTER, width=110)
 
         # columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r","Grupos_L", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
-        # columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
+        # # columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
         
         # # Crear el Treeview
         # self.table = Treeview(self.frame, columns=columns, show='headings')
@@ -108,27 +96,25 @@ class Table():
         # self.table.grid(row=1, column=1,columnspan=2,pady=30)
         # # Configurar el alto del Treeview
         # self.table.configure(height=7)
-        # self.table.heading("#0", text="DERECHA", anchor="center")
+       
         # # Crear el Scrollbar
         # # scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
         # # scrollbar.grid(row=1, column=3, sticky="ns")
         # # self.table.configure(yscrollcommand=scrollbar.set)
         
-        # headers = [
-        #     ("Grupos_r", "Grupos"),
-        #     ("Radio_r", "Radio Derecha"),
-        #     ("Defl_r", "Defl. Derecha"),
-        #     ("R*D_r", "R*D Derecha"),
-        #     ("R/D_r", "D/R Derecha"),
-        #     ("Radio_L", "Radio Izquierda"),
-        #     ("Defl_L", "Defl. Izquierda"),
-        #     ("R*D_L", "R*D Izquierda"),
-        #     ("R/D_L", "D/R Izquierda")
-        # ]
-        # for column, header in headers:
-        #     self.table.heading(column, text=header)
-        #     self.table.column(column, anchor=CENTER, width=100)
-        # Configurar encabezados y columnas del Treeview
+        # # headers = [
+        # #     ("Grupos_r", "Grupos"),
+        # #     ("Radio_r", "Radio Derecha"),
+        # #     ("Defl_r", "Defl. Derecha"),
+        # #     ("R*D_r", "R*D Derecha"),
+        # #     ("R/D_r", "D/R Derecha"),
+        # #     ("Radio_L", "Radio Izquierda"),
+        # #     ("Defl_L", "Defl. Izquierda"),
+        # #     ("R*D_L", "R*D Izquierda"),
+        # #     ("R/D_L", "D/R Izquierda")
+        # # ]
+        
+        # # Configurar encabezados y columnas del Treeview
         # headers = [
         #     ("Grupos_r", "Groups R"),
         #     ("Radio_r", "Radio"),
@@ -141,7 +127,9 @@ class Table():
         #     ("R*D_L", "R*D"),
         #     ("R/D_L", "D/R")
         # ]
-        
+        # for column, header in headers:
+        #     self.table.heading(column, text=header)
+        #     self.table.column(column, anchor=CENTER, width=100)
 
     def clear_table(self):
         # Elimina todos los elementos de la tabla
@@ -149,12 +137,11 @@ class Table():
 
     def donwload_table(self):
         # Obtener los datos del Treeview
-        items = self.table.get_children()
-        if items:  # Si hay al menos un elemento
+        # items = self.table.get_children()
+        # if items:  # Si hay al menos un elemento
             print("La tabla tiene elementos.")
-
             data = []
-
+        
             for item in self.table.get_children():
                 data.append(self.table.item(item, 'values'))
             # Obtener los encabezados del Treeview
@@ -169,7 +156,7 @@ class Table():
             # Ajustar el interlineado
             pdf.set_auto_page_break(auto=True, margin=15)
             # Crear la tabla en el PDF
-            col_width = 19
+            col_width = 22
             row_height = 5
             for row in table_str.split('\n'):
                 for item in row.split(None):
@@ -178,9 +165,9 @@ class Table():
             # Guardar el PDF en un archivo
             pdf.output('tabla.pdf')
             
-        else:
-            print("No hay nada")
-            return
+        # else:
+        #     print("No hay nada")
+        #     return
         
     def reset(self):
         # Agrega aquí cualquier otra lógica específica para reiniciar la tabla
