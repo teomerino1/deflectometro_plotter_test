@@ -6,7 +6,7 @@ import graphs
 from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
-
+import datetime
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
@@ -82,6 +82,12 @@ class Plot():
         
     def get_prog_max(self):
         return self.Graphs.get_max()
+    
+    def set_ruta(self,ruta):
+        self.Table.set_ruta(ruta)
+        self.Table.set_fecha(datetime.datetime.now().date())
+
+    
     
     def grid_plot1(self):
         self.second_plot_frame.grid(ipadx=10, ipady=5)

@@ -349,9 +349,7 @@ class Plot5():
         if(self.defl_car_der_value==None):
             print("Me doy cuenta q es noneing")
             return 
-        
-        
-        
+    
         buffer = BytesIO()
         doc = SimpleDocTemplate(buffer, pagesize=A4)
 

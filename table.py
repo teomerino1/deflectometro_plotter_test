@@ -10,6 +10,8 @@ import PyPDF2
 from tabulate import tabulate
 from tkinter import ttk
 from fpdf import FPDF
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Image, Spacer,Paragraph
 # Clase donde se inicializa y actualiza la tabla
 
 class Table():
@@ -19,7 +21,8 @@ class Table():
         self.show(frame)
         self.original_table_height = None
         self.grupos=None
-          
+        self.fecha=None
+        self.ruta=None
 
     # Metodo que inserta valores en el diccionario
     # TODO -> Falta compensar los valores con respecto a la temperatura
@@ -84,8 +87,10 @@ class Table():
         # Obtener los datos del Treeview
         # items = self.table.get_children()
         # if items:  # Si hay al menos un elemento
-
+        fecha= self.get_fecha().strftime("%d-%m-%Y")
+        ruta=self.get_ruta()
         data = []
+       
         for item in self.table.get_children():
             data.append(self.table.item(item, 'values'))
 
@@ -96,13 +101,21 @@ class Table():
         pdf.add_page()
         pdf.set_font("Arial", size=12)
         pdf.set_auto_page_break(auto=True, margin=15)
-        pdf.ln(15)  # Add some spacing between tables
+                # Agregar el texto "Fecha" y la fecha actual al PDF
+        pdf.set_x((pdf.w - pdf.get_string_width("Fecha: " + fecha)) / 2)
+        pdf.cell(0, 10, "Fecha: " + fecha, ln=True)
+
+        # Agregar el texto "Ruta" centrado y con fuente y tamaño personalizados
+        pdf.set_x((pdf.w - pdf.get_string_width("Ruta: " + ruta)) / 2)
+        pdf.cell(0, 10, "Ruta: " + ruta, ln=True)
+        
+        pdf.ln(3)  # Add some spacing between tables
         # Add the first table with a left margin
         first_table_data = [["Huella Externa (DER)", "Huella Interna (IZQ)"]]
         col_width_first = 88
         row_height_first = 10
         left_margin = 22  # Margin in points
-        # pdf.set_left_margin(left_margin)
+
         for row in first_table_data:
             pdf.cell(left_margin)  # Add left margin
             for item in row:
@@ -124,9 +137,17 @@ class Table():
         #     return
         
     def reset(self):
-        # Agrega aquí cualquier otra lógica específica para reiniciar la tabla
-        # Si tienes algún estado inicial para la tabla, puedes restaurarlo aquí
         self.clear_table()
-        # Agrega aquí cualquier otro proceso que necesites realizar para reiniciar la tabla
         self.show(self)
 
+    def set_fecha(self,fecha):
+        self.fecha=fecha
+
+    def get_fecha(self):
+        return self.fecha
+    
+    def set_ruta(self,ruta):
+        self.ruta=ruta
+
+    def get_ruta(self):
+        return self.ruta

@@ -166,11 +166,11 @@ class View():
 
     def download_pdf(self):
         # self.generar_carátula("caratula.pdf")
-        # self.Plot.generar_pdf()
+        self.Plot.generar_pdf()
         # self.Plot2.download_graphs()
         # self.Plot3.download_graphs()
         # self.Plot4.download_graphs()
-        self.Plot5.download_stats()
+        # self.Plot5.download_stats()
         # sleep(1)
         # self.combine_pdf()
 
@@ -410,6 +410,7 @@ class View():
     
     def set_ruta(self,ruta):
         self.Plot5.set_ruta(ruta)
+        self.Plot.set_ruta(ruta)
         self.ruta_ntry=ruta
 
     def get_ruta(self):
