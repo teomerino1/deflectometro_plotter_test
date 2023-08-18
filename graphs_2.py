@@ -94,7 +94,6 @@ class Graphs2():
         if(lado == "Derecho"):
             self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
         
-
         if(lado == "Izquierdo"):
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
            
@@ -110,7 +109,6 @@ class Graphs2():
                 self.figure_rad_mean_l.savefig('figure_rad_l.png', bbox_inches='tight')
 
             if(lado=="Derecho"):
-                
                 self.figure_rad_mean_r.gca().set_ylim(0, max(self.rad_r_data)+50)  # Ajustar límites en el eje y según tu necesidad
                 self.figure_rad_mean_r.savefig('figure_rad_r.png', bbox_inches='tight')
             

@@ -36,8 +36,6 @@ def obtain_data(Reporter, View, Data):
     process_data(Reporter,View,Data)
 
 def process_data(Reporter,View,Data):
-    # print("Estoy en process data")
-    # print("Soy el hilo:",threading.get_ident(), "En process data")
     Reporter.start()
     grupos=View.get_grupos()
     muestras=View.get_muestras()
@@ -45,6 +43,7 @@ def process_data(Reporter,View,Data):
     print("Grupos:",grupos)
     a=0
     b=0
+    
     while True:
         data, this_cycle = Reporter.get_new_measurements()
         

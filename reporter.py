@@ -3,7 +3,8 @@
 import db
 from time import sleep
 import os, sys
-
+import datetime
+import time
 class Reporter():
     def __init__(self):
         self.last_cicle = 0
@@ -11,10 +12,14 @@ class Reporter():
         self.puesto = 0  # Registro del puesto actual, todas las mediciones deben pertenecer al mismo puesto
         self.database = db.Database()
         self.puesto_changed = 0
+        self.hora_inicio = None
+        self.minutos_inicio=None
         # self.start()
 
     def start(self):
-        # print("ARRANCO")
+        print("Calculo hora inicial")
+        self.hora_inicio = time.localtime().tm_hour
+        self.minutos_inicio = time.localtime().tm_min
         self.get_last_measurement()
 
     def set_puesto_change(self, value):
@@ -25,6 +30,9 @@ class Reporter():
     
     def get_puesto(self):
         return self.puesto
+    
+    def get_initial_time(self):
+        return self.hora_inicio,self.minutos_inicio
 
     # Método que obtiene el número de ciclo correspondiente a la medición más nueva
     def get_last_measurement(self):
@@ -35,7 +43,6 @@ class Reporter():
             # print("Puesto:",self.puesto)
             # print("Last cicle:",self.last_cicle)
             
-
     def get_last_puesto(self):
         result = self.database.query('SELECT nro_puesto, nro_ciclo, TIME(fecha_hora_inicio) as last_measurement FROM ciclo ORDER BY fecha_hora_inicio DESC LIMIT 1;')
         if result:
@@ -64,6 +71,7 @@ class Reporter():
     
     def reset_reporter(self):
         self.set_puesto_change(value=0)
+        self.hora_inicio=None
         # self.start()
 
 

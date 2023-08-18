@@ -176,13 +176,13 @@ class View():
 
     def download_pdf(self):
         self.generar_carátula("caratula.pdf")
-        self.Plot.generar_pdf()
-        self.Plot2.download_graphs()
-        self.Plot3.download_graphs()
-        self.Plot4.download_graphs()
-        self.Plot5.download_stats()
-        sleep(1)
-        self.combine_pdf()
+        # self.Plot.generar_pdf()
+        # self.Plot2.download_graphs()
+        # self.Plot3.download_graphs()
+        # self.Plot4.download_graphs()
+        # self.Plot5.download_stats()
+        # sleep(1)
+        # self.combine_pdf()
 
     def generar_carátula(self,filename):
         informe = "INFORME DEFLECTOMETRO LACROIX"
@@ -192,10 +192,13 @@ class View():
         tramo = self.get_tramo()
         subtramo = self.get_subtramo()
         pavimento = self.get_pavimento()
-        
+        puesto=self.reporter_instance.get_puesto()
         prog_max = self.Plot.get_prog_max()
         # prog_max=3000
-        fecha = datetime.datetime.now()
+        fecha = datetime.datetime.now().date()
+        hora_inicio,minutos_inicio=self.reporter_instance.get_initial_time()
+        hora_final=time.localtime().tm_hour
+        minutos_final=time.localtime().tm_min
         chofer = self.get_chofer()
         apoyo = self.get_apoyo()
         operador = self.get_operador()
@@ -244,29 +247,35 @@ class View():
             Paragraph(f"Progresiva Inicial: 0", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
             Spacer(1, 20),  # Agregar un espacio en blanco
             Paragraph(f"Progresiva Final: {prog_max}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-            Spacer(1, 150),
+            Spacer(1, 60),
         ]
         story.extend(centered_info_paragraphs)
 
         down_info_paragraphs=[
-            Paragraph(f"Fecha: {fecha.strftime('%Y-%m-%d %H:%M:%S')}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
+            Paragraph(f"Fecha: {fecha}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Inicio: {hora_inicio:02d} : {minutos_inicio:02d}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Fin: {hora_final:02d} : {minutos_final:02d}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
             Spacer(1, 20),  # Agregar un espacio en blanco
             Paragraph(f"Chofer: {chofer}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
             Spacer(1, 20),  # Agregar un espacio en blanco
             Paragraph(f"Apoyo: {apoyo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
             Spacer(1, 20),  # Agregar un espacio en blanco
             Paragraph(f"Operador: {operador}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
+            Spacer(1, 20),  # Agregar un espacio en blanco
+            Paragraph(f"Número de trayecto: {puesto}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
         ]
 
-        story.extend(down_info_paragraphs
-                     )
+        story.extend(down_info_paragraphs)
+
         doc.build(story)
 
     def combine_pdf(self):
 
         output1="pdf2.pdf"
         output2="pdf3.pdf"
-        # image_path = 'figure_defl_mean_l.png'
+
         image_path='figure_rad_l.png'
         if os.path.exists(image_path): 
 
@@ -290,30 +299,23 @@ class View():
                 "pdf3.pdf",
                 "radios.pdf"
             ]
-            # output_filename = "results.pdf"
-            # Obtener la fecha y hora actual
             puesto=self.reporter_instance.get_puesto()
             current_datetime = datetime.datetime.now()
             formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
 
-            # output_filename = f"Informes/{formatted_datetime}_results.pdf" 
             output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
-            # output_filename = "Informes/results.pdf"
-
-            pdf_merger = PyPDF2.PdfMerger()
             
-            # Combining PDFs
+            pdf_merger = PyPDF2.PdfMerger()
+       
             for pdf_file in pdf_files:
                 pdf_merger.append(pdf_file)
             
-            # Writing the merged PDF to the output file
+            
             with open(output_filename, "wb") as output_pdf:
                 pdf_merger.write(output_pdf)
             
-            # Closing the merger
             pdf_merger.close()
             
-            # Deleting input PDFs
             for pdf_file in pdf_files:
                 os.remove(pdf_file)
 
@@ -328,7 +330,6 @@ class View():
             print("Detecto que la imagen no existe")
             messagebox.showwarning("Aviso","Faltan datos para generar el PDF.")
             return
-
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos):
