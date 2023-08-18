@@ -52,18 +52,7 @@ class Table():
             )) 
 
     def show(self,frame):
-        columns = ("Grupos", "Radio_Der.", "Defl_Der.", "R*D_Der.", "R/D_Der.", "Radio_Izq.", "Defl_Izq.", "R*D_Izq.", "R/D_Izq.")
-
-# Crear el marco adicional para los encabezados
-        # header_frame = Frame(self.frame)
-        # header_frame.grid(row=0, column=1, columnspan=10, pady=10)
-
-        # # Agregar etiquetas para los encabezados "DERECHA" e "IZQUIERDA"
-        # label_der = Label(header_frame, text="Huella Externa (DER)", font=("Helvetica", 25, "bold"))
-        # label_der.grid(row=0, column=0,padx=0, pady=0, sticky=NW)
-
-        # label_izq = Label(header_frame, text="Huella Interna (IZQ)", font=("Helvetica", 25, "bold"))
-        # label_izq.grid(row=0, column=1,pady=0, sticky=N)
+        columns = ("Grupos", "Radio.", "Defl.", "R*D.", "R/D.", ".Radio.", ".Defl.", ".R*D.", ".R/D.")
 
         # Crear el Treeview
         self.table = Treeview(self.frame, columns=columns, show='headings')
@@ -74,62 +63,18 @@ class Table():
 
         headers = [
             ("Grupos", "Grupos"),
-            ("Radio_Der.", "Radio"),
-            ("Defl_Der.", "Defl."),
-            ("R*D_Der.", "R*D"),
-            ("R/D_Der.", "D/R"),
-            ("Radio_Izq.", "Radio"),
-            ("Defl_Izq.", "Defl."),
-            ("R*D_Izq.", "R*D"),
-            ("R/D_Izq.", "D/R")
+            ("Radio.", "Radio"),
+            ("Defl.", "Defl."),
+            ("R*D.", "R*D"),
+            ("R/D.", "D/R"),
+            (".Radio.", "Radio"),
+            (".Defl.", "Defl."),
+            (".R*D.", "R*D"),
+            (".R/D.", "D/R")
         ]
         for column, header in headers:
             self.table.heading(column, text=header)
             self.table.column(column, anchor=CENTER, width=110)
-
-        # columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r","Grupos_L", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
-        # # columns = ("Grupos_r", "Radio_r", "Defl_r", "R*D_r", "R/D_r", "Radio_L", "Defl_L", "R*D_L", "R/D_L")
-        
-        # # Crear el Treeview
-        # self.table = Treeview(self.frame, columns=columns, show='headings')
-        # # self.table.grid(row=1, column=0, columnspan=3)
-        # self.table.grid(row=1, column=1,columnspan=2,pady=30)
-        # # Configurar el alto del Treeview
-        # self.table.configure(height=7)
-       
-        # # Crear el Scrollbar
-        # # scrollbar = ttk.Scrollbar(self.frame, orient="vertical", command=self.table.yview)
-        # # scrollbar.grid(row=1, column=3, sticky="ns")
-        # # self.table.configure(yscrollcommand=scrollbar.set)
-        
-        # # headers = [
-        # #     ("Grupos_r", "Grupos"),
-        # #     ("Radio_r", "Radio Derecha"),
-        # #     ("Defl_r", "Defl. Derecha"),
-        # #     ("R*D_r", "R*D Derecha"),
-        # #     ("R/D_r", "D/R Derecha"),
-        # #     ("Radio_L", "Radio Izquierda"),
-        # #     ("Defl_L", "Defl. Izquierda"),
-        # #     ("R*D_L", "R*D Izquierda"),
-        # #     ("R/D_L", "D/R Izquierda")
-        # # ]
-        
-        # # Configurar encabezados y columnas del Treeview
-        # headers = [
-        #     ("Grupos_r", "Groups R"),
-        #     ("Radio_r", "Radio"),
-        #     ("Defl_r", "Defl."),
-        #     ("R*D_r", "R*D"),
-        #     ("R/D_r", "D/R"),
-        #     ("Grupos_L", "Groups L"),
-        #     ("Radio_L", "Radio"),
-        #     ("Defl_L", "Defl."),
-        #     ("R*D_L", "R*D"),
-        #     ("R/D_L", "D/R")
-        # ]
-        # for column, header in headers:
-        #     self.table.heading(column, text=header)
-        #     self.table.column(column, anchor=CENTER, width=100)
 
     def clear_table(self):
         # Elimina todos los elementos de la tabla
@@ -139,31 +84,83 @@ class Table():
         # Obtener los datos del Treeview
         # items = self.table.get_children()
         # if items:  # Si hay al menos un elemento
-            print("La tabla tiene elementos.")
-            data = []
+
+        data = []
+        for item in self.table.get_children():
+            data.append(self.table.item(item, 'values'))
+
+        headers = self.table['columns']
+        table_str = tabulate(data, headers=headers, tablefmt='plain')
+
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        pdf.set_auto_page_break(auto=True, margin=15)
+        pdf.ln(15)  # Add some spacing between tables
+        # Add the first table with a left margin
+        first_table_data = [["Huella Externa (DER)", "Huella Interna (IZQ)"]]
+        col_width_first = 88
+        row_height_first = 10
+        left_margin = 22  # Margin in points
+        # pdf.set_left_margin(left_margin)
+        for row in first_table_data:
+            pdf.cell(left_margin)  # Add left margin
+            for item in row:
+                pdf.cell(col_width_first, row_height_first, txt=item, border=1, align='C')
+            pdf.ln(row_height_first)
+
+        # pdf.set_left_margin(10)  # Reset left margin for the second table
+        col_width = 22
+        row_height = 6
+        for row in table_str.split('\n'):
+            for item in row.split(None):
+                pdf.cell(col_width, row_height, txt=item, border=1, align='C')
+            pdf.ln(row_height)
+
+        pdf.output('tabla.pdf')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            # data = []
         
-            for item in self.table.get_children():
-                data.append(self.table.item(item, 'values'))
-            # Obtener los encabezados del Treeview
-            headers = self.table['columns']
-            # Convertir los datos en una tabla con formato usando tabulate
-            table_str = tabulate(data, headers=headers, tablefmt='plain')
-            # Generar PDF con la tabla
-            pdf = FPDF()
-            pdf.add_page()
-            # Definir el tamaño y la fuente del texto en el PDF
-            pdf.set_font("Arial", size=12)
-            # Ajustar el interlineado
-            pdf.set_auto_page_break(auto=True, margin=15)
-            # Crear la tabla en el PDF
-            col_width = 22
-            row_height = 6
-            for row in table_str.split('\n'):
-                for item in row.split(None):
-                    pdf.cell(col_width, row_height, txt=item, border=1, align='C')
-                pdf.ln(row_height)
-            # Guardar el PDF en un archivo
-            pdf.output('tabla.pdf')
+            # for item in self.table.get_children():
+            #     data.append(self.table.item(item, 'values'))
+            
+            # headers = self.table['columns']
+            
+            # table_str = tabulate(data, headers=headers, tablefmt='plain')
+         
+            # pdf = FPDF()
+            # pdf.add_page()
+            
+            # pdf.set_font("Arial", size=12)
+            
+            # pdf.set_auto_page_break(auto=True, margin=15)
+            
+            # col_width = 22
+            # row_height = 6
+            # for row in table_str.split('\n'):
+            #     for item in row.split(None):
+            #         pdf.cell(col_width, row_height, txt=item, border=1, align='C')
+            #     pdf.ln(row_height)
+          
+            # pdf.output('tabla.pdf')
             
         # else:
         #     print("No hay nada")
