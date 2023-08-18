@@ -118,49 +118,6 @@ class Table():
             pdf.ln(row_height)
 
         pdf.output('tabla.pdf')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            # data = []
-        
-            # for item in self.table.get_children():
-            #     data.append(self.table.item(item, 'values'))
-            
-            # headers = self.table['columns']
-            
-            # table_str = tabulate(data, headers=headers, tablefmt='plain')
-         
-            # pdf = FPDF()
-            # pdf.add_page()
-            
-            # pdf.set_font("Arial", size=12)
-            
-            # pdf.set_auto_page_break(auto=True, margin=15)
-            
-            # col_width = 22
-            # row_height = 6
-            # for row in table_str.split('\n'):
-            #     for item in row.split(None):
-            #         pdf.cell(col_width, row_height, txt=item, border=1, align='C')
-            #     pdf.ln(row_height)
-          
-            # pdf.output('tabla.pdf')
             
         # else:
         #     print("No hay nada")

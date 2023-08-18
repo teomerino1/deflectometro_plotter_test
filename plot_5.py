@@ -1,26 +1,23 @@
 from tkinter import *
 from tkinter.ttk import Label, Frame, Button, Scrollbar
-
 from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
-
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
-from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle,Spacer, Image, Paragraph
-from reportlab.lib.units import inch
 from reportlab.lib import utils
 from reportlab.lib.styles import getSampleStyleSheet
 from io import BytesIO
 from reportlab.platypus import SimpleDocTemplate, Image, Spacer
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import letter,A4
 from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, PageTemplate,Image, Spacer
 from reportlab.lib import utils
 from reportlab.pdfgen import canvas
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 
 
@@ -105,6 +102,8 @@ class Plot5():
 
         self.r_x_d_izq = None
         self.r_x_d_izq_value=None
+
+        self.ruta=None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
@@ -338,23 +337,39 @@ class Plot5():
 
     def download_pdf(self):
         self.view_instance.enqueue_transition('download_pdf')
-        # self.download_stats()
-        # self.add_image_header()
-        # self.add_data_tables()
-        # self.view_instance.enqueue_transition('download_pdf')
 
+    def set_ruta(self,ruta):
+        self.ruta=ruta
 
+    def get_ruta(self):
+        return self.ruta
+    
     def download_stats(self):
-        
-
         # Crear el buffer para el PDF usando ReportLab
         if(self.defl_car_der_value==None):
             print("Me doy cuenta q es noneing")
             return 
         
+        
+        
         buffer = BytesIO()
-        doc = SimpleDocTemplate(buffer, pagesize=letter)
+        doc = SimpleDocTemplate(buffer, pagesize=A4)
+
+        title0 = Paragraph("DEFLECTOGRAFO LACROIX",ParagraphStyle(name='CenterStyle', alignment=1, fontSize=25))
+        title1 = Paragraph("PLANTILLA GENERAL DE RESULTADOS",ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20))
+        title2 = Paragraph("ESTADISTICOS",ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20))
+        title3 = Paragraph(f"Ruta: {self.get_ruta()}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15))
+
         elements = []
+        elements.append(title0)
+        elements.append(Spacer(1,20))
+        elements.append(title1)
+        elements.append(Spacer(1,10))
+        elements.append(title2)
+        elements.append(Spacer(1,20))
+        elements.append(title3)
+        elements.append(Spacer(1,20))
+
         labels_der = [
             self.defl_media_der, self.desv_std_der, 
             self.coef_var_der, self.defl_car_der, self.total_med_defl_der, 
