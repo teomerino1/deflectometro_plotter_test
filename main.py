@@ -20,14 +20,11 @@ def update_all(Data,View,grupos):
     View.new_group_data_view(dict_r,dict_l,defl_r_car,defl_l_car,defl_r_max,defl_l_max,grupos)
 
 def update_defl_one(Data,View,amount):
-    # print("Soy el hilo:",threading.get_ident(), "tirando deflexiones")
     defl_r, defl_l = Data.update_bar_data(amount)
-    # indexes= Data.get_indexes()
     View.update_bar_view(defl_r,defl_l)
     Data.clear_bar_data()
 
 def obtain_data(Reporter, View, Data):
-    # print("Soy el hilo:",threading.get_ident(), "En el obtain data")
     while True:
         if(View.get_data_ready()==1):
             break
@@ -76,7 +73,7 @@ def process_data(Reporter,View,Data):
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 
-            if(cantidad%1 == 0):
+            if(cantidad%grupos == 0):
                 update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 
                 update_all_thread.start()

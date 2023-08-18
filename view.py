@@ -165,14 +165,14 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        # self.generar_carátula("caratula.pdf")
+        self.generar_carátula("caratula.pdf")
         self.Plot.generar_pdf()
-        # self.Plot2.download_graphs()
-        # self.Plot3.download_graphs()
-        # self.Plot4.download_graphs()
-        # self.Plot5.download_stats()
-        # sleep(1)
-        # self.combine_pdf()
+        self.Plot2.download_graphs()
+        self.Plot3.download_graphs()
+        self.Plot4.download_graphs()
+        self.Plot5.download_stats()
+        sleep(1)
+        self.combine_pdf()
 
     def generar_carátula(self,filename):
         informe = "INFORME DEFLECTOMETRO LACROIX"

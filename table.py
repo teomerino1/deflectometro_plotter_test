@@ -84,57 +84,57 @@ class Table():
         self.table.delete(*self.table.get_children())
 
     def donwload_table(self):
-        # Obtener los datos del Treeview
-        # items = self.table.get_children()
-        # if items:  # Si hay al menos un elemento
-        fecha= self.get_fecha().strftime("%d-%m-%Y")
-        ruta=self.get_ruta()
-        data = []
-       
-        for item in self.table.get_children():
-            data.append(self.table.item(item, 'values'))
+        items = self.table.get_children()
 
-        headers = self.table['columns']
-        table_str = tabulate(data, headers=headers, tablefmt='plain')
+        if items:  
+            fecha= self.get_fecha().strftime("%d-%m-%Y")
+            ruta=self.get_ruta()
+            data = []
 
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.set_font("Arial", size=12)
-        pdf.set_auto_page_break(auto=True, margin=15)
-                # Agregar el texto "Fecha" y la fecha actual al PDF
-        pdf.set_x((pdf.w - pdf.get_string_width("Fecha: " + fecha)) / 2)
-        pdf.cell(0, 10, "Fecha: " + fecha, ln=True)
+            for item in self.table.get_children():
+                data.append(self.table.item(item, 'values'))
 
-        # Agregar el texto "Ruta" centrado y con fuente y tamaño personalizados
-        pdf.set_x((pdf.w - pdf.get_string_width("Ruta: " + ruta)) / 2)
-        pdf.cell(0, 10, "Ruta: " + ruta, ln=True)
-        
-        pdf.ln(3)  # Add some spacing between tables
-        # Add the first table with a left margin
-        first_table_data = [["Huella Externa (DER)", "Huella Interna (IZQ)"]]
-        col_width_first = 88
-        row_height_first = 10
-        left_margin = 22  # Margin in points
+            headers = self.table['columns']
+            table_str = tabulate(data, headers=headers, tablefmt='plain')
 
-        for row in first_table_data:
-            pdf.cell(left_margin)  # Add left margin
-            for item in row:
-                pdf.cell(col_width_first, row_height_first, txt=item, border=1, align='C')
-            pdf.ln(row_height_first)
+            pdf = FPDF()
+            pdf.add_page()
+            pdf.set_font("Arial", size=12)
+            pdf.set_auto_page_break(auto=True, margin=15)
+                    # Agregar el texto "Fecha" y la fecha actual al PDF
+            pdf.set_x((pdf.w - pdf.get_string_width("Fecha: " + fecha)) / 2)
+            pdf.cell(0, 10, "Fecha: " + fecha, ln=True)
 
-        # pdf.set_left_margin(10)  # Reset left margin for the second table
-        col_width = 22
-        row_height = 6
-        for row in table_str.split('\n'):
-            for item in row.split(None):
-                pdf.cell(col_width, row_height, txt=item, border=1, align='C')
-            pdf.ln(row_height)
-
-        pdf.output('tabla.pdf')
             
-        # else:
-        #     print("No hay nada")
-        #     return
+            pdf.set_x((pdf.w - pdf.get_string_width("Ruta: " + ruta)) / 2)
+            pdf.cell(0, 10, "Ruta: " + ruta, ln=True)
+    
+            pdf.ln(3)  # Add some spacing between tables
+            
+            first_table_data = [["Huella Externa (DER)", "Huella Interna (IZQ)"]]
+            col_width_first = 88
+            row_height_first = 10
+            left_margin = 22  # Margin in points
+
+            for row in first_table_data:
+                pdf.cell(left_margin)  # Add left margin
+                for item in row:
+                    pdf.cell(col_width_first, row_height_first, txt=item, border=1, align='C')
+                pdf.ln(row_height_first)
+
+           
+            col_width = 22
+            row_height = 6
+            for row in table_str.split('\n'):
+                for item in row.split(None):
+                    pdf.cell(col_width, row_height, txt=item, border=1, align='C')
+                pdf.ln(row_height)
+
+            pdf.output('tabla.pdf')
+            
+        else:
+            print("No hay nada")
+            return
         
     def reset(self):
         self.clear_table()

@@ -48,15 +48,9 @@ class Plot2():
             self.title=title
 
             back = ttk.Button(third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2,style="TButton")
-            # style = ttk.Style()
-            # style.configure("Custom.TButton", background="blue", foreground="white")
-            # back = ttk.Button(third_plot_frame, text="Atras", command=self.go_to_plot_1_from_plot_2, style="Custom.TButton")
             self.back = back
 
             next = ttk.Button(third_plot_frame, text="Next", command=self.go_to_plot_3_from_plot2,style="TButton")
-            # style = ttk.Style()
-            # style.configure("Custom.TButton", background="blue", foreground="white")
-            # next = ttk.Button(third_plot_frame, text="Next", command=self.go_to_plot_3_from_plot2, style="Custom.TButton")
             self.next = next
 
             self.Graphs2 = graphs_2.Graphs2(self.third_plot_frame,lado="Izquierdo")
@@ -80,13 +74,9 @@ class Plot2():
         self.Graphs3.update_deflexiones_gmean(dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos, lado="Izquierdo")
 
     def go_to_plot_1_from_plot_2(self):
-        # Encolar la función en la cola del hilo de la clase View
-        # print("go to plot 1 from plot 2")
         self.view_instance.enqueue_transition('go_to_plot_1_from_plot_2')
         
     def go_to_plot_3_from_plot2(self):
-        # Encolar la función en la cola del hilo de la clase View
-        # print("go to plot 3 from plot 2")
         self.view_instance.enqueue_transition('go_to_plot_3_from_plot_2')
         
 
