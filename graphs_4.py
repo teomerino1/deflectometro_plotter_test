@@ -37,7 +37,7 @@ class Graphs4():
     
     def deflexiones_radios_graph(self,row, column, columnspan,title):
         
-        figure = Figure(figsize=(6, 7), dpi=100)
+        figure = Figure(figsize=(7, 7), dpi=100)
         sub_figure=figure.add_subplot(211)
         sub_figure.set_title(title)
         sub_figure.set_xlim(0,20)
@@ -137,9 +137,9 @@ class Graphs4():
             output_pdf = 'radios.pdf'
             c = canvas.Canvas(output_pdf, pagesize=A4)
             # Agregar la primera figura en la posición deseada
-            c.drawImage('radios_l.png', 10, 0)
+            c.drawImage('radios_l.png', 20, 100, width=530, height=300)
             # Agregar la segunda figura debajo de la primera
-            c.drawImage('radios_r.png', 10, 500)
+            c.drawImage('radios_r.png', 20, 450,width=530, height=300)
             # Guardar el contenido en el PDF
             c.save()
             

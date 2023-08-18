@@ -271,13 +271,13 @@ class View():
 
             self.generar_carátula("informe.pdf")
             c = canvas.Canvas(output1, pagesize=A4)
-            c.drawImage('figure_defl_mean_l.png',10, 0)
-            c.drawImage('figure_rad_l.png', 10,500)
+            c.drawImage('figure_defl_mean_l.png',20, 100, width=530, height=300)
+            c.drawImage('figure_rad_l.png', 20, 450,width=530, height=300)
             c.save()
 
             c = canvas.Canvas(output2, pagesize=A4)
-            c.drawImage('figure_defl_mean_r.png', 10, 0)
-            c.drawImage('figure_rad_r.png', 10, 500)
+            c.drawImage('figure_defl_mean_r.png', 20, 100, width=530, height=300)
+            c.drawImage('figure_rad_r.png', 20, 450,width=530, height=300)
             c.save()
 
             pdf_files = [

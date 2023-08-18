@@ -120,9 +120,9 @@ class Graphs():
     def donwload_graphs(self):
        
         # Ajustar los límites para eliminar espacio en blanco
-        # if(self.defl_l_data==[] or self.defl_r_data==[]):
-        #     return
-        # else:
+        if(self.defl_l_data==[] or self.defl_r_data==[]):
+            return
+        else:
             self.figure_bar_l.gca().set_ylim(0, (max(self.defl_l_data)+100))
             self.figure_bar_r.gca().set_ylim(0, (max(self.defl_r_data)+100))  # Ajustar límites en el eje y según tu necesidad
             self.figure_bar_l.savefig('figure_bar_l.png', bbox_inches='tight')

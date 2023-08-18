@@ -28,7 +28,7 @@ class Graphs2():
 
     def radio_gmean_graph(self,row, column, columnspan,title):
         
-        figure = Figure(figsize=(6, 7), dpi=100)
+        figure = Figure(figsize=(7, 7), dpi=100)
         sub_figure = figure.add_subplot(211)
         sub_figure.set_xlim(0,100)
         sub_figure.set_ylim(0,100)
