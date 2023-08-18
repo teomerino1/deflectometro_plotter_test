@@ -77,15 +77,6 @@ class View():
         self.root.tk.call("set_theme", "light")
         style = Style(root)
         self.root.attributes('-zoomed', True) 
-        
-        # screen_width = self.root.winfo_screenwidth()
-        # screen_height = self.root.winfo_screenheight()
-        # self.root.grid_rowconfigure(0, weight=1)
-        # self.root.grid_columnconfigure(0, weight=1)
-        # self.root.attributes('-fullscreen',True)
-        # self.root.geometry(f"{screen_width}x{screen_height}")
-
-        ###############################################
 
         self.Config.show(0)
         self.Config.show(1)
@@ -113,7 +104,6 @@ class View():
             self.first_time_plot2=False
             self.Plot.close()
             self.Plot2.show(1)
-
         else:
             self.Plot.close()
             self.Plot2.show(1)
@@ -175,8 +165,8 @@ class View():
         return self.reset
 
     def download_pdf(self):
-        self.generar_carátula("caratula.pdf")
-        # self.Plot.generar_pdf()
+        # self.generar_carátula("caratula.pdf")
+        self.Plot.generar_pdf()
         # self.Plot2.download_graphs()
         # self.Plot3.download_graphs()
         # self.Plot4.download_graphs()

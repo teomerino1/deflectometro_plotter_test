@@ -55,19 +55,19 @@ class Table():
         columns = ("Grupos", "Radio_Der.", "Defl_Der.", "R*D_Der.", "R/D_Der.", "Radio_Izq.", "Defl_Izq.", "R*D_Izq.", "R/D_Izq.")
 
 # Crear el marco adicional para los encabezados
-        header_frame = Frame(self.frame)
-        header_frame.grid(row=0, column=1, columnspan=10, pady=10)
+        # header_frame = Frame(self.frame)
+        # header_frame.grid(row=0, column=1, columnspan=10, pady=10)
 
-        # Agregar etiquetas para los encabezados "DERECHA" e "IZQUIERDA"
-        label_der = Label(header_frame, text="Huella Externa (DER)", font=("Helvetica", 25, "bold"))
-        label_der.grid(row=0, column=0,padx=110, pady=0, sticky=NW)
+        # # Agregar etiquetas para los encabezados "DERECHA" e "IZQUIERDA"
+        # label_der = Label(header_frame, text="Huella Externa (DER)", font=("Helvetica", 25, "bold"))
+        # label_der.grid(row=0, column=0,padx=0, pady=0, sticky=NW)
 
-        label_izq = Label(header_frame, text="Huella Interna (IZQ)", font=("Helvetica", 25, "bold"))
-        label_izq.grid(row=0, column=1,pady=0, sticky=N)
+        # label_izq = Label(header_frame, text="Huella Interna (IZQ)", font=("Helvetica", 25, "bold"))
+        # label_izq.grid(row=0, column=1,pady=0, sticky=N)
 
         # Crear el Treeview
         self.table = Treeview(self.frame, columns=columns, show='headings')
-        self.table.grid(row=1, column=1, columnspan=2, pady=0)
+        self.table.grid(row=2, column=0, columnspan=2, pady=0)
 
         # Configurar el alto del Treeview
         self.table.configure(height=7)

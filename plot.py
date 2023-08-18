@@ -32,6 +32,8 @@ class Plot():
         self.next = None 
         self.Table = None
         self.Graphs = None
+        self.label_der=None
+        self.label_izq=None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
@@ -44,10 +46,6 @@ class Plot():
     def show(self,a):
 
         if(a == 0):
-
-            # width = self.root.winfo_screenwidth()
-            # height = self.root.winfo_screenheight()
-            # second_plot_frame = Frame(self.root,width=width,height=height)
             second_plot_frame = Frame(self.root)
             self.second_plot_frame = second_plot_frame
             
@@ -61,19 +59,25 @@ class Plot():
             next = ttk.Button(self.second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
-            self.Table = table.Table(self.second_plot_frame) # instancia de tabla
-            self.Graphs = graphs.Graphs(self.second_plot_frame) # insta ncia DEL GRAFICO PRINCIPAL QUE VA A SER BARRAS
-            
+            self.Table = table.Table(self.second_plot_frame) 
+            self.Graphs = graphs.Graphs(self.second_plot_frame) 
+
+            label_der = Label(self.second_plot_frame, text="Huella Externa (DERECHA)", font=("Helvetica", 22, "bold"))
+            self.label_der=label_der
+
+            label_izq = Label(self.second_plot_frame, text="Huella Interna (IZQUIERDA)", font=("Helvetica", 22, "bold"))
+            self.label_izq=label_izq
 
         if(a == 1):
-            # self.second_plot_frame.grid(row=0, column=0, sticky="nsew")
-            # self.second_plot_frame.grid(row=0, column=0)
             self.second_plot_frame.grid()  
-            self.atras.grid(row=0, column=0, sticky="nw")
-            self.next.grid(row=0, column=2,padx=20,sticky="ne")
+            self.atras.grid(row=0, column=0,pady=(0,20),sticky=NW)
+            self.next.grid(row=0, column=1,padx=(500,0),pady=(0,20))
+            self.label_der.grid(row=1, column=0,padx=(320,0), pady=0)
+            self.label_izq.grid(row=1, column=1,padx=(0,150))
+            
             
     def generar_pdf(self):
-        self.Table.donwload_table()
+        # self.Table.donwload_table()
         self.Graphs.donwload_graphs()
         
     def get_prog_max(self):
