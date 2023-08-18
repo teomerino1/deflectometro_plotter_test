@@ -125,7 +125,7 @@ class Plot5():
 
             self.sixth_plot_frame = sixth_plot_frame
 
-            title = Label(sixth_plot_frame, text="Plantilla de resultados estadísticos",font=(None, 30)) 
+            title = Label(sixth_plot_frame, text="Plantilla de resultados estadísticos",font=(None, 23)) 
             self.title = title
 
             back = ttk.Button(sixth_plot_frame, text="Atrás", command=self.go_to_plot_4_from_plot_5,style="TButton")
@@ -140,37 +140,37 @@ class Plot5():
             pdf = ttk.Button(sixth_plot_frame, text="Descargar PDF", command=self.download_pdf,style="TButton")
             self.pdf = pdf
 
-            huella_ext = Label(sixth_plot_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 20))
+            huella_ext = Label(sixth_plot_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 16))
             self.huella_ext = huella_ext
 
-            defl_media_der = Label(sixth_plot_frame, text="Deflexion media:",font=(None, 15))
+            defl_media_der = Label(sixth_plot_frame, text="Deflexion media:",font=(None, 14))
             self.defl_media_der = defl_media_der
            
-            desv_std_der = Label(sixth_plot_frame, text="Desviacion Standart:",font=(None, 15))
+            desv_std_der = Label(sixth_plot_frame, text="Desviacion Standart:",font=(None, 14))
             self.desv_std_der = desv_std_der
             
-            coef_var_der = Label(sixth_plot_frame, text="Coeficiente de variacion:",font=(None, 15))
+            coef_var_der = Label(sixth_plot_frame, text="Coeficiente de variacion:",font=(None, 14))
             self.coef_var_der = coef_var_der
 
-            defl_car_der = Label(sixth_plot_frame, text="Deflexion caracteristica:",font=(None, 15))
+            defl_car_der = Label(sixth_plot_frame, text="Deflexion caracteristica:",font=(None, 14))
             self.defl_car_der = defl_car_der
             
-            total_med_defl_der = Label(sixth_plot_frame, text="Total de mediciones:",font=(None, 15))
+            total_med_defl_der = Label(sixth_plot_frame, text="Total de mediciones:",font=(None, 14))
             self.total_med_defl_der = total_med_defl_der
             
-            radio_med_der = Label(sixth_plot_frame, text="Radio Medio:",font=(None, 15))
+            radio_med_der = Label(sixth_plot_frame, text="Radio Medio:",font=(None, 14))
             self.radio_med_der = radio_med_der
             
-            radio_car_der = Label(sixth_plot_frame, text="Radio Caracteristico:",font=(None, 15))
+            radio_car_der = Label(sixth_plot_frame, text="Radio Caracteristico:",font=(None, 14))
             self.radio_car_der = radio_car_der
             
-            total_med_rad_der = Label(sixth_plot_frame, text="Total de Mediciones:",font=(None, 15))
+            total_med_rad_der = Label(sixth_plot_frame, text="Total de Mediciones:",font=(None, 14))
             self.total_med_rad_der = total_med_rad_der
             
-            d_r_med_der = Label(sixth_plot_frame, text="(D / R) Medio:",font=(None, 15))
+            d_r_med_der = Label(sixth_plot_frame, text="(D / R) Medio:",font=(None, 14))
             self.d_r_med_der = d_r_med_der
             
-            r_x_d_der = Label(sixth_plot_frame, text="(R x D) Medio:",font=(None, 15))
+            r_x_d_der = Label(sixth_plot_frame, text="(R x D) Medio:",font=(None, 14))
             self.r_x_d_der = r_x_d_der
 
             ################################################################################################################
@@ -178,37 +178,37 @@ class Plot5():
             self.whitespace = whitespace
             ################################################################################################################
 
-            huella_int = Label(sixth_plot_frame, text="HUELLA INTERNA (IZQUIERDA)",font=(None, 20))
+            huella_int = Label(sixth_plot_frame, text="HUELLA INTERNA (IZQUIERDA)",font=(None, 16))
             self.huella_int = huella_int
 
-            defl_media_izq = Label(sixth_plot_frame, text="Deflexion media:",font=(None, 15))
+            defl_media_izq = Label(sixth_plot_frame, text="Deflexion media:",font=(None, 14))
             self.defl_media_izq = defl_media_izq
             
-            desv_std_izq = Label(sixth_plot_frame, text="Desviacion Standart:",font=(None, 15))
+            desv_std_izq = Label(sixth_plot_frame, text="Desviacion Standart:",font=(None, 14))
             self.desv_std_izq = desv_std_izq
             
-            coef_var_izq = Label(sixth_plot_frame, text="Coeficiente de variacion:",font=(None, 15))
+            coef_var_izq = Label(sixth_plot_frame, text="Coeficiente de variacion:",font=(None, 14))
             self.coef_var_izq = coef_var_izq
             
-            defl_car_izq = Label(sixth_plot_frame, text="Deflexion caracteristica:",font=(None, 15))
+            defl_car_izq = Label(sixth_plot_frame, text="Deflexion caracteristica:",font=(None, 14))
             self.defl_car_izq = defl_car_izq
             
-            total_med_defl_izq = Label(sixth_plot_frame, text="Total de mediciones:",font=(None, 15))
+            total_med_defl_izq = Label(sixth_plot_frame, text="Total de mediciones:",font=(None, 14))
             self.total_med_defl_izq = total_med_defl_izq
             
-            radio_med_izq = Label(sixth_plot_frame, text="Radio Medio:",font=(None, 15))
+            radio_med_izq = Label(sixth_plot_frame, text="Radio Medio:",font=(None, 14))
             self.radio_med_izq = radio_med_izq
             
-            radio_car_izq = Label(sixth_plot_frame, text="Radio Caracteristico:",font=(None, 15))
+            radio_car_izq = Label(sixth_plot_frame, text="Radio Caracteristico:",font=(None, 14))
             self.radio_car_izq = radio_car_izq
             
-            total_med_rad_izq = Label(sixth_plot_frame, text="Total de Mediciones:",font=(None, 15))
+            total_med_rad_izq = Label(sixth_plot_frame, text="Total de Mediciones:",font=(None, 14))
             self.total_med_rad_izq = total_med_rad_izq
             
-            d_r_med_izq = Label(sixth_plot_frame, text="(D / R) Medio:",font=(None, 15))
+            d_r_med_izq = Label(sixth_plot_frame, text="(D / R) Medio:",font=(None, 14))
             self.d_r_med_izq = d_r_med_izq
             
-            r_x_d_izq = Label(sixth_plot_frame, text="(R x D) Medio:",font=(None, 15))
+            r_x_d_izq = Label(sixth_plot_frame, text="(R x D) Medio:",font=(None, 14))
             self.r_x_d_izq = r_x_d_izq
 
         if(a == 1):
@@ -229,7 +229,7 @@ class Plot5():
             self.total_med_rad_der.grid(row=10+1, column=0)
             self.d_r_med_der.grid(row=11+1, column=0)
             self.r_x_d_der.grid(row=12+1, column=0)
-            self.whitespace.grid(row=12+2, column=0,sticky=NW)
+            # self.whitespace.grid(row=12+2, column=0,sticky=NW)
             self.huella_int.grid(row=13+2, column=0,sticky=NW)
             self.defl_media_izq.grid(row=14+2, column=0)
             self.desv_std_izq.grid(row=15+2, column=0)
