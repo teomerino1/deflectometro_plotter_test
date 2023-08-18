@@ -79,8 +79,8 @@ class Graphs4():
 
         subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
         subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-        subfigure_der.set_ylim(0,max(self.rad_mean_r_data)+200)  
-        subfigure_izq.set_ylim(0,max(self.rad_mean_l_data)+200)  
+        subfigure_der.set_ylim(0,max(self.rad_mean_r_data)+500)  
+        subfigure_izq.set_ylim(0,max(self.rad_mean_l_data)+500)  
 
         subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
         subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
@@ -127,8 +127,8 @@ class Graphs4():
             return
         else:
             # Ajustar los límites para eliminar espacio en blanco
-            self.figure_defl_mean_l.gca().set_ylim(0,max(self.rad_mean_r_data)+200)   # Ajustar límites en el eje y según tu necesidad
-            self.figure_defl_mean_r.gca().set_ylim(0,max(self.rad_mean_l_data)+200)   # Ajustar límites en el eje y según tu necesidad
+            self.figure_defl_mean_l.gca().set_ylim(0,max(self.rad_mean_l_data)+200)   # Ajustar límites en el eje y según tu necesidad
+            self.figure_defl_mean_r.gca().set_ylim(0,max(self.rad_mean_r_data)+200)   # Ajustar límites en el eje y según tu necesidad
 
             self.figure_defl_mean_l.savefig('radios_l.png', bbox_inches='tight')
             self.figure_defl_mean_r.savefig('radios_r.png', bbox_inches='tight')
