@@ -60,9 +60,9 @@ class Plot2():
         if(a == 1):
             # self.third_plot_frame.grid(rowspan=3,columnspan=3)
             self.third_plot_frame.grid(rowspan=10,columnspan=10)
-            self.title.grid(row = 0, column = 0,sticky=NW)
-            self.back.grid(row=1, column=0,sticky=NW)
-            self.next.grid(row=2,column=0,sticky=NW)
+            # self.title.grid(row = 0, column = 0,sticky=NW)
+            self.back.grid(row=0, column=0,sticky=NW)
+            self.next.grid(row=0,column=1,padx=(0,40),sticky=NE)
 
 
     def download_graphs(self):

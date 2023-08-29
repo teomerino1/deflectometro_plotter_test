@@ -289,10 +289,10 @@ class Config():
             self.operador_ntry
             ]
 
-        for data in data:
-            if(data.get()==''):
-                messagebox.showwarning("Aviso","Deben llenarse todos los campos antes de continuar")
-                return
+        # for data in data:
+        #     if(data.get()==''):
+        #         messagebox.showwarning("Aviso","Deben llenarse todos los campos antes de continuar")
+        #         return
 
         self.view_instance.set_temp(int(self.temp_ntry.get()))
         
