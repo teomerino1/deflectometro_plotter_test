@@ -1,8 +1,13 @@
-import datetime
-import time
-# Obtener la hora actual como una tupla (hora, minuto, segundo)
-hora_actual = time.localtime().tm_hour
-minuto_actual = time.localtime().tm_min
-segundo_actual = time.localtime().tm_sec
+import tkinter as tk
 
-print(f"Hora actual: {hora_actual:02d}:{minuto_actual:02d}:{segundo_actual:02d}")
+root = tk.Tk()
+root.title("Cambiar Color del Frame")
+
+# Crear el Frame
+config_frame = tk.Frame(root, text="Hola",relief="groove")
+config_frame.pack(padx=20, pady=20)
+
+# Cambiar el color de fondo del Frame
+config_frame["bg"] = "blue"
+
+root.mainloop()
