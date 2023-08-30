@@ -21,7 +21,10 @@ class Plot4():
 
         self.root = root
         self.fifht_plot_frame = None
+        self.graphs_frame=None
+        self.title_frame=None
         self.title = None
+        self.subtitle=None
         self.next = None
         self.back = None  
         self.view_instance = view_instance
@@ -41,32 +44,36 @@ class Plot4():
 
             width = self.root.winfo_screenwidth()
             height = self.root.winfo_screenheight()
-            fifht_plot_frame = Frame(self.root, width=width, height=height)
+            fifht_plot_frame = Frame(self.root, width=width, height=height,background='#F6F4F2')
             self.fifht_plot_frame = fifht_plot_frame
 
-            title = Label(fifht_plot_frame, text="Graficos de deflexiones vs radios",font=(None, 20)) 
+            title_frame=Frame(self.fifht_plot_frame,background='#F6F4F2')
+            self.title_frame=title_frame
+
+            graphs_frame=Frame(self.fifht_plot_frame)
+            self.graphs_frame=graphs_frame
+
+            title = Label(self.title_frame, text="Informe Estadístico",font=("Helvetica", 25),background='#F6F4F2',foreground='#625651') 
             self.title=title
 
             back = ttk.Button(fifht_plot_frame, text="Atrás", command=self.go_to_plot_3_from_plot_4,style="TButton")
-            # style = ttk.Style()
-            # style.configure("Custom.TButton", background="blue", foreground="white")
-            # back = ttk.Button(fifht_plot_frame, text="Atras", command=self.go_to_plot_3_from_plot_4, style="Custom.TButton")
             self.back = back
 
             next = ttk.Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4,style="TButton") 
-            # style = ttk.Style()
-            # style.configure("Custom.TButton", background="blue", foreground="white")
-            # next = ttk.Button(fifht_plot_frame, text="Next", command=self.go_to_plot_5_from_plot_4, style="Custom.TButton")
             self.next = next
 
-            self.Graphs4 = graphs_4.Graphs4(self.fifht_plot_frame)
+            self.Graphs4 = graphs_4.Graphs4(self.graphs_frame)
 
         if(a == 1):
 
-            self.fifht_plot_frame.grid(rowspan=3,columnspan=3)
-            # self.title.grid(row = 0, column = 0,sticky=NW)
+            self.fifht_plot_frame.grid(columnspan=2)
             self.back.grid(row=0, column=0,sticky=NW)
-            self.next.grid(row=0,column=1,padx=(0,40),sticky=NE)
+            self.title_frame.grid(columnspan=2)
+            self.next.grid(row=0,column=1,padx=(800,40),sticky=NE)
+            self.title_frame.grid(row=1,pady=(50,0))
+            self.title.grid()
+            # self.subtitle.grid()
+            self.graphs_frame.grid(row=2,columnspan=2,pady=(50,0))
 
     def download_graphs(self):
         self.Graphs4.download_graphs4()

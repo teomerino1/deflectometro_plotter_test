@@ -22,6 +22,7 @@ class Plot2():
         self.title_frame=None
         self.graphs_frame=None
         self.title = None
+        self.subtitle=None
         self.next = None
         self.back = None
         self.view_instance = view_instance  
@@ -43,17 +44,21 @@ class Plot2():
             width = self.root.winfo_screenwidth()
             height = self.root.winfo_screenheight()
 
-            third_plot_frame = Frame(self.root, width=width, height=height,background='white')
+            third_plot_frame = Frame(self.root, width=width, height=height,background='#F6F4F2')
             self.third_plot_frame = third_plot_frame
 
-            title_frame=Frame(self.third_plot_frame)
+            title_frame=Frame(self.third_plot_frame,background='#F6F4F2')
             self.title_frame=title_frame
 
             graphs_frame=Frame(self.third_plot_frame)
             self.graphs_frame=graphs_frame
 
-            title = Label(self.title_frame, text="Deflexiones y Radios: Lado Izquierdo",font=(None, 20)) 
+            title = Label(self.title_frame, text="Deflexiones y Radios",font=("Helvetica", 25),background='#F6F4F2',foreground='#625651') 
             self.title=title
+            #azul: #66A7EF
+            #letras theme: #625651
+            subtitle=Label(self.title_frame, text="Lado Izquierdo",font=("Helvetica", 22),background='#F6F4F2',foreground='#625651')
+            self.subtitle=subtitle
 
             back = ttk.Button(self.third_plot_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2,style="TButton")
             self.back = back
@@ -69,10 +74,13 @@ class Plot2():
             # self.third_plot_frame.grid(rowspan=3,columnspan=3)
             self.third_plot_frame.grid(columnspan=2)
             self.back.grid(row=0, column=0,sticky=NW)
-            self.next.grid(row=0,column=1,padx=(1100,0),sticky=NE)
-
-            self.graphs_frame.grid(row=2,columnspan=2,pady=(50,0))
+            self.next.grid(row=0,column=1,padx=(1000,40),sticky=NE)
+            self.title_frame.grid(row=1,columnspan=2,pady=(50,0))
+            self.title.grid()
+            self.subtitle.grid()
             # self.title.grid(row = 0, column = 0,sticky=NW)
+            self.graphs_frame.grid(row=2,columnspan=2,pady=(50,0))
+            
             
 
 ##F6F4F2
