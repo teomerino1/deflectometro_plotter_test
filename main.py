@@ -6,6 +6,7 @@ import reporter
 from threading import Thread
 import threading
 from ttkthemes import ThemedTk
+from tkinter import *
 from time import sleep
 
 
@@ -85,7 +86,9 @@ def obtain_and_process_data(Reporter, View, Data):
 
 def main():
 
-    root = tk.Tk()
+    # root = tk.Tk()
+    root=ThemedTk(theme='radiance')
+    root.set_theme_advanced('radiance',hue=0.1)
     Reporter = reporter.Reporter()
     Data = data.Data()
     View = view.View(root,Data,Reporter)
@@ -97,6 +100,13 @@ def main():
     # print("Soy el hilo:",threading.get_ident(), "En el main")
     
     # Ejecutar el bucle principal de la interfaz gráfica
+    # ['alt', 'scidgreen', 'plastik', 'winxpblue', 'elegance', 'adapta', 'scidmint', 'classic', 'aquativo', '
+    #  radiance', 'breeze', 'arc', 'blue', 'scidgrey', 'kroc', 'keramik', 'itft1', 'scidsand', 'equilux', 
+    #  'default', 'smog', 'scidpink', 'clearlooks', 'scidpurple', 'black', 'yaru', 'ubuntu', 'scidblue', 'clam']
+
+    #Copados: Plastik, yaru, adapta, radiance,arc, clearlooks,ubuntu
+    
+    
     root.mainloop()
 
 if __name__ == "__main__":

@@ -1,11 +1,13 @@
 import tkinter as tk
+from tkinter import ttk
+from tkinter import *
 from tkinter.ttk import Label, Button, Entry, Radiobutton,Frame
 import view
 from PIL import Image, ImageTk 
 from tkinter import font
-from tkinter import ttk
 from reportlab.pdfgen import canvas
 from tkinter import messagebox
+
 class Config():
     def __init__(self, root,view_instance):
         
@@ -72,26 +74,27 @@ class Config():
             config_frame = Frame(self.root)
             self.config_frame = config_frame
             
+
             #flat, groove,raised,ridge,solid or sunken
             parameters_frame=Frame(config_frame,relief="groove")
             self.parameters_frame=parameters_frame
     
-            reportes_frame=Frame(config_frame,relief="solid")
+            reportes_frame=Frame(config_frame,relief="groove")
             self.reportes_frame=reportes_frame
 
-            botones_frame=Frame(config_frame,relief="ridge")
+            botones_frame=Frame(config_frame)
             self.botones_frame=botones_frame
 
-            info_infas_frame=Frame(config_frame,relief="ridge")
+            info_infas_frame=Frame(config_frame,relief="groove")
             self.info_infas_frame=info_infas_frame
 
-            imagenes_frame=Frame(config_frame,relief="ridge")
+            imagenes_frame=Frame(config_frame)
             self.imagenes_frame=imagenes_frame
 
             # Define una fuente personalizada
             custom_font = font.Font(family="Krona_One", size=16, weight="bold")
 
-            conf_inicial = ttk.Label(self.config_frame, text="Configuración inicial", font=(custom_font,30),background="lightgray")
+            conf_inicial = ttk.Label(self.config_frame, text="Configuración inicial", font=(custom_font,30))
             self.conf_inicial = conf_inicial
 
             parametros_medicion=Label(self.parameters_frame, text="Parámetros de medición",font=("Krona One", 20))
@@ -233,10 +236,10 @@ class Config():
             whatsapp=Label(self.info_infas_frame, text="Whatsapp: 351-5191415",font=(None, 15))
             self.whatsapp_label=whatsapp
 
-            email=Label(self.info_infas_frame, text="ventas@infas.com.ar",font=(None, 15))
+            email=Label(self.info_infas_frame, text="Email: ventas@infas.com.ar",font=(None, 15))
             self.email_label=email
 
-            web=Label(self.info_infas_frame, text="www.infas.com.ar",font=(None, 15))
+            web=Label(self.info_infas_frame, text="Web: www.infas.com.ar",font=(None, 15))
             self.web_label=web
 
             # Cargar y mostrar una imagen en un Label
@@ -270,7 +273,8 @@ class Config():
             self.parameters_frame.grid(row=1,column=0,padx=(100,0),pady=(20,0))
             self.reportes_frame.grid(row=1,column=1,padx=(100,0),pady=(20,0))
             self.botones_frame.grid(row=2,columnspan=2,pady=(20,0),padx=(150,0))
-            self.imagenes_frame.grid(row=3,column=0,columnspan=3,pady=(20,0))
+            self.imagenes_frame.grid(row=3,column=0,columnspan=3,pady=(20,0),padx=(0,30))
+            self.info_infas_frame.grid(row=4,column=0,columnspan=3,pady=(40,0))
 
             self.parametros_medicion.grid(row=1,column=0,padx=(50,0),pady=(10, 0))
 
@@ -325,13 +329,16 @@ class Config():
             self.apoyo_label.grid(row=8,column=0,padx=(50,0),pady=(10, 0),sticky="NW")
             self.apoyo_ntry.grid(row=8,column=0,padx=(350,10),pady=(10, 10))
 
-            self.confirmar.grid(row=0, column=0,pady=(10, 0))
+            self.confirmar.grid(row=0, column=0,pady=(10, 0),padx=(0,20))
             self.resetear.grid(row=0, column=1,pady=(10, 0),padx=(50,0))
 
             self.image_label.grid(row=0,column=0,padx=(0,0),pady=(10, 0))
             self.image_infas.grid(row=0,column=1,padx=(300,0),pady=(10, 0))
-            self.image_invel.grid(row=0,column=2,padx=(330,0),pady=(10, 0))
+            self.image_invel.grid(row=0,column=2,padx=(350,0),pady=(10, 0))
             
+            self.whatsapp_label.grid(row=0,column=0,padx=(0,0),pady=(10, 0))
+            self.email_label.grid(row=0,column=1,padx=(300,0),pady=(10, 0))
+            self.web_label.grid(row=0,column=2,padx=(330,0),pady=(10, 0))
 
     def close(self):
 

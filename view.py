@@ -73,8 +73,8 @@ class View():
     def start(self,root):
 
         self.root.title('Deflectómetro')
-        self.root.tk.call("source", "azure.tcl")
-        self.root.tk.call("set_theme", "light")
+        # self.root.tk.call("source", "azure.tcl")
+        # self.root.tk.call("set_theme", "light")
         style = Style(root)
         self.root.attributes('-zoomed', True) 
 

@@ -30,9 +30,31 @@ class Graphs():
         
 
     # Grafico que corresponde a las deflexiones individuales
-    def bar_graph(self, row, column, columnspan,title):
+    # def bar_graph(self, row, column, columnspan,title):
         
-        figure = Figure(figsize=(7, 7), dpi=100)
+    #     figure = Figure(figsize=(6, 6), dpi=100)
+    #     sub_figure=figure.add_subplot(211)
+
+    #     sub_figure.set_ylim(0,100)
+    #     sub_figure.set_xlim(0,10)
+    #     sub_figure.set_title(title)
+
+    #     sub_figure.set_xlabel("Nº grupo")
+    #     sub_figure.set_ylabel("Deflexiones")
+
+    #     sub_figure.bar([], [], width = 0.3, linewidth=0.1)
+    #     sub_figure.grid(axis='both',linestyle='dotted')
+
+    #     bar = FigureCanvasTkAgg(figure,self.frame)
+        
+    #     bar_widget = bar.get_tk_widget()
+    #     bar_widget.grid(row = row, column = column, columnspan = columnspan)
+    
+    #     return figure, bar, bar_widget
+
+    def bar_graph(self, row, column,title):
+        
+        figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
         sub_figure=figure.add_subplot(211)
 
         sub_figure.set_ylim(0,100)
@@ -45,13 +67,14 @@ class Graphs():
         sub_figure.bar([], [], width = 0.3, linewidth=0.1)
         sub_figure.grid(axis='both',linestyle='dotted')
 
+        # Ajustar los márgenes de los subplots
+        figure.subplots_adjust(bottom=0.1)
+        
         bar = FigureCanvasTkAgg(figure,self.frame)
         
-
         bar_widget = bar.get_tk_widget()
-        bar_widget.grid(row = row, column = column, columnspan = columnspan)
-        
-
+        bar_widget.grid(row = row, column = column,padx=(0,0))
+    
         return figure, bar, bar_widget
         
     def update_bar(self, defl_r,defl_l):
@@ -98,8 +121,10 @@ class Graphs():
         self.figure_bar_l.canvas.draw_idle()
 
     def show_bar_graph(self):
-        self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(3, 0, 1,"Deflexion Izquierda")
-        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(3, 1, 1,"Deflexion Derecha") 
+        # self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(3, 0, 1,"Deflexion Izquierda")
+        # self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(3, 1, 1,"Deflexion Derecha") 
+        self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(3, 0,"Deflexion Izquierda")
+        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(3, 1,"Deflexion Derecha") 
 
     def show(self):
         self.show_bar_graph()

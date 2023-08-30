@@ -7,7 +7,7 @@ from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
 import datetime
-from tkinter import *
+
 from tkinter.ttk import Treeview
 from tkinter import ttk
 from reportlab.lib.pagesizes import letter
@@ -23,6 +23,9 @@ class Plot():
 
         self.root = root
         self.second_plot_frame = None
+        self.table_frame=None
+        self.graphs_frame=None
+        self.labels_frame=None
         self.view_instance = view_instance
         self.title = None 
         self.temperatura = None 
@@ -46,12 +49,21 @@ class Plot():
     def show(self,a):
 
         if(a == 0):
-            second_plot_frame = Frame(self.root)
+            second_plot_frame = Frame(self.root,relief='groove')
             self.second_plot_frame = second_plot_frame
             
+            labels_frame=Frame(self.second_plot_frame)
+            self.labels_frame=labels_frame
+
+            table_frame=Frame(self.second_plot_frame,relief='groove')
+            self.table_frame=table_frame
+
+            graphs_frame=Frame(self.second_plot_frame,relief='groove')
+            self.graphs_frame=graphs_frame
+
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
 
-            self.table = Treeview(self.second_plot_frame, columns=columns, show='headings')
+            self.table = Treeview(self.table_frame, columns=columns, show='headings')
             
             atras = ttk.Button(self.second_plot_frame, text="Atras", command=self.go_to_config,style="TButton")
             self.atras=atras
@@ -59,21 +71,25 @@ class Plot():
             next = ttk.Button(self.second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
-            self.Table = table.Table(self.second_plot_frame) 
-            self.Graphs = graphs.Graphs(self.second_plot_frame) 
+            self.Table = table.Table(self.table_frame) 
+            self.Graphs = graphs.Graphs(self.graphs_frame) 
 
-            label_der = Label(self.second_plot_frame, text="Huella Externa (DERECHA)", font=("Helvetica", 22, "bold"))
+            label_der = Label(self.labels_frame, text="Huella Externa (DERECHA)", font=("Helvetica", 22))
             self.label_der=label_der
 
-            label_izq = Label(self.second_plot_frame, text="Huella Interna (IZQUIERDA)", font=("Helvetica", 22, "bold"))
+            label_izq = Label(self.labels_frame, text="Huella Interna (IZQUIERDA)", font=("Helvetica", 22))
             self.label_izq=label_izq
 
         if(a == 1):
-            self.second_plot_frame.grid()  
-            self.atras.grid(row=0, column=0,pady=(0,20),sticky=NW)
-            self.next.grid(row=0, column=1,padx=(500,0),pady=(0,20))
-            self.label_der.grid(row=1, column=0,padx=(320,0), pady=0)
-            self.label_izq.grid(row=1, column=1,padx=(0,150))
+            self.second_plot_frame.grid(sticky=NSEW)  
+            self.atras.grid(row=0, column=0,pady=(0,0),sticky=NW)
+            self.next.grid(row=0, column=0,padx=(200,35),pady=(0,0),sticky=NE)
+            self.labels_frame.grid(row=1,columnspan=2)
+            self.label_izq.grid(row=1, column=0,padx=(50,0))
+            self.label_der.grid(row=1, column=1,padx=(115,0))
+            self.table_frame.grid(row=2)
+            self.graphs_frame.grid(row=3)
+            
             
             
     def generar_pdf(self):
