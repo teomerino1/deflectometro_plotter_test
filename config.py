@@ -13,6 +13,7 @@ class Config():
         
         self.root = root
         self.config_frame = None
+        self.title_frame=None
         self.parameters_frame=None
         self.reportes_frame=None
         self.botones_frame=None
@@ -71,10 +72,14 @@ class Config():
         
         if(a==0):
             # config_frame = tk.Frame()
-            config_frame = Frame(self.root)
+            width = self.root.winfo_screenwidth()
+            height = self.root.winfo_screenheight()
+            
+            config_frame = Frame(self.root,width=width,height=height)
             self.config_frame = config_frame
             
-
+            # title_frame=Frame(self.config_frame)
+            # self.title_frame=title_frame
             #flat, groove,raised,ridge,solid or sunken
             parameters_frame=Frame(config_frame,relief="groove")
             self.parameters_frame=parameters_frame
@@ -88,13 +93,13 @@ class Config():
             info_infas_frame=Frame(config_frame,relief="groove")
             self.info_infas_frame=info_infas_frame
 
-            imagenes_frame=Frame(config_frame)
+            imagenes_frame=Frame(config_frame,relief='groove')
             self.imagenes_frame=imagenes_frame
 
             # Define una fuente personalizada
             custom_font = font.Font(family="Krona_One", size=16, weight="bold")
 
-            conf_inicial = ttk.Label(self.config_frame, text="Configuración inicial", font=(custom_font,30))
+            conf_inicial = ttk.Label(self.config_frame, text="Configuración", font=(custom_font,30))
             self.conf_inicial = conf_inicial
 
             parametros_medicion=Label(self.parameters_frame, text="Parámetros de medición",font=("Krona One", 20))
@@ -233,48 +238,62 @@ class Config():
             resetear=Button(self.botones_frame, text="Resetear", command=self.reset_all_plots)
             self.resetear=resetear
            
-            whatsapp=Label(self.info_infas_frame, text="Whatsapp: 351-5191415",font=(None, 15))
-            self.whatsapp_label=whatsapp
+            # whatsapp=Label(self.info_infas_frame, text="Whatsapp: 351-5191415",font=(None, 15))
+            # self.whatsapp_label=whatsapp
 
-            email=Label(self.info_infas_frame, text="Email: ventas@infas.com.ar",font=(None, 15))
-            self.email_label=email
+            # email=Label(self.info_infas_frame, text="Email: ventas@infas.com.ar",font=(None, 15))
+            # self.email_label=email
 
-            web=Label(self.info_infas_frame, text="Web: www.infas.com.ar",font=(None, 15))
-            self.web_label=web
+            # web=Label(self.info_infas_frame, text="Web: www.infas.com.ar",font=(None, 15))
+            # self.web_label=web
 
-            # Cargar y mostrar una imagen en un Label
-            image_cba = tk.PhotoImage(file="Cordoba.png")  # Cambia la ruta a la ubicación de tu imagen
-            image_label = Label(self.imagenes_frame, image=image_cba)
-            image_label.image = image_cba  # Importante: mantener una referencia a la imagen
-            self.image_label = image_label
+            # # Cargar y mostrar una imagen en un Label
+            # image_cba = tk.PhotoImage(file="image.png")
+            # size_image_cba=(1583,343)
+            # resized_image_cba=image_cba.resize  # Cambia la ruta a la ubicación de tu imagen
+            # image_label = Label(self.imagenes_frame, image=image_cba)
+            # image_label.image = image_cba  # Importante: mantener una referencia a la imagen
+            # self.image_label = image_label
 
-            # Cargar y mostrar una imagen en un Label usando Pillow (PIL)
-            image_infas = Image.open("INFAS.png")
-            # image_infas = image_infas.resize((298, 110))  # Ajusta el tamaño si es necesario
-            image_infas = image_infas.resize((250, 97)) 
-            photo_infas = ImageTk.PhotoImage(image_infas)
-            image_label_infas = Label(imagenes_frame, image=photo_infas)
-            image_label_infas.image = photo_infas
-            self.image_infas = image_label_infas
+            original_image=Image.open("image.png")
+            # desired_size=(1300,200)
+            # resized_image = original_image.resize(desired_size,Image.ANTIALIAS)
+            # self.image_cba=ImageTk.PhotoImage(resized_image)
+            # self.image_label=Label(self.imagenes_frame,image=self.image_cba)
+            # self.image_label.image=self.image_cba
 
-            image_invel = Image.open("INVEL_va.png") 
-            image_invel = image_invel.resize((201, 97)) 
-            photo_invel = ImageTk.PhotoImage(image_invel)
-            image_label_invel = Label(imagenes_frame, image=photo_invel)
-            image_label_invel.image = photo_invel  # Importante: mantener una referencia a la imagen
-            self.image_invel = image_label_invel
+            screen_width = self.root.winfo_screenwidth()
 
+            # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
+            desired_width = screen_width
+            aspect_ratio = original_image.width / original_image.height
+            height=255
+            desired_height = int(desired_width / aspect_ratio)
+            print("desired height",desired_height)
+            # resized_image = original_image.resize((desired_width, desired_height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
 
-            
+            # Convierte la imagen redimensionada a un objeto PhotoImage
+            self.image_cba = ImageTk.PhotoImage(resized_image)
+
+            self.image_label = Label(self.imagenes_frame, image=self.image_cba)
+            self.image_label.image = self.image_cba
+            # self.image_label.grid(row=1, column=0, sticky="nsew")
+
+           
         if(a==1):
 
-            self.config_frame.grid(sticky="nsew")
-            self.conf_inicial.grid(row=0, columnspan=2,pady=(10, 0),padx=(100,0))
-            self.parameters_frame.grid(row=1,column=0,padx=(100,0),pady=(20,0))
-            self.reportes_frame.grid(row=1,column=1,padx=(100,0),pady=(20,0))
-            self.botones_frame.grid(row=2,columnspan=2,pady=(20,0),padx=(150,0))
-            self.imagenes_frame.grid(row=3,column=0,columnspan=3,pady=(20,0),padx=(0,30))
-            self.info_infas_frame.grid(row=4,column=0,columnspan=3,pady=(40,0))
+            self.config_frame.grid(columnspan=2)
+            # self.title_frame.grid(row=0,columnspan=2,padx=(900,0))
+            self.conf_inicial.grid(row=0, columnspan=2,padx=(0,0),pady=(0,5))
+            self.parameters_frame.grid(row=1,column=0,padx=(0,600),pady=(0,0))
+            self.reportes_frame.grid(row=1,column=0,padx=(600,0),pady=(0,0))
+            self.botones_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(0,0))
+            self.imagenes_frame.grid(row=3,pady=(0,0),padx=(0,0))
+             # Configuración para que la fila 0 y columna 0 expandan
+            self.imagenes_frame.grid_rowconfigure(0, weight=1)
+            self.imagenes_frame.grid_columnconfigure(0, weight=1)
+  
 
             self.parametros_medicion.grid(row=1,column=0,padx=(50,0),pady=(10, 0))
 
@@ -329,16 +348,11 @@ class Config():
             self.apoyo_label.grid(row=8,column=0,padx=(50,0),pady=(10, 0),sticky="NW")
             self.apoyo_ntry.grid(row=8,column=0,padx=(350,10),pady=(10, 10))
 
-            self.confirmar.grid(row=0, column=0,pady=(10, 0),padx=(0,20))
-            self.resetear.grid(row=0, column=1,pady=(10, 0),padx=(50,0))
+            self.confirmar.grid(row=0, column=0,pady=(10,0),padx=(0,30))
+            self.resetear.grid(row=1, column=0,pady=(0,0),padx=(0,30))
 
-            self.image_label.grid(row=0,column=0,padx=(0,0),pady=(10, 0))
-            self.image_infas.grid(row=0,column=1,padx=(300,0),pady=(10, 0))
-            self.image_invel.grid(row=0,column=2,padx=(350,0),pady=(10, 0))
-            
-            self.whatsapp_label.grid(row=0,column=0,padx=(0,0),pady=(10, 0))
-            self.email_label.grid(row=0,column=1,padx=(300,0),pady=(10, 0))
-            self.web_label.grid(row=0,column=2,padx=(330,0),pady=(10, 0))
+            self.image_label.grid(row=0,column=0,columnspan=2,padx=(0,0),pady=(0,0))
+           
 
     def close(self):
 

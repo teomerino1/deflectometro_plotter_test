@@ -62,7 +62,7 @@ class Table():
         self.table.grid(row=2, column=0, columnspan=2, pady=0)
 
         # Configurar el alto del Treeview
-        self.table.configure(height=7)
+        self.table.configure(height=10)
 
         headers = [
             ("Grupos", "Grupos"),

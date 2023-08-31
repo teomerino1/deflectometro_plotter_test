@@ -84,7 +84,7 @@ class Plot():
             self.second_plot_frame.grid(sticky=NSEW)  
             self.atras.grid(row=0, column=0,pady=(0,0),sticky=NW)
             self.next.grid(row=0, column=0,padx=(200,35),pady=(0,0),sticky=NE)
-            self.labels_frame.grid(row=1,columnspan=2)
+            self.labels_frame.grid(row=1,columnspan=2,pady=(30,0))
             self.label_izq.grid(row=1, column=0,padx=(50,0))
             self.label_der.grid(row=1, column=1,padx=(115,0))
             self.table_frame.grid(row=2)
