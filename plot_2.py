@@ -112,10 +112,7 @@ class Plot2():
             self.imagenes_frame.grid(row=2,padx=(0,30),pady=(450,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
-            
-
-            
-
+        
 ##F6F4F2
     def download_graphs(self):
         self.Graphs2.download_graphs2(lado="Izquierdo")

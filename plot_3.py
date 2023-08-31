@@ -20,8 +20,10 @@ class Plot3():
     def __init__(self,root,view_instance):
         self.root = root
         self.fourth_plot_frame = None
+        self.botones_frame=None
         self.title_frame=None
-        self.graphs_frame=None
+        self.graphs2_frame=None
+        self.graphs3_frame=None
         self.image_cba=None
         self.image_label=None
         self.imagenes_frame=None
@@ -48,14 +50,20 @@ class Plot3():
             width = self.root.winfo_screenwidth()
             height = self.root.winfo_screenheight()
 
-            fourth_plot_frame = Frame(self.root, width=width, height=height,background='#F6F4F2')
+            fourth_plot_frame = Frame(self.root,background='#F6F4F2')
             self.fourth_plot_frame = fourth_plot_frame
+
+            botones_frame=Frame(self.root)
+            self.botones_frame=botones_frame
 
             title_frame=Frame(self.fourth_plot_frame,background='#F6F4F2')
             self.title_frame=title_frame
 
-            graphs_frame=Frame(self.fourth_plot_frame)
-            self.graphs_frame=graphs_frame
+            graphs2_frame=Frame(self.fourth_plot_frame)
+            self.graphs2_frame=graphs2_frame
+
+            graphs3_frame=Frame(self.fourth_plot_frame)
+            self.graphs3_frame=graphs3_frame
 
             imagenes_frame=Frame(self.fourth_plot_frame)
             self.imagenes_frame=imagenes_frame
@@ -67,15 +75,13 @@ class Plot3():
             self.subtitle=subtitle
 
             back = ttk.Button(fourth_plot_frame, text="Atrás", command=self.go_to_plot_2_from_plot_3,style="TButton")
-
             self.back = back
 
             next = ttk.Button(fourth_plot_frame, text="Next", command=self.go_to_plot_4_from_plot_3,style="TButton")
-
             self.next = next
             
-            self.Graphs2 = graphs_2.Graphs2(self.graphs_frame, lado="Derecho")
-            self.Graphs3 = graphs_3.Graphs3(self.graphs_frame, lado="Derecho")
+            self.Graphs2 = graphs_2.Graphs2(self.graphs2_frame, lado="Derecho")
+            self.Graphs3 = graphs_3.Graphs3(self.graphs3_frame, lado="Derecho")
 
             original_image=Image.open("image3.png")
             screen_width = self.root.winfo_screenwidth()
@@ -83,7 +89,7 @@ class Plot3():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            height=255
+            height=65
             desired_height = int(desired_width / aspect_ratio)
             resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
             # Convierte la imagen redimensionada a un objeto PhotoImage
@@ -92,14 +98,17 @@ class Plot3():
             self.image_label.image = self.image_cba
 
         if(a == 1):
-
-            self.fourth_plot_frame.grid(columnspan=2)
-            self.back.grid(row=0, column=0,sticky=NW)
-            self.next.grid(row=0,column=1,padx=(1000,40),sticky=NE)
-            self.title_frame.grid(row=1,columnspan=2,pady=(50,0))
+            self.fourth_plot_frame.grid(sticky="NSEW")
+            self.botones_frame.grid(row=0,columnspan=2,padx=(0,0))
+            self.back.grid(row=0, column=0,padx=(0,1270),sticky=NW)
+            self.next.grid(row=0,column=0,padx=(1230,0))
+            self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.subtitle.grid()
-            self.graphs_frame.grid(row=2,columnspan=2,pady=(50,0))
+            self.graphs2_frame.grid(row=2,column=0,padx=(0,700),pady=(60,0))
+            self.graphs3_frame.grid(row=2,column=0,padx=(700,0),pady=(60,0))
+            self.imagenes_frame.grid(row=2,padx=(0,30),pady=(450,0))
+            self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
     def download_graphs(self):
         self.Graphs2.download_graphs2(lado="Derecho")

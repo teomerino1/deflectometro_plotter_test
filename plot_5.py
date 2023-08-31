@@ -18,7 +18,7 @@ from reportlab.platypus import SimpleDocTemplate, PageTemplate,Image, Spacer
 from reportlab.lib import utils
 from reportlab.pdfgen import canvas
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-
+from PIL import Image, ImageTk
 
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos

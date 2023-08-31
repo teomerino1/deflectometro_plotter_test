@@ -35,9 +35,10 @@ class Graphs4():
     def show(self):
         self.show_defl_radios_graph()
     
-    def deflexiones_radios_graph(self,row, column, columnspan,title):
+    def deflexiones_radios_graph(self,row, column,title):
         
-        figure = Figure(figsize=(7, 7), dpi=100,facecolor='#F6F4F2')
+        figure = Figure(figsize=(7,7), dpi=100,facecolor='#F6F4F2')
+        figure.subplots_adjust(bottom=0,top=0.8)
         sub_figure=figure.add_subplot(211)
         sub_figure.set_title(title)
         sub_figure.set_xlim(0,20)
@@ -49,7 +50,7 @@ class Graphs4():
 
         bar = FigureCanvasTkAgg(figure,self.frame)
         bar_widget = bar.get_tk_widget()
-        bar_widget.grid(row = row, column = column, columnspan = columnspan)
+        bar_widget.grid(row = row, column = column)
         return figure, bar, bar_widget
     
     def update_deflexiones_radios_graph(self, dict_r, dict_l,grupos):
@@ -117,8 +118,8 @@ class Graphs4():
     
 
     def show_defl_radios_graph(self):
-        self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_radios_graph(3,0,1,"Informe estadistico: Lado Izquierdo")
-        self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(3,1,1,"Informe estadístico: Lado Derecho")
+        self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_radios_graph(0,0,"Informe estadistico: Lado Izquierdo")
+        self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(0,1,"Informe estadístico: Lado Derecho")
 
     def download_graphs4(self):
 
