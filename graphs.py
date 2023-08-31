@@ -54,7 +54,8 @@ class Graphs():
 
     def bar_graph(self, row, column,title):
         
-        figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
+        # figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
+        figure = Figure(figsize=(7,6), dpi=100,facecolor='#F6F4F2')
         sub_figure=figure.add_subplot(211)
 
         sub_figure.set_ylim(0,100)
@@ -68,7 +69,7 @@ class Graphs():
         sub_figure.grid(axis='both',linestyle='dotted')
 
         # Ajustar los márgenes de los subplots
-        figure.subplots_adjust(bottom=0.1)
+        figure.subplots_adjust(bottom=0,top=0.93)
         
         bar = FigureCanvasTkAgg(figure,self.frame)
         

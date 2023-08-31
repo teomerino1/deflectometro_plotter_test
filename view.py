@@ -49,6 +49,7 @@ class View():
         self.reporter_instance = reporter_instance
         self.data_ready=0
         self.reset=None
+        self.program_state=None
         
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(self.root,self)
@@ -457,6 +458,12 @@ class View():
 
     def get_apoyo(self):
         return self.apoyo_ntry
+
+    def get_state(self):
+        return self.program_state
+    
+    def set_state(self,state):
+        self.program_state=state
 
     
     def interface_transition_function(self):

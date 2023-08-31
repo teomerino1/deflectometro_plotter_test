@@ -31,7 +31,7 @@ def obtain_data(Reporter, View, Data):
             break
         else: 
             continue
-    process_data(Reporter,View,Data)
+    # process_data(Reporter,View,Data)
 
 def process_data(Reporter,View,Data):
     Reporter.start()
@@ -41,6 +41,7 @@ def process_data(Reporter,View,Data):
     print("Grupos:",grupos)
     a=0
     b=0
+    View.set_state("Obteniendo datos...")
     
     while True:
         data, this_cycle = Reporter.get_new_measurements()
@@ -94,6 +95,7 @@ def main():
     View = view.View(root,Data,Reporter)
     
     # Crear y ejecutar el hilo para procesar los datos
+    View.set_state("En configuración")
     data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
     data_thread.daemon = True
     data_thread.start()

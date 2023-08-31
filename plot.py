@@ -7,7 +7,7 @@ from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
 import datetime
-
+from PIL import Image, ImageTk 
 from tkinter.ttk import Treeview
 from tkinter import ttk
 from reportlab.lib.pagesizes import letter
@@ -23,9 +23,13 @@ class Plot():
 
         self.root = root
         self.second_plot_frame = None
+        self.botones_frame=None
         self.table_frame=None
         self.graphs_frame=None
         self.labels_frame=None
+        self.imagen_frame=None
+        self.image_cba=None
+        self.image_label=None
         self.view_instance = view_instance
         self.title = None 
         self.temperatura = None 
@@ -52,6 +56,9 @@ class Plot():
             second_plot_frame = Frame(self.root,relief='groove')
             self.second_plot_frame = second_plot_frame
             
+            botones_frame=Frame(self.second_plot_frame)
+            self.botones_frame=botones_frame
+
             labels_frame=Frame(self.second_plot_frame)
             self.labels_frame=labels_frame
 
@@ -61,14 +68,17 @@ class Plot():
             graphs_frame=Frame(self.second_plot_frame,relief='groove')
             self.graphs_frame=graphs_frame
 
+            imagen_frame=Frame(self.second_plot_frame)
+            self.imagen_frame=imagen_frame
+
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
 
             self.table = Treeview(self.table_frame, columns=columns, show='headings')
             
-            atras = ttk.Button(self.second_plot_frame, text="Atras", command=self.go_to_config,style="TButton")
+            atras = ttk.Button(self.botones_frame, text="Atras", command=self.go_to_config,style="TButton")
             self.atras=atras
 
-            next = ttk.Button(self.second_plot_frame,text="Next",command=self.go_to_plot_2_from_plot_1,style="TButton")
+            next = ttk.Button(self.botones_frame,text="Next",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
             self.Table = table.Table(self.table_frame) 
@@ -80,16 +90,37 @@ class Plot():
             label_izq = Label(self.labels_frame, text="Huella Interna (IZQUIERDA)", font=("Helvetica", 22))
             self.label_izq=label_izq
 
+            original_image=Image.open("image3.png")
+            screen_width = self.root.winfo_screenwidth()
+
+            # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
+            desired_width = screen_width
+            aspect_ratio = original_image.width / original_image.height
+            height=65
+            desired_height = int(desired_width / aspect_ratio)
+            print("desired height",desired_height)
+            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+
+            # Convierte la imagen redimensionada a un objeto PhotoImage
+            self.image_cba = ImageTk.PhotoImage(resized_image)
+            self.image_label = Label(self.imagen_frame, image=self.image_cba)
+            self.image_label.image = self.image_cba
+
         if(a == 1):
-            self.second_plot_frame.grid(sticky=NSEW)  
-            self.atras.grid(row=0, column=0,pady=(0,0),sticky=NW)
-            self.next.grid(row=0, column=0,padx=(200,35),pady=(0,0),sticky=NE)
-            self.labels_frame.grid(row=1,columnspan=2,pady=(30,0))
-            self.label_izq.grid(row=1, column=0,padx=(50,0))
-            self.label_der.grid(row=1, column=1,padx=(115,0))
-            self.table_frame.grid(row=2)
-            self.graphs_frame.grid(row=3)
-            
+            self.second_plot_frame.grid(sticky=NSEW)
+            self.botones_frame.grid(row=0,columnspan=2,padx=(0,50))  
+            self.atras.grid(row=0, column=0,padx=(0,1250),pady=(0,0),sticky=NW)
+            self.next.grid(row=0, column=0,padx=(1250,0),pady=(0,0))
+
+            self.labels_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
+            self.label_izq.grid(row=1, column=0,padx=(0,350))
+            self.label_der.grid(row=1, column=0,padx=(550,0))
+
+            self.table_frame.grid(row=2,padx=(0,45))
+            self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(0,0))
+
+            self.imagen_frame.grid(row=3,padx=(0,30),pady=(160,0))
+            self.image_label.grid(row=0,columnspan=2,padx=(0,0))
             
             
     def generar_pdf(self):

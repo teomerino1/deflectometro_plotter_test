@@ -238,30 +238,8 @@ class Config():
             resetear=Button(self.botones_frame, text="Resetear", command=self.reset_all_plots)
             self.resetear=resetear
            
-            # whatsapp=Label(self.info_infas_frame, text="Whatsapp: 351-5191415",font=(None, 15))
-            # self.whatsapp_label=whatsapp
-
-            # email=Label(self.info_infas_frame, text="Email: ventas@infas.com.ar",font=(None, 15))
-            # self.email_label=email
-
-            # web=Label(self.info_infas_frame, text="Web: www.infas.com.ar",font=(None, 15))
-            # self.web_label=web
-
-            # # Cargar y mostrar una imagen en un Label
-            # image_cba = tk.PhotoImage(file="image.png")
-            # size_image_cba=(1583,343)
-            # resized_image_cba=image_cba.resize  # Cambia la ruta a la ubicación de tu imagen
-            # image_label = Label(self.imagenes_frame, image=image_cba)
-            # image_label.image = image_cba  # Importante: mantener una referencia a la imagen
-            # self.image_label = image_label
 
             original_image=Image.open("image.png")
-            # desired_size=(1300,200)
-            # resized_image = original_image.resize(desired_size,Image.ANTIALIAS)
-            # self.image_cba=ImageTk.PhotoImage(resized_image)
-            # self.image_label=Label(self.imagenes_frame,image=self.image_cba)
-            # self.image_label.image=self.image_cba
-
             screen_width = self.root.winfo_screenwidth()
 
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
@@ -269,16 +247,12 @@ class Config():
             aspect_ratio = original_image.width / original_image.height
             height=255
             desired_height = int(desired_width / aspect_ratio)
-            print("desired height",desired_height)
-            # resized_image = original_image.resize((desired_width, desired_height), Image.ANTIALIAS)
             resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
-
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
-
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)
             self.image_label.image = self.image_cba
-            # self.image_label.grid(row=1, column=0, sticky="nsew")
+    
 
            
         if(a==1):
