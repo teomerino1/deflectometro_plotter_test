@@ -26,9 +26,12 @@ class Graphs2():
         self.indexes=[] 
         self.show(lado)
 
-    def radio_gmean_graph(self,row, column, columnspan,title):
+    def radio_gmean_graph(self,row, column,title):
         
-        figure = Figure(figsize=(7, 7), dpi=100,facecolor='#F6F4F2')
+        figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
+        # figure = Figure(figsize=(4, 4), dpi=100,facecolor='#F6F4F2')
+        # Ajustar los márgenes de los subplots
+        
         sub_figure = figure.add_subplot(211)
         sub_figure.set_xlim(0,100)
         sub_figure.set_ylim(0,100)
@@ -39,8 +42,8 @@ class Graphs2():
         sub_figure.grid(axis='both',linestyle='dotted')
         graph = FigureCanvasTkAgg(figure, self.frame)
         graph_widget = graph.get_tk_widget()
-        graph_widget.grid(row = row, column = column, columnspan = columnspan)
-
+        graph_widget.grid(row = row, column = column,padx=(0,0))
+        figure.subplots_adjust(bottom=0,top=0.93)
         return figure, graph, graph_widget
     
 
@@ -92,10 +95,10 @@ class Graphs2():
     def show(self,lado):
         
         if(lado == "Derecho"):
-            self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
+            self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(0,1,"Radio Derecha")
         
         if(lado == "Izquierdo"):
-            self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
+            self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(2,0,"Radio Izquierda")
            
     def download_graphs2(self,lado):
         

@@ -96,9 +96,9 @@ def main():
     
     # Crear y ejecutar el hilo para procesar los datos
     View.set_state("En configuración")
-    data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
-    data_thread.daemon = True
-    data_thread.start()
+    # data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
+    # data_thread.daemon = True
+    # data_thread.start()
     # print("Soy el hilo:",threading.get_ident(), "En el main")
     
     # Ejecutar el bucle principal de la interfaz gráfica

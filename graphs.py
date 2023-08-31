@@ -29,28 +29,6 @@ class Graphs():
         self.show()
         
 
-    # Grafico que corresponde a las deflexiones individuales
-    # def bar_graph(self, row, column, columnspan,title):
-        
-    #     figure = Figure(figsize=(6, 6), dpi=100)
-    #     sub_figure=figure.add_subplot(211)
-
-    #     sub_figure.set_ylim(0,100)
-    #     sub_figure.set_xlim(0,10)
-    #     sub_figure.set_title(title)
-
-    #     sub_figure.set_xlabel("Nº grupo")
-    #     sub_figure.set_ylabel("Deflexiones")
-
-    #     sub_figure.bar([], [], width = 0.3, linewidth=0.1)
-    #     sub_figure.grid(axis='both',linestyle='dotted')
-
-    #     bar = FigureCanvasTkAgg(figure,self.frame)
-        
-    #     bar_widget = bar.get_tk_widget()
-    #     bar_widget.grid(row = row, column = column, columnspan = columnspan)
-    
-    #     return figure, bar, bar_widget
 
     def bar_graph(self, row, column,title):
         
@@ -124,8 +102,8 @@ class Graphs():
     def show_bar_graph(self):
         # self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(3, 0, 1,"Deflexion Izquierda")
         # self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(3, 1, 1,"Deflexion Derecha") 
-        self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(3, 0,"Deflexion Izquierda")
-        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(3, 1,"Deflexion Derecha") 
+        self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(2, 0,"Deflexion Izquierda")
+        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(2, 1,"Deflexion Derecha") 
 
     def show(self):
         self.show_bar_graph()

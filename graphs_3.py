@@ -38,10 +38,11 @@ class Graphs3():
         self.show_deflexiones_gmean_graph(lado)
 
     
-    def deflexiones_gmean_graph(self,row, column, columnspan,title):
+    def deflexiones_gmean_graph(self,row, column,title):
         
-        figure = Figure(figsize=(7, 7), dpi=100,facecolor='#F6F4F2')
-
+        # figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
+        figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
+        figure.subplots_adjust(bottom=0,top=0.93)
         sub_figure=figure.add_subplot(211)
         sub_figure.set_title(title)
 
@@ -56,7 +57,7 @@ class Graphs3():
 
         bar = FigureCanvasTkAgg(figure,self.frame)
         bar_widget = bar.get_tk_widget()
-        bar_widget.grid(row = row, column = column, columnspan = columnspan)
+        bar_widget.grid(row = row, column = column)
         return figure, bar, bar_widget
     
     def update_deflexiones_gmean(self, dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos,lado):
@@ -117,10 +118,10 @@ class Graphs3():
     def show_deflexiones_gmean_graph(self,lado):
 
         if(lado == "Derecho"):
-            self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Derecha")
+            self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_gmean_graph(0,0,"Deflexiones Derecha")
 
         if(lado == "Izquierdo"):
-            self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_gmean_graph(3,1,1,"Deflexiones Izquierda")
+            self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_gmean_graph(0,0,"Deflexiones Izquierda")
 
 
     def download_graphs3(self,lado):

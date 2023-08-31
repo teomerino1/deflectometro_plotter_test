@@ -11,6 +11,7 @@ import graphs_3
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
+from PIL import Image, ImageTk
 
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
@@ -21,6 +22,9 @@ class Plot3():
         self.fourth_plot_frame = None
         self.title_frame=None
         self.graphs_frame=None
+        self.image_cba=None
+        self.image_label=None
+        self.imagenes_frame=None
         self.title = None
         self.subtitle=None
         self.next = None
@@ -53,6 +57,9 @@ class Plot3():
             graphs_frame=Frame(self.fourth_plot_frame)
             self.graphs_frame=graphs_frame
 
+            imagenes_frame=Frame(self.fourth_plot_frame)
+            self.imagenes_frame=imagenes_frame
+            
             title = Label(self.title_frame, text="Deflexiones y Radios",font=("Helvetica", 25),background='#F6F4F2',foreground='#625651')
             self.title=title
             
@@ -69,6 +76,20 @@ class Plot3():
             
             self.Graphs2 = graphs_2.Graphs2(self.graphs_frame, lado="Derecho")
             self.Graphs3 = graphs_3.Graphs3(self.graphs_frame, lado="Derecho")
+
+            original_image=Image.open("image3.png")
+            screen_width = self.root.winfo_screenwidth()
+
+            # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
+            desired_width = screen_width
+            aspect_ratio = original_image.width / original_image.height
+            height=255
+            desired_height = int(desired_width / aspect_ratio)
+            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # Convierte la imagen redimensionada a un objeto PhotoImage
+            self.image_cba = ImageTk.PhotoImage(resized_image)
+            self.image_label = Label(self.imagenes_frame, image=self.image_cba)
+            self.image_label.image = self.image_cba
 
         if(a == 1):
 

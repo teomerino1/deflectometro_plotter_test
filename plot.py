@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter.ttk import Label, Frame, Button, Scrollbar
+from PIL import Image, ImageTk 
 import view
 import table
 import graphs
@@ -7,7 +8,7 @@ from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
 import datetime
-from PIL import Image, ImageTk 
+
 from tkinter.ttk import Treeview
 from tkinter import ttk
 from reportlab.lib.pagesizes import letter
