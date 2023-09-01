@@ -258,13 +258,11 @@ class Config():
         if(a==1):
 
             self.config_frame.grid(columnspan=2)
-            # self.title_frame.grid(row=0,columnspan=2,padx=(900,0))
             self.conf_inicial.grid(row=0, columnspan=2,padx=(0,0),pady=(0,5))
             self.parameters_frame.grid(row=1,column=0,padx=(0,600),pady=(0,0))
             self.reportes_frame.grid(row=1,column=0,padx=(600,0),pady=(0,0))
             self.botones_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(0,0))
             self.imagenes_frame.grid(row=3,pady=(0,0),padx=(0,0))
-             # Configuración para que la fila 0 y columna 0 expandan
             self.imagenes_frame.grid_rowconfigure(0, weight=1)
             self.imagenes_frame.grid_columnconfigure(0, weight=1)
   
@@ -395,7 +393,7 @@ class Config():
         self.view_instance.set_apoyo(self.apoyo_ntry.get())
 
         self.view_instance.set_data_ready(value=1)
-
+        self.view_instance.set_state("Configuración seteada")
         self.config_frame.grid_forget()
 
     def get_config(self):
@@ -407,9 +405,7 @@ class Config():
         self.show(1)
 
     def reset_all_plots(self):
-        # self.resetear_label.grid(row=11, column=1)
         self.view_instance.enqueue_transition('reset_all_plots')
 
     def go_to_plot_1_from_config(self):
-        # self.resetear_label.grid_forget()
         self.view_instance.enqueue_transition('go_to_plot_1_from_config')

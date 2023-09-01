@@ -31,7 +31,7 @@ def obtain_data(Reporter, View, Data):
             break
         else: 
             continue
-    # process_data(Reporter,View,Data)
+    process_data(Reporter,View,Data)
 
 def process_data(Reporter,View,Data):
     Reporter.start()
@@ -41,14 +41,17 @@ def process_data(Reporter,View,Data):
     print("Grupos:",grupos)
     a=0
     b=0
-    View.set_state("Obteniendo datos...")
+    View.set_state("Obteniendo datos")
     
     while True:
         data, this_cycle = Reporter.get_new_measurements()
         
         if data is None or this_cycle is None:
             if(Reporter.get_puesto_change()==1 or a==muestras or View.get_reset()==1):
-                
+
+                if(a==muestras):
+                    View.set_state("Detenido, cantidad de muestras alcanzada.")
+               
                 print("Vuelvo a empezar")
                 View.set_reset(0)
                 View.set_data_ready(value=0)
@@ -87,7 +90,7 @@ def obtain_and_process_data(Reporter, View, Data):
 
 def main():
 
-    # root = tk.Tk()
+ 
     root=ThemedTk(theme='radiance')
     root.set_theme_advanced('radiance',hue=0.1)
     Reporter = reporter.Reporter()
@@ -96,14 +99,11 @@ def main():
     
     # Crear y ejecutar el hilo para procesar los datos
     View.set_state("En configuración")
-    # data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
-    # data_thread.daemon = True
-    # data_thread.start()
-    # print("Soy el hilo:",threading.get_ident(), "En el main")
-    
-   
+    data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
+    data_thread.daemon = True
+    data_thread.start()
+    print("Soy el hilo:",threading.get_ident(), "En el main")
 
-    
     
     root.mainloop()
 

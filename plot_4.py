@@ -23,6 +23,7 @@ class Plot4():
         self.fifht_plot_frame = None
         self.graphs_frame=None
         self.botones_frame=None
+        self.state_label=None
         self.imagen_frame=None
         self.image_cba=None
         self.image_label=None
@@ -57,13 +58,15 @@ class Plot4():
 
             title_frame=Frame(self.fifht_plot_frame,background='#F6F4F2')
             self.title_frame=title_frame
-
             
             graphs_frame=Frame(self.fifht_plot_frame)
             self.graphs_frame=graphs_frame
 
             imagen_frame=Frame(self.fifht_plot_frame)
             self.imagen_frame=imagen_frame
+
+            state_label=Label(self.botones_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.state_label=state_label
 
             title = Label(self.title_frame, text="Informe Estadístico",font=("Helvetica", 25),background='#F6F4F2',foreground='#625651') 
             self.title=title
@@ -83,7 +86,7 @@ class Plot4():
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
             height=65
-            desired_height = int(desired_width / aspect_ratio)
+            # desired_height = int(desired_width / aspect_ratio)
             resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
@@ -96,6 +99,8 @@ class Plot4():
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1270),sticky=NW)
             self.next.grid(row=0,column=0,padx=(1230,0))
+            self.state_label.grid(row=0,column=0,padx=(0,1000))
+            
             self.title_frame.grid(row=1,columnspan=2,pady=(50,0))
             self.title.grid()
             self.graphs_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(0,0))

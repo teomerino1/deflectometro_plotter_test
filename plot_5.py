@@ -30,6 +30,9 @@ class Plot5():
 
         self.root = root
         self.sixth_plot_frame = None
+        self.state_frame=None
+        self.state_label=None
+        self.state=None
         self.title_frame=None
         self.subtitle_frame=None
         self.labels_frame=None
@@ -146,6 +149,9 @@ class Plot5():
             botones_frame=Frame(self.sixth_plot_frame,background='#F6F4F2')
             self.botones_frame=botones_frame
 
+            state_label=Label(self.botones_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.state_label=state_label
+
             imagen_frame=Frame(self.sixth_plot_frame)
             self.imagen_frame=imagen_frame
 
@@ -251,6 +257,7 @@ class Plot5():
 
             self.sixth_plot_frame.grid(sticky="nsew")
             self.back.grid(row=0, column=0,sticky=NW)
+            # self.state_label.grid(row=0,column=0,padx=(0,1000))
             self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,10))
             self.title.grid(row=0, column=0,padx=(0,0))
 
@@ -331,13 +338,10 @@ class Plot5():
         self.total_med_rad_der_value=total_med_rad_der_value
         self.total_med_rad_der_value.grid(row=10, column=0,padx=(0,0),pady=(10,0),sticky=NE)
 
-
-
         defl_media_izq_value=Label(self.labels_frame, text=media_defl_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.defl_media_izq_value=defl_media_izq_value
         self.defl_media_izq_value.grid(row=1, column=1,padx=(0,0),pady=(10,0),sticky=NE)
 
-        # self.radio_med_izq_value=Label(self.sixth_plot_frame, text=media_rad_izq,font=(None, 10))
         radio_med_izq_value=Label(self.labels_frame, text=media_rad_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.radio_med_izq_value=radio_med_izq_value
         self.radio_med_izq_value.grid(row=2, column=1,padx=(0,0),pady=(10,0),sticky=NE)
@@ -391,6 +395,10 @@ class Plot5():
     def get_ruta(self):
         return self.ruta
     
+    def set_state(self,state):
+        print("Plot5 state:",state)
+        self.state=state
+
     def download_stats(self):
         # Crear el buffer para el PDF usando ReportLab
         if(self.defl_car_der_value==None):

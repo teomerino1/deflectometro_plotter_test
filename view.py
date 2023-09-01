@@ -74,8 +74,6 @@ class View():
     def start(self,root):
 
         self.root.title('Deflectómetro')
-        # self.root.tk.call("source", "azure.tcl")
-        # self.root.tk.call("set_theme", "light")
         style = Style(root)
         self.root.attributes('-zoomed', True) 
 
@@ -86,7 +84,6 @@ class View():
         self.Plot3.show(0)
         self.Plot4.show(0)
         self.Plot5.show(0)
-
 
      # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
@@ -195,10 +192,8 @@ class View():
         operador = self.get_operador()
 
         doc = SimpleDocTemplate(filename, pagesize=A4)
-
         styles = getSampleStyleSheet()
         center_style = ParagraphStyle(name='CenterStyle', alignment=1)
-
         story = []
 
         # Modificar los tamaños de fuente en los estilos
@@ -463,6 +458,8 @@ class View():
         return self.program_state
     
     def set_state(self,state):
+        print("View State:",state)
+        self.Plot5.set_state(state)
         self.program_state=state
 
     
@@ -528,9 +525,6 @@ class View():
                     # self.set_data_ready(value=0)
                     # self.reset_all_data()
                 elif target_function=='download_pdf':
-                    # pdf_thread = Thread(target=download_pdf)
-                    # pdf_thread.daemon=True
-                    # pdf_thread.start()
                     self.download_pdf()
 
                 # Indicar que la función se ha procesado y la cola puede esperar nuevamente

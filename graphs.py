@@ -100,8 +100,6 @@ class Graphs():
         self.figure_bar_l.canvas.draw_idle()
 
     def show_bar_graph(self):
-        # self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(3, 0, 1,"Deflexion Izquierda")
-        # self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(3, 1, 1,"Deflexion Derecha") 
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(2, 0,"Deflexion Izquierda")
         self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(2, 1,"Deflexion Derecha") 
 

@@ -17,6 +17,7 @@ class Plot2():
         self.root = root
         self.third_plot_frame = None
         self.title_frame=None
+        self.state_label=None
         self.graphs2_frame=None
         self.graphs3_frame=None
         self.botones_frame=None
@@ -46,9 +47,6 @@ class Plot2():
             width = self.root.winfo_screenwidth()
             height = self.root.winfo_screenheight()
 
-            # third_plot_frame = Frame(self.root, width=width, height=height,background='#F6F4F2')
-            # self.third_plot_frame = third_plot_frame
-
             third_plot_frame = Frame(self.root,background='#F6F4F2')
             self.third_plot_frame = third_plot_frame
 
@@ -64,10 +62,12 @@ class Plot2():
             graphs3_frame=Frame(self.third_plot_frame)
             self.graphs3_frame=graphs3_frame
 
+            state_label=Label(self.botones_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.state_label=state_label
+
             imagenes_frame=Frame(self.third_plot_frame)
             self.imagenes_frame=imagenes_frame
 
-            
             title = Label(self.title_frame, text="Deflexiones y Radios",font=("Helvetica", 25),background='#F6F4F2',foreground='#625651') 
             self.title=title
             
@@ -90,7 +90,7 @@ class Plot2():
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
             height=65
-            desired_height = int(desired_width / aspect_ratio)
+            # desired_height = int(desired_width / aspect_ratio)
             resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
@@ -99,11 +99,12 @@ class Plot2():
             
 
         if(a == 1):
-            # self.third_plot_frame.grid(rowspan=3,columnspan=3)
             self.third_plot_frame.grid(sticky="NSEW")
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1270),sticky=NW)
             self.next.grid(row=0,column=0,padx=(1230,0))
+            self.state_label.grid(row=0,column=0,padx=(0,1000))
+
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.subtitle.grid()
@@ -111,8 +112,7 @@ class Plot2():
             self.graphs3_frame.grid(row=2,column=0,padx=(700,0),pady=(60,0))
             self.imagenes_frame.grid(row=2,padx=(0,30),pady=(450,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
-
-        
+            
 ##F6F4F2
     def download_graphs(self):
         self.Graphs2.download_graphs2(lado="Izquierdo")
