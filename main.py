@@ -101,12 +101,8 @@ def main():
     # data_thread.start()
     # print("Soy el hilo:",threading.get_ident(), "En el main")
     
-    # Ejecutar el bucle principal de la interfaz gráfica
-    # ['alt', 'scidgreen', 'plastik', 'winxpblue', 'elegance', 'adapta', 'scidmint', 'classic', 'aquativo', '
-    #  radiance', 'breeze', 'arc', 'blue', 'scidgrey', 'kroc', 'keramik', 'itft1', 'scidsand', 'equilux', 
-    #  'default', 'smog', 'scidpink', 'clearlooks', 'scidpurple', 'black', 'yaru', 'ubuntu', 'scidblue', 'clam']
+   
 
-    #Copados: Plastik, yaru, adapta, radiance,arc, clearlooks,ubuntu
     
     
     root.mainloop()

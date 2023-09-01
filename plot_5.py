@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.ttk import Label, Frame, Button, Scrollbar
 from tkinter.ttk import Treeview
-import tkinter as tk
+
 from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import Treeview
@@ -19,6 +19,8 @@ from reportlab.lib import utils
 from reportlab.pdfgen import canvas
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from PIL import Image, ImageTk
+from tkinter import ttk
+import tkinter as tk
 
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
@@ -109,6 +111,10 @@ class Plot5():
 
         self.ruta=None
 
+        self.imagen_frame=None
+        self.image_cba=None
+        self.image_label=None
+
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
         self.sixth_plot_frame.grid_forget()
@@ -140,7 +146,10 @@ class Plot5():
             botones_frame=Frame(self.sixth_plot_frame,background='#F6F4F2')
             self.botones_frame=botones_frame
 
-            title = Label(self.title_frame, text="PLANILLA GENERAL DE RESULTADOS ESTADISTICOS",font=(None, 23),background='#F6F4F2',foreground='#625651') 
+            imagen_frame=Frame(self.sixth_plot_frame)
+            self.imagen_frame=imagen_frame
+
+            title = Label(self.title_frame, text="PLANILLA GENERAL DE RESULTADOS ESTADISTICOS",font=(None, 25),background='#F6F4F2',foreground='#625651') 
             self.title = title
 
             back = ttk.Button(self.sixth_plot_frame, text="Atrás", command=self.go_to_plot_4_from_plot_5,style="TButton")
@@ -152,7 +161,7 @@ class Plot5():
             pdf = ttk.Button(self.botones_frame, text="Descargar PDF", command=self.download_pdf,style="TButton")
             self.pdf = pdf
 
-            huella_ext = Label(self.labels_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 20),background='#F6F4F2',foreground='#625651')
+            huella_ext = Label(self.labels_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 18),background='#F6F4F2',foreground='#625651')
             self.huella_ext = huella_ext
 
             defl_media_der = Label(self.labels_frame, text="Deflexion media:",font=(None, 14),background='#F6F4F2',foreground='#625651')
@@ -190,7 +199,7 @@ class Plot5():
             self.whitespace = whitespace
             ################################################################################################################
 
-            huella_int = Label(self.labels_frame, text="HUELLA INTERNA (IZQUIERDA)",font=(None, 20),background='#F6F4F2',foreground='#625651')
+            huella_int = Label(self.labels_frame, text="HUELLA INTERNA (IZQUIERDA)",font=(None, 18),background='#F6F4F2',foreground='#625651')
             self.huella_int = huella_int
 
             defl_media_izq = Label(self.labels_frame, text="Deflexion media:",font=(None, 14),background='#F6F4F2',foreground='#625651')
@@ -223,43 +232,61 @@ class Plot5():
             r_x_d_izq = Label(self.labels_frame, text="(R x D) Medio:",font=(None, 14),background='#F6F4F2',foreground='#625651')
             self.r_x_d_izq = r_x_d_izq
 
+            original_image=Image.open("image.png")
+            screen_width = self.root.winfo_screenwidth()
+
+            # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
+            desired_width = screen_width
+            aspect_ratio = original_image.width / original_image.height
+            height=235
+            desired_height = int(desired_width / aspect_ratio)
+            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # Convierte la imagen redimensionada a un objeto PhotoImage
+            self.image_cba = ImageTk.PhotoImage(resized_image)
+            self.image_label = Label(self.imagen_frame, image=self.image_cba)
+            self.image_label.image = self.image_cba
+            
+
         if(a == 1):
 
             self.sixth_plot_frame.grid(sticky="nsew")
             self.back.grid(row=0, column=0,sticky=NW)
-            self.title_frame.grid(row=1,columnspan=2,padx=(0,300),pady=(50,0))
-            self.title.grid(row=0, column=0,padx=(350,0))
-            self.labels_frame.grid(row=2,columnspan=2,pady=(50,0))
+            self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,10))
+            self.title.grid(row=0, column=0,padx=(0,0))
+
+            self.labels_frame.grid(row=2,columnspan=2,pady=(0,10))
             self.huella_ext.grid(row=0,column=0,padx=(0,150))
             self.huella_int.grid(row=0,column=1,padx=(150,0))
             
-            self.defl_media_der.grid(row=1, column=0,sticky=NW)
-            self.desv_std_der.grid(row=2,sticky=NW)
-            self.coef_var_der.grid(row=3, column=0,sticky=NW)
-            self.defl_car_der.grid(row=4, column=0,sticky=NW)
-            self.total_med_defl_der.grid(row=5, column=0,sticky=NW)
-            self.radio_med_der.grid(row=6, column=0,sticky=NW)
-            self.radio_car_der.grid(row=7, column=0,sticky=NW)
-            self.total_med_rad_der.grid(row=8, column=0,sticky=NW)
-            self.d_r_med_der.grid(row=9, column=0,sticky=NW)
-            self.r_x_d_der.grid(row=10, column=0,sticky=NW)
+            self.defl_media_der.grid(row=1, column=0,sticky=NW,pady=(0,5))
+            self.desv_std_der.grid(row=2,sticky=NW,pady=(0,5))
+            self.coef_var_der.grid(row=3, column=0,sticky=NW,pady=(0,5))
+            self.defl_car_der.grid(row=4, column=0,sticky=NW,pady=(0,5))
+            self.total_med_defl_der.grid(row=5, column=0,sticky=NW,pady=(0,5))
+            self.radio_med_der.grid(row=6, column=0,sticky=NW,pady=(0,5))
+            self.radio_car_der.grid(row=7, column=0,sticky=NW,pady=(0,5))
+            self.total_med_rad_der.grid(row=8, column=0,sticky=NW,pady=(0,5))
+            self.d_r_med_der.grid(row=9, column=0,sticky=NW,pady=(0,5))
+            self.r_x_d_der.grid(row=10, column=0,sticky=NW,pady=(0,5))
 
             # # self.whitespace.grid(row=12+2, column=0,sticky=NW)
             
-            self.defl_media_izq.grid(row=1, column=1,padx=(150,0),sticky=NW)
-            self.desv_std_izq.grid(row=2, column=1,padx=(150,0),sticky=NW)
-            self.coef_var_izq.grid(row=3, column=1,padx=(150,0),sticky=NW)
-            self.defl_car_izq.grid(row=4, column=1,padx=(150,0),sticky=NW)
-            self.total_med_defl_izq.grid(row=5, column=1,padx=(150,0),sticky=NW)
-            self.radio_med_izq.grid(row=6, column=1,padx=(150,0),sticky=NW)
-            self.radio_car_izq.grid(row=7, column=1,padx=(150,0),sticky=NW)
-            self.total_med_rad_izq.grid(row=8, column=1,padx=(150,0),sticky=NW)
-            self.d_r_med_izq.grid(row=9, column=1,padx=(150,0),sticky=NW)
-            self.r_x_d_izq.grid(row=10, column=1,padx=(150,0),sticky=NW)
+            self.defl_media_izq.grid(row=1, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.desv_std_izq.grid(row=2, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.coef_var_izq.grid(row=3, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.defl_car_izq.grid(row=4, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.total_med_defl_izq.grid(row=5, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.radio_med_izq.grid(row=6, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.radio_car_izq.grid(row=7, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.total_med_rad_izq.grid(row=8, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.d_r_med_izq.grid(row=9, column=1,padx=(150,0),sticky=NW,pady=(0,5))
+            self.r_x_d_izq.grid(row=10, column=1,padx=(150,0),sticky=NW,pady=(0,5))
 
-            self.botones_frame.grid(row=3,columnspan=2,pady=(0,150))
-            self.stats.grid(row=0,pady=(20,0))
-            self.pdf.grid(row=1,pady=(20,0))
+            self.botones_frame.grid(row=3,columnspan=2,pady=(0,0))
+            self.stats.grid(row=0,pady=(0,0))
+            self.pdf.grid(row=1,pady=(0,0))
+            self.imagen_frame.grid(row=4,padx=(0,30),pady=(0,0))
+            self.image_label.grid(row=0,columnspan=2,padx=(0,0))
     
 
     def grid_stats(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
