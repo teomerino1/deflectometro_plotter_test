@@ -149,7 +149,7 @@ class Plot5():
             botones_frame=Frame(self.sixth_plot_frame,background='#F6F4F2')
             self.botones_frame=botones_frame
 
-            state_label=Label(self.botones_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            state_label=Label(self.sixth_plot_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
             self.state_label=state_label
 
             imagen_frame=Frame(self.sixth_plot_frame)
@@ -257,7 +257,7 @@ class Plot5():
 
             self.sixth_plot_frame.grid(sticky="nsew")
             self.back.grid(row=0, column=0,sticky=NW)
-            # self.state_label.grid(row=0,column=0,padx=(0,1000))
+            self.state_label.grid(row=0,column=0,padx=(0,1000))
             self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,10))
             self.title.grid(row=0, column=0,padx=(0,0))
 
