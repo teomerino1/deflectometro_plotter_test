@@ -27,6 +27,7 @@ class Plot():
         self.botones_frame=None
         self.table_frame=None
         self.state_label=None
+        self.state=None
         self.graphs_frame=None
         self.labels_frame=None
         self.imagen_frame=None
@@ -52,6 +53,9 @@ class Plot():
         self.second_plot_frame.destroy()
         self.show(0)
 
+    def get_state_label(self):
+        return self.state_label
+    
     def show(self,a):
 
         if(a == 0):
@@ -73,7 +77,7 @@ class Plot():
             imagen_frame=Frame(self.second_plot_frame)
             self.imagen_frame=imagen_frame
 
-            state_label=Label(self.botones_frame,text="Test",font=(None,15),foreground='#66A7EF')
+            state_label=Label(self.botones_frame,text='',font=(None,15),foreground='#66A7EF')
             self.state_label=state_label
 
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
@@ -116,7 +120,7 @@ class Plot():
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,50))  
             self.atras.grid(row=0, column=0,padx=(0,1250),pady=(0,0),sticky=NW)
             self.next.grid(row=0, column=0,padx=(1250,0),pady=(0,0))
-            self.state_label.grid(row=0,column=0,padx=(0,1000))
+            self.state_label.grid(row=0,column=0,padx=(0,900))
 
             self.labels_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
             self.label_izq.grid(row=1, column=0,padx=(0,350))
@@ -135,7 +139,7 @@ class Plot():
         
     def get_prog_max(self):
         return self.Graphs.get_max()
-    
+ 
     def set_ruta(self,ruta):
         self.Table.set_ruta(ruta)
         self.Table.set_fecha(datetime.datetime.now().date())

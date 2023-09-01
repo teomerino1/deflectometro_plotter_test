@@ -1,50 +1,39 @@
 import tkinter as tk
 
-class App:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Cambiar Color de Frames")
+def actualizar_estado():
+    # Aquí debes implementar la lógica para determinar el estado actual del programa
+    # Por ejemplo, puedes usar variables o consultas a la base de datos
+    estado_actual = obtener_estado_actual()
+    
+    # Actualizar la etiqueta con el nuevo estado
+    estado_label.config(text=f'Estado: {estado_actual}')
+    
+    # Programar la próxima actualización después de un cierto tiempo (en milisegundos)
+    ventana.after(1000, cambiar_estado)  # Actualiza cada 1000ms (1 segundo)
 
-        # Crear el primer Frame (config_frame)
-        config_frame = tk.Frame(self.root)
-        config_frame.pack()
+def cambiar_estado():
+    # Simula un cambio de estado después de 1 segundo
+    estado_label.config(text='Estado actualizado')
+    
+    # Programar la próxima actualización después de un cierto tiempo (en milisegundos)
+    ventana.after(1000, actualizar_estado)  # Actualiza cada 1000ms (1 segundo)
 
-        # Crear el segundo Frame (parameters_frame)
-        parameters_frame = tk.Frame(config_frame, relief="groove")
-        parameters_frame.pack()
+# Función de ejemplo para obtener el estado actual
+def obtener_estado_actual():
+    # Aquí puedes implementar tu propia lógica para determinar el estado
+    # Puedes consultar la base de datos, verificar condiciones, etc.
+    return 'Obteniendo datos'  # Cambia esto según tu lógica real
 
-        # Cambiar el color de fondo del segundo Frame
-        parameters_frame.configure(bg="blue")
+# Crear la ventana principal
+ventana = tk.Tk()
+ventana.title('Programa con Estado en Tiempo Real')
 
-        # Crear el tercer Frame (reportes_frame)
-        reportes_frame = tk.Frame(config_frame, relief="solid")
-        reportes_frame.pack()
+# Crear una etiqueta para mostrar el estado
+estado_label = tk.Label(ventana, text='', font=('Arial', 12))
+estado_label.pack()
 
-        # Cambiar el color de fondo del tercer Frame
-        reportes_frame.configure(bg="green")
+# Iniciar la actualización del estado
+actualizar_estado()
 
-        # Crear el cuarto Frame (botones_frame)
-        botones_frame = tk.Frame(config_frame, relief="ridge")
-        botones_frame.pack()
-
-        # Cambiar el color de fondo del cuarto Frame
-        botones_frame.configure(bg="red")
-
-        # Crear el quinto Frame (info_infas_frame)
-        info_infas_frame = tk.Frame(config_frame, relief="ridge")
-        info_infas_frame.pack()
-
-        # Cambiar el color de fondo del quinto Frame
-        info_infas_frame.configure(bg="yellow")
-
-        # Crear el sexto Frame (imagenes_frame)
-        imagenes_frame = tk.Frame(config_frame, relief="ridge")
-        imagenes_frame.pack()
-
-        # Cambiar el color de fondo del sexto Frame
-        imagenes_frame.configure(bg="purple")
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = App(root)
-    root.mainloop()
+# Iniciar el bucle principal de la interfaz gráfica
+ventana.mainloop()

@@ -122,7 +122,6 @@ class Plot5():
     def close(self):
         self.sixth_plot_frame.grid_forget()
 
-
     def reset(self):
         self.sixth_plot_frame.destroy()
         self.show(0)
@@ -257,7 +256,7 @@ class Plot5():
 
             self.sixth_plot_frame.grid(sticky="nsew")
             self.back.grid(row=0, column=0,sticky=NW)
-            self.state_label.grid(row=0,column=0,padx=(0,1000))
+            self.state_label.grid(row=0,column=0,padx=(0,900))
             self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,10))
             self.title.grid(row=0, column=0,padx=(0,0))
 
@@ -395,9 +394,8 @@ class Plot5():
     def get_ruta(self):
         return self.ruta
     
-    def set_state(self,state):
-        print("Plot5 state:",state)
-        self.state=state
+    def get_state_label(self):
+        return self.state_label
 
     def download_stats(self):
         # Crear el buffer para el PDF usando ReportLab
@@ -480,6 +478,8 @@ class Plot5():
 
         with open("pdf5.pdf", "wb") as f:
             f.write(buffer.read())
+
+
 
 
   

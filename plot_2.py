@@ -103,7 +103,7 @@ class Plot2():
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1270),sticky=NW)
             self.next.grid(row=0,column=0,padx=(1230,0))
-            self.state_label.grid(row=0,column=0,padx=(0,1000))
+            self.state_label.grid(row=0,column=0,padx=(0,900))
 
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
@@ -114,6 +114,10 @@ class Plot2():
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
             
 ##F6F4F2
+
+    def get_state_label(self):
+        return self.state_label
+    
     def download_graphs(self):
         self.Graphs2.download_graphs2(lado="Izquierdo")
         self.Graphs3.download_graphs3(lado="Izquierdo")

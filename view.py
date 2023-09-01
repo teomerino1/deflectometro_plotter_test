@@ -49,8 +49,7 @@ class View():
         self.reporter_instance = reporter_instance
         self.data_ready=0
         self.reset=None
-        self.program_state=None
-        
+        self.state=None
         #Se crean los objetos Plot y Config como atributos de view 
         self.Config = config.Config(self.root,self)
         self.Plot = plot.Plot(self.root, self)
@@ -72,11 +71,9 @@ class View():
 
      # Metodo que inicializa la view:
     def start(self,root):
-
         self.root.title('Deflectómetro')
         style = Style(root)
         self.root.attributes('-zoomed', True) 
-
         self.Config.show(0)
         self.Config.show(1)
         self.Plot.show(0)
@@ -459,12 +456,18 @@ class View():
     
     def set_state(self,state):
         print("View State:",state)
-        self.Plot5.set_state(state)
         self.program_state=state
-
+        self.Plot.get_state_label().config(text=f'{state}')
+        self.Plot2.get_state_label().config(text=f'{state}')
+        self.Plot3.get_state_label().config(text=f'{state}')
+        self.Plot4.get_state_label().config(text=f'{state}')
+        self.Plot5.get_state_label().config(text=f'{state}')
     
+
     def interface_transition_function(self):
             while True:
+
+                # self.actualizar_estado()
                 # Utilizar una cola bloqueante para esperar a que se solicite una función de transición
                 target_function = self.interface_transition_queue.get()
 

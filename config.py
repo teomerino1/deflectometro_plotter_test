@@ -393,7 +393,7 @@ class Config():
         self.view_instance.set_apoyo(self.apoyo_ntry.get())
 
         self.view_instance.set_data_ready(value=1)
-        self.view_instance.set_state("Configuración seteada")
+        # self.view_instance.set_state("Obteniendo datos...")
         self.config_frame.grid_forget()
 
     def get_config(self):
