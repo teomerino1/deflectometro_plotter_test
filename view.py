@@ -519,7 +519,7 @@ class View():
                 elif target_function == 'reset_all_plots':
                     self.reset_all_plots()
                     self.reset_all_data()
-                    # self.set_reset(1)
+                    self.set_reset(1)
                     messagebox.showinfo("Aviso", "Datos reseteados!")
 
                 elif target_function == 'generate_stats':

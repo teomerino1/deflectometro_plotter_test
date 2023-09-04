@@ -179,7 +179,7 @@ class Plot():
         
     def go_to_config(self):
         if(self.view_instance.get_state()=="Obteniendo datos..."):
-            messagebox.askokcancel("Aviso","Se están obteniendo datos. ¿Desea volver a a configuración?")
+            messagebox.askokcancel("Aviso","Se están obteniendo datos. ¿Desea volver a la configuración?")
         self.view_instance.enqueue_transition('go_to_config')
 
     def reset_table(self):

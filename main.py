@@ -26,6 +26,7 @@ def update_defl_one(Data,View,amount):
     Data.clear_bar_data()
 
 def obtain_data(Reporter, View, Data):
+    print("Arranco obtain data")
     View.set_state("Listo para obtener datos")
     while True:
         if(View.get_data_ready()==1):
@@ -35,21 +36,25 @@ def obtain_data(Reporter, View, Data):
     process_data(Reporter,View,Data)
 
 def process_data(Reporter,View,Data):
+    print("Arranco process data")
     Reporter.start()
     grupos=View.get_grupos()
     muestras=View.get_muestras()
-    print("Muestras:",muestras)
-    print("Grupos:",grupos)
+    # print("Muestras:",muestras)
+    # print("Grupos:",grupos)
     a=0
     b=0
     View.set_state("Listo para obtener datos")
     c=0
+    print("C value:",c)
     while True:
              
         data, this_cycle = Reporter.get_new_measurements()
         
         if data is None or this_cycle is None:
             if(Reporter.get_puesto_change()==1 or a==muestras or View.get_reset()==1):
+                
+                print("Identifico reset")
 
                 if(a==muestras):
                     View.set_state("Detenido, cantidad de muestras alcanzada.")
@@ -61,8 +66,10 @@ def process_data(Reporter,View,Data):
                 obtain_data(Reporter,View,Data)
             else:
                 continue
+        # if(Reporter)
         if(c==0):
             c=1
+            print("Seteo cosas")
             View.set_state("Obteniendo datos...")
             View.set_hora_inicio()
             View.set_nro_puesto(Reporter.get_last_puesto())
@@ -112,7 +119,7 @@ def main():
     data_thread = Thread(target=obtain_data, args=(Reporter, View, Data))
     data_thread.daemon = True
     data_thread.start()
-    print("Soy el hilo:",threading.get_ident(), "En el main")
+    # print("Soy el hilo:",threading.get_ident(), "En el main")
 
     
     root.mainloop()
