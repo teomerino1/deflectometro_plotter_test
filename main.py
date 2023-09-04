@@ -26,6 +26,7 @@ def update_defl_one(Data,View,amount):
     Data.clear_bar_data()
 
 def obtain_data(Reporter, View, Data):
+    View.set_state("Listo para obtener datos")
     while True:
         if(View.get_data_ready()==1):
             break
@@ -41,10 +42,10 @@ def process_data(Reporter,View,Data):
     print("Grupos:",grupos)
     a=0
     b=0
-    View.set_state("Obteniendo datos..")
-    
+    View.set_state("Listo para obtener datos")
+    c=0
     while True:
-        
+             
         data, this_cycle = Reporter.get_new_measurements()
         
         if data is None or this_cycle is None:
@@ -60,6 +61,9 @@ def process_data(Reporter,View,Data):
                 obtain_data(Reporter,View,Data)
             else:
                 continue
+        if(c==0):
+            c=1
+            View.set_state("Obteniendo datos...")
 
         Data.data_destruct(data)
         cantidad=Data.cant_mediciones()
@@ -80,11 +84,12 @@ def process_data(Reporter,View,Data):
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
 
-            if(cantidad%6 == 0):
+            if(cantidad%5 == 0):
                 View.set_state("Graficando el grupo...")
                 update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 
                 update_all_thread.start()
+                View.set_state("Obteniendo datos...")
             
 def obtain_and_process_data(Reporter, View, Data):
     while True:

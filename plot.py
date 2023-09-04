@@ -8,12 +8,12 @@ from tkinter.ttk import Treeview
 import tkinter as tk
 from tkinter import ttk
 import datetime
-
 from tkinter.ttk import Treeview
 from tkinter import ttk
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
+from tkinter import messagebox
 
 
 
@@ -158,6 +158,8 @@ class Plot():
         self.view_instance.enqueue_transition('go_to_plot_2_from_plot_1')
         
     def go_to_config(self):
+        if(self.view_instance.get_state()=="Obteniendo datos..."):
+            messagebox.askokcancel("Aviso","Se están obteniendo datos. ¿Desea volver a a configuración?")
         self.view_instance.enqueue_transition('go_to_config')
 
     def reset_table(self):

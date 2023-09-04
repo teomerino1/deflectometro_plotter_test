@@ -97,14 +97,12 @@ class Plot2():
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)
             self.image_label.image = self.image_cba
             
-
         if(a == 1):
             self.third_plot_frame.grid(sticky="NSEW")
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1270),sticky=NW)
             self.next.grid(row=0,column=0,padx=(1230,0))
             self.state_label.grid(row=0,column=0,padx=(0,900))
-
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.subtitle.grid()

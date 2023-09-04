@@ -60,6 +60,8 @@ class Graphs4():
         self.defl_mean_r_data.extend(dict_r['Defl.'][-1:])
         self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
         
+       
+
         # self.indexes=list(range(1,len(self.rad_mean_l_data)+1))
         self.indexes = [x * grupos for x in range(1, len(self.rad_mean_l_data)+1)]
 
@@ -77,9 +79,10 @@ class Graphs4():
         
         subfigure_izq=self.figure_defl_mean_l.add_subplot(211)
         subfigure_der=self.figure_defl_mean_r.add_subplot(211)
-
-        subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-        subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
+        print("Voy a graficar en izquierdo:",self.rad_mean_l_data)
+        print("Indices:",self.indexes)
+        subfigure_der.set_xlim(min(self.rad_mean_r_data)-50, max(self.rad_mean_r_data)+50)
+        subfigure_izq.set_xlim(min(self.rad_mean_l_data)-50, max(self.rad_mean_l_data)+50)
         subfigure_der.set_ylim(0,max(self.rad_mean_r_data)+500)  
         subfigure_izq.set_ylim(0,max(self.rad_mean_l_data)+500)  
 
