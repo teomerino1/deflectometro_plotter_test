@@ -180,7 +180,8 @@ class View():
         self.combine_pdf()
 
     def generar_carátula(self,filename):
-        informe = "INFORME DEFLECTOMETRO LACROIX"
+        informe = "INFORME DEFLECTOMETRO"
+        lacroix="LACROIX"
         cosas = "DEFLEXIONES, VALORES MEDIOS, CARACTERISTICOS, RADIOS DE CURVATURA Y ANALISIS ESTADISTICO"
         ruta = self.get_ruta()
         provincia = self.get_provincia()
@@ -209,8 +210,9 @@ class View():
 
         # Agregar el título y subtítulo con espacio en blanco
         title = Paragraph(informe, styles['Title'])
+        title2 = Paragraph(lacroix, styles['Title'])
         subtitle = Paragraph(cosas, styles['Heading2'])
-        title_subtitle_table = Table([[title], [Spacer(1, 20)], [subtitle]])
+        title_subtitle_table = Table([[title],[title2],[Spacer(1, 20)], [subtitle]])
         title_subtitle_table.setStyle(TableStyle([
             ('VALIGN', (0, 0), (0, 2), 'MIDDLE'),
             ('ALIGN', (0, 0), (0, 2), 'CENTER'),
@@ -223,7 +225,7 @@ class View():
         ]))
 
         story.append(title_subtitle_table)
-        story.append(Spacer(1, 50))  # Espacio en blanco
+        story.append(Spacer(1, 30))  # Espacio en blanco
 
         # Agregar el resto de la información centrada
         centered_info_paragraphs = [
@@ -274,13 +276,13 @@ class View():
 
             self.generar_carátula("informe.pdf")
             c = canvas.Canvas(output1, pagesize=A4)
-            c.drawImage('figure_defl_mean_l.png',20, 100, width=530, height=300)
-            c.drawImage('figure_rad_l.png', 20, 450,width=530, height=300)
+            c.drawImage('figure_defl_mean_l.png',100, 100, width=383, height=230)
+            c.drawImage('figure_rad_l.png', 100, 450,width=383, height=230)
             c.save()
 
             c = canvas.Canvas(output2, pagesize=A4)
-            c.drawImage('figure_defl_mean_r.png', 20, 100, width=530, height=300)
-            c.drawImage('figure_rad_r.png', 20, 450,width=530, height=300)
+            c.drawImage('figure_defl_mean_r.png', 100, 100, width=383, height=230)
+            c.drawImage('figure_rad_r.png', 100, 450,width=383, height=230)
             c.save()
 
             pdf_files = [
@@ -316,7 +318,7 @@ class View():
             os.remove('figure_defl_mean_r.png')
             os.remove('figure_rad_r.png')
             os.remove('figure_rad_l.png')
-
+            os.remove('caratula.pdf')
             messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes':")
 
         else:

@@ -141,9 +141,9 @@ class Graphs4():
             output_pdf = 'radios.pdf'
             c = canvas.Canvas(output_pdf, pagesize=A4)
             # Agregar la primera figura en la posición deseada
-            c.drawImage('radios_l.png', 20, 100, width=530, height=300)
+            c.drawImage('radios_l.png',100, 100, width=383, height=230)
             # Agregar la segunda figura debajo de la primera
-            c.drawImage('radios_r.png', 20, 450,width=530, height=300)
+            c.drawImage('radios_r.png',100, 450, width=383, height=230)
             # Guardar el contenido en el PDF
             c.save()
             

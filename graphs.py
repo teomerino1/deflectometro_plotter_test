@@ -117,7 +117,7 @@ class Graphs():
         if(self.defl_l_data==[]):
             messagebox.showwarning("Aviso","No hay datos para mostrar en PDF")
         else:
-            return max(self.defl_l_data)
+            return max(self.indexes)
     
     def donwload_graphs(self):
        
@@ -136,9 +136,9 @@ class Graphs():
             
             # Agregar la primera figura en la posición deseada
             # c.drawImage('figure_bar_l.png', 10, 0)
-            c.drawImage('figure_bar_l.png', 20, 100, width=530, height=300)
+            c.drawImage('figure_bar_l.png', 100, 100, width=383, height=230)
             # Agregar la segunda figura debajo de la primera
-            c.drawImage('figure_bar_r.png', 20, 450,width=530, height=300)
+            c.drawImage('figure_bar_r.png', 100, 450,width=383, height=230)
             # Guardar el contenido en el PDF
             c.save()
             os.remove('figure_bar_l.png')

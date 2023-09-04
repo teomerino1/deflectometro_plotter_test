@@ -20,7 +20,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from PIL import Image, ImageTk
 from tkinter import ttk
-import tkinter as tk
+from tkinter import messagebox
 
 
 # Clase correspondiente a la vista encargada de mostrar los datos y graficos
@@ -396,8 +396,11 @@ class Plot5():
         self.view_instance.set_state("Cálculos generados.")
 
     def download_pdf(self):
-        self.view_instance.set_state("Descargando PDF...")
-        self.view_instance.enqueue_transition('download_pdf')
+        if(self.view_instance.get_state()!="Cálculos generados."):
+            messagebox.showwarning("Aviso","Se deben generar los cálulos antes de descargar el PDF.")
+        else:
+            self.view_instance.set_state("Descargando PDF...")
+            self.view_instance.enqueue_transition('download_pdf')
     
     def get_hora_label(self):
         return self.hora_label
