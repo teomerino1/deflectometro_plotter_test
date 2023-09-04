@@ -36,6 +36,8 @@ class Plot5():
         self.title_frame=None
         self.subtitle_frame=None
         self.labels_frame=None
+        self.puesto_label=None
+        self.hora_label=None
         self.botones_frame=None
         self.title = None
         self.back = None
@@ -151,6 +153,12 @@ class Plot5():
             state_label=Label(self.sixth_plot_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
             self.state_label=state_label
 
+            puesto_label=Label(self.sixth_plot_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.puesto_label=puesto_label
+
+            hora_label=Label(self.sixth_plot_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.hora_label=hora_label
+
             imagen_frame=Frame(self.sixth_plot_frame)
             self.imagen_frame=imagen_frame
 
@@ -257,6 +265,8 @@ class Plot5():
             self.sixth_plot_frame.grid(sticky="nsew")
             self.back.grid(row=0, column=0,sticky=NW)
             self.state_label.grid(row=0,column=0,padx=(0,900))
+            self.puesto_label.grid(row=0,column=0)
+            self.hora_label.grid(row=0,column=0,padx=(1000,0))
             self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,10))
             self.title.grid(row=0, column=0,padx=(0,0))
 
@@ -389,6 +399,11 @@ class Plot5():
         self.view_instance.set_state("Descargando PDF...")
         self.view_instance.enqueue_transition('download_pdf')
     
+    def get_hora_label(self):
+        return self.hora_label
+    
+    def get_puesto_label(self):
+        return self.puesto_label
 
     def set_ruta(self,ruta):
         self.ruta=ruta

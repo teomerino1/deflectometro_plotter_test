@@ -64,6 +64,8 @@ def process_data(Reporter,View,Data):
         if(c==0):
             c=1
             View.set_state("Obteniendo datos...")
+            View.set_hora_inicio()
+            View.set_nro_puesto(Reporter.get_last_puesto())
 
         Data.data_destruct(data)
         cantidad=Data.cant_mediciones()

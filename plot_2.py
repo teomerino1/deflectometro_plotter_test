@@ -18,6 +18,8 @@ class Plot2():
         self.third_plot_frame = None
         self.title_frame=None
         self.state_label=None
+        self.hora_label=None
+        self.puesto_label=None
         self.graphs2_frame=None
         self.graphs3_frame=None
         self.botones_frame=None
@@ -65,6 +67,12 @@ class Plot2():
             state_label=Label(self.botones_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
             self.state_label=state_label
 
+            puesto_label=Label(self.botones_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.puesto_label=puesto_label
+
+            hora_label=Label(self.botones_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.hora_label=hora_label
+
             imagenes_frame=Frame(self.third_plot_frame)
             self.imagenes_frame=imagenes_frame
 
@@ -103,6 +111,8 @@ class Plot2():
             self.back.grid(row=0, column=0,padx=(0,1270),sticky=NW)
             self.next.grid(row=0,column=0,padx=(1230,0))
             self.state_label.grid(row=0,column=0,padx=(0,900))
+            self.puesto_label.grid(row=0,column=0)
+            self.hora_label.grid(row=0,column=0,padx=(900,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.subtitle.grid()
@@ -115,6 +125,12 @@ class Plot2():
 
     def get_state_label(self):
         return self.state_label
+    
+    def get_hora_label(self):
+        return self.hora_label
+    
+    def get_puesto_label(self):
+        return self.puesto_label
     
     def download_graphs(self):
         self.Graphs2.download_graphs2(lado="Izquierdo")

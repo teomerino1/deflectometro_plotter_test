@@ -44,6 +44,9 @@ class Plot():
         self.Graphs = None
         self.label_der=None
         self.label_izq=None
+        self.hora_inicio=None
+        self.puesto_label=None
+        self.hora_label=None
 
     # Metodo que elimina todo lo que muestra la pagina
     def close(self):
@@ -55,6 +58,15 @@ class Plot():
 
     def get_state_label(self):
         return self.state_label
+    
+    def get_puesto_label(self):
+        return self.puesto_label
+    
+    def get_hora_label(self):
+        return self.hora_label
+    
+    def get_puesto_label(self):
+        return self.puesto_label
     
     def show(self,a):
 
@@ -79,6 +91,12 @@ class Plot():
 
             state_label=Label(self.botones_frame,text='',font=(None,15),foreground='#66A7EF')
             self.state_label=state_label
+
+            puesto_label=Label(self.botones_frame,text='',font=(None,15),foreground='#66A7EF')
+            self.puesto_label=puesto_label
+
+            hora_label=Label(self.botones_frame,text='',font=(None,15),foreground='#66A7EF')
+            self.hora_label=hora_label
 
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
 
@@ -121,6 +139,8 @@ class Plot():
             self.atras.grid(row=0, column=0,padx=(0,1250),pady=(0,0),sticky=NW)
             self.next.grid(row=0, column=0,padx=(1250,0),pady=(0,0))
             self.state_label.grid(row=0,column=0,padx=(0,900))
+            self.puesto_label.grid(row=0,column=0)
+            self.hora_label.grid(row=0,column=0,padx=(900,0))
 
             self.labels_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
             self.label_izq.grid(row=1, column=0,padx=(0,350))

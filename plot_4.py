@@ -24,6 +24,8 @@ class Plot4():
         self.graphs_frame=None
         self.botones_frame=None
         self.state_label=None
+        self.hora_label=None
+        self.puesto_label=None
         self.imagen_frame=None
         self.image_cba=None
         self.image_label=None
@@ -68,6 +70,12 @@ class Plot4():
             state_label=Label(self.botones_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
             self.state_label=state_label
 
+            puesto_label=Label(self.botones_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.puesto_label=puesto_label
+
+            hora_label=Label(self.botones_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            self.hora_label=hora_label
+
             title = Label(self.title_frame, text="Informe Estadístico",font=("Helvetica", 25),background='#F6F4F2',foreground='#625651') 
             self.title=title
 
@@ -100,7 +108,8 @@ class Plot4():
             self.back.grid(row=0, column=0,padx=(0,1270),sticky=NW)
             self.next.grid(row=0,column=0,padx=(1230,0))
             self.state_label.grid(row=0,column=0,padx=(0,900))
-            
+            self.puesto_label.grid(row=0,column=0)
+            self.hora_label.grid(row=0,column=0,padx=(900,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(50,0))
             self.title.grid()
             self.graphs_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(0,0))
@@ -110,6 +119,12 @@ class Plot4():
     def download_graphs(self):
         self.Graphs4.download_graphs4()
 
+    def get_hora_label(self):
+        return self.hora_label
+    
+    def get_puesto_label(self):
+        return self.puesto_label
+    
     def new_group_data_plot4(self,dict_r,dict_l,grupos):
         self.Graphs4.update_deflexiones_radios_graph(dict_r,dict_l,grupos)
 

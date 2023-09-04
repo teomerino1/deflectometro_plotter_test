@@ -58,8 +58,8 @@ class View():
         self.Plot4 =plot_4.Plot4(self.root,self)
         self.Plot5= plot_5.Plot5(self.root,self)
         self.is_plotting = False
-        self.first_time_plot=True
-        self.first_time_plot2=True
+        self.hora_inicio=None
+        self.nro_puesto=None
          # Crear una cola bloqueante para las funciones de transición de interfaz
         self.interface_transition_queue = queue.Queue()
         # Crear un solo hilo para ejecutar las funciones de transición de interfaz
@@ -94,14 +94,8 @@ class View():
 
     # # Metodo que borra el Plot 1 y abre el Plot 2
     def go_to_plot_2_from_plot_1(self):
-
-        if(self.first_time_plot2):
-            self.first_time_plot2=False
-            self.Plot.close()
-            self.Plot2.show(1)
-        else:
-            self.Plot.close()
-            self.Plot2.show(1)
+        self.Plot.close()
+        self.Plot2.show(1)
 
     # Metodo que borra el Plot 2 y abre el Plot 1
     def go_to_plot_1_from_plot_2(self):
@@ -158,6 +152,22 @@ class View():
 
     def get_reset(self):
         return self.reset
+    
+    def set_hora_inicio(self):
+        self.hora_inicio=time.strftime("%H:%M", time.localtime())
+        self.Plot.get_hora_label().config(text=f'Hora Inicio {self.hora_inicio}')
+        self.Plot2.get_hora_label().config(text=f'Hora Inicio {self.hora_inicio}')
+        self.Plot3.get_hora_label().config(text=f'Hora Inicio {self.hora_inicio}')
+        self.Plot4.get_hora_label().config(text=f'Hora Inicio {self.hora_inicio}')
+        self.Plot5.get_hora_label().config(text=f'Hora Inicio {self.hora_inicio}')
+
+    def set_nro_puesto(self,nro_puesto):
+        self.Plot.get_puesto_label().config(text=f'Nº Puesto:{nro_puesto}')
+        self.Plot2.get_puesto_label().config(text=f'Nº Puesto:{nro_puesto}')
+        self.Plot3.get_puesto_label().config(text=f'Nº Puesto:{nro_puesto}')
+        self.Plot4.get_puesto_label().config(text=f'Nº Puesto:{nro_puesto}')
+        self.Plot5.get_puesto_label().config(text=f'Nº Puesto:{nro_puesto}')
+        self.nro_puesto=nro_puesto
 
     def download_pdf(self):
         self.generar_carátula("caratula.pdf")
