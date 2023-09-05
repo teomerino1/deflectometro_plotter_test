@@ -319,10 +319,11 @@ class View():
             os.remove('figure_rad_r.png')
             os.remove('figure_rad_l.png')
             os.remove('caratula.pdf')
+
             messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes':")
 
         else:
-            print("Detecto que la imagen no existe")
+            # print("Detecto que la imagen no existe")
             messagebox.showwarning("Aviso","Faltan datos para generar el PDF.")
             return
 

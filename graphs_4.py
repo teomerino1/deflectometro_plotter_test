@@ -38,7 +38,7 @@ class Graphs4():
     def deflexiones_radios_graph(self,row, column,title):
         
         figure = Figure(figsize=(7,7), dpi=100,facecolor='#F6F4F2')
-        figure.subplots_adjust(bottom=0,top=0.8)
+        figure.subplots_adjust(bottom=0,top=0.9)
         sub_figure=figure.add_subplot(211)
         sub_figure.set_title(title)
         sub_figure.set_xlim(0,20)

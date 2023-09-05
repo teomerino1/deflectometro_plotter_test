@@ -47,7 +47,7 @@ class Graphs():
         sub_figure.grid(axis='both',linestyle='dotted')
 
         # Ajustar los márgenes de los subplots
-        figure.subplots_adjust(bottom=0,top=0.93)
+        figure.subplots_adjust(bottom=0,top=0.94)
         
         bar = FigureCanvasTkAgg(figure,self.frame)
         

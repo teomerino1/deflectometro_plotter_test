@@ -89,32 +89,32 @@ class Plot():
             imagen_frame=Frame(self.second_plot_frame)
             self.imagen_frame=imagen_frame
 
-            state_label=Label(self.botones_frame,text='',font=(None,15),foreground='#66A7EF')
+            state_label=Label(self.botones_frame,text='',font=(None,10),background='white',foreground='black',relief='groove')
             self.state_label=state_label
 
-            puesto_label=Label(self.botones_frame,text='',font=(None,15),foreground='#66A7EF')
+            puesto_label=Label(self.botones_frame,text='',font=(None,12),foreground='#66A7EF')
             self.puesto_label=puesto_label
 
-            hora_label=Label(self.botones_frame,text='',font=(None,15),foreground='#66A7EF')
+            hora_label=Label(self.botones_frame,text='',font=(None,12),foreground='#66A7EF')
             self.hora_label=hora_label
 
             columns = ("columna1", "columna2", "columna3", "columna4","columna5","columna6")  # Especifica los nombres de las columnas
 
             self.table = Treeview(self.table_frame, columns=columns, show='headings')
             
-            atras = ttk.Button(self.botones_frame, text="Atras", command=self.go_to_config,style="TButton")
+            atras = ttk.Button(self.botones_frame, text="← Atras", command=self.go_to_config,style="TButton")
             self.atras=atras
 
-            next = ttk.Button(self.botones_frame,text="Next",command=self.go_to_plot_2_from_plot_1,style="TButton")
+            next = ttk.Button(self.botones_frame,text="Siguiente →",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
             self.Table = table.Table(self.table_frame) 
             self.Graphs = graphs.Graphs(self.graphs_frame) 
 
-            label_der = Label(self.labels_frame, text="Huella Externa (DERECHA)", font=("Helvetica", 22))
+            label_der = Label(self.labels_frame, text="Huella Externa (DERECHA)", font=("Helvetica", 19))
             self.label_der=label_der
 
-            label_izq = Label(self.labels_frame, text="Huella Interna (IZQUIERDA)", font=("Helvetica", 22))
+            label_izq = Label(self.labels_frame, text="Huella Interna (IZQUIERDA)", font=("Helvetica", 19))
             self.label_izq=label_izq
 
             original_image=Image.open("image3.png")
@@ -135,21 +135,21 @@ class Plot():
 
         if(a == 1):
             self.second_plot_frame.grid(sticky=NSEW)
-            self.botones_frame.grid(row=0,columnspan=2,padx=(0,50))  
-            self.atras.grid(row=0, column=0,padx=(0,1250),pady=(0,0),sticky=NW)
-            self.next.grid(row=0, column=0,padx=(1250,0),pady=(0,0))
-            self.state_label.grid(row=0,column=0,padx=(0,900))
-            self.puesto_label.grid(row=0,column=0)
-            self.hora_label.grid(row=0,column=0,padx=(900,0))
+            self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))  
+            self.atras.grid(row=0, column=0,padx=(0,1275),pady=(0,0))
+            self.next.grid(row=1, column=0,padx=(0,1275),pady=(0,0))
+            self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1200,0))
+            self.hora_label.grid(row=1,column=0,padx=(1200,0))
 
             self.labels_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
             self.label_izq.grid(row=1, column=0,padx=(0,350))
             self.label_der.grid(row=1, column=0,padx=(550,0))
 
-            self.table_frame.grid(row=2,padx=(0,45))
+            self.table_frame.grid(row=2,padx=(0,45),pady=(0,0))
             self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(0,0))
 
-            self.imagen_frame.grid(row=3,padx=(0,30),pady=(160,0))
+            self.imagen_frame.grid(row=3,padx=(0,30),pady=(145,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
             
             

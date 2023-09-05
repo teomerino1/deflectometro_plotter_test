@@ -30,6 +30,7 @@ class Plot5():
 
         self.root = root
         self.sixth_plot_frame = None
+        self.top_frame=None
         self.state_frame=None
         self.state_label=None
         self.state=None
@@ -138,6 +139,9 @@ class Plot5():
             sixth_plot_frame = Frame(self.root, width=width, height=height,background='#F6F4F2')
             self.sixth_plot_frame = sixth_plot_frame
 
+            top_frame=Frame(self.sixth_plot_frame, width=width, height=height,background='#F6F4F2')
+            self.top_frame=top_frame
+
             title_frame=Frame(self.sixth_plot_frame,background='#F6F4F2')
             self.title_frame=title_frame
 
@@ -150,22 +154,22 @@ class Plot5():
             botones_frame=Frame(self.sixth_plot_frame,background='#F6F4F2')
             self.botones_frame=botones_frame
 
-            state_label=Label(self.sixth_plot_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            state_label=Label(self.top_frame,text='',font=(None,10), background='white', foreground='black', relief='groove')
             self.state_label=state_label
 
-            puesto_label=Label(self.sixth_plot_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            puesto_label=Label(self.top_frame,text='',font=(None,12),background='#F6F4F2',foreground='#66A7EF')
             self.puesto_label=puesto_label
 
-            hora_label=Label(self.sixth_plot_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            hora_label=Label(self.top_frame,text='',font=(None,12),background='#F6F4F2',foreground='#66A7EF')
             self.hora_label=hora_label
 
             imagen_frame=Frame(self.sixth_plot_frame)
             self.imagen_frame=imagen_frame
 
-            title = Label(self.title_frame, text="PLANILLA GENERAL DE RESULTADOS ESTADISTICOS",font=(None, 25),background='#F6F4F2',foreground='#625651') 
+            title = Label(self.title_frame, text="PLANILLA GENERAL DE RESULTADOS ESTADISTICOS",font=(None, 22),background='#F6F4F2',foreground='#625651') 
             self.title = title
 
-            back = ttk.Button(self.sixth_plot_frame, text="Atrás", command=self.go_to_plot_4_from_plot_5,style="TButton")
+            back = ttk.Button(self.top_frame, text="← Atras", command=self.go_to_plot_4_from_plot_5,style="TButton")
             self.back = back
             
             stats = ttk.Button(self.botones_frame, text="Generar Cálculos", command=self.generate_stats,style="TButton")
@@ -174,7 +178,7 @@ class Plot5():
             pdf = ttk.Button(self.botones_frame, text="Descargar PDF", command=self.download_pdf,style="TButton")
             self.pdf = pdf
 
-            huella_ext = Label(self.labels_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 18),background='#F6F4F2',foreground='#625651')
+            huella_ext = Label(self.labels_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 17),background='#F6F4F2',foreground='#625651')
             self.huella_ext = huella_ext
 
             defl_media_der = Label(self.labels_frame, text="Deflexion media:",font=(None, 14),background='#F6F4F2',foreground='#625651')
@@ -207,12 +211,7 @@ class Plot5():
             r_x_d_der = Label(self.labels_frame, text="(R x D) Medio:",font=(None, 14),background='#F6F4F2',foreground='#625651')
             self.r_x_d_der = r_x_d_der
 
-            ################################################################################################################
-            whitespace = Label(self.labels_frame, text="          ",font=(None, 15))
-            self.whitespace = whitespace
-            ################################################################################################################
-
-            huella_int = Label(self.labels_frame, text="HUELLA INTERNA (IZQUIERDA)",font=(None, 18),background='#F6F4F2',foreground='#625651')
+            huella_int = Label(self.labels_frame, text="HUELLA INTERNA (IZQUIERDA)",font=(None, 17),background='#F6F4F2',foreground='#625651')
             self.huella_int = huella_int
 
             defl_media_izq = Label(self.labels_frame, text="Deflexion media:",font=(None, 14),background='#F6F4F2',foreground='#625651')
@@ -263,14 +262,15 @@ class Plot5():
         if(a == 1):
 
             self.sixth_plot_frame.grid(sticky="nsew")
-            self.back.grid(row=0, column=0,sticky=NW)
-            self.state_label.grid(row=0,column=0,padx=(0,900))
-            self.puesto_label.grid(row=0,column=0)
-            self.hora_label.grid(row=0,column=0,padx=(1000,0))
-            self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,10))
+            self.top_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
+            self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
+            self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
+            self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(6,0))
+            self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
             self.title.grid(row=0, column=0,padx=(0,0))
 
-            self.labels_frame.grid(row=2,columnspan=2,pady=(0,10))
+            self.labels_frame.grid(row=2,columnspan=2,pady=(0,0))
             self.huella_ext.grid(row=0,column=0,padx=(0,150))
             self.huella_int.grid(row=0,column=1,padx=(150,0))
             

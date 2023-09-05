@@ -64,13 +64,13 @@ class Plot2():
             graphs3_frame=Frame(self.third_plot_frame)
             self.graphs3_frame=graphs3_frame
 
-            state_label=Label(self.botones_frame,text="Test",font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            state_label=Label(self.botones_frame,text='', font=(None,10), background='white', foreground='black', relief='groove')
             self.state_label=state_label
 
-            puesto_label=Label(self.botones_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            puesto_label=Label(self.botones_frame,text='',font=(None,12),background='#F6F4F2',foreground='#66A7EF')
             self.puesto_label=puesto_label
 
-            hora_label=Label(self.botones_frame,text='',font=(None,15),background='#F6F4F2',foreground='#66A7EF')
+            hora_label=Label(self.botones_frame,text='',font=(None,12),background='#F6F4F2',foreground='#66A7EF')
             self.hora_label=hora_label
 
             imagenes_frame=Frame(self.third_plot_frame)
@@ -82,10 +82,10 @@ class Plot2():
             subtitle=Label(self.title_frame, text="Lado Izquierdo",font=("Helvetica", 22),background='#F6F4F2',foreground='#625651')
             self.subtitle=subtitle
 
-            back = ttk.Button(self.botones_frame, text="Atrás", command=self.go_to_plot_1_from_plot_2,style="TButton")
+            back = ttk.Button(self.botones_frame, text="← Atras", command=self.go_to_plot_1_from_plot_2,style="TButton")
             self.back = back
 
-            next = ttk.Button(self.botones_frame, text="Next", command=self.go_to_plot_3_from_plot2,style="TButton")
+            next = ttk.Button(self.botones_frame, text="Siguiente →", command=self.go_to_plot_3_from_plot2,style="TButton")
             self.next = next
 
             self.Graphs2 = graphs_2.Graphs2(self.graphs2_frame,lado="Izquierdo")
@@ -107,18 +107,18 @@ class Plot2():
             
         if(a == 1):
             self.third_plot_frame.grid(sticky="NSEW")
-            self.botones_frame.grid(row=0,columnspan=2,padx=(0,0))
-            self.back.grid(row=0, column=0,padx=(0,1270),sticky=NW)
-            self.next.grid(row=0,column=0,padx=(1230,0))
-            self.state_label.grid(row=0,column=0,padx=(0,900))
-            self.puesto_label.grid(row=0,column=0)
-            self.hora_label.grid(row=0,column=0,padx=(900,0))
+            self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
+            self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
+            self.next.grid(row=1,column=0,padx=(0,1275),pady=(0,0),sticky=NW)
+            self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
+            self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(0,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.subtitle.grid()
             self.graphs2_frame.grid(row=2,column=0,padx=(0,700),pady=(60,0))
             self.graphs3_frame.grid(row=2,column=0,padx=(700,0),pady=(60,0))
-            self.imagenes_frame.grid(row=2,padx=(0,30),pady=(450,0))
+            self.imagenes_frame.grid(row=2,padx=(0,30),pady=(380,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
             
 ##F6F4F2
