@@ -1,14 +1,35 @@
 from reportlab.lib.pagesizes import letter,A4
 from reportlab.pdfgen import canvas
+import datetime
+from reportlab.lib import colors
+from reportlab.platypus import Table, TableStyle, SimpleDocTemplate
+from io import BytesIO
 
-output_pdf = 'caratula.pdf'
-c = canvas.Canvas(output_pdf, pagesize=A4)
+# Crear un buffer para el PDF
+# Crear un objeto Canvas
+c = canvas.Canvas("mi_archivo.pdf")
 
-# Agregar la primera figura en la posición deseada
-# c.drawImage('figure_bar_l.png', 10, 0)
-c.drawImage('INFAS.bmp', 220, 780, width=149, height=55)
-# c.save()
-c.drawImage('test.png', 30, 550, width=540, height=170)
-c.drawImage('Cordoba.png', 235, 0, width=127, height=49)
+# Agregar contenido a la primera página
+c.drawString(100, 750, "Página 1")
 
+# Mostrar la primera página y prepararse para la siguiente página
+c.showPage()
+
+# Agregar contenido a la segunda página
+c.drawString(100, 750, "Página 2")
+
+# Mostrar la segunda página y prepararse para la siguiente página
+c.showPage()
+
+# Agregar contenido a la tercera página
+c.drawString(100, 750, "Página 3")
+
+# Mostrar la tercera página y prepararse para la siguiente página
+c.showPage()
+
+# Cerrar el objeto Canvas para finalizar el PDF
 c.save()
+
+
+
+

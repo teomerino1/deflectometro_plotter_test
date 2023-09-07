@@ -1,20 +1,16 @@
 from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter import ttk
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.lib.utils import ImageReader
-from matplotlib.backends.backend_pdf import FigureCanvasPdf
-import io
-import PyPDF2
 from tabulate import tabulate
-from tkinter import ttk
 from fpdf import FPDF
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Image, Spacer,Paragraph
+from reportlab.lib.pagesizes import letter,A4
+from reportlab.pdfgen import canvas
+from reportlab.lib import colors
+from reportlab.platypus import Table, TableStyle
+from io import BytesIO
 # Clase donde se inicializa y actualiza la tabla
 
-class Table():
+class Tabla():
     def __init__(self, frame):
         self.table = None
         self.frame=frame
@@ -63,6 +59,7 @@ class Table():
 
         # Configurar el alto del Treeview
         self.table.configure(height=9)
+        
 
         headers = [
             ("Grupos", "Grupos"),
@@ -86,55 +83,117 @@ class Table():
     def donwload_table(self):
         items = self.table.get_children()
 
-        if items:  
-            fecha= self.get_fecha().strftime("%d-%m-%Y")
-            ruta=self.get_ruta()
-            data = []
+        # if items:
 
-            for item in self.table.get_children():
-                data.append(self.table.item(item, 'values'))
 
-            headers = self.table['columns']
-            table_str = tabulate(data, headers=headers, tablefmt='plain')
+        buffer = BytesIO()
 
-            pdf = FPDF()
-            pdf.add_page()
-            pdf.set_font("Arial", size=12)
-            pdf.set_auto_page_break(auto=True, margin=15)
-                    # Agregar el texto "Fecha" y la fecha actual al PDF
-            pdf.set_x((pdf.w - pdf.get_string_width("Fecha: " + fecha)) / 2)
-            pdf.cell(0, 10, "Fecha: " + fecha, ln=True)
+# Crear un objeto Canvas
+        c = canvas.Canvas(buffer, pagesize=A4)
+        #Dibuja la imagen de encabezado
+        c.drawImage('header.png', 25, 773, width=550, height=60)
 
-            
-            pdf.set_x((pdf.w - pdf.get_string_width("Ruta: " + ruta)) / 2)
-            pdf.cell(0, 10, "Ruta: " + ruta, ln=True)
-    
-            pdf.ln(3)  # Add some spacing between tables
-            
-            first_table_data = [["Huella Externa (DER)", "Huella Interna (IZQ)"]]
-            col_width_first = 88
-            row_height_first = 10
-            left_margin = 22  # Margin in points
 
-            for row in first_table_data:
-                pdf.cell(left_margin)  # Add left margin
-                for item in row:
-                    pdf.cell(col_width_first, row_height_first, txt=item, border=1, align='C')
-                pdf.ln(row_height_first)
+        titulo_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ])
 
-           
-            col_width = 22
-            row_height = 6
-            for row in table_str.split('\n'):
-                for item in row.split(None):
-                    pdf.cell(col_width, row_height, txt=item, border=1, align='C')
-                pdf.ln(row_height)
+        table_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, -1), colors.beige),  # Fondo para todas las filas
+            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),   # Color de texto para todas las filas
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ])
 
-            pdf.output('tabla.pdf')
-            
+        titulo_der,titulo_izq="Huella Externa (DER)","Huella Interna (IZQ)"
+        tabla_titulo = Table([[titulo_der,titulo_izq]],colWidths=[200,200])
+        tabla_titulo.setStyle(titulo_style)
+        tabla_titulo.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_titulo.drawOn(c, 125, 735) 
+
+        h1,h2,h3,h4,h5,h6,h7,h8,h9="Grupos", "Radio.", "Defl.", "R*D.", "R/D.", ".Radio.", ".Defl.", ".R*D.", ".R/D."
+        tabla_headers = Table([[h1,h2,h3,h4,h5,h6,h7,h8,h9]],colWidths=[50,50,50,50,50,50,50,50,50])
+        tabla_headers.setStyle(titulo_style)
+        tabla_headers.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_headers.drawOn(c, 75, 710)
+
+        datos = []
+        for item in self.table.get_children():
+                datos.append(self.table.item(item, 'values'))
+
+        altura_maxima = 660
+        altura_tabla = 20 * len(datos)
+        print("Altura tabla:",altura_tabla)
+        num_filas_por_pagina = 33  # Número de filas por página
+        pagina_actual = 1
+
+        if((altura_tabla/20)>num_filas_por_pagina):
+            datos_pagina = datos[:num_filas_por_pagina]
+            datos = datos[num_filas_por_pagina:]
+
+            tabla_datos_pagina = Table(datos_pagina, colWidths=[50,50,50,50,50,50,50,50,50],rowHeights=20)
+            tabla_datos_pagina.setStyle(table_style)
+            tabla_datos_pagina.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+            tabla_datos_pagina.drawOn(c, 75, 705-(20*num_filas_por_pagina))
+            c.showPage()
+
+
+            tabla_datos = Table(datos, colWidths=[50,50,50,50,50,50,50,50,50],rowHeights=20)
+            tabla_datos.setStyle(table_style)
+            altura_tabla_datos = 20 * len(datos)
+            filas_tabla_datos=altura_tabla_datos/20
+            print("Altura tabla datos:",altura_tabla_datos)
+            tabla_datos.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+            tabla_datos.drawOn(c, 75, 735-(20*filas_tabla_datos))
+            c.showPage()
+            c.save()
+
         else:
-            print("No hay nada")
-            return
+
+            tabla_datos = Table(datos, colWidths=[50,50,50,50,50,50,50,50,50], rowHeights=20)
+            tabla_datos.setStyle(table_style)
+            altura_tabla = tabla_datos.wrap(0, 0)[1]
+            cantidad_filas=altura_tabla/20
+            print("altura_tabla:",altura_tabla)
+            tabla_datos.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+            tabla_datos.drawOn(c, 75, 709-(20*cantidad_filas))
+            c.showPage()
+            c.save()
+        
+
+        # c.save()
+
+        # Guardar el contenido del buffer en un archivo PDF
+        buffer.seek(0)
+        with open('tabla.pdf', 'wb') as f:
+            f.write(buffer.read())
+        # tabla_datos = Table(datos, colWidths=[50,50,50,50,50,50,50,50,50], rowHeights=20)
+        # tabla_datos.setStyle(table_style)
+        # altura_tabla = tabla_datos.wrap(0, 0)[1]
+
+        # cantidad_filas=altura_tabla/20
+        # print("altura_tabla:",altura_tabla)
+        
+        # tabla_datos.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+        # tabla_datos.drawOn(c, 75, 709-(20*cantidad_filas))
+        # c.showPage()
+        # c.save()
+
+        # buffer.seek(0)
+        # with open('tabla.pdf', 'wb') as f:
+        #     f.write(buffer.read())
+
+        # else:
+        #     print("No hay nada")
+        #     return
         
     def reset(self):
         self.clear_table()

@@ -108,7 +108,7 @@ class Plot():
             next = ttk.Button(self.botones_frame,text="Siguiente →",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
-            self.Table = table.Table(self.table_frame) 
+            self.Table = table.Tabla(self.table_frame) 
             self.Graphs = graphs.Graphs(self.graphs_frame) 
 
             label_der = Label(self.labels_frame, text="Huella Externa (DERECHA)", font=("Helvetica", 19))
