@@ -170,101 +170,98 @@ class View():
         self.nro_puesto=nro_puesto
 
     def download_pdf(self):
-        self.generar_carátula("caratula.pdf")
+        # self.generar_carátula("caratula.pdf")
         self.Plot.generar_pdf()
-        self.Plot2.download_graphs()
-        self.Plot3.download_graphs()
-        self.Plot4.download_graphs()
-        self.Plot5.download_stats()
-        sleep(1)
-        self.combine_pdf()
+        # self.Plot2.download_graphs()
+        # self.Plot3.download_graphs()
+        # self.Plot4.download_graphs()
+        # self.Plot5.download_stats()
+        # sleep(1)
+        # self.combine_pdf()
 
     def generar_carátula(self,filename):
-        informe = "INFORME DEFLECTOMETRO"
-        lacroix="LACROIX"
-        cosas = "DEFLEXIONES, VALORES MEDIOS, CARACTERISTICOS, RADIOS DE CURVATURA Y ANALISIS ESTADISTICO"
-        ruta = self.get_ruta()
-        provincia = self.get_provincia()
-        tramo = self.get_tramo()
-        subtramo = self.get_subtramo()
-        pavimento = self.get_pavimento()
-        puesto=self.reporter_instance.get_puesto()
-        prog_max = self.Plot.get_prog_max()
-        # prog_max=3000
-        fecha = datetime.datetime.now().date()
-        hora_inicio,minutos_inicio=self.reporter_instance.get_initial_time()
-        hora_final=time.localtime().tm_hour
-        minutos_final=time.localtime().tm_min
-        chofer = self.get_chofer()
-        apoyo = self.get_apoyo()
-        operador = self.get_operador()
 
-        doc = SimpleDocTemplate(filename, pagesize=A4)
-        styles = getSampleStyleSheet()
-        center_style = ParagraphStyle(name='CenterStyle', alignment=1)
-        story = []
+            # Abrir el PDF existente en modo de escritura y agregar contenido
+        c = canvas.Canvas(filename, pagesize=A4)
+        ancho_pagina, alto_pagina = A4
+        centro_x = ancho_pagina / 2
+        # Dibuja la imagen en el PDF
+        c.drawImage('caratula3.png', 70, 420, width=469, height=386)
 
-        # Modificar los tamaños de fuente en los estilos
-        styles['Title'].fontSize = 30
-        styles['Heading2'].fontSize = 20
+        ruta = "Ruta: " + self.get_ruta()
+        ancho_ruta = c.stringWidth(ruta, "Helvetica", 14)
+        posicion_1 = centro_x - (ancho_ruta / 2)
 
-        # Agregar el título y subtítulo con espacio en blanco
-        title = Paragraph(informe, styles['Title'])
-        title2 = Paragraph(lacroix, styles['Title'])
-        subtitle = Paragraph(cosas, styles['Heading2'])
-        title_subtitle_table = Table([[title],[title2],[Spacer(1, 20)], [subtitle]])
-        title_subtitle_table.setStyle(TableStyle([
-            ('VALIGN', (0, 0), (0, 2), 'MIDDLE'),
-            ('ALIGN', (0, 0), (0, 2), 'CENTER'),
-            ('TEXTCOLOR', (0, 0), (0, 2), colors.black),
-            ('FONTNAME', (0, 0), (0, 2), 'Helvetica-Bold'),
-            ('BOTTOMPADDING', (0, 0), (0, 0), 10),
-            ('BOTTOMPADDING', (0, 1), (0, 1), 30),  # Agregar espacio en blanco
-            ('BOTTOMPADDING', (0, 2), (0, 2), 0),
-            ('ALIGN', (0, 2), (0, 2), 'CENTER')  # Centrar el subtítulo
-        ]))
+        provincia = "Provincia: " + self.get_provincia()
+        ancho_provincia = c.stringWidth(provincia, "Helvetica", 14)
+        posicion_2 = centro_x - (ancho_provincia / 2)
 
-        story.append(title_subtitle_table)
-        story.append(Spacer(1, 30))  # Espacio en blanco
+        tramo ="Tramo: " + self.get_tramo()
+        ancho_tramo = c.stringWidth(tramo, "Helvetica", 14)
+        posicion_3 = centro_x - (ancho_tramo / 2)
 
-        # Agregar el resto de la información centrada
-        centered_info_paragraphs = [
-            Paragraph(f"Ruta: {ruta}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Provincia: {provincia}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Tramo: {tramo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Subtramo: {subtramo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Pavimento: {pavimento}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Progresiva Inicial: 0", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Progresiva Final: {prog_max}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20)),
-            Spacer(1, 60),
-        ]
-        story.extend(centered_info_paragraphs)
+        subtramo = "Subtramo: " + self.get_subtramo()
+        ancho_subtramo = c.stringWidth(subtramo, "Helvetica", 14)
+        posicion_4 = centro_x - (ancho_subtramo / 2)
 
-        down_info_paragraphs=[
-            Paragraph(f"Fecha: {fecha}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Inicio: {hora_inicio:02d} : {minutos_inicio:02d}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Fin: {hora_final:02d} : {minutos_final:02d}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Chofer: {chofer}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Apoyo: {apoyo}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Operador: {operador}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
-            Spacer(1, 20),  # Agregar un espacio en blanco
-            Paragraph(f"Número de trayecto: {puesto}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15)),
-        ]
+        pavimento ="Pavimento: "+ self.get_pavimento()
+        ancho_pavimento = c.stringWidth(pavimento, "Helvetica", 14)
+        posicion_5 = centro_x - (ancho_pavimento / 2)
 
-        story.extend(down_info_paragraphs)
+        puesto="Número de trayecto: "+str(self.reporter_instance.get_puesto())
+        ancho_puesto = c.stringWidth(puesto, "Helvetica", 14)
+        posicion_6 = centro_x - (ancho_puesto / 2)
 
-        doc.build(story)
+        prog_max = "Progresiva final: "+str(self.Plot.get_prog_max())
+        ancho_prog = c.stringWidth(prog_max, "Helvetica", 14)
+        posicion_7 = centro_x - (ancho_prog / 2)
+
+        fecha = "Fecha: "+str(datetime.datetime.now().date())
+        ancho_fecha = c.stringWidth(fecha, "Helvetica", 12)
+        posicion_8 = centro_x - (ancho_fecha / 2)
+
+        hora_inicio="Inicio: "+ str(self.reporter_instance.get_initial_time())
+        ancho_hora_inicio=c.stringWidth(hora_inicio, "Helvetica", 12)
+        posicion_9=centro_x - (ancho_hora_inicio / 2)
+
+        hora_final = datetime.datetime.now().strftime("%H:%M")
+        hora, minutos = hora_final.split(":")
+        hora = hora.zfill(2)
+        minutos = minutos.zfill(2)
+        hora_final_string = f"Fin: {hora}:{minutos}"
+        ancho_hora_final=c.stringWidth(hora_final_string, "Helvetica", 12)
+        posicion_10=centro_x - (ancho_hora_final / 2)
+
+        chofer = "Chofer: "+self.get_chofer()
+        ancho_chofer = c.stringWidth(chofer, "Helvetica", 12)
+        posicion_11 = centro_x - (ancho_chofer / 2)
+
+        apoyo = "Apoyo: "+self.get_apoyo()
+        ancho_apoyo = c.stringWidth(apoyo, "Helvetica", 12)
+        posicion_12 = centro_x - (ancho_apoyo / 2)
+
+        operador = "Operador: "+self.get_operador()
+        ancho_operador = c.stringWidth(operador, "Helvetica", 12)
+        posicion_13 = centro_x - (ancho_operador / 2)
+
+        c.setFont("Helvetica", 14)
+        c.drawString(posicion_1, 360, f"{ruta}")
+        c.drawString(posicion_2, 340, f"{provincia}")
+        c.drawString(posicion_3, 320, f"{tramo}")
+        c.drawString(posicion_4, 300, f"{subtramo}")
+        c.drawString(posicion_5, 280, f"{pavimento}")
+        c.drawString(posicion_6, 260, "Progresiva Inicial: 0")
+        c.drawString(posicion_7, 240, f"{prog_max}")
+        c.drawString(posicion_8, 190, f"{fecha}")
+        c.drawString(posicion_9, 170, f"{hora_inicio}")
+        c.drawString(posicion_10, 150, f"{hora_final_string}")
+        c.drawString(posicion_11, 130, f"{chofer}")
+        c.drawString(posicion_12, 110, f"{apoyo}")
+        c.drawString(posicion_13, 90, f"{operador}")
+        c.drawString(posicion_6, 70, f"{puesto}")
+
+        c.save()
+       
 
     def combine_pdf(self):
 

@@ -17,9 +17,13 @@ class Reporter():
         # self.start()
 
     def start(self):
-        print("Calculo hora inicial")
-        self.hora_inicio = time.localtime().tm_hour
-        self.minutos_inicio = time.localtime().tm_min
+        hora_actual = datetime.datetime.now().strftime("%H:%M")
+        hora, minutos = hora_actual.split(":")
+        hora = hora.zfill(2)
+        minutos = minutos.zfill(2)
+        hora_inicio = f"{hora}:{minutos}"
+        self.hora_inicio = hora_inicio
+        # self.minutos_inicio = time.localtime().tm_min
         self.get_last_measurement()
 
     def set_puesto_change(self, value):
@@ -32,7 +36,7 @@ class Reporter():
         return self.puesto
     
     def get_initial_time(self):
-        return self.hora_inicio,self.minutos_inicio
+        return self.hora_inicio
 
     # Método que obtiene el número de ciclo correspondiente a la medición más nueva
     def get_last_measurement(self):

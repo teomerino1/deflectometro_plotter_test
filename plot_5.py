@@ -396,9 +396,9 @@ class Plot5():
         self.view_instance.set_state("Cálculos generados.")
 
     def download_pdf(self):
-        if(self.view_instance.get_state()!="Cálculos generados."):
-            messagebox.showwarning("Aviso","Se deben generar los cálulos antes de descargar el PDF.")
-        else:
+        # if(self.view_instance.get_state()!="Cálculos generados."):
+        #     messagebox.showwarning("Aviso","Se deben generar los cálulos antes de descargar el PDF.")
+        # else:
             self.view_instance.set_state("Descargando PDF...")
             self.view_instance.enqueue_transition('download_pdf')
     
@@ -419,27 +419,20 @@ class Plot5():
 
     def download_stats(self):
         # Crear el buffer para el PDF usando ReportLab
-        if(self.defl_car_der_value==None):
-            print("Me doy cuenta q es noneing")
-            return 
-    
+        # if(self.defl_car_der_value==None):
+        #     print("Me doy cuenta q es noneing")
+        #     return 
+
+        # Crear un buffer para el PDF
         buffer = BytesIO()
-        doc = SimpleDocTemplate(buffer, pagesize=A4)
 
-        title0 = Paragraph("DEFLECTOGRAFO LACROIX",ParagraphStyle(name='CenterStyle', alignment=1, fontSize=25))
-        title1 = Paragraph("PLANTILLA GENERAL DE RESULTADOS",ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20))
-        title2 = Paragraph("ESTADISTICOS",ParagraphStyle(name='CenterStyle', alignment=1, fontSize=20))
-        title3 = Paragraph(f"Ruta: {self.get_ruta()}", ParagraphStyle(name='CenterStyle', alignment=1, fontSize=15))
+        # Crear un objeto Canvas
+        c = canvas.Canvas(buffer, pagesize=A4)
 
-        elements = []
-        elements.append(title0)
-        elements.append(Spacer(1,20))
-        elements.append(title1)
-        elements.append(Spacer(1,10))
-        elements.append(title2)
-        elements.append(Spacer(1,20))
-        elements.append(title3)
-        elements.append(Spacer(1,20))
+        # Dibuja la imagen de encabezado
+        c.drawImage('header.png', 25, 773, width=550, height=60)
+
+        c.drawImage('image.png', 0, 0, width=600, height=86)
 
         labels_der = [
             self.defl_media_der, self.desv_std_der, 
@@ -469,35 +462,68 @@ class Plot5():
             self.d_r_med_izq_value, self.r_x_d_izq_value
         ]
 
-        # Agregar los primeros elementos individuales
-        tabla_der = [[self.huella_ext.cget("text")]]
-        tabla_izq = [[self.huella_int.cget("text")]]
-        
-        for label, value in zip(labels_der, labels_der_values):
+          # Configura el estilo de la tabla
+        table_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, -1), colors.beige),  # Fondo para todas las filas
+            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),   # Color de texto para todas las filas
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ])
+        titulo_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ])
+
+        titulo_der="HUELLA EXTERNA (DERECHA)"
+        tabla_der = []
+
+        titulo_izq="HUELLA INTERNA (IZQUIERDA)"
+        tabla_izq = []
+
+        for label,value in zip(labels_der, labels_der_values):
             tabla_der.append([label.cget("text"), value.cget("text")])
-        
-        for label, value in zip(labels_izq, labels_izq_values):
+
+        for label,value in zip(labels_izq, labels_izq_values):
             tabla_izq.append([label.cget("text"), value.cget("text")])
 
-        table_style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-                                  ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-                                  # ... otros estilos de tabla ...
-                                  ])
+        # Dibuja la tabla derecha
+        tabla_datos_der = Table(tabla_der, colWidths=[200, 200], rowHeights=22)
+        tabla_datos_der.setStyle(table_style)
+        tabla_titulo_der = Table([[titulo_der]], colWidths=[400])
+        tabla_titulo_der.setStyle(titulo_style)
+        tabla_titulo_der.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_titulo_der.drawOn(c, 95, 700) 
+        tabla_datos_der.wrapOn(c, 400, 400)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_datos_der.drawOn(c, 95, 480)  # Dibuja la tabla en las coordenadas especificadas
 
-        table_der = Table(tabla_der, colWidths=[200, 200], rowHeights=25)
-        table_der.setStyle(table_style)
-        elements.append(table_der)
+        # Dibuja la tabla izquierda
+        tabla_datos_izq = Table(tabla_izq, colWidths=[200, 200], rowHeights=22)
+        tabla_datos_izq.setStyle(table_style)
+        tabla_titulo_izq = Table([[titulo_izq]], colWidths=[400])
+        tabla_titulo_izq.setStyle(titulo_style)
+        tabla_titulo_izq.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_titulo_izq.drawOn(c, 95, 440) 
+        tabla_datos_izq.wrapOn(c, 400, 400)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_datos_izq.drawOn(c, 95, 225)  # Dibuja la tabla en las coordenadas especificadas
 
-        table_izq = Table(tabla_izq, colWidths=[200, 200], rowHeights=25)
-        table_izq.setStyle(table_style)
-        elements.append(table_izq)
+        # Guarda el PDF en el buffer
+        c.showPage()
+        c.save()
 
-        doc.build(elements)
-
+        # Guarda el contenido del buffer en un archivo
         buffer.seek(0)
-
-        with open("pdf5.pdf", "wb") as f:
+        with open('stats.pdf', 'wb') as f:
             f.write(buffer.read())
+
+
+        
 
 
 
