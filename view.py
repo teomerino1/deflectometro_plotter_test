@@ -521,8 +521,13 @@ class View():
                         respuesta= messagebox.askokcancel("Aviso","Se están obteniendo datos, Si vuelve a la configuración deberá resetear el recorrido. ¿Desea continuar?")
                         if respuesta:
                             self.go_to_config()
+                            self.reset_all_plots()
+                            self.reset_all_data()
+                            self.set_reset(1)
+                            messagebox.showinfo("Aviso", "Datos reseteados!")
                             self.enqueued_functions.remove(target_function)
                             self.interface_transition_queue.task_done()
+                            continue
                         else:
                             self.enqueued_functions.remove(target_function)
                             self.interface_transition_queue.task_done()

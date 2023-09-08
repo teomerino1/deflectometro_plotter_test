@@ -27,6 +27,7 @@ def update_defl_one(Data,View,amount):
 
 def obtain_data(Reporter, View, Data):
     print("Arranco obtain data")
+    View.set_reset(0)
     View.set_datos_ready_flag(1)
     while True:
         if(View.get_data_ready()==1):
@@ -60,9 +61,9 @@ def process_data(Reporter,View,Data):
                 View.set_state("Detenido")
                
                 print("Vuelvo a empezar")
-                View.set_reset(0)
+                
                 View.set_data_ready(value=0)
-                sleep(1)
+                # sleep(1)
                 obtain_data(Reporter,View,Data)
             else:
                 continue
