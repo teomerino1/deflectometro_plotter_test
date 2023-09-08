@@ -47,6 +47,7 @@ def process_data(Reporter,View,Data):
     View.set_state("Listo para obtener datos")
     c=0
     print("C value:",c)
+
     while True:
              
         data, this_cycle = Reporter.get_new_measurements()
@@ -56,8 +57,7 @@ def process_data(Reporter,View,Data):
                 
                 print("Identifico reset")
 
-                if(a==muestras):
-                    View.set_state("Detenido, cantidad de muestras alcanzada.")
+                View.set_state("Detenido")
                
                 print("Vuelvo a empezar")
                 View.set_reset(0)
@@ -66,11 +66,10 @@ def process_data(Reporter,View,Data):
                 obtain_data(Reporter,View,Data)
             else:
                 continue
-        # if(Reporter)
         if(c==0):
             c=1
             print("Seteo cosas")
-            View.set_state("Obteniendo datos...")
+            View.set_state("Obteniendo datos")
             View.set_hora_inicio()
             View.set_nro_puesto(Reporter.get_last_puesto())
 
@@ -92,14 +91,12 @@ def process_data(Reporter,View,Data):
                 update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
-                View.set_state("Graficando bars...")
-
+                
             if(cantidad%10 == 0):
-                View.set_state("Graficando el grupo...")
                 update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 
                 update_all_thread.start()
-                View.set_state("Obteniendo datos...")
+                
             
 def obtain_and_process_data(Reporter, View, Data):
     while True:

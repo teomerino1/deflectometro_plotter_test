@@ -393,15 +393,11 @@ class Plot5():
     def generate_stats(self):
         self.view_instance.set_state("Generando cálculos...")
         self.view_instance.enqueue_transition('generate_stats')
-        # self.view_instance.set_state('')
         self.view_instance.set_calculos_flag(1)
 
     def download_pdf(self):
-        if(self.view_instance.get_calculos_flag()!=1):
-            messagebox.showwarning("Aviso","Se deben generar los cálulos antes de descargar el PDF.")
-        else:
-            self.view_instance.set_state("Descargando PDF...")
-            self.view_instance.enqueue_transition('download_pdf')
+        self.view_instance.set_state("Descargando PDF...")
+        self.view_instance.enqueue_transition('download_pdf')
             # self.view_instance.set_state('')
     
     def get_hora_label(self):

@@ -400,22 +400,7 @@ class Config():
         return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.espesor.get(), self.ft_ntry.get(), self.fh_ntry.get(), self.fc_ntry.get(), self.z_ntry.get()
     
     def reset(self):
-        # self.apoyo_ntry=None
-        # self.chofer_ntry=None
-        # self.espesor=None
-        # self.fc_ntry=None
-        # self.fh_ntry=None
-        # self.ft_ntry=None
-        # self.pav_ntry=None
-        # self.prov_ntry=None
-        # self.ruta_ntry=None
-        # self.subtramo_ntry=None
-        # self.tramo_ntry=None
-        # self.z_ntry=None
-        # self.operador_ntry=None
         self.config_frame.destroy()
-        # self.show(0)
-        # self.show(1)
 
     def reset_all_plots(self):
         data=[

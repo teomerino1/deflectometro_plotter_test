@@ -28,6 +28,14 @@ from tkinter import messagebox
 class View():
     def __init__(self, root,data_instance,reporter_instance):
 
+        # self.states = {
+        #     1: "Listo para obtener datos",
+        #     2: "Obteniendo datos",
+        #     3: "Generando Cálculos",
+        #     4: "Generando PDF.",
+        #     5: ''
+        # }
+        self.state=None
         self.root=root
         self.temp = None
         self.grupos = None
@@ -485,11 +493,11 @@ class View():
     def set_state(self,state):
         print("View State:",state)
         self.program_state=state
-        # self.Plot.get_state_label().config(text=f'{state}')
-        # self.Plot2.get_state_label().config(text=f'{state}')
-        # self.Plot3.get_state_label().config(text=f'{state}')
-        # self.Plot4.get_state_label().config(text=f'{state}')
-        # self.Plot5.get_state_label().config(text=f'{state}')
+        self.Plot.get_state_label().config(text=f'{state}')
+        self.Plot2.get_state_label().config(text=f'{state}')
+        self.Plot3.get_state_label().config(text=f'{state}')
+        self.Plot4.get_state_label().config(text=f'{state}')
+        self.Plot5.get_state_label().config(text=f'{state}')
     
     def set_calculos_flag(self,flag):
         self.calculos_flag=flag
@@ -509,8 +517,8 @@ class View():
 
                 # Ejecutar la función de transición de interfaz correspondiente
                 if target_function == 'go_to_config':
-                    if(self.get_state()=='Graficando bars...'):
-                        respuesta= messagebox.askokcancel("Aviso","Se están obteniendo datos, Si vuelve a la configuración deberá resetear el recorrido. ¿Desea volver a la configuración?")
+                    if(self.get_state()=='Obteniendo datos'):
+                        respuesta= messagebox.askokcancel("Aviso","Se están obteniendo datos, Si vuelve a la configuración deberá resetear el recorrido. ¿Desea continuar?")
                         if respuesta:
                             self.go_to_config()
                             self.enqueued_functions.remove(target_function)
@@ -522,10 +530,12 @@ class View():
                     self.go_to_config()
                     self.enqueued_functions.remove(target_function)
                     self.interface_transition_queue.task_done()
-                    
+
                 elif target_function == 'go_to_plot_1_from_config':
                     if(self.get_data_ready()==1):
                         messagebox.showwarning("Aviso","Debe resetear los datos antes de intentar modificarlos")
+                        self.interface_transition_queue.task_done()
+                        self.enqueued_functions.remove(target_function)
                         continue
                     self.go_to_plot1_from_config()
                     self.enqueued_functions.remove(target_function)
@@ -582,11 +592,17 @@ class View():
                     self.enqueued_functions.remove(target_function)
 
                 elif target_function == 'generate_stats':
+
                     media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =self.data_instance.calculate_stats()
+                    
                     if(media_defl_r==0):
                         messagebox.showwarning("Aviso","No hay datos para calcular.")
                         self.set_state('')
+                        self.set_calculos_flag(0)
+                        self.interface_transition_queue.task_done()
+                        self.enqueued_functions.remove(target_function)
                         continue
+
                     self.show_stats_in_plot(
                         media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
                         desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,
@@ -595,11 +611,18 @@ class View():
                         d_x_r_der, d_x_r_izq, 
                         total_mediciones_defl, total_mediciones_rad
                     )
+                    self.set_state('')
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
                     # self.set_data_ready(value=0)
                 
                 elif target_function=='download_pdf':
+                    if(self.get_calculos_flag()!=1):
+                        messagebox.showwarning("Aviso","Se deben generar los cálculos para descargar el PDF.")
+                        self.interface_transition_queue.task_done()
+                        self.enqueued_functions.remove(target_function)
+                        continue
+                    
                     self.download_pdf()
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
