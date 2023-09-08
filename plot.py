@@ -54,7 +54,7 @@ class Plot():
     
     def reset(self):
         self.second_plot_frame.destroy()
-        self.show(0)
+        # self.show(0)
 
     def get_state_label(self):
         return self.state_label
@@ -178,8 +178,8 @@ class Plot():
         self.view_instance.enqueue_transition('go_to_plot_2_from_plot_1')
         
     def go_to_config(self):
-        if(self.view_instance.get_state()=="Obteniendo datos..."):
-            messagebox.askokcancel("Aviso","Se están obteniendo datos. ¿Desea volver a la configuración?")
+        # if(self.view_instance.get_state()=="Obteniendo datos..."):
+        #     messagebox.askokcancel("Aviso","Se están obteniendo datos. ¿Desea volver a la configuración?")
         self.view_instance.enqueue_transition('go_to_config')
 
     def reset_table(self):

@@ -43,7 +43,7 @@ class Plot4():
 
     def reset(self):
         self.fifht_plot_frame.destroy()
-        self.show(0)
+        # self.show(0)
 
     def show(self,a):
        

@@ -61,8 +61,10 @@ class View():
         self.hora_inicio=None
         self.nro_puesto=None
         self.calculos_flag=0
+        self.datos_ready_flag=0
          # Crear una cola bloqueante para las funciones de transición de interfaz
         self.interface_transition_queue = queue.Queue()
+        self.enqueued_functions = set()
         # Crear un solo hilo para ejecutar las funciones de transición de interfaz
         self.interface_transition_thread = threading.Thread(target=self.interface_transition_function)
         self.interface_transition_thread.start()
@@ -75,6 +77,9 @@ class View():
         self.root.title('Deflectómetro')
         style = Style(root)
         self.root.attributes('-zoomed', True) 
+        self.inicializar_plots()
+
+    def inicializar_plots(self):
         self.Config.show(0)
         self.Config.show(1)
         self.Plot.show(0)
@@ -82,7 +87,6 @@ class View():
         self.Plot3.show(0)
         self.Plot4.show(0)
         self.Plot5.show(0)
-
      # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
         self.Config.close()
@@ -128,13 +132,15 @@ class View():
         self.Plot4.show(1)
 
     def reset_all_plots(self):
+        self.Config.reset()
         self.Plot.reset_table()
         self.Plot.reset()
         self.Plot2.reset()
         self.Plot3.reset()
         self.Plot4.reset()
         self.Plot5.reset()
-        
+        self.inicializar_plots()
+
     def reset_all_data(self):
         self.data_instance.reset_all()
         self.reporter_instance.reset_reporter()
@@ -147,12 +153,13 @@ class View():
         self.fc=None
         self.z=None
         self.calculos_flag=0
+        self.datos_ready_flag=0
         self.set_data_ready(value=0)
-        self.Plot.get_state_label().config(text='')
-        self.Plot2.get_state_label().config(text='')
-        self.Plot3.get_state_label().config(text='')
-        self.Plot4.get_state_label().config(text='')
-        self.Plot5.get_state_label().config(text='')
+        # self.Plot.get_state_label().config(text='')
+        # self.Plot2.get_state_label().config(text='')
+        # self.Plot3.get_state_label().config(text='')
+        # self.Plot4.get_state_label().config(text='')
+        # self.Plot5.get_state_label().config(text='')
 
     def set_reset(self,value):
         self.reset=value
@@ -478,14 +485,17 @@ class View():
     def set_state(self,state):
         print("View State:",state)
         self.program_state=state
-        self.Plot.get_state_label().config(text=f'{state}')
-        self.Plot2.get_state_label().config(text=f'{state}')
-        self.Plot3.get_state_label().config(text=f'{state}')
-        self.Plot4.get_state_label().config(text=f'{state}')
-        self.Plot5.get_state_label().config(text=f'{state}')
+        # self.Plot.get_state_label().config(text=f'{state}')
+        # self.Plot2.get_state_label().config(text=f'{state}')
+        # self.Plot3.get_state_label().config(text=f'{state}')
+        # self.Plot4.get_state_label().config(text=f'{state}')
+        # self.Plot5.get_state_label().config(text=f'{state}')
     
     def set_calculos_flag(self,flag):
         self.calculos_flag=flag
+
+    def set_datos_ready_flag(self,flag):
+        self.datos_ready_flag=flag
 
     def get_calculos_flag(self):
         return self.calculos_flag
@@ -499,49 +509,83 @@ class View():
 
                 # Ejecutar la función de transición de interfaz correspondiente
                 if target_function == 'go_to_config':
+                    if(self.get_state()=='Graficando bars...'):
+                        respuesta= messagebox.askokcancel("Aviso","Se están obteniendo datos, Si vuelve a la configuración deberá resetear el recorrido. ¿Desea volver a la configuración?")
+                        if respuesta:
+                            self.go_to_config()
+                            self.enqueued_functions.remove(target_function)
+                            self.interface_transition_queue.task_done()
+                        else:
+                            self.enqueued_functions.remove(target_function)
+                            self.interface_transition_queue.task_done()
+                            continue
                     self.go_to_config()
-
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
+                    
                 elif target_function == 'go_to_plot_1_from_config':
                     if(self.get_data_ready()==1):
                         messagebox.showwarning("Aviso","Debe resetear los datos antes de intentar modificarlos")
                         continue
                     self.go_to_plot1_from_config()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
 
                 elif target_function == 'go_to_plot_2_from_plot_1':
                     self.go_to_plot_2_from_plot_1()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
                 
                 elif target_function == 'go_to_plot_1_from_plot_2':
                     self.go_to_plot_1_from_plot_2()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
 
                 elif target_function == 'go_to_plot_3_from_plot_2':
                     self.go_to_plot_3_from_plot2()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
 
                 # Agregar más casos para otras funciones de transición...
                 elif target_function == 'go_to_plot_2_from_plot_3':
                     self.go_to_plot_2_from_plot_3()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
 
                 elif target_function == 'go_to_plot_4_from_plot_3':
                     self.go_to_plot_4_from_plot_3()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
 
                 elif target_function == 'go_to_plot_3_from_plot_4':
                     self.go_to_plot_3_from_plot_4()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
 
                 elif target_function == 'go_to_plot_5_from_plot_4':
                     self.go_to_plot_5_from_plot_4()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
 
                 elif target_function == 'go_to_plot_4_from_plot_5':
                     self.go_to_plot_4_from_plot_5()
+                    self.enqueued_functions.remove(target_function)
+                    self.interface_transition_queue.task_done()
 
                 elif target_function == 'reset_all_plots':
+                    print("Ejecuto reset")
                     self.reset_all_plots()
                     self.reset_all_data()
                     self.set_reset(1)
                     messagebox.showinfo("Aviso", "Datos reseteados!")
+                    self.interface_transition_queue.task_done()
+                    self.enqueued_functions.remove(target_function)
 
                 elif target_function == 'generate_stats':
                     media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad =self.data_instance.calculate_stats()
                     if(media_defl_r==0):
-                        print("No hago naranja")
+                        messagebox.showwarning("Aviso","No hay datos para calcular.")
+                        self.set_state('')
                         continue
                     self.show_stats_in_plot(
                         media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,
@@ -551,23 +595,20 @@ class View():
                         d_x_r_der, d_x_r_izq, 
                         total_mediciones_defl, total_mediciones_rad
                     )
+                    self.interface_transition_queue.task_done()
+                    self.enqueued_functions.remove(target_function)
                     # self.set_data_ready(value=0)
-                    # self.reset_all_data()
+                
                 elif target_function=='download_pdf':
                     self.download_pdf()
-
-                # elif target_function == 'state_change':
-                #     self.go_to_plot_2_from_plot_1()
-
-                # Indicar que la función se ha procesado y la cola puede esperar nuevamente
-                self.interface_transition_queue.task_done()
-
-                # # Pequeño descanso entre actualizaciones de la interfaz para no sobrecargar la CPU
-                # time.sleep()  # Ajusta el tiempo de sleep según tus necesidades
-
+                    self.interface_transition_queue.task_done()
+                    self.enqueued_functions.remove(target_function)
 
     def enqueue_transition(self, function_name):
-        self.interface_transition_queue.put(function_name)
+        # self.interface_transition_queue.put(function_name)
+        if function_name not in self.enqueued_functions:
+            self.interface_transition_queue.put(function_name)
+            self.enqueued_functions.add(function_name)
 
 
 

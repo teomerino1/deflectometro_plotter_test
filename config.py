@@ -108,8 +108,6 @@ class Config():
             info_reporte=Label(self.reportes_frame, text="Información de Reporte",font=(None, 20))
             self.info_reporte=info_reporte
 
-            
-            
             # temp
             temp_label=Label(self.parameters_frame, text="Temperatura [ºC]:",font=(None, 15))
             self.temp_label=temp_label
@@ -344,10 +342,11 @@ class Config():
             self.operador_ntry
             ]
 
-        # for data in data:
-        #     if(data.get()==''):
-        #         messagebox.showwarning("Aviso","Deben llenarse todos los campos antes de continuar")
-        #         return
+        for data in data:
+            if(data.get()==''):
+                print("Detecto que la data es ''")
+                messagebox.showwarning("Aviso","Deben llenarse todos los campos antes de continuar")
+                return
 
         self.view_instance.set_temp(int(self.temp_ntry.get()))
         
@@ -395,17 +394,51 @@ class Config():
         self.view_instance.set_data_ready(value=1)
         # self.view_instance.set_state("Obteniendo datos...")
         self.config_frame.grid_forget()
+        print("Cierro config y paso a plot")
 
     def get_config(self):
         return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.espesor.get(), self.ft_ntry.get(), self.fh_ntry.get(), self.fc_ntry.get(), self.z_ntry.get()
     
     def reset(self):
+        # self.apoyo_ntry=None
+        # self.chofer_ntry=None
+        # self.espesor=None
+        # self.fc_ntry=None
+        # self.fh_ntry=None
+        # self.ft_ntry=None
+        # self.pav_ntry=None
+        # self.prov_ntry=None
+        # self.ruta_ntry=None
+        # self.subtramo_ntry=None
+        # self.tramo_ntry=None
+        # self.z_ntry=None
+        # self.operador_ntry=None
         self.config_frame.destroy()
-        self.show(0)
-        self.show(1)
+        # self.show(0)
+        # self.show(1)
 
     def reset_all_plots(self):
-        self.view_instance.enqueue_transition('reset_all_plots')
+        data=[
+            self.apoyo_ntry,
+            self.chofer_ntry,
+            self.espesor,
+            self.fc_ntry,
+            self.fh_ntry,
+            self.ft_ntry,
+            self.pav_ntry,
+            self.prov_ntry,
+            self.ruta_ntry,
+            self.subtramo_ntry,
+            self.tramo_ntry,
+            self.z_ntry,
+            self.operador_ntry
+            ]
+        for data in data:
+            if(data.get()==''):
+                messagebox.showwarning("Aviso","No están todos los campos completos.")
+                return
+            else:
+                self.view_instance.enqueue_transition('reset_all_plots')
 
     def go_to_plot_1_from_config(self):
         self.view_instance.enqueue_transition('go_to_plot_1_from_config')
