@@ -393,14 +393,16 @@ class Plot5():
     def generate_stats(self):
         self.view_instance.set_state("Generando cálculos...")
         self.view_instance.enqueue_transition('generate_stats')
-        self.view_instance.set_state("Cálculos generados.")
+        self.view_instance.set_state('')
+        self.view_instance.set_calculos_flag(1)
 
     def download_pdf(self):
-        # if(self.view_instance.get_state()!="Cálculos generados."):
+        # if(self.view_instance.get_calculos_flag()!=1):
         #     messagebox.showwarning("Aviso","Se deben generar los cálulos antes de descargar el PDF.")
         # else:
             self.view_instance.set_state("Descargando PDF...")
             self.view_instance.enqueue_transition('download_pdf')
+            # self.view_instance.set_state('')
     
     def get_hora_label(self):
         return self.hora_label
@@ -432,7 +434,7 @@ class Plot5():
         # Dibuja la imagen de encabezado
         c.drawImage('header.png', 25, 773, width=550, height=60)
 
-        c.drawImage('image.png', 0, 0, width=600, height=86)
+        c.drawImage('image.png', 0, 0, width=600, height=100)
 
         labels_der = [
             self.defl_media_der, self.desv_std_der, 

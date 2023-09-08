@@ -92,8 +92,12 @@ def process_data(Reporter,View,Data):
             #     update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
             #     update_bar_thread.daemon=True
             #     update_bar_thread.start()
+                # View.set_state("Graficando bars...")
+            update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
+            update_bar_thread.daemon=True
+            update_bar_thread.start()
 
-            if(cantidad%1 == 0):
+            if(cantidad%3 == 0):
                 View.set_state("Graficando el grupo...")
                 update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 

@@ -60,6 +60,7 @@ class View():
         self.is_plotting = False
         self.hora_inicio=None
         self.nro_puesto=None
+        self.calculos_flag=0
          # Crear una cola bloqueante para las funciones de transición de interfaz
         self.interface_transition_queue = queue.Queue()
         # Crear un solo hilo para ejecutar las funciones de transición de interfaz
@@ -145,7 +146,13 @@ class View():
         self.fh=None
         self.fc=None
         self.z=None
+        self.calculos_flag=0
         self.set_data_ready(value=0)
+        self.Plot.get_state_label().config(text='')
+        self.Plot2.get_state_label().config(text='')
+        self.Plot3.get_state_label().config(text='')
+        self.Plot4.get_state_label().config(text='')
+        self.Plot5.get_state_label().config(text='')
 
     def set_reset(self,value):
         self.reset=value
@@ -170,14 +177,15 @@ class View():
         self.nro_puesto=nro_puesto
 
     def download_pdf(self):
-        # self.generar_carátula("caratula.pdf")
+        #Genero los PDF en el orden que van en el informe
+        self.generar_carátula("caratula.pdf")
+        self.Plot5.download_stats()
         self.Plot.generar_pdf()
-        # self.Plot2.download_graphs()
-        # self.Plot3.download_graphs()
-        # self.Plot4.download_graphs()
-        # self.Plot5.download_stats()
-        # sleep(1)
-        # self.combine_pdf()
+        self.Plot2.download_graphs()
+        self.Plot3.download_graphs()
+        self.Plot4.download_graphs()
+        sleep(1)
+        self.combine_pdf()
 
     def generar_carátula(self,filename):
 
@@ -271,20 +279,24 @@ class View():
         image_path='figure_rad_l.png'
         if os.path.exists(image_path): 
 
-            self.generar_carátula("informe.pdf")
+            # self.generar_carátula("informe.pdf")
             c = canvas.Canvas(output1, pagesize=A4)
-            c.drawImage('figure_defl_mean_l.png',100, 100, width=383, height=230)
-            c.drawImage('figure_rad_l.png', 100, 450,width=383, height=230)
+            c.drawImage('header2.png', 25, 773, width=575, height=60)
+            c.drawImage('image.png', 0, 0, width=600, height=100)
+            c.drawImage('figure_defl_mean_l.png',100, 200, width=383, height=230)
+            c.drawImage('figure_rad_l.png', 100, 500,width=383, height=230)
             c.save()
 
             c = canvas.Canvas(output2, pagesize=A4)
-            c.drawImage('figure_defl_mean_r.png', 100, 100, width=383, height=230)
-            c.drawImage('figure_rad_r.png', 100, 450,width=383, height=230)
+            c.drawImage('header2.png', 25, 773, width=575, height=60)
+            c.drawImage('image.png', 0, 0, width=600, height=100)
+            c.drawImage('figure_defl_mean_r.png', 100, 200, width=383, height=230)
+            c.drawImage('figure_rad_r.png', 100, 500,width=383, height=230)
             c.save()
 
             pdf_files = [
-                "informe.pdf",
-                "pdf5.pdf",
+                "caratula.pdf",
+                "stats.pdf",
                 "tabla.pdf",    
                 "defl_individuales.pdf",
                 "pdf2.pdf",
@@ -315,8 +327,7 @@ class View():
             os.remove('figure_defl_mean_r.png')
             os.remove('figure_rad_r.png')
             os.remove('figure_rad_l.png')
-            os.remove('caratula.pdf')
-
+            self.set_state('')
             messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes':")
 
         else:
@@ -473,6 +484,11 @@ class View():
         self.Plot4.get_state_label().config(text=f'{state}')
         self.Plot5.get_state_label().config(text=f'{state}')
     
+    def set_calculos_flag(self,flag):
+        self.calculos_flag=flag
+
+    def get_calculos_flag(self):
+        return self.calculos_flag
 
     def interface_transition_function(self):
             while True:
@@ -485,7 +501,7 @@ class View():
                 if target_function == 'go_to_config':
                     self.go_to_config()
 
-                if target_function == 'go_to_plot_1_from_config':
+                elif target_function == 'go_to_plot_1_from_config':
                     if(self.get_data_ready()==1):
                         messagebox.showwarning("Aviso","Debe resetear los datos antes de intentar modificarlos")
                         continue
@@ -539,6 +555,9 @@ class View():
                     # self.reset_all_data()
                 elif target_function=='download_pdf':
                     self.download_pdf()
+
+                # elif target_function == 'state_change':
+                #     self.go_to_plot_2_from_plot_1()
 
                 # Indicar que la función se ha procesado y la cola puede esperar nuevamente
                 self.interface_transition_queue.task_done()

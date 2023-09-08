@@ -175,25 +175,7 @@ class Tabla():
         buffer.seek(0)
         with open('tabla.pdf', 'wb') as f:
             f.write(buffer.read())
-        # tabla_datos = Table(datos, colWidths=[50,50,50,50,50,50,50,50,50], rowHeights=20)
-        # tabla_datos.setStyle(table_style)
-        # altura_tabla = tabla_datos.wrap(0, 0)[1]
-
-        # cantidad_filas=altura_tabla/20
-        # print("altura_tabla:",altura_tabla)
         
-        # tabla_datos.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
-        # tabla_datos.drawOn(c, 75, 709-(20*cantidad_filas))
-        # c.showPage()
-        # c.save()
-
-        # buffer.seek(0)
-        # with open('tabla.pdf', 'wb') as f:
-        #     f.write(buffer.read())
-
-        # else:
-        #     print("No hay nada")
-        #     return
         
     def reset(self):
         self.clear_table()
