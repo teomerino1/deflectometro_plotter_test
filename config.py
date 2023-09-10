@@ -81,25 +81,25 @@ class Config():
             # title_frame=Frame(self.config_frame)
             # self.title_frame=title_frame
             #flat, groove,raised,ridge,solid or sunken
-            parameters_frame=Frame(config_frame,relief="groove")
+            parameters_frame=Frame(config_frame,relief='groove')
             self.parameters_frame=parameters_frame
     
-            reportes_frame=Frame(config_frame,relief="groove")
+            reportes_frame=Frame(config_frame,relief='groove')
             self.reportes_frame=reportes_frame
 
             botones_frame=Frame(config_frame)
             self.botones_frame=botones_frame
 
-            info_infas_frame=Frame(config_frame,relief="groove")
+            info_infas_frame=Frame(config_frame)
             self.info_infas_frame=info_infas_frame
 
-            imagenes_frame=Frame(config_frame,relief='groove')
+            imagenes_frame=Frame(config_frame)
             self.imagenes_frame=imagenes_frame
 
             # Define una fuente personalizada
             custom_font = font.Font(family="Krona_One", size=16, weight="bold")
 
-            conf_inicial = ttk.Label(self.config_frame, text="Configuración", font=(custom_font,30))
+            conf_inicial = ttk.Label(self.config_frame, text="Configuración Inicial", font=(custom_font,35))
             self.conf_inicial = conf_inicial
 
             parametros_medicion=Label(self.parameters_frame, text="Parámetros de medición",font=("Krona One", 20))
@@ -245,7 +245,7 @@ class Config():
             aspect_ratio = original_image.width / original_image.height
             height=255
             desired_height = int(desired_width / aspect_ratio)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, 300), Image.ANTIALIAS)
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)
@@ -256,11 +256,11 @@ class Config():
         if(a==1):
 
             self.config_frame.grid(columnspan=2)
-            self.conf_inicial.grid(row=0, columnspan=2,padx=(0,0),pady=(0,5))
-            self.parameters_frame.grid(row=1,column=0,padx=(0,600),pady=(0,0))
-            self.reportes_frame.grid(row=1,column=0,padx=(600,0),pady=(0,0))
-            self.botones_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(0,0))
-            self.imagenes_frame.grid(row=3,pady=(0,0),padx=(0,0))
+            self.conf_inicial.grid(row=0, columnspan=2,padx=(0,0),pady=(50,5))
+            self.parameters_frame.grid(row=1,column=0,padx=(0,600),pady=(70,0))
+            self.reportes_frame.grid(row=1,column=0,padx=(600,0),pady=(70,0))
+            self.botones_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(80,0))
+            self.imagenes_frame.grid(row=3,padx=(0,0),pady=(90,0))
             self.imagenes_frame.grid_rowconfigure(0, weight=1)
             self.imagenes_frame.grid_columnconfigure(0, weight=1)
   

@@ -28,13 +28,6 @@ from tkinter import messagebox
 class View():
     def __init__(self, root,data_instance,reporter_instance):
 
-        # self.states = {
-        #     1: "Listo para obtener datos",
-        #     2: "Obteniendo datos",
-        #     3: "Generando Cálculos",
-        #     4: "Generando PDF.",
-        #     5: ''
-        # }
         self.state=None
         self.root=root
         self.temp = None
@@ -84,7 +77,7 @@ class View():
     def start(self,root):
         self.root.title('Deflectómetro')
         style = Style(root)
-        self.root.attributes('-zoomed', True) 
+        self.root.attributes('-fullscreen', True) 
         self.inicializar_plots()
 
     def inicializar_plots(self):

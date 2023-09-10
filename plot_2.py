@@ -1,6 +1,6 @@
-from tkinter import *
+# from tkinter import *
 from tkinter.ttk import Label, Frame, Button, Scrollbar
-import tkinter as tk
+# import tkinter as tk
 from tkinter import ttk
 import graphs_2
 import graphs_3
@@ -46,8 +46,10 @@ class Plot2():
        
         if(a == 0):
 
-            width = self.root.winfo_screenwidth()
-            height = self.root.winfo_screenheight()
+            screen_width = self.root.winfo_screenwidth()
+            screen_height = self.root.winfo_screenheight()
+            print("Image width:",screen_width)
+            print("Screen height:",screen_height)
 
             third_plot_frame = Frame(self.root,background='#F6F4F2')
             self.third_plot_frame = third_plot_frame
@@ -97,7 +99,8 @@ class Plot2():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            height=65
+            # height=65
+            height=85
             # desired_height = int(desired_width / aspect_ratio)
             resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
             # Convierte la imagen redimensionada a un objeto PhotoImage
@@ -108,17 +111,17 @@ class Plot2():
         if(a == 1):
             self.third_plot_frame.grid(sticky="NSEW")
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
-            self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.next.grid(row=1,column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
+            self.back.grid(row=0, column=0,padx=(0,1900),pady=(0,0))
+            self.next.grid(row=1, column=0,padx=(0,1900),pady=(0,0))
+            self.state_label.grid(row=0,column=0,padx=(0,1500),pady=(0,0))
             self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
             self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(0,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.subtitle.grid()
-            self.graphs2_frame.grid(row=2,column=0,padx=(0,700),pady=(60,0))
-            self.graphs3_frame.grid(row=2,column=0,padx=(700,0),pady=(60,0))
-            self.imagenes_frame.grid(row=2,padx=(0,30),pady=(380,0))
+            self.graphs2_frame.grid(row=2,column=0,padx=(0,800),pady=(100,0))
+            self.graphs3_frame.grid(row=2,column=0,padx=(800,0),pady=(100,0))
+            self.imagenes_frame.grid(row=2,padx=(0,100),pady=(830,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
             
 ##F6F4F2

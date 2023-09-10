@@ -1,11 +1,8 @@
-from tkinter import *
 from tkinter.ttk import Label, Frame, Button, Scrollbar
 import view
 import table
 import graphs
-from tkinter.ttk import Treeview
 import tkinter as tk
-from tkinter import ttk
 import graphs_2
 import graphs_3
 from tkinter import *
@@ -101,7 +98,8 @@ class Plot3():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            height=65
+            # height=65
+            height=85
             # desired_height = int(desired_width / aspect_ratio)
             resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
             # Convierte la imagen redimensionada a un objeto PhotoImage
@@ -112,17 +110,17 @@ class Plot3():
         if(a == 1):
             self.fourth_plot_frame.grid(sticky="NSEW")
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
-            self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.next.grid(row=1,column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
+            self.back.grid(row=0, column=0,padx=(0,1900),pady=(0,0))
+            self.next.grid(row=1, column=0,padx=(0,1900),pady=(0,0))
+            self.state_label.grid(row=0,column=0,padx=(0,1500),pady=(0,0))
             self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
             self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(0,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.subtitle.grid()
-            self.graphs2_frame.grid(row=2,column=0,padx=(0,700),pady=(60,0))
-            self.graphs3_frame.grid(row=2,column=0,padx=(700,0),pady=(60,0))
-            self.imagenes_frame.grid(row=2,padx=(0,30),pady=(380,0))
+            self.graphs2_frame.grid(row=2,column=0,padx=(0,800),pady=(100,0))
+            self.graphs3_frame.grid(row=2,column=0,padx=(800,0),pady=(100,0))
+            self.imagenes_frame.grid(row=2,padx=(0,100),pady=(830,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
     def download_graphs(self):

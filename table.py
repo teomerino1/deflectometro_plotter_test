@@ -58,7 +58,7 @@ class Tabla():
         self.table.grid(row=2, column=0, columnspan=2, pady=0)
 
         # Configurar el alto del Treeview
-        self.table.configure(height=9)
+        self.table.configure(height=12)
         
 
         headers = [

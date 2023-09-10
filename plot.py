@@ -123,7 +123,8 @@ class Plot():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            height=65
+            # height=65
+            height=85
             desired_height = int(desired_width / aspect_ratio)
             print("desired height",desired_height)
             resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
@@ -136,21 +137,21 @@ class Plot():
         if(a == 1):
             self.second_plot_frame.grid(sticky=NSEW)
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))  
-            self.atras.grid(row=0, column=0,padx=(0,1275),pady=(0,0))
-            self.next.grid(row=1, column=0,padx=(0,1275),pady=(0,0))
-            self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
+            self.atras.grid(row=0, column=0,padx=(0,1900),pady=(0,0))
+            self.next.grid(row=1, column=0,padx=(0,1900),pady=(0,0))
+            self.state_label.grid(row=0,column=0,padx=(0,1500),pady=(0,0))
             self.puesto_label.grid(row=0,column=0,padx=(1200,0))
             self.hora_label.grid(row=1,column=0,padx=(1200,0))
 
             self.labels_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
-            self.label_izq.grid(row=1, column=0,padx=(0,350))
-            self.label_der.grid(row=1, column=0,padx=(550,0))
+            self.label_izq.grid(row=1, column=0,padx=(0,350),pady=(0,0))
+            self.label_der.grid(row=1, column=0,padx=(550,0),pady=(0,0))
 
             self.table_frame.grid(row=2,padx=(0,45),pady=(0,0))
-            self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(0,0))
+            self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(60,0))
 
-            self.imagen_frame.grid(row=3,padx=(0,30),pady=(145,0))
-            self.image_label.grid(row=0,columnspan=2,padx=(0,0))
+            self.imagen_frame.grid(row=3,padx=(0,100),pady=(575,0))
+            self.image_label.grid(row=0,columnspan=2,padx=(0,20))
             
             
     def generar_pdf(self):

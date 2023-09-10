@@ -1,11 +1,9 @@
-from tkinter import *
+
 from tkinter.ttk import Label, Frame, Button, Scrollbar
 import view
 import table
 import graphs
-from tkinter.ttk import Treeview
 import tkinter as tk
-from tkinter import ttk
 import graphs_2
 import graphs_3
 import graphs_4
@@ -93,7 +91,8 @@ class Plot4():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            height=65
+            # height=65
+            height=85
             # desired_height = int(desired_width / aspect_ratio)
             resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
             # Convierte la imagen redimensionada a un objeto PhotoImage
@@ -104,15 +103,15 @@ class Plot4():
         if(a == 1):
             self.fifht_plot_frame.grid(sticky="NSEW")
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
-            self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.next.grid(row=1,column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
+            self.back.grid(row=0, column=0,padx=(0,1900),pady=(0,0))
+            self.next.grid(row=1, column=0,padx=(0,1900),pady=(0,0))
+            self.state_label.grid(row=0,column=0,padx=(0,1500),pady=(0,0))
             self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
             self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(0,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
-            self.graphs_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(0,0))
-            self.imagen_frame.grid(row=2,padx=(0,30),pady=(400,0))
+            self.graphs_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(100,0))
+            self.imagen_frame.grid(row=2,padx=(0,100),pady=(860,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
     def download_graphs(self):
