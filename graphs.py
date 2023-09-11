@@ -119,7 +119,7 @@ class Graphs():
         else:
             return max(self.indexes)
     
-    def donwload_graphs(self):
+    def donwload_graphs(self,doble_pagina_flag):
        
         # Ajustar los límites para eliminar espacio en blanco
         if(self.defl_l_data==[] or self.defl_r_data==[]):
@@ -129,19 +129,23 @@ class Graphs():
             self.figure_bar_r.gca().set_ylim(0, (max(self.defl_r_data)+100))  # Ajustar límites en el eje y según tu necesidad
             self.figure_bar_l.savefig('figure_bar_l.png', bbox_inches='tight')
             self.figure_bar_r.savefig('figure_bar_r.png', bbox_inches='tight')
-        
+
+            ancho_pagina,alto_pagina=A4
+            centro_x = ancho_pagina / 2
+
             output_pdf = 'defl_individuales.pdf'
             c = canvas.Canvas(output_pdf, pagesize=A4)
-            # Dibuja la imagen de encabezado
+          
             c.drawImage('header2.png', 25, 773, width=575, height=60)
-
-            c.drawImage('image.png', 0, 0, width=600, height=100)
-            # Agregar la primera figura en la posición deseada
-            # c.drawImage('figure_bar_l.png', 10, 0)
+            c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_bar_l.png', 100, 200, width=383, height=230)
-            # Agregar la segunda figura debajo de la primera
             c.drawImage('figure_bar_r.png', 100, 500,width=383, height=230)
-            # Guardar el contenido en el PDF
+
+            if(doble_pagina_flag):
+                c.drawString(centro_x-1, 125, "4")
+            else:
+                c.drawString(centro_x-1, 125, "3")
+            
             c.save()
             os.remove('figure_bar_l.png')
             os.remove('figure_bar_r.png')

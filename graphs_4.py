@@ -124,7 +124,7 @@ class Graphs4():
         self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_radios_graph(0,0,"Informe estadistico: Lado Izquierdo")
         self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(0,1,"Informe estadístico: Lado Derecho")
 
-    def download_graphs4(self):
+    def download_graphs4(self,doble_pagina_flag):
 
         if(self.rad_mean_r_data==[] or self.rad_mean_l_data==[]):
             print("Detecto en graphs4 que es none")
@@ -140,14 +140,18 @@ class Graphs4():
             # Crear un nuevo PDF con ambas figuras
             output_pdf = 'radios.pdf'
             c = canvas.Canvas(output_pdf, pagesize=A4)
-            c.drawImage('header2.png', 25, 773, width=575, height=60)
+            ancho_pagina,alto_pagina=A4
+            centro_x = ancho_pagina / 2
 
-            c.drawImage('image.png', 0, 0, width=600, height=100)
-            # Agregar la primera figura en la posición deseada
+            c.drawImage('header2.png', 25, 773, width=575, height=60)
+            c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('radios_l.png',100, 200, width=383, height=230)
-            # Agregar la segunda figura debajo de la primera
             c.drawImage('radios_r.png',100, 500, width=383, height=230)
-            # Guardar el contenido en el PDF
+
+            if(doble_pagina_flag):
+                c.drawString(centro_x-1, 125, "7")
+            else:
+                c.drawString(centro_x-1, 125, "6")
             c.save()
             
             os.remove('radios_l.png')

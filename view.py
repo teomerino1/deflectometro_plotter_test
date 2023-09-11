@@ -196,11 +196,12 @@ class View():
         self.generar_carátula("caratula.pdf")
         self.Plot5.download_stats()
         self.Plot.generar_pdf()
+        doble_pagina_flag=self.Plot.get_table().get_doble_pagina()
         self.Plot2.download_graphs()
         self.Plot3.download_graphs()
-        self.Plot4.download_graphs()
+        self.Plot4.download_graphs(doble_pagina_flag)
         sleep(1)
-        self.combine_pdf()
+        self.combine_pdf(doble_pagina_flag)
 
     def generar_carátula(self,filename):
 
@@ -239,6 +240,14 @@ class View():
         ancho_prog = c.stringWidth(prog_max, "Helvetica", 14)
         posicion_7 = centro_x - (ancho_prog / 2)
 
+        prog_inicial = "Progresiva inicial: 0"
+        ancho_prog_inicial = c.stringWidth(prog_inicial, "Helvetica", 14)
+        posicion_15 = centro_x - (ancho_prog_inicial / 2)
+
+        temperatura = "Temperatura [ºC]: "+str(self.get_temp())
+        ancho_temp = c.stringWidth(temperatura, "Helvetica", 14)
+        posicion_14 = centro_x - (ancho_temp / 2)
+
         fecha = "Fecha: "+str(datetime.datetime.now().date())
         ancho_fecha = c.stringWidth(fecha, "Helvetica", 12)
         posicion_8 = centro_x - (ancho_fecha / 2)
@@ -268,13 +277,15 @@ class View():
         posicion_13 = centro_x - (ancho_operador / 2)
 
         c.setFont("Helvetica", 14)
-        c.drawString(posicion_1, 360, f"{ruta}")
+        
+        
         c.drawString(posicion_2, 340, f"{provincia}")
         c.drawString(posicion_3, 320, f"{tramo}")
         c.drawString(posicion_4, 300, f"{subtramo}")
         c.drawString(posicion_5, 280, f"{pavimento}")
-        c.drawString(posicion_6, 260, "Progresiva Inicial: 0")
+        c.drawString(posicion_15, 260, f"{prog_inicial}")
         c.drawString(posicion_7, 240, f"{prog_max}")
+        c.drawString(posicion_14, 220, f"{temperatura}")
         c.drawString(posicion_8, 190, f"{fecha}")
         c.drawString(posicion_9, 170, f"{hora_inicio}")
         c.drawString(posicion_10, 150, f"{hora_final_string}")
@@ -286,7 +297,7 @@ class View():
         c.save()
        
 
-    def combine_pdf(self):
+    def combine_pdf(self,doble_pagina_flag):
 
         output1="pdf2.pdf"
         output2="pdf3.pdf"
@@ -294,19 +305,32 @@ class View():
         image_path='figure_rad_l.png'
         if os.path.exists(image_path): 
 
-            # self.generar_carátula("informe.pdf")
+            ancho_pagina,alto_pagina=A4
+            centro_x = ancho_pagina / 2
             c = canvas.Canvas(output1, pagesize=A4)
             c.drawImage('header2.png', 25, 773, width=575, height=60)
-            c.drawImage('image.png', 0, 0, width=600, height=100)
+            c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_defl_mean_l.png',100, 200, width=383, height=230)
             c.drawImage('figure_rad_l.png', 100, 500,width=383, height=230)
+
+            if(doble_pagina_flag):
+                c.drawString(centro_x-1, 125, "5")
+            else:
+                c.drawString(centro_x-1, 125, "4")
+
             c.save()
 
             c = canvas.Canvas(output2, pagesize=A4)
             c.drawImage('header2.png', 25, 773, width=575, height=60)
-            c.drawImage('image.png', 0, 0, width=600, height=100)
+            c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_defl_mean_r.png', 100, 200, width=383, height=230)
             c.drawImage('figure_rad_r.png', 100, 500,width=383, height=230)
+
+            if(doble_pagina_flag):
+                c.drawString(centro_x-1, 125, "6")
+            else:
+                c.drawString(centro_x-1, 125, "5")
+
             c.save()
 
             pdf_files = [

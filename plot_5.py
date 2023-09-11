@@ -416,21 +416,18 @@ class Plot5():
         return self.state_label
 
     def download_stats(self):
-        # Crear el buffer para el PDF usando ReportLab
-        # if(self.defl_car_der_value==None):
-        #     print("Me doy cuenta q es noneing")
-        #     return 
-
-        # Crear un buffer para el PDF
+        
         buffer = BytesIO()
-
+        
         # Crear un objeto Canvas
         c = canvas.Canvas(buffer, pagesize=A4)
 
         # Dibuja la imagen de encabezado
         c.drawImage('header.png', 25, 773, width=550, height=60)
-
-        c.drawImage('image.png', 0, 0, width=600, height=100)
+        ancho_pagina,alto_pagina=A4
+        centro_x = ancho_pagina / 2
+        c.drawString(centro_x-1, 125, "1")
+        c.drawImage('image.png', 0, 0, width=600, height=120)
 
         labels_der = [
             self.defl_media_der, self.desv_std_der, 

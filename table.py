@@ -19,6 +19,7 @@ class Tabla():
         self.grupos=None
         self.fecha=None
         self.ruta=None
+        self.doble_pagina=False
 
     # Metodo que inserta valores en el diccionario
     # TODO -> Falta compensar los valores con respecto a la temperatura
@@ -80,17 +81,18 @@ class Tabla():
         # Elimina todos los elementos de la tabla
         self.table.delete(*self.table.get_children())
 
+    def get_doble_pagina(self):
+        return self.doble_pagina
+    
     def donwload_table(self):
-        items = self.table.get_children()
-
-        # if items:
-
-
+        
         buffer = BytesIO()
 
 # Crear un objeto Canvas
         c = canvas.Canvas(buffer, pagesize=A4)
-        #Dibuja la imagen de encabezado
+        ancho_pagina,alto_pagina=A4
+        centro_x = ancho_pagina / 2
+        c.drawString(centro_x-1, 25, "2")
         c.drawImage('header.png', 25, 773, width=550, height=60)
 
 
@@ -131,50 +133,91 @@ class Tabla():
 
         altura_maxima = 660
         altura_tabla = 20 * len(datos)
-        print("Altura tabla:",altura_tabla)
+        # print("Altura tabla:",altura_tabla)
         num_filas_por_pagina = 33  # Número de filas por página
         pagina_actual = 1
+        # y=720
+        altura_restante=altura_tabla
+        filas_totales=int(altura_tabla/20)
 
-        if((altura_tabla/20)>num_filas_por_pagina):
+        print("Filas totales:",filas_totales)
+
+        while(altura_restante>=altura_maxima):
+
             datos_pagina = datos[:num_filas_por_pagina]
             datos = datos[num_filas_por_pagina:]
-
             tabla_datos_pagina = Table(datos_pagina, colWidths=[50,50,50,50,50,50,50,50,50],rowHeights=20)
             tabla_datos_pagina.setStyle(table_style)
             tabla_datos_pagina.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
             tabla_datos_pagina.drawOn(c, 75, 705-(20*num_filas_por_pagina))
             c.showPage()
+            # c.save()
+            filas_totales=filas_totales-num_filas_por_pagina
+            altura_restante=altura_restante-altura_maxima
 
-
-            tabla_datos = Table(datos, colWidths=[50,50,50,50,50,50,50,50,50],rowHeights=20)
-            tabla_datos.setStyle(table_style)
-            altura_tabla_datos = 20 * len(datos)
-            filas_tabla_datos=altura_tabla_datos/20
-            print("Altura tabla datos:",altura_tabla_datos)
-            tabla_datos.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
-            tabla_datos.drawOn(c, 75, 735-(20*filas_tabla_datos))
-            c.showPage()
-            c.save()
-
-        else:
-
-            tabla_datos = Table(datos, colWidths=[50,50,50,50,50,50,50,50,50], rowHeights=20)
-            tabla_datos.setStyle(table_style)
-            altura_tabla = tabla_datos.wrap(0, 0)[1]
-            cantidad_filas=altura_tabla/20
-            print("altura_tabla:",altura_tabla)
-            tabla_datos.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
-            tabla_datos.drawOn(c, 75, 709-(20*cantidad_filas))
-            c.showPage()
-            c.save()
+        print("Filas totales:",filas_totales)
+        datos_pagina_final=datos[:filas_totales]
+        datos=datos[filas_totales:]
+        print("Datos:",datos)
+        print("Datos página:",datos_pagina_final)
         
+        tabla_final = Table(datos_pagina_final, colWidths=[50,50,50,50,50,50,50,50,50],rowHeights=20)
+        tabla_final.setStyle(table_style)
+        tabla_final.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_final.drawOn(c, 75, 705-(20*filas_totales))
+        c.showPage()
+        c.save()
 
-        # c.save()
 
         # Guardar el contenido del buffer en un archivo PDF
         buffer.seek(0)
         with open('tabla.pdf', 'wb') as f:
             f.write(buffer.read())
+        # altura_maxima = 660
+        # num_filas_por_pagina = 33  # Número de filas por página
+        # pagina_actual = 1
+        # altura_restante = altura_maxima
+        # datos_pagina = []  # Lista para almacenar los datos de la página actual
+
+        # for fila in datos:
+        #     if altura_restante >= 20:
+        #         datos_pagina.append(fila)
+        #         altura_restante -= 20
+        #     else:
+        #         # Agregar una nueva página
+        #         c.showPage()
+        #         altura_restante = altura_maxima
+        #         pagina_actual += 1
+
+        #         # Crear y dibujar la tabla de la página anterior
+        #         tabla_datos_pagina = Table(datos_pagina, colWidths=[50] * 9, rowHeights=20)
+        #         tabla_datos_pagina.setStyle(table_style)
+        #         tabla_datos_pagina.wrapOn(c, 400, 200)
+        #         tabla_datos_pagina.drawOn(c, 75, 705 - (20 * num_filas_por_pagina))
+
+        #         # Limpiar la lista de datos de la página anterior
+        #         datos_pagina = []
+
+        # # Verificar si hay datos restantes para la última página
+        # if datos_pagina:
+        #     c.showPage()
+        #     pagina_actual += 1
+
+        #     # Crear y dibujar la tabla de la última página
+        #     tabla_datos_pagina = Table(datos_pagina, colWidths=[50] * 9, rowHeights=20)
+        #     tabla_datos_pagina.setStyle(table_style)
+        #     tabla_datos_pagina.wrapOn(c, 400, 200)
+        #     tabla_datos_pagina.drawOn(c, 75, 705 - (20 * num_filas_por_pagina))
+
+        # # Aquí puedes agregar cualquier contenido adicional o encabezado/footer si es necesario
+
+        # # Guardar el PDF
+        # c.save()
+
+
+        
+
+        
         
         
     def reset(self):

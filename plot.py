@@ -155,7 +155,8 @@ class Plot():
             
     def generar_pdf(self):
         self.Table.donwload_table()
-        self.Graphs.donwload_graphs()
+        doble_pagina_flag=self.Table.get_doble_pagina()
+        self.Graphs.donwload_graphs(doble_pagina_flag)
         
     def get_prog_max(self):
         return self.Graphs.get_max()
@@ -169,6 +170,9 @@ class Plot():
 
     def update_bar_plot(self, defl_r,defl_l):
         self.Graphs.update_bar(defl_r,defl_l)
+
+    def get_table(self):
+        return self.Table
 
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
     def new_group_data_plot(self,dict_r, dict_l):
