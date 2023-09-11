@@ -119,7 +119,7 @@ class Graphs():
         else:
             return max(self.indexes)
     
-    def donwload_graphs(self,doble_pagina_flag):
+    def donwload_graphs(self,numero_pagina):
        
         # Ajustar los límites para eliminar espacio en blanco
         if(self.defl_l_data==[] or self.defl_r_data==[]):
@@ -140,11 +140,8 @@ class Graphs():
             c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_bar_l.png', 100, 200, width=383, height=230)
             c.drawImage('figure_bar_r.png', 100, 500,width=383, height=230)
-
-            if(doble_pagina_flag):
-                c.drawString(centro_x-1, 125, "4")
-            else:
-                c.drawString(centro_x-1, 125, "3")
+            c.drawString(centro_x-1, 125, f"{numero_pagina+1}")
+            
             
             c.save()
             os.remove('figure_bar_l.png')

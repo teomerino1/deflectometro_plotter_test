@@ -196,12 +196,12 @@ class View():
         self.generar_carátula("caratula.pdf")
         self.Plot5.download_stats()
         self.Plot.generar_pdf()
-        doble_pagina_flag=self.Plot.get_table().get_doble_pagina()
+        numero_pagina=self.Plot.get_table().get_numero_pagina()
         self.Plot2.download_graphs()
         self.Plot3.download_graphs()
-        self.Plot4.download_graphs(doble_pagina_flag)
+        self.Plot4.download_graphs(numero_pagina)
         sleep(1)
-        self.combine_pdf(doble_pagina_flag)
+        self.combine_pdf(numero_pagina)
 
     def generar_carátula(self,filename):
 
@@ -297,7 +297,7 @@ class View():
         c.save()
        
 
-    def combine_pdf(self,doble_pagina_flag):
+    def combine_pdf(self,numero_pagina):
 
         output1="pdf2.pdf"
         output2="pdf3.pdf"
@@ -312,12 +312,7 @@ class View():
             c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_defl_mean_l.png',100, 200, width=383, height=230)
             c.drawImage('figure_rad_l.png', 100, 500,width=383, height=230)
-
-            if(doble_pagina_flag):
-                c.drawString(centro_x-1, 125, "5")
-            else:
-                c.drawString(centro_x-1, 125, "4")
-
+            c.drawString(centro_x-1, 125, f"{numero_pagina+2}")
             c.save()
 
             c = canvas.Canvas(output2, pagesize=A4)
@@ -325,12 +320,7 @@ class View():
             c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_defl_mean_r.png', 100, 200, width=383, height=230)
             c.drawImage('figure_rad_r.png', 100, 500,width=383, height=230)
-
-            if(doble_pagina_flag):
-                c.drawString(centro_x-1, 125, "6")
-            else:
-                c.drawString(centro_x-1, 125, "5")
-
+            c.drawString(centro_x-1, 125, f"{numero_pagina+3}")
             c.save()
 
             pdf_files = [

@@ -115,8 +115,8 @@ class Plot4():
             self.imagen_frame.grid(row=2,padx=(0,30),pady=(400,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
-    def download_graphs(self,doble_pagina_flag):
-        self.Graphs4.download_graphs4(doble_pagina_flag)
+    def download_graphs(self,numero_pagina):
+        self.Graphs4.download_graphs4(numero_pagina)
 
     def get_hora_label(self):
         return self.hora_label

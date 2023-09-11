@@ -19,6 +19,7 @@ class Tabla():
         self.grupos=None
         self.fecha=None
         self.ruta=None
+        self.num_pagina=2
         self.doble_pagina=False
 
     # Metodo que inserta valores en el diccionario
@@ -84,16 +85,17 @@ class Tabla():
     def get_doble_pagina(self):
         return self.doble_pagina
     
+    def get_numero_pagina(self):
+        return int(self.num_pagina)
     def donwload_table(self):
         
         buffer = BytesIO()
 
-# Crear un objeto Canvas
+
         c = canvas.Canvas(buffer, pagesize=A4)
         ancho_pagina,alto_pagina=A4
         centro_x = ancho_pagina / 2
-        c.drawString(centro_x-1, 25, "2")
-        c.drawImage('header.png', 25, 773, width=550, height=60)
+        
 
 
         titulo_style = TableStyle([
@@ -136,14 +138,16 @@ class Tabla():
         # print("Altura tabla:",altura_tabla)
         num_filas_por_pagina = 33  # Número de filas por página
         pagina_actual = 1
-        # y=720
+      
         altura_restante=altura_tabla
         filas_totales=int(altura_tabla/20)
-
+        
         print("Filas totales:",filas_totales)
 
         while(altura_restante>=altura_maxima):
 
+            c.drawString(centro_x-1, 25, f"{self.num_pagina}")
+            c.drawImage('header.png', 25, 773, width=550, height=60)
             datos_pagina = datos[:num_filas_por_pagina]
             datos = datos[num_filas_por_pagina:]
             tabla_datos_pagina = Table(datos_pagina, colWidths=[50,50,50,50,50,50,50,50,50],rowHeights=20)
@@ -154,17 +158,16 @@ class Tabla():
             # c.save()
             filas_totales=filas_totales-num_filas_por_pagina
             altura_restante=altura_restante-altura_maxima
+            self.num_pagina+=1
 
-        print("Filas totales:",filas_totales)
         datos_pagina_final=datos[:filas_totales]
         datos=datos[filas_totales:]
-        print("Datos:",datos)
-        print("Datos página:",datos_pagina_final)
-        
         tabla_final = Table(datos_pagina_final, colWidths=[50,50,50,50,50,50,50,50,50],rowHeights=20)
         tabla_final.setStyle(table_style)
         tabla_final.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
         tabla_final.drawOn(c, 75, 705-(20*filas_totales))
+        c.drawString(centro_x-1, 25, f"{self.num_pagina}")
+        c.drawImage('header.png', 25, 773, width=550, height=60)
         c.showPage()
         c.save()
 

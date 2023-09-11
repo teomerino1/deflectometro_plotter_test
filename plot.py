@@ -39,7 +39,8 @@ class Plot():
         self.muestras = None 
         self.grupos = None 
         self.atras = None 
-        self.next = None 
+        self.next = None
+        self.configuration=None 
         self.Table = None
         self.Graphs = None
         self.label_der=None
@@ -108,6 +109,9 @@ class Plot():
             next = ttk.Button(self.botones_frame,text="Siguiente →",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
+            configuration=ttk.Button(self.botones_frame,text="Ver configuración",style="TButton")
+            self.configuration=configuration 
+
             self.Table = table.Tabla(self.table_frame) 
             self.Graphs = graphs.Graphs(self.graphs_frame) 
 
@@ -155,8 +159,8 @@ class Plot():
             
     def generar_pdf(self):
         self.Table.donwload_table()
-        doble_pagina_flag=self.Table.get_doble_pagina()
-        self.Graphs.donwload_graphs(doble_pagina_flag)
+        numero_pagina=self.Table.get_numero_pagina()
+        self.Graphs.donwload_graphs(numero_pagina)
         
     def get_prog_max(self):
         return self.Graphs.get_max()

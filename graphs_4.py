@@ -124,7 +124,7 @@ class Graphs4():
         self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_radios_graph(0,0,"Informe estadistico: Lado Izquierdo")
         self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(0,1,"Informe estadístico: Lado Derecho")
 
-    def download_graphs4(self,doble_pagina_flag):
+    def download_graphs4(self,numero_pagina):
 
         if(self.rad_mean_r_data==[] or self.rad_mean_l_data==[]):
             print("Detecto en graphs4 que es none")
@@ -147,11 +147,7 @@ class Graphs4():
             c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('radios_l.png',100, 200, width=383, height=230)
             c.drawImage('radios_r.png',100, 500, width=383, height=230)
-
-            if(doble_pagina_flag):
-                c.drawString(centro_x-1, 125, "7")
-            else:
-                c.drawString(centro_x-1, 125, "6")
+            c.drawString(centro_x-1, 125, f"{numero_pagina+4}")
             c.save()
             
             os.remove('radios_l.png')
