@@ -176,50 +176,7 @@ class Tabla():
         buffer.seek(0)
         with open('tabla.pdf', 'wb') as f:
             f.write(buffer.read())
-        # altura_maxima = 660
-        # num_filas_por_pagina = 33  # Número de filas por página
-        # pagina_actual = 1
-        # altura_restante = altura_maxima
-        # datos_pagina = []  # Lista para almacenar los datos de la página actual
-
-        # for fila in datos:
-        #     if altura_restante >= 20:
-        #         datos_pagina.append(fila)
-        #         altura_restante -= 20
-        #     else:
-        #         # Agregar una nueva página
-        #         c.showPage()
-        #         altura_restante = altura_maxima
-        #         pagina_actual += 1
-
-        #         # Crear y dibujar la tabla de la página anterior
-        #         tabla_datos_pagina = Table(datos_pagina, colWidths=[50] * 9, rowHeights=20)
-        #         tabla_datos_pagina.setStyle(table_style)
-        #         tabla_datos_pagina.wrapOn(c, 400, 200)
-        #         tabla_datos_pagina.drawOn(c, 75, 705 - (20 * num_filas_por_pagina))
-
-        #         # Limpiar la lista de datos de la página anterior
-        #         datos_pagina = []
-
-        # # Verificar si hay datos restantes para la última página
-        # if datos_pagina:
-        #     c.showPage()
-        #     pagina_actual += 1
-
-        #     # Crear y dibujar la tabla de la última página
-        #     tabla_datos_pagina = Table(datos_pagina, colWidths=[50] * 9, rowHeights=20)
-        #     tabla_datos_pagina.setStyle(table_style)
-        #     tabla_datos_pagina.wrapOn(c, 400, 200)
-        #     tabla_datos_pagina.drawOn(c, 75, 705 - (20 * num_filas_por_pagina))
-
-        # # Aquí puedes agregar cualquier contenido adicional o encabezado/footer si es necesario
-
-        # # Guardar el PDF
-        # c.save()
-
-
-        
-
+     
         
         
         

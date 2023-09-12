@@ -77,23 +77,19 @@ def process_data(Reporter,View,Data):
         print(cantidad)
         
         if(Reporter.get_puesto_change()==0):
-            # if(a>=100):
-            #     b=b+1
-            #     if(b==10):
-            #         b=0
-            #         update_bar_thread = Thread(target=update_defl_one,args=(Data,View,10))
-            #         update_bar_thread.daemon=True
-            #         update_bar_thread.start()
-            # else:
-            #     # View.set_state("Graficando bars...")
-            #     update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
-            #     update_bar_thread.daemon=True
-            #     update_bar_thread.start()
+            if(a>=100):
+                b=b+1
+                if(b==10):
+                    b=0
+                    update_bar_thread = Thread(target=update_defl_one,args=(Data,View,10))
+                    update_bar_thread.daemon=True
+                    update_bar_thread.start()
+            else:
+                # View.set_state("Graficando bars...")
+                update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
+                update_bar_thread.daemon=True
+                update_bar_thread.start()
             
-            update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
-            update_bar_thread.daemon=True
-            update_bar_thread.start()
-                
             if(cantidad%2 == 0):
                 update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 

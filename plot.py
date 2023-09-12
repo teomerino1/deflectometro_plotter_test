@@ -151,7 +151,6 @@ class Plot():
             self.label_der.grid(row=1, column=0,padx=(550,0))
 
             self.table_frame.grid(row=1,padx=(0,45),pady=(0,0))
-            # self.table_frame.grid(row=0,columnspan=2,padx=(0,45),pady=(80,0))
             self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(0,0))
 
             self.imagen_frame.grid(row=3,padx=(0,60),pady=(140,0))
