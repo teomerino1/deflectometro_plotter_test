@@ -6,7 +6,6 @@ import table
 import graphs
 from tkinter.ttk import Treeview
 import tkinter as tk
-from tkinter import ttk
 import datetime
 from tkinter.ttk import Treeview
 from tkinter import ttk
@@ -109,7 +108,7 @@ class Plot():
             next = ttk.Button(self.botones_frame,text="Siguiente →",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
-            configuration=ttk.Button(self.botones_frame,text="Ver configuración",style="TButton")
+            configuration=ttk.Button(self.botones_frame,text="Ver configuración",command=self.show_configuration,style="TButton")
             self.configuration=configuration 
 
             self.Table = table.Tabla(self.table_frame) 
@@ -140,20 +139,22 @@ class Plot():
         if(a == 1):
             self.second_plot_frame.grid(sticky=NSEW)
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))  
-            self.atras.grid(row=0, column=0,padx=(0,1275),pady=(0,0))
-            self.next.grid(row=1, column=0,padx=(0,1275),pady=(0,0))
+            self.atras.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
+            self.next.grid(row=1, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
+            self.configuration.grid(row=2,column=0,padx=(0,1275),pady=(0,0))
             self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
-            self.puesto_label.grid(row=0,column=0,padx=(1200,0))
-            self.hora_label.grid(row=1,column=0,padx=(1200,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1100,0))
+            self.hora_label.grid(row=1,column=0,padx=(1100,0))
 
-            self.labels_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
+            self.labels_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(70,0))
             self.label_izq.grid(row=1, column=0,padx=(0,350))
             self.label_der.grid(row=1, column=0,padx=(550,0))
 
-            self.table_frame.grid(row=2,padx=(0,45),pady=(0,0))
+            self.table_frame.grid(row=1,padx=(0,45),pady=(0,0))
+            # self.table_frame.grid(row=0,columnspan=2,padx=(0,45),pady=(80,0))
             self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(0,0))
 
-            self.imagen_frame.grid(row=3,padx=(0,30),pady=(145,0))
+            self.imagen_frame.grid(row=3,padx=(0,60),pady=(140,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
             
             
@@ -185,9 +186,10 @@ class Plot():
     def go_to_plot_2_from_plot_1(self):
         self.view_instance.enqueue_transition('go_to_plot_2_from_plot_1')
         
+    def show_configuration(self):
+        self.view_instance.enqueue_transition('show_configuration')
+
     def go_to_config(self):
-        # if(self.view_instance.get_state()=="Obteniendo datos..."):
-        #     messagebox.askokcancel("Aviso","Se están obteniendo datos. ¿Desea volver a la configuración?")
         self.view_instance.enqueue_transition('go_to_config')
 
     def reset_table(self):

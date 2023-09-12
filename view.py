@@ -24,17 +24,12 @@ from reportlab.platypus import SimpleDocTemplate, Spacer, Paragraph, Table, Tabl
 from reportlab.lib.pagesizes import letter,A4
 from reportlab.pdfgen import canvas
 from tkinter import messagebox
+from tkinter import ttk
 
 class View():
     def __init__(self, root,data_instance,reporter_instance):
 
-        # self.states = {
-        #     1: "Listo para obtener datos",
-        #     2: "Obteniendo datos",
-        #     3: "Generando Cálculos",
-        #     4: "Generando PDF.",
-        #     5: ''
-        # }
+
         self.state=None
         self.root=root
         self.temp = None
@@ -645,6 +640,18 @@ class View():
                     self.download_pdf()
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
+
+                elif target_function=='show_configuration':
+                    ventana_emergente = tk.Toplevel(self.root)
+                    ventana_emergente.title("Configuración")
+
+                    # Agregar contenido a la ventana emergente
+                    etiqueta = ttk.Label(ventana_emergente, text="Aquí va la información de configuración")
+                    etiqueta.pack(padx=20, pady=20)
+                    self.interface_transition_queue.task_done()
+                    self.enqueued_functions.remove(target_function)
+
+
 
     def enqueue_transition(self, function_name):
         # self.interface_transition_queue.put(function_name)

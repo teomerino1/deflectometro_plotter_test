@@ -40,7 +40,7 @@ class Graphs():
         sub_figure.set_xlim(0,10)
         sub_figure.set_title(title)
 
-        sub_figure.set_xlabel("Nº grupo")
+        sub_figure.set_xlabel("nº grupo")
         sub_figure.set_ylabel("Deflexiones")
 
         sub_figure.bar([], [], width = 0.3, linewidth=0.1)
@@ -86,8 +86,8 @@ class Graphs():
         subfigure_der.set_title("Deflexion Derecha")
         subfigure_izq.set_title("Deflexion Izquierda")
 
-        subfigure_der.set_xlabel("Progresivas [metros]")
-        subfigure_izq.set_xlabel("Progresivas [metros]")
+        subfigure_der.set_xlabel("nº grupo")
+        subfigure_izq.set_xlabel("nº grupo")
 
         subfigure_der.set_ylabel("Deflexiones")
         subfigure_izq.set_ylabel("Deflexiones")

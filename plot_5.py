@@ -42,6 +42,7 @@ class Plot5():
         self.botones_frame=None
         self.title = None
         self.back = None
+        self.configuration=None
         self.stats = None 
         self.pdf = None 
         self.view_instance = view_instance
@@ -171,6 +172,9 @@ class Plot5():
 
             back = ttk.Button(self.top_frame, text="← Atras", command=self.go_to_plot_4_from_plot_5,style="TButton")
             self.back = back
+
+            configuration=ttk.Button(self.top_frame,text="Ver configuración",command=self.show_configuration,style="TButton")
+            self.configuration=configuration 
             
             stats = ttk.Button(self.botones_frame, text="Generar Cálculos", command=self.generate_stats,style="TButton")
             self.stats = stats
@@ -264,6 +268,7 @@ class Plot5():
             self.sixth_plot_frame.grid(sticky="nsew")
             self.top_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
+            self.configuration.grid(row=1, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
             self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
             self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
             self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(6,0))
@@ -301,7 +306,7 @@ class Plot5():
             self.botones_frame.grid(row=3,columnspan=2,pady=(0,0))
             self.stats.grid(row=0,pady=(0,0))
             self.pdf.grid(row=1,pady=(0,0))
-            self.imagen_frame.grid(row=4,padx=(0,30),pady=(0,0))
+            self.imagen_frame.grid(row=4,padx=(0,60),pady=(0,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
     
 
@@ -414,6 +419,9 @@ class Plot5():
     
     def get_state_label(self):
         return self.state_label
+    
+    def show_configuration(self):
+        self.view_instance.enqueue_transition('show_configuration')
 
     def download_stats(self):
         

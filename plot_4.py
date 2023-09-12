@@ -34,6 +34,7 @@ class Plot4():
         self.subtitle=None
         self.next = None
         self.back = None  
+        self.configuration=None 
         self.view_instance = view_instance
         self.Graphs4 = None
 
@@ -85,6 +86,9 @@ class Plot4():
             next = ttk.Button(botones_frame, text="Siguiente →", command=self.go_to_plot_5_from_plot_4,style="TButton") 
             self.next = next
 
+            configuration=ttk.Button(self.botones_frame,text="Ver configuración",command=self.show_configuration,style="TButton")
+            self.configuration=configuration 
+
             self.Graphs4 = graphs_4.Graphs4(self.graphs_frame)
 
             original_image=Image.open("image3.png")
@@ -106,13 +110,14 @@ class Plot4():
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
             self.next.grid(row=1,column=0,padx=(0,1275),pady=(0,0),sticky=NW)
+            self.configuration.grid(row=2,column=0,padx=(0,1275),pady=(0,0))
             self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
             self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
             self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(0,0))
-            self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
+            self.title_frame.grid(row=1,columnspan=2,pady=(0,0))
             self.title.grid()
             self.graphs_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(0,0))
-            self.imagen_frame.grid(row=2,padx=(0,30),pady=(400,0))
+            self.imagen_frame.grid(row=2,padx=(0,60),pady=(380,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
     def download_graphs(self,numero_pagina):
@@ -135,3 +140,6 @@ class Plot4():
 
     def get_state_label(self):
         return self.state_label
+    
+    def show_configuration(self):
+        self.view_instance.enqueue_transition('show_configuration')
