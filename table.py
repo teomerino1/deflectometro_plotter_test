@@ -62,7 +62,6 @@ class Tabla():
         # Configurar el alto del Treeview
         self.table.configure(height=9)
         
-
         headers = [
             ("Grupos", "Grupos"),
             ("Radio.", "Radio"),
@@ -95,9 +94,7 @@ class Tabla():
         c = canvas.Canvas(buffer, pagesize=A4)
         ancho_pagina,alto_pagina=A4
         centro_x = ancho_pagina / 2
-        
-
-
+    
         titulo_style = TableStyle([
             ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),

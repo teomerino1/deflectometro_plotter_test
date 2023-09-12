@@ -89,8 +89,8 @@ def process_data(Reporter,View,Data):
                 update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
                 update_bar_thread.daemon=True
                 update_bar_thread.start()
-            
-            if(cantidad%2 == 0):
+
+            if(cantidad%grupos == 0):
                 update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
                 update_all_thread.daemon=True 
                 update_all_thread.start()

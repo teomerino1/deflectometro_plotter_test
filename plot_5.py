@@ -270,8 +270,8 @@ class Plot5():
             self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
             self.configuration.grid(row=1, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
             self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
-            self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
-            self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(6,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1100,0),pady=(0,0))
+            self.hora_label.grid(row=1,column=0,padx=(1100,0),pady=(6,0))
             self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
             self.title.grid(row=0, column=0,padx=(0,0))
 

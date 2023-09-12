@@ -130,7 +130,7 @@ class Config():
             self.grupos_ntry_100 = grupos_ntry_100
 
             # Muestras
-            muestras_label=Label(self.parameters_frame, text="Cantidad total de muestras:",font=(None, 15))
+            muestras_label=Label(self.parameters_frame, text="Cantidad de muestras (opcional):",font=(None, 15))
             self.muestras_label=muestras_label
            
 
