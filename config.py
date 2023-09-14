@@ -99,7 +99,7 @@ class Config():
             # Define una fuente personalizada
             custom_font = font.Font(family="Krona_One", size=16, weight="bold")
 
-            conf_inicial = ttk.Label(self.config_frame, text="Configuración", font=(custom_font,30))
+            conf_inicial = ttk.Label(self.config_frame, text="Configuración", font=(custom_font,25))
             self.conf_inicial = conf_inicial
 
             parametros_medicion=Label(self.parameters_frame, text="Parámetros de medición",font=("Krona One", 20))
@@ -243,9 +243,10 @@ class Config():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            height=255
+            height=245
             desired_height = int(desired_width / aspect_ratio)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, height))
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)

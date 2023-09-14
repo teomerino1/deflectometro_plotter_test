@@ -124,12 +124,13 @@ class Plot():
             screen_width = self.root.winfo_screenwidth()
 
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
-            desired_width = screen_width
+            desired_width = screen_width+10
             aspect_ratio = original_image.width / original_image.height
-            height=65
+            height=60
             desired_height = int(desired_width / aspect_ratio)
             print("desired height",desired_height)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, height))
 
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
@@ -153,7 +154,7 @@ class Plot():
             self.table_frame.grid(row=1,padx=(0,45),pady=(0,0))
             self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(0,0))
 
-            self.imagen_frame.grid(row=3,padx=(0,60),pady=(140,0))
+            self.imagen_frame.grid(row=3,padx=(0,60),pady=(135,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
             
             

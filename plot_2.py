@@ -101,9 +101,13 @@ class Plot2():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            height=65
+            height=60
             # desired_height = int(desired_width / aspect_ratio)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, height))
+
+            
+
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)
@@ -112,18 +116,18 @@ class Plot2():
         if(a == 1):
             self.third_plot_frame.grid(sticky="NSEW")
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
-            self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.next.grid(row=1,column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.configuration.grid(row=2,column=0,padx=(0,1275),pady=(0,0))
+            self.back.grid(row=0, column=0,padx=(0,1280),pady=(0,0),sticky=NW)
+            self.next.grid(row=1,column=0,padx=(0,1280),pady=(0,0),sticky=NW)
+            self.configuration.grid(row=2,column=0,padx=(0,1280),pady=(0,0))
             self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
             self.puesto_label.grid(row=0,column=0,padx=(1100,0),pady=(0,0))
             self.hora_label.grid(row=1,column=0,padx=(1100,0),pady=(0,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(0,0))
             self.title.grid()
             self.subtitle.grid()
-            self.graphs2_frame.grid(row=2,column=0,padx=(0,700),pady=(0,0))
-            self.graphs3_frame.grid(row=2,column=0,padx=(700,0),pady=(0,0))
-            self.imagenes_frame.grid(row=2,padx=(0,60),pady=(420,0))
+            self.graphs2_frame.grid(row=2,column=0,padx=(0,650),pady=(0,0))
+            self.graphs3_frame.grid(row=2,column=0,padx=(650,0),pady=(0,0))
+            self.imagenes_frame.grid(row=2,padx=(0,80),pady=(385,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
             
 ##F6F4F2

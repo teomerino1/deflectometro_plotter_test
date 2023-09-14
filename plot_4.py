@@ -97,9 +97,10 @@ class Plot4():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            height=65
+            height=60
             # desired_height = int(desired_width / aspect_ratio)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, height))
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagen_frame, image=self.image_cba)
@@ -108,16 +109,16 @@ class Plot4():
         if(a == 1):
             self.fifht_plot_frame.grid(sticky="NSEW")
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
-            self.back.grid(row=0, column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.next.grid(row=1,column=0,padx=(0,1275),pady=(0,0),sticky=NW)
-            self.configuration.grid(row=2,column=0,padx=(0,1275),pady=(0,0))
+            self.back.grid(row=0, column=0,padx=(0,1285),pady=(0,0),sticky=NW)
+            self.next.grid(row=1,column=0,padx=(0,1285),pady=(0,0),sticky=NW)
+            self.configuration.grid(row=2,column=0,padx=(0,1285),pady=(0,0))
             self.state_label.grid(row=0,column=0,padx=(0,950),pady=(0,0))
             self.puesto_label.grid(row=0,column=0,padx=(1100,0),pady=(0,0))
             self.hora_label.grid(row=1,column=0,padx=(1100,0),pady=(0,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(0,0))
             self.title.grid()
-            self.graphs_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(0,0))
-            self.imagen_frame.grid(row=2,padx=(0,60),pady=(380,0))
+            self.graphs_frame.grid(row=2,columnspan=2,padx=(0,50),pady=(0,0))
+            self.imagen_frame.grid(row=2,padx=(0,90),pady=(360,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
     def download_graphs(self,numero_pagina):

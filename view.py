@@ -79,7 +79,8 @@ class View():
     def start(self,root):
         self.root.title('Deflectómetro')
         style = Style(root)
-        self.root.attributes('-zoomed', True) 
+        # self.root.attributes('-fullscreen',True) 
+        self.root.state('zoomed')
         self.inicializar_plots()
 
     def inicializar_plots(self):
@@ -327,11 +328,17 @@ class View():
                 "pdf3.pdf",
                 "radios.pdf"
             ]
-            puesto=self.reporter_instance.get_puesto()
+            
+
+            puesto = self.reporter_instance.get_puesto()
             current_datetime = datetime.datetime.now()
             formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
 
-            output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
+            # Ruta absoluta para la carpeta "Informes" en el escritorio
+            informes_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Informes")
+
+            # Nombre del archivo PDF completo
+            output_filename = os.path.join(informes_folder, f"{formatted_datetime}_puesto_{puesto}.pdf")
             
             pdf_merger = PyPDF2.PdfMerger()
        
@@ -352,7 +359,7 @@ class View():
             os.remove('figure_rad_r.png')
             os.remove('figure_rad_l.png')
             self.set_state('')
-            messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes':")
+            messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes' del Escritorio.")
 
         else:
             # print("Detecto que la imagen no existe")

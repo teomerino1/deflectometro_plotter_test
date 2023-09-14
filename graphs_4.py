@@ -66,11 +66,13 @@ class Graphs4():
         self.indexes = [x * grupos for x in range(1, len(self.rad_mean_l_data)+1)]
 
         # Agregar cálculos para las leyendas
-        promedio_x_izq = sum(self.defl_mean_l_data) / len(self.defl_mean_l_data)
+        # promedio_x_izq = sum(self.defl_mean_l_data) / len(self.defl_mean_l_data)
+        promedio_x_izq = sum(self.rad_mean_l_data) / len(self.rad_mean_l_data)
         promedio_producto_izq = sum(x * y for x, y in zip(self.defl_mean_l_data, self.rad_mean_l_data)) / len(self.rad_mean_l_data)
         promedio_division_izq = sum(x / y for x, y in zip(self.defl_mean_l_data, self.rad_mean_l_data)) / len(self.rad_mean_l_data)
 
-        promedio_x_der = sum(self.defl_mean_r_data) / len(self.defl_mean_r_data)
+        # promedio_x_der = sum(self.defl_mean_r_data) / len(self.defl_mean_r_data)
+        promedio_x_der = sum(self.rad_mean_r_data) / len(self.rad_mean_r_data)
         promedio_producto_der = sum(x * y for x, y in zip(self.defl_mean_r_data, self.rad_mean_r_data)) / len(self.rad_mean_r_data)
         promedio_division_der = sum(x / y for x, y in zip(self.defl_mean_r_data, self.rad_mean_r_data)) / len(self.rad_mean_r_data)
 
@@ -86,8 +88,10 @@ class Graphs4():
         subfigure_der.set_ylim(0,max(self.rad_mean_r_data)+500)  
         subfigure_izq.set_ylim(0,max(self.rad_mean_l_data)+500)  
 
-        subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
-        subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
+        # subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
+        subfigure_izq.scatter(self.rad_mean_l_data, self.defl_mean_l_data, color = 'r')
+        # subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
+        subfigure_der.scatter(self.rad_mean_r_data, self.defl_mean_r_data, color = 'r')
 
 
         # Agregar anotaciones con la información de los cálculos
