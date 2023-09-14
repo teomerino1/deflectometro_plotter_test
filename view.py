@@ -80,7 +80,8 @@ class View():
         self.root.title('Deflectómetro')
         style = Style(root)
         # self.root.attributes('-fullscreen',True) 
-        self.root.state('zoomed')
+        # self.root.state('zoomed')
+        self.root.attributes('-zoomed')
         self.inicializar_plots()
 
     def inicializar_plots(self):
