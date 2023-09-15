@@ -73,8 +73,8 @@ class Graphs():
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-        subfigure_der.set_ylim(0, (max(self.defl_r_data)+50))
-        subfigure_izq.set_ylim(0, (max(self.defl_l_data)+50))
+        subfigure_der.set_ylim(0, (max(self.defl_r_data)+1))
+        subfigure_izq.set_ylim(0, (max(self.defl_l_data)+1))
         
         subfigure_der.set_xlim(1, len(self.defl_r_data)+1)
         subfigure_izq.set_xlim(1, len(self.defl_l_data)+1)
@@ -125,8 +125,8 @@ class Graphs():
         if(self.defl_l_data==[] or self.defl_r_data==[]):
             return
         else:
-            self.figure_bar_l.gca().set_ylim(0, (max(self.defl_l_data)+100))
-            self.figure_bar_r.gca().set_ylim(0, (max(self.defl_r_data)+100))  # Ajustar límites en el eje y según tu necesidad
+            self.figure_bar_l.gca().set_ylim(0, (max(self.defl_l_data)+1))
+            self.figure_bar_r.gca().set_ylim(0, (max(self.defl_r_data)+1))  # Ajustar límites en el eje y según tu necesidad
             self.figure_bar_l.savefig('figure_bar_l.png', bbox_inches='tight')
             self.figure_bar_r.savefig('figure_bar_r.png', bbox_inches='tight')
 

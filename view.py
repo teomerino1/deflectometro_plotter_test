@@ -67,6 +67,9 @@ class View():
         self.datos_ready_flag=0
         self.width=None
         self.height=None
+        ##############
+        self.amount=None
+        ################
          # Crear una cola bloqueante para las funciones de transición de interfaz
         self.interface_transition_queue = queue.Queue()
         self.enqueued_functions = set()
@@ -335,11 +338,12 @@ class View():
             formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
 
             # Ruta absoluta para la carpeta "Informes" en el escritorio
-            informes_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Informes")
+            # informes_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Informes")
 
             # Nombre del archivo PDF completo
-            output_filename = os.path.join(informes_folder, f"{formatted_datetime}_puesto_{puesto}.pdf")
-            
+            # output_filename = os.path.join(informes_folder, f"{formatted_datetime}_puesto_{puesto}.pdf")
+            output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
+
             pdf_merger = PyPDF2.PdfMerger()
        
             for pdf_file in pdf_files:
@@ -508,6 +512,8 @@ class View():
     
     def set_state(self,state):
         if(self.get_reset()!=1):
+            if(state=="Detenido"):
+                self.set_data_ready(0)
             print("View State:",state)
             self.program_state=state
             self.Plot.get_state_label().config(text=f'{state}')
@@ -569,9 +575,17 @@ class View():
                         # self.interface_transition_queue.task_done()
                         # self.enqueued_functions.remove(target_function)
                         # continue
+
                     self.go_to_plot1_from_config()
+               
                     self.enqueued_functions.remove(target_function)
+
+                
                     self.interface_transition_queue.task_done()
+                    data_thread = Thread(target=self.process_data)
+                    data_thread.daemon = True
+                    data_thread.start()
+                    print("RETORNO ACÁ")
 
                 elif target_function == 'go_to_plot_2_from_plot_1':
                     self.go_to_plot_2_from_plot_1()
@@ -651,7 +665,7 @@ class View():
                         d_x_r_der, d_x_r_izq, 
                         total_mediciones_defl, total_mediciones_rad
                     )
-                    self.set_state('')
+                    self.set_state('Cálculos generados.')
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
                     # self.set_data_ready(value=0)
@@ -663,6 +677,7 @@ class View():
                         self.enqueued_functions.remove(target_function)
                         # continue
                     else:
+                        self.set_state("Generando PDF.")
                         self.download_pdf()
                         self.interface_transition_queue.task_done()
                         self.enqueued_functions.remove(target_function)
@@ -705,8 +720,94 @@ class View():
             self.enqueued_functions.add(function_name)
 
 
+    def update_all(self):
+        self.data_instance.update_structures()
+        dict_r, dict_l = self.data_instance.get_data_dict()
+        defl_l_max, defl_r_max = self.data_instance.get_max_defl()
+        defl_l_car, defl_r_car = self.data_instance.get_car_defl()
+        self.new_group_data_view(dict_r,dict_l,defl_r_car,defl_l_car,defl_r_max,defl_l_max,grupos=self.grupos)
 
+    def update_defl_one(self):
+        defl_r, defl_l = self.data_instance.update_bar_data(self.amount)
+        self.update_bar_view(defl_r,defl_l)
+        self.data_instance.clear_bar_data()
 
+    def process_data(self):
+        self.set_state("Listo para obtener datos")
+        self.reporter_instance.start()
+        grupos=self.get_grupos()
+        muestras=self.get_muestras()
+        a=0
+        b=0
+
+        c=0
+        print("C value:",c)
+
+        while True:
+                
+            data, this_cycle = self.reporter_instance.get_new_measurements()
+            
+            if data is None or this_cycle is None:
+
+                if(self.reporter_instance.get_puesto_change()==1):
+                    messagebox.showinfo("Aviso","Cambio de Puesto detectado. Se mostrarán los resultados estadísticos.")
+                    # self.set_state("Cambio de puesto")
+                    self.enqueue_transition('generate_stats')
+                    return
+
+                elif(a==muestras):
+                    messagebox.showinfo("Aviso","Cantidad de muestras alcanzada.")
+                    self.set_state("Detenido")
+                    return
+                
+                elif(self.get_reset()==1):
+                        print("Identifico reset")
+                        self.set_state("Deteniendo...")
+                        self.set_reset(1)
+                        print("Vuelvo a empezar")
+                        return
+                else:
+                    continue
+
+            # if(self.get_state()!="Detenido"):
+            if(c==0):
+                c=1
+                self.amount=1
+                print("Seteo cosas")
+                
+                self.set_hora_inicio()
+                self.set_nro_puesto(self.reporter_instance.get_last_puesto())
+
+            self.set_state("Obteniendo datos")
+            self.data_instance.data_destruct(data)
+            cantidad=self.data_instance.cant_mediciones()
+            a=a+1
+            print(cantidad)
+            
+            if(self.reporter_instance.get_puesto_change()==0):
+                if(a>=100):
+                    self.amount=10
+                    b=b+1
+                    if(b==10):
+                        b=0
+                        print("Grafico barras")
+                        # update_bar_thread = Thread(target=self.update_defl_one,args=(self,10))
+                        update_bar_thread = Thread(target=self.update_defl_one)
+                        update_bar_thread.daemon=True
+                        update_bar_thread.start()
+                else:
+                    # View.set_state("Grafico barras")
+                    print("Grafico barras")
+                    # update_bar_thread = Thread(target=self.update_defl_one,args=(self,1))
+                    update_bar_thread = Thread(target=self.update_defl_one)
+                    update_bar_thread.daemon=True
+                    update_bar_thread.start()
+                
+                if(cantidad%5 == 0):
+                    print("Grafico grupos")
+                    update_all_thread = Thread(target=self.update_all)
+                    update_all_thread.daemon=True 
+                    update_all_thread.start()
 
 
 

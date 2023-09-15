@@ -458,14 +458,12 @@ class Plot5():
         self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
 
     def generate_stats(self):
-        self.view_instance.set_state("Generando cálculos...")
         self.view_instance.enqueue_transition('generate_stats')
         self.view_instance.set_calculos_flag(1)
 
     def download_pdf(self):
-        self.view_instance.set_state("Descargando PDF...")
         self.view_instance.enqueue_transition('download_pdf')
-            # self.view_instance.set_state('')
+
     
     def get_hora_label(self):
         return self.hora_label
