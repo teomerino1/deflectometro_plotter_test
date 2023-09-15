@@ -200,7 +200,7 @@ class Data():
         
         # # Calculo de desviaciones estandar deflexiones
         desv_defl_der = round(np.std(self.defl_r_acum),2)
-        desv_defl_l = round(np.std(self.defl_l_acum))
+        desv_defl_l = round(np.std(self.defl_l_acum),2)
 
         # # Calculo de coeficientes de variacion deflexiones
         coef_var_der = round((desv_defl_der/media_defl_der)*100,2)
