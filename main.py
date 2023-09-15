@@ -27,13 +27,15 @@ def update_defl_one(Data,View,amount):
 
 def obtain_data(Reporter, View, Data):
     print("Arranco obtain data")
-    View.set_reset(0)
+    # View.set_reset(0)
     View.set_datos_ready_flag(1)
     while True:
         if(View.get_data_ready()==1):
             break
         else: 
             continue
+
+    View.set_state("Listo para obtener datos")
     process_data(Reporter,View,Data)
 
 def process_data(Reporter,View,Data):
@@ -45,7 +47,7 @@ def process_data(Reporter,View,Data):
     # print("Grupos:",grupos)
     a=0
     b=0
-    View.set_state("Listo para obtener datos")
+    # View.set_state("Listo para obtener datos")
     c=0
     print("C value:",c)
 
@@ -58,42 +60,49 @@ def process_data(Reporter,View,Data):
                 
                 print("Identifico reset")
                 View.set_state("Detenido")
+                View.set_reset(1)
                 print("Vuelvo a empezar")
                 View.set_data_ready(value=0)
                 # sleep(1)
                 obtain_data(Reporter,View,Data)
             else:
                 continue
-        if(c==0):
-            c=1
-            print("Seteo cosas")
-            View.set_state("Obteniendo datos")
-            View.set_hora_inicio()
-            View.set_nro_puesto(Reporter.get_last_puesto())
 
-        Data.data_destruct(data)
-        cantidad=Data.cant_mediciones()
-        a=a+1
-        print(cantidad)
-        
-        if(Reporter.get_puesto_change()==0):
-            if(a>=100):
-                b=b+1
-                if(b==10):
-                    b=0
-                    update_bar_thread = Thread(target=update_defl_one,args=(Data,View,10))
+        if(View.get_state()!="Detenido"):
+            if(c==0):
+                c=1
+                print("Seteo cosas")
+                # View.set_state("Obteniendo datos")
+                View.set_hora_inicio()
+                View.set_nro_puesto(Reporter.get_last_puesto())
+
+            View.set_state("Obteniendo datos")
+            Data.data_destruct(data)
+            cantidad=Data.cant_mediciones()
+            a=a+1
+            print(cantidad)
+            
+            if(Reporter.get_puesto_change()==0):
+                if(a>=100):
+                    b=b+1
+                    if(b==10):
+                        b=0
+                        print("Grafico barras")
+                        update_bar_thread = Thread(target=update_defl_one,args=(Data,View,10))
+                        update_bar_thread.daemon=True
+                        update_bar_thread.start()
+                else:
+                    # View.set_state("Grafico barras")
+                    print("Grafico barras")
+                    update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
                     update_bar_thread.daemon=True
                     update_bar_thread.start()
-            else:
-                # View.set_state("Graficando bars...")
-                update_bar_thread = Thread(target=update_defl_one,args=(Data,View,1))
-                update_bar_thread.daemon=True
-                update_bar_thread.start()
-            
-            if(cantidad%5 == 0):
-                update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
-                update_all_thread.daemon=True 
-                update_all_thread.start()
+                
+                if(cantidad%5 == 0):
+                    print("Grafico grupos")
+                    update_all_thread = Thread(target=update_all,args=(Data,View,grupos))
+                    update_all_thread.daemon=True 
+                    update_all_thread.start()
                 
             
 def obtain_and_process_data(Reporter, View, Data):

@@ -65,6 +65,8 @@ class View():
         self.nro_puesto=None
         self.calculos_flag=0
         self.datos_ready_flag=0
+        self.width=None
+        self.height=None
          # Crear una cola bloqueante para las funciones de transición de interfaz
         self.interface_transition_queue = queue.Queue()
         self.enqueued_functions = set()
@@ -79,6 +81,8 @@ class View():
     def start(self,root):
         self.root.title('Deflectómetro')
         style = Style(root)
+        self.width = self.root.winfo_screenwidth()
+        self.height = self.root.winfo_screenheight()
         # self.root.attributes('-fullscreen',True) 
         # self.root.state('zoomed')
         self.root.attributes('-zoomed')
@@ -160,11 +164,6 @@ class View():
         self.calculos_flag=0
         self.datos_ready_flag=0
         self.set_data_ready(value=0)
-        # self.Plot.get_state_label().config(text='')
-        # self.Plot2.get_state_label().config(text='')
-        # self.Plot3.get_state_label().config(text='')
-        # self.Plot4.get_state_label().config(text='')
-        # self.Plot5.get_state_label().config(text='')
 
     def set_reset(self,value):
         self.reset=value
@@ -508,14 +507,17 @@ class View():
         return self.program_state
     
     def set_state(self,state):
-        print("View State:",state)
-        self.program_state=state
-        self.Plot.get_state_label().config(text=f'{state}')
-        self.Plot2.get_state_label().config(text=f'{state}')
-        self.Plot3.get_state_label().config(text=f'{state}')
-        self.Plot4.get_state_label().config(text=f'{state}')
-        self.Plot5.get_state_label().config(text=f'{state}')
-    
+        if(self.get_reset()!=1):
+            print("View State:",state)
+            self.program_state=state
+            self.Plot.get_state_label().config(text=f'{state}')
+            self.Plot2.get_state_label().config(text=f'{state}')
+            self.Plot3.get_state_label().config(text=f'{state}')
+            self.Plot4.get_state_label().config(text=f'{state}')
+            self.Plot5.get_state_label().config(text=f'{state}')
+        else:
+            return
+        
     def set_calculos_flag(self,flag):
         self.calculos_flag=flag
 
@@ -534,31 +536,39 @@ class View():
 
                 # Ejecutar la función de transición de interfaz correspondiente
                 if target_function == 'go_to_config':
-                    if(self.get_state()=='Obteniendo datos'):
-                        respuesta= messagebox.askokcancel("Aviso","Se están obteniendo datos, Si vuelve a la configuración deberá resetear el recorrido. ¿Desea continuar?")
-                        if respuesta:
-                            self.go_to_config()
-                            self.reset_all_plots()
-                            self.reset_all_data()
-                            self.set_reset(1)
-                            messagebox.showinfo("Aviso", "Datos reseteados!")
-                            self.enqueued_functions.remove(target_function)
-                            self.interface_transition_queue.task_done()
-                            continue
-                        else:
-                            self.enqueued_functions.remove(target_function)
-                            self.interface_transition_queue.task_done()
-                            continue
-                    self.go_to_config()
-                    self.enqueued_functions.remove(target_function)
-                    self.interface_transition_queue.task_done()
+                    # if(self.get_state()=='Obteniendo datos'):
+                    respuesta= messagebox.askokcancel("Aviso","Si vuelve a la configuración deberá resetear el recorrido. ¿Desea continuar?")
+                    if respuesta:
+                        reset_message = tk.Toplevel(self.root)
+                        
+                        reset_message.title("Reset Info")
+                        message_label = tk.Label(reset_message, text="Reseteando. Por favor espere...",font=(None,10))
+                        message_label.pack()
+                        reset_message.geometry(f"200x100")
+                        self.set_reset(1)
+                        self.go_to_config()
+                        self.reset_all_data()
+                        self.reset_all_plots()
+                        reset_message.destroy()
+                        # messagebox.showinfo("Aviso", "Datos reseteados!")
+                        self.set_reset(0)
+                        self.enqueued_functions.remove(target_function)
+                        self.interface_transition_queue.task_done()
+                        # continue
+                    else:
+                        self.enqueued_functions.remove(target_function)
+                        self.interface_transition_queue.task_done()
+                        # continue
+                    # self.go_to_config()
+                    # self.enqueued_functions.remove(target_function)
+                    # self.interface_transition_queue.task_done()
 
                 elif target_function == 'go_to_plot_1_from_config':
                     if(self.get_data_ready()==1):
                         messagebox.showwarning("Aviso","Debe resetear los datos antes de intentar modificarlos")
-                        self.interface_transition_queue.task_done()
-                        self.enqueued_functions.remove(target_function)
-                        continue
+                        # self.interface_transition_queue.task_done()
+                        # self.enqueued_functions.remove(target_function)
+                        # continue
                     self.go_to_plot1_from_config()
                     self.enqueued_functions.remove(target_function)
                     self.interface_transition_queue.task_done()
@@ -605,11 +615,19 @@ class View():
                     self.interface_transition_queue.task_done()
 
                 elif target_function == 'reset_all_plots':
+                    reset_message = tk.Toplevel(self.root)
+                        
+                    reset_message.title("Reset Info")
+                    message_label = tk.Label(reset_message, text="Reseteando. Por favor espere...",font=(None,10))
+                    message_label.pack()
+                    reset_message.geometry(f"200x100")
                     print("Ejecuto reset")
+                    self.set_reset(1)
                     self.reset_all_plots()
                     self.reset_all_data()
-                    self.set_reset(1)
-                    messagebox.showinfo("Aviso", "Datos reseteados!")
+                    # messagebox.showinfo("Aviso", "Datos reseteados!")
+                    self.set_reset(0)
+                    reset_message.destroy()
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
 
@@ -643,11 +661,11 @@ class View():
                         messagebox.showwarning("Aviso","Se deben generar los cálculos para descargar el PDF.")
                         self.interface_transition_queue.task_done()
                         self.enqueued_functions.remove(target_function)
-                        continue
-                    
-                    self.download_pdf()
-                    self.interface_transition_queue.task_done()
-                    self.enqueued_functions.remove(target_function)
+                        # continue
+                    else:
+                        self.download_pdf()
+                        self.interface_transition_queue.task_done()
+                        self.enqueued_functions.remove(target_function)
 
                 elif target_function=='show_configuration':
                     ventana_emergente = tk.Toplevel(self.root)

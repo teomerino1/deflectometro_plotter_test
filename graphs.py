@@ -73,8 +73,8 @@ class Graphs():
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-        subfigure_der.set_ylim(0, (max(self.defl_r_data)+100))
-        subfigure_izq.set_ylim(0, (max(self.defl_l_data)+100))
+        subfigure_der.set_ylim(0, (max(self.defl_r_data)+50))
+        subfigure_izq.set_ylim(0, (max(self.defl_l_data)+50))
         
         subfigure_der.set_xlim(1, len(self.defl_r_data)+1)
         subfigure_izq.set_xlim(1, len(self.defl_l_data)+1)

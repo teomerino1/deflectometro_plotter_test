@@ -1,27 +1,25 @@
 import tkinter as tk
-from tkinter import ttk
 
-class MiPrograma:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Mi Programa")
+def show_reset_message():
+    reset_message = tk.Toplevel(root)
+    reset_message.title("Reseteando")
+    message_label = tk.Label(reset_message, text="Reseteando. Por favor espere...")
+    message_label.pack()
+    
+    # Cerrar el cuadro de diálogo después de 3 segundos (3000 milisegundos)
+    root.after(3000, reset_message.destroy)
 
-        self.botones_frame = ttk.Frame(root)
-        self.botones_frame.pack(padx=20, pady=20)
+def reset_widgets():
+    # Coloca aquí tu lógica de reseteo
+    # ...
 
-        self.configuration_button = ttk.Button(self.botones_frame, text="Ver configuración", style="TButton", command=self.mostrar_configuracion)
-        self.configuration_button.pack()
+    # Llamar a la función para mostrar el mensaje de reseteo
+    show_reset_message()
 
-    def mostrar_configuracion(self):
-        # Crear una ventana emergente (Toplevel)
-        ventana_emergente = tk.Toplevel(self.root)
-        ventana_emergente.title("Configuración")
+root = tk.Tk()
+root.title("Ejemplo de Mensaje Emergente")
 
-        # Agregar contenido a la ventana emergente
-        etiqueta = ttk.Label(ventana_emergente, text="Aquí va la información de configuración")
-        etiqueta.pack(padx=20, pady=20)
+reset_button = tk.Button(root, text="Resetear", command=reset_widgets)
+reset_button.pack()
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = MiPrograma(root)
-    root.mainloop()
+root.mainloop()
