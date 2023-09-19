@@ -327,27 +327,48 @@ class Config():
 
     def close(self):
 
-        data=[
-            self.apoyo_ntry,
-            self.chofer_ntry,
+        text_fields = [
+        self.temp_ntry,
+        self.apoyo_ntry,
+        self.chofer_ntry,
+        self.ruta_ntry,
+        self.subtramo_ntry,
+        self.tramo_ntry,
+        self.operador_ntry,
+        self.espesor,
+        self.fc_ntry,
+        self.fh_ntry,
+        self.ft_ntry,
+        self.z_ntry
+        ]
+
+        values = [
+            self.temp_ntry,
             self.espesor,
             self.fc_ntry,
             self.fh_ntry,
             self.ft_ntry,
-            self.pav_ntry,
-            self.prov_ntry,
-            self.ruta_ntry,
-            self.subtramo_ntry,
-            self.tramo_ntry,
             self.z_ntry,
-            self.operador_ntry
-            ]
+        ]
 
-        for data in data:
-            if(data.get()==''):
+        for text_field in text_fields:
+            if text_field.get() == '':
                 print("Detecto que la data es ''")
-                messagebox.showwarning("Aviso","Deben llenarse todos los campos antes de continuar")
-                return
+                messagebox.showwarning("Aviso", "Deben llenarse todos los campos de texto antes de continuar")
+                return 1
+
+
+        for value in values:
+            try:
+        # Intenta convertir el contenido del Entry a un número
+                float_value = float(value.get())
+        # Aquí puedes verificar si float_value es un entero, si es necesario
+            except ValueError:
+                messagebox.showwarning("Aviso", "Los parámetros deben ser enteros o flotantes")
+                return 1
+
+
+        print("EJECUTO EL REST")
 
         self.view_instance.set_temp(int(self.temp_ntry.get()))
         
@@ -396,6 +417,7 @@ class Config():
         # self.view_instance.set_state("Obteniendo datos...")
         self.config_frame.grid_forget()
         print("Cierro config y paso a plot")
+        return 0
 
     def get_config(self):
         return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.espesor.get(), self.ft_ntry.get(), self.fh_ntry.get(), self.fc_ntry.get(), self.z_ntry.get()

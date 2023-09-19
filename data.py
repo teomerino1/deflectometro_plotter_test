@@ -199,7 +199,7 @@ class Data():
         media_defl_der = round(np.mean(self.defl_r_acum),2)
         media_defl_izq = round(np.mean(self.defl_l_acum),2)
         media_rad_der =  round(np.mean(self.radio_r_acum),2)
-        media_rad_izq = round(np.mean(self.defl_l_acum),2)
+        media_rad_izq = round(np.mean(self.radio_l_acum),2)
         
         # # Calculo de desviaciones estandar deflexiones
         desv_defl_der = round(np.std(self.defl_r_acum),2)

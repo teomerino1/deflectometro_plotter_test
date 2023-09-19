@@ -101,9 +101,11 @@ class View():
         self.Plot5.show(0)
      # Metodo que borra el frame Config y abre el Plot1
     def go_to_plot1_from_config(self):
-        self.Config.close()
-        self.Plot.show(1)
-       
+        if(self.Config.close()==0):
+            self.Plot.show(1)
+            return 0
+        else:
+            return 1
     # Metodo que borra el Plot 1 y abre el de Config
     def go_to_config(self):
         self.Plot.close()
@@ -576,16 +578,17 @@ class View():
                         # self.enqueued_functions.remove(target_function)
                         # continue
 
-                    self.go_to_plot1_from_config()
-               
-                    self.enqueued_functions.remove(target_function)
-
+                    if(self.go_to_plot1_from_config()==0):
+                        self.interface_transition_queue.task_done()
+                        data_thread = Thread(target=self.process_data)
+                        data_thread.daemon = True
+                        data_thread.start()
+                        print("RETORNO ACÁ")
+                        self.enqueued_functions.remove(target_function)
+                    else:
+                        self.enqueued_functions.remove(target_function)
                 
-                    self.interface_transition_queue.task_done()
-                    data_thread = Thread(target=self.process_data)
-                    data_thread.daemon = True
-                    data_thread.start()
-                    print("RETORNO ACÁ")
+                    
 
                 elif target_function == 'go_to_plot_2_from_plot_1':
                     self.go_to_plot_2_from_plot_1()
