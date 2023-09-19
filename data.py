@@ -119,6 +119,9 @@ class Data():
     def update_structures(self):
         # Obtengo los promedios de cada cosa
        
+        # print("Radio acum derecha:",self.radio_r_acum)
+        # print("Defl acum derecha:",self.defl_r_acum)
+
         media_defl_r = round(np.mean(self.defl_r),2)
         media_defl_l = round(np.mean(self.defl_l),2)
         media_radio_r = round(np.mean(self.radio_r),2)

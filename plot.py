@@ -114,10 +114,10 @@ class Plot():
             self.Table = table.Tabla(self.table_frame) 
             self.Graphs = graphs.Graphs(self.graphs_frame) 
 
-            label_der = Label(self.labels_frame, text="Huella Externa (DERECHA)", font=("Helvetica", 19))
+            label_der = Label(self.labels_frame, text="Huella Interna (IZQUIERDA)", font=("Helvetica", 19))
             self.label_der=label_der
 
-            label_izq = Label(self.labels_frame, text="Huella Interna (IZQUIERDA)", font=("Helvetica", 19))
+            label_izq = Label(self.labels_frame, text="Huella Externa (DERECHA)", font=("Helvetica", 19))
             self.label_izq=label_izq
 
             original_image=Image.open("image3.png")

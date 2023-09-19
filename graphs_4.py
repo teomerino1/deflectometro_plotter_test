@@ -88,9 +88,8 @@ class Graphs4():
         subfigure_der.set_ylim(0,max(self.rad_mean_r_data)+500)  
         subfigure_izq.set_ylim(0,max(self.rad_mean_l_data)+500)  
 
-        # subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
+       
         subfigure_izq.scatter(self.rad_mean_l_data, self.defl_mean_l_data, color = 'r')
-        # subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
         subfigure_der.scatter(self.rad_mean_r_data, self.defl_mean_r_data, color = 'r')
 
 
