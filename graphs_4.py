@@ -94,20 +94,41 @@ class Graphs4():
         subfigure_der.scatter(self.rad_mean_r_data, self.defl_mean_r_data, color = 'r')
 
 
-        # Agregar anotaciones con la información de los cálculos
+        # # Agregar anotaciones con la información de los cálculos
+        # subfigure_izq.annotate(
+        #     f'R med.: {promedio_x_izq:.2f}\n'
+        #     f'RxD m: {promedio_producto_izq:.2f}\n'
+        #     f'D/R m: {promedio_division_izq:.2f}',
+        #     xy=(0.05, 0.95), xycoords='axes fraction',
+        #     fontsize=10, ha='left', va='top')
+
+        # subfigure_der.annotate(
+        #     f'R med.: {promedio_x_der:.2f}\n'
+        #     f'RxD m: {promedio_producto_der:.2f}\n'
+        #     f'D/R m: {promedio_division_der:.2f}',
+        #     xy=(0.05, 0.95), xycoords='axes fraction',
+        #     fontsize=10, ha='left', va='top')
+
         subfigure_izq.annotate(
             f'R med.: {promedio_x_izq:.2f}\n'
             f'RxD m: {promedio_producto_izq:.2f}\n'
             f'D/R m: {promedio_division_izq:.2f}',
-            xy=(0.05, 0.95), xycoords='axes fraction',
-            fontsize=10, ha='left', va='top')
+            xy=(0, 0), xycoords='axes fraction',
+            xytext=(240, -45), textcoords='offset points',
+            fontsize=10, ha='right', va='top',
+            annotation_clip=False,
+            bbox=dict(boxstyle='round,pad=0.5', edgecolor='blue', facecolor='white'))
 
         subfigure_der.annotate(
             f'R med.: {promedio_x_der:.2f}\n'
             f'RxD m: {promedio_producto_der:.2f}\n'
             f'D/R m: {promedio_division_der:.2f}',
-            xy=(0.05, 0.95), xycoords='axes fraction',
-            fontsize=10, ha='left', va='top')
+            xy=(0, 0), xycoords='axes fraction',
+            xytext=(240, -45), textcoords='offset points',
+            annotation_clip=False,
+            fontsize=10, ha='right', va='top',
+            bbox=dict(boxstyle='round,pad=0.5', edgecolor='blue', facecolor='white'))
+
 
         subfigure_izq.grid(axis='both',linestyle='dotted')
         subfigure_der.grid(axis='both',linestyle='dotted')
