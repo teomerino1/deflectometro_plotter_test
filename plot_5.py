@@ -42,6 +42,7 @@ class Plot5():
         self.botones_frame=None
         self.title = None
         self.back = None
+        self.configuration=None
         self.stats = None 
         self.pdf = None 
         self.view_instance = view_instance
@@ -114,7 +115,7 @@ class Plot5():
 
         self.r_x_d_izq = None
         self.r_x_d_izq_value=None
-
+        self.empty_value=''
         self.ruta=None
 
         self.imagen_frame=None
@@ -171,6 +172,9 @@ class Plot5():
 
             back = ttk.Button(self.top_frame, text="← Atras", command=self.go_to_plot_4_from_plot_5,style="TButton")
             self.back = back
+
+            configuration=ttk.Button(self.top_frame,text="Ver configuración",command=self.show_configuration,style="TButton")
+            self.configuration=configuration 
             
             stats = ttk.Button(self.botones_frame, text="Generar Cálculos", command=self.generate_stats,style="TButton")
             self.stats = stats
@@ -181,67 +185,67 @@ class Plot5():
             huella_ext = Label(self.labels_frame, text="HUELLA EXTERNA (DERECHA)",font=(None, 25),background='#F6F4F2',foreground='#625651')
             self.huella_ext = huella_ext
 
-            defl_media_der = Label(self.labels_frame, text="Deflexion media:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            defl_media_der = Label(self.labels_frame, text="Deflexion media:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.defl_media_der = defl_media_der
            
-            desv_std_der = Label(self.labels_frame, text="Desviacion Standart:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            desv_std_der = Label(self.labels_frame, text="Desviacion Standart:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.desv_std_der = desv_std_der
             
-            coef_var_der = Label(self.labels_frame, text="Coeficiente de variacion:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            coef_var_der = Label(self.labels_frame, text="Coeficiente de variacion:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.coef_var_der = coef_var_der
 
-            defl_car_der = Label(self.labels_frame, text="Deflexion caracteristica:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            defl_car_der = Label(self.labels_frame, text="Deflexion caracteristica:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.defl_car_der = defl_car_der
             
-            total_med_defl_der = Label(self.labels_frame, text="Total de mediciones:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            total_med_defl_der = Label(self.labels_frame, text="Total de mediciones:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.total_med_defl_der = total_med_defl_der
             
-            radio_med_der = Label(self.labels_frame, text="Radio Medio:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            radio_med_der = Label(self.labels_frame, text="Radio Medio:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.radio_med_der = radio_med_der
             
-            radio_car_der = Label(self.labels_frame, text="Radio Caracteristico:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            radio_car_der = Label(self.labels_frame, text="Radio Caracteristico:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.radio_car_der = radio_car_der
             
-            total_med_rad_der = Label(self.labels_frame, text="Total de Mediciones:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            total_med_rad_der = Label(self.labels_frame, text="Total de Mediciones:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.total_med_rad_der = total_med_rad_der
             
-            d_r_med_der = Label(self.labels_frame, text="(D / R) Medio:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            d_r_med_der = Label(self.labels_frame, text="(D / R) Medio:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.d_r_med_der = d_r_med_der
             
-            r_x_d_der = Label(self.labels_frame, text="(R x D) Medio:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            r_x_d_der = Label(self.labels_frame, text="(R x D) Medio:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.r_x_d_der = r_x_d_der
 
             huella_int = Label(self.labels_frame, text="HUELLA INTERNA (IZQUIERDA)",font=(None, 25),background='#F6F4F2',foreground='#625651')
             self.huella_int = huella_int
 
-            defl_media_izq = Label(self.labels_frame, text="Deflexion media:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            defl_media_izq = Label(self.labels_frame, text="Deflexion media:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.defl_media_izq = defl_media_izq
             
-            desv_std_izq = Label(self.labels_frame, text="Desviacion Standart:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            desv_std_izq = Label(self.labels_frame, text="Desviacion Standart:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.desv_std_izq = desv_std_izq
             
-            coef_var_izq = Label(self.labels_frame, text="Coeficiente de variacion:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            coef_var_izq = Label(self.labels_frame, text="Coeficiente de variacion:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.coef_var_izq = coef_var_izq
             
-            defl_car_izq = Label(self.labels_frame, text="Deflexion caracteristica:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            defl_car_izq = Label(self.labels_frame, text="Deflexion caracteristica:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.defl_car_izq = defl_car_izq
             
-            total_med_defl_izq = Label(self.labels_frame, text="Total de mediciones:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            total_med_defl_izq = Label(self.labels_frame, text="Total de mediciones:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.total_med_defl_izq = total_med_defl_izq
             
-            radio_med_izq = Label(self.labels_frame, text="Radio Medio:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            radio_med_izq = Label(self.labels_frame, text="Radio Medio:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.radio_med_izq = radio_med_izq
             
-            radio_car_izq = Label(self.labels_frame, text="Radio Caracteristico:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            radio_car_izq = Label(self.labels_frame, text="Radio Caracteristico:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.radio_car_izq = radio_car_izq
             
-            total_med_rad_izq = Label(self.labels_frame, text="Total de Mediciones:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            total_med_rad_izq = Label(self.labels_frame, text="Total de Mediciones:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.total_med_rad_izq = total_med_rad_izq
             
-            d_r_med_izq = Label(self.labels_frame, text="(D / R) Medio:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            d_r_med_izq = Label(self.labels_frame, text="(D / R) Medio:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.d_r_med_izq = d_r_med_izq
             
-            r_x_d_izq = Label(self.labels_frame, text="(R x D) Medio:",font=(None, 14),background='#F6F4F2',foreground='#625651')
+            r_x_d_izq = Label(self.labels_frame, text="(R x D) Medio:",font=(None, 13),background='#F6F4F2',foreground='#625651')
             self.r_x_d_izq = r_x_d_izq
 
             original_image=Image.open("image.png")
@@ -250,10 +254,11 @@ class Plot5():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            # height=235
-            height=285
+            height=295
             desired_height = int(desired_width / aspect_ratio)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, 300))
+            print("Desired:",desired_width)
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagen_frame, image=self.image_cba)
@@ -265,9 +270,10 @@ class Plot5():
             self.sixth_plot_frame.grid(sticky="nsew")
             self.top_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1900),pady=(0,0),sticky=NW)
+            self.configuration.grid(row=1, column=0,padx=(0,1900),pady=(0,0),sticky=NW)
             self.state_label.grid(row=0,column=0,padx=(0,1500),pady=(0,0))
-            self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
-            self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(6,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1600,0),pady=(0,0))
+            self.hora_label.grid(row=1,column=0,padx=(1600,0),pady=(6,0))
             self.title_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
             self.title.grid(row=0, column=0,padx=(0,0))
 
@@ -302,104 +308,163 @@ class Plot5():
             self.botones_frame.grid(row=3,columnspan=2,pady=(100,0))
             self.stats.grid(row=0,pady=(0,0))
             self.pdf.grid(row=1,pady=(0,0))
-            self.imagen_frame.grid(row=4,padx=(0,100),pady=(40,0))
+            self.imagen_frame.grid(row=4,padx=(0,140),pady=(30,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
     
+            
 
     def grid_stats(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
         
+        print("Total mediciones defl:",total_mediciones_defl)
+        print("Total mediciones rad:",total_mediciones_rad)
+
+
+        empty_label=Label(self.labels_frame, text='                ',font=(None, 12),background='#F6F4F2',foreground='#625651')
+
+
         defl_media_der_value=Label(self.labels_frame, text=media_defl_r,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # defl_media_der_value=Label(self.labels_frame, text=media_defl_r,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        empty_label.grid(row=1, column=0,padx=(0,0),pady=(0,4),sticky=NE)
         self.defl_media_der_value=defl_media_der_value
-        self.defl_media_der_value.grid(row=1, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-
-        radio_med_der_value=Label(self.labels_frame, text=media_rad_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.radio_med_der_value=radio_med_der_value
-        self.radio_med_der_value.grid(row=2, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-        
-        desv_std_der_value=Label(self.labels_frame, text=desv_defl_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.desv_std_der_value=desv_std_der_value
-        self.desv_std_der_value.grid(row=3, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-
-        coef_var_der_value=Label(self.labels_frame, text=coef_var_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.coef_var_der_value=coef_var_der_value
-        self.coef_var_der_value.grid(row=4, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-
-        defl_car_der_value=Label(self.labels_frame, text=defl_car_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.defl_car_der_value=defl_car_der_value
-        self.defl_car_der_value.grid(row=5, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-
-        radio_car_der_value=Label(self.labels_frame, text=rad_car_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.radio_car_der_value=radio_car_der_value
-        self.radio_car_der_value.grid(row=6, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-
-        d_r_med_der_value=Label(self.labels_frame, text=d_r_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.d_r_med_der_value=d_r_med_der_value
-        self.d_r_med_der_value.grid(row=7, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-
-        r_x_d_der_value=Label(self.labels_frame, text=d_x_r_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.r_x_d_der_value=r_x_d_der_value
-        self.r_x_d_der_value.grid(row=8, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-
-        total_med_defl_der_value=Label(self.labels_frame, text=total_mediciones_defl,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.total_med_defl_der_value=total_med_defl_der_value
-        self.total_med_defl_der_value.grid(row=9, column=0,padx=(0,0),pady=(10,0),sticky=NE)
-
-        total_med_rad_der_value=Label(self.labels_frame, text=total_mediciones_rad,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.total_med_rad_der_value=total_med_rad_der_value
-        self.total_med_rad_der_value.grid(row=10, column=0,padx=(0,0),pady=(10,0),sticky=NE)
+        self.defl_media_der_value.grid(row=1, column=0,padx=(0,0),pady=(0,4),sticky=NE)
 
         defl_media_izq_value=Label(self.labels_frame, text=media_defl_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # defl_media_izq_value=Label(self.labels_frame, text='deflexion media izq',font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.defl_media_izq_value=defl_media_izq_value
-        self.defl_media_izq_value.grid(row=1, column=1,padx=(0,0),pady=(10,0),sticky=NE)
+        empty_label.grid(row=1, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.defl_media_izq_value.grid(row=1, column=1,padx=(0,0),pady=(0,4),sticky=NE)
 
-        radio_med_izq_value=Label(self.labels_frame, text=media_rad_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.radio_med_izq_value=radio_med_izq_value
-        self.radio_med_izq_value.grid(row=2, column=1,padx=(0,0),pady=(10,0),sticky=NE)
+
+
+        desv_std_der_value=Label(self.labels_frame, text=desv_defl_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # desv_std_der_value=Label(self.labels_frame, text='desviacion std der',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.desv_std_der_value=desv_std_der_value
+        empty_label.grid(row=2, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        self.desv_std_der_value.grid(row=2, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+
 
         desv_std_izq_value=Label(self.labels_frame, text=desv_defl_l,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # desv_std_izq_value=Label(self.labels_frame, text='desv std izq',font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.desv_std_izq_value=desv_std_izq_value
-        self.desv_std_izq_value.grid(row=3, column=1,padx=(0,0),pady=(10,0),sticky=NE)
+        empty_label.grid(row=2, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.desv_std_izq_value.grid(row=2, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+
+
+
+        coef_var_der_value=Label(self.labels_frame, text=coef_var_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # coef_var_der_value=Label(self.labels_frame, text='coef_var_der',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.coef_var_der_value=coef_var_der_value
+        empty_label.grid(row=3, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        self.coef_var_der_value.grid(row=3, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+
 
         coef_var_izq_value=Label(self.labels_frame, text=coef_var_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # coef_var_izq_value=Label(self.labels_frame, text='coef_var_izq',font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.coef_var_izq_value=coef_var_izq_value
-        self.coef_var_izq_value.grid(row=4, column=1,padx=(0,0),pady=(10,0),sticky=NE)
-        
+        empty_label.grid(row=3, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.coef_var_izq_value.grid(row=3, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+
+
+        defl_car_der_value=Label(self.labels_frame, text=defl_car_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # defl_car_der_value=Label(self.labels_frame, text='defl_car_der',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.defl_car_der_value=defl_car_der_value
+        empty_label.grid(row=4, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        self.defl_car_der_value.grid(row=4, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+
+
         defl_car_izq_value=Label(self.labels_frame, text=defl_car_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # defl_car_izq_value=Label(self.labels_frame, text='defl_car_izq',font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.defl_car_izq_value=defl_car_izq_value
-        self.defl_car_izq_value.grid(row=5, column=1,padx=(0,0),pady=(10,0),sticky=NE)
+        empty_label.grid(row=4, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.defl_car_izq_value.grid(row=4, column=1,padx=(0,0),pady=(0,4),sticky=NE)
 
-        radio_car_izq_value=Label(self.labels_frame, text=rad_car_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.radio_car_izq_value=radio_car_izq_value
-        self.radio_car_izq_value.grid(row=6, column=1,padx=(0,0),pady=(10,0),sticky=NE)
-
-        d_r_med_izq_value=Label(self.labels_frame, text=d_r_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.d_r_med_izq_value=d_r_med_izq_value
-        self.d_r_med_izq_value.grid(row=7, column=1,padx=(0,0),pady=(10,0),sticky=NE)
-
-        r_x_d_izq_value=Label(self.labels_frame, text=d_x_r_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
-        self.r_x_d_izq_value=r_x_d_izq_value
-        self.r_x_d_izq_value.grid(row=8, column=1,padx=(0,0),pady=(10,0),sticky=NE)
+        total_med_defl_der_value=Label(self.labels_frame, text=total_mediciones_defl,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # total_med_defl_der_value=Label(self.labels_frame, text='total_mediciones_defl',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.total_med_defl_der_value=total_med_defl_der_value
+        empty_label.grid(row=5, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        self.total_med_defl_der_value.grid(row=5, column=0,padx=(0,0),pady=(0,4),sticky=NE)
 
         total_med_defl_izq_value=Label(self.labels_frame, text=total_mediciones_defl,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # total_med_defl_izq_value=Label(self.labels_frame, text='total_mediciones_defl',font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.total_med_defl_izq_value=total_med_defl_izq_value
-        self.total_med_defl_izq_value.grid(row=9, column=1,padx=(0,0),pady=(10,0),sticky=NE)
+        empty_label.grid(row=5, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.total_med_defl_izq_value.grid(row=5, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+
+        radio_med_der_value=Label(self.labels_frame, text=media_rad_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # radio_med_der_value=Label(self.labels_frame, text='media_rad_der',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        empty_label.grid(row=6, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        self.radio_med_der_value=radio_med_der_value
+        self.radio_med_der_value.grid(row=6, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        
+        radio_med_izq_value=Label(self.labels_frame, text=media_rad_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # radio_med_izq_value=Label(self.labels_frame, text='media_rad_izq',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.radio_med_izq_value=radio_med_izq_value
+        empty_label.grid(row=6, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.radio_med_izq_value.grid(row=6, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+
+
+        radio_car_der_value=Label(self.labels_frame, text=rad_car_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # radio_car_der_value=Label(self.labels_frame, text='rad_car_der',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.radio_car_der_value=radio_car_der_value
+        empty_label.grid(row=7, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        self.radio_car_der_value.grid(row=7, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+
+        radio_car_izq_value=Label(self.labels_frame, text=rad_car_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # radio_car_izq_value=Label(self.labels_frame, text='rad_car_izq',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.radio_car_izq_value=radio_car_izq_value
+        empty_label.grid(row=7, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.radio_car_izq_value.grid(row=7, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+
+        total_med_rad_der_value=Label(self.labels_frame, text=total_mediciones_rad,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # total_med_rad_der_value=Label(self.labels_frame, text='total_mediciones_rad',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.total_med_rad_der_value=total_med_rad_der_value
+        empty_label.grid(row=8, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        self.total_med_rad_der_value.grid(row=8, column=0,padx=(0,0),pady=(0,4),sticky=NE)
 
         total_med_rad_izq_value=Label(self.labels_frame, text=total_mediciones_rad,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # total_med_rad_izq_value=Label(self.labels_frame, text='total_mediciones_rad',font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.total_med_rad_izq_value=total_med_rad_izq_value
-        self.total_med_rad_izq_value.grid(row=10, column=1,padx=(0,0),pady=(10,0),sticky=NE)
+        empty_label.grid(row=8, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.total_med_rad_izq_value.grid(row=8, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+
+
+        d_r_med_der_value=Label(self.labels_frame, text=d_r_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # d_r_med_der_value=Label(self.labels_frame, text='d_r_der',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.d_r_med_der_value=d_r_med_der_value
+        empty_label.grid(row=9, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+        self.d_r_med_der_value.grid(row=9, column=0,padx=(0,0),pady=(0,4),sticky=NE)
+
+        d_r_med_izq_value=Label(self.labels_frame, text=d_r_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # d_r_med_izq_value=Label(self.labels_frame, text='d_r_izq',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.d_r_med_izq_value=d_r_med_izq_value
+        empty_label.grid(row=9, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+        self.d_r_med_izq_value.grid(row=9, column=1,padx=(0,0),pady=(0,4),sticky=NE)
+
+        r_x_d_der_value=Label(self.labels_frame, text=d_x_r_der,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # r_x_d_der_value=Label(self.labels_frame, text='d_x_r_der',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.r_x_d_der_value=r_x_d_der_value
+        empty_label.grid(row=10, column=0,padx=(0,0),pady=(0,0),sticky=NE)
+        self.r_x_d_der_value.grid(row=10, column=0,padx=(0,0),pady=(0,0),sticky=NE)
+
+        r_x_d_izq_value=Label(self.labels_frame, text=d_x_r_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
+        # r_x_d_izq_value=Label(self.labels_frame, text='d_x_r_izq',font=(None, 10),background='#F6F4F2',foreground='#625651')
+        self.r_x_d_izq_value=r_x_d_izq_value
+        empty_label.grid(row=10, column=1,padx=(0,0),pady=(0,0),sticky=NE)
+        self.r_x_d_izq_value.grid(row=10, column=1,padx=(0,0),pady=(0,0),sticky=NE)
+
+        
+       
 
     def go_to_plot_4_from_plot_5(self):
         self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
 
     def generate_stats(self):
-        self.view_instance.set_state("Generando cálculos...")
         self.view_instance.enqueue_transition('generate_stats')
         self.view_instance.set_calculos_flag(1)
 
     def download_pdf(self):
-        self.view_instance.set_state("Descargando PDF...")
         self.view_instance.enqueue_transition('download_pdf')
-            # self.view_instance.set_state('')
+
     
     def get_hora_label(self):
         return self.hora_label
@@ -415,23 +480,23 @@ class Plot5():
     
     def get_state_label(self):
         return self.state_label
+    
+    def show_configuration(self):
+        self.view_instance.enqueue_transition('show_configuration')
 
     def download_stats(self):
-        # Crear el buffer para el PDF usando ReportLab
-        # if(self.defl_car_der_value==None):
-        #     print("Me doy cuenta q es noneing")
-        #     return 
-
-        # Crear un buffer para el PDF
+        
         buffer = BytesIO()
-
+        
         # Crear un objeto Canvas
         c = canvas.Canvas(buffer, pagesize=A4)
 
         # Dibuja la imagen de encabezado
         c.drawImage('header.png', 25, 773, width=550, height=60)
-
-        c.drawImage('image.png', 0, 0, width=600, height=100)
+        ancho_pagina,alto_pagina=A4
+        centro_x = ancho_pagina / 2
+        c.drawString(centro_x-1, 125, "1")
+        c.drawImage('image.png', 0, 0, width=600, height=120)
 
         labels_der = [
             self.defl_media_der, self.desv_std_der, 

@@ -81,25 +81,25 @@ class Config():
             # title_frame=Frame(self.config_frame)
             # self.title_frame=title_frame
             #flat, groove,raised,ridge,solid or sunken
-            parameters_frame=Frame(config_frame,relief='groove')
+            parameters_frame=Frame(config_frame,relief="groove")
             self.parameters_frame=parameters_frame
     
-            reportes_frame=Frame(config_frame,relief='groove')
+            reportes_frame=Frame(config_frame,relief="groove")
             self.reportes_frame=reportes_frame
 
             botones_frame=Frame(config_frame)
             self.botones_frame=botones_frame
 
-            info_infas_frame=Frame(config_frame)
+            info_infas_frame=Frame(config_frame,relief="groove")
             self.info_infas_frame=info_infas_frame
 
-            imagenes_frame=Frame(config_frame)
+            imagenes_frame=Frame(config_frame,relief='groove')
             self.imagenes_frame=imagenes_frame
 
             # Define una fuente personalizada
             custom_font = font.Font(family="Krona_One", size=16, weight="bold")
 
-            conf_inicial = ttk.Label(self.config_frame, text="Configuración Inicial", font=(custom_font,35))
+            conf_inicial = ttk.Label(self.config_frame, text="Configuración", font=(custom_font,25))
             self.conf_inicial = conf_inicial
 
             parametros_medicion=Label(self.parameters_frame, text="Parámetros de medición",font=("Krona One", 20))
@@ -130,7 +130,7 @@ class Config():
             self.grupos_ntry_100 = grupos_ntry_100
 
             # Muestras
-            muestras_label=Label(self.parameters_frame, text="Cantidad total de muestras:",font=(None, 15))
+            muestras_label=Label(self.parameters_frame, text="Cantidad de muestras:",font=(None, 15))
             self.muestras_label=muestras_label
            
 
@@ -245,7 +245,8 @@ class Config():
             aspect_ratio = original_image.width / original_image.height
             height=255
             desired_height = int(desired_width / aspect_ratio)
-            resized_image = original_image.resize((desired_width, 300), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, 300))
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)
@@ -321,7 +322,7 @@ class Config():
             self.confirmar.grid(row=0, column=0,pady=(10,0),padx=(0,30))
             self.resetear.grid(row=1, column=0,pady=(0,0),padx=(0,30))
 
-            self.image_label.grid(row=0,column=0,columnspan=2,padx=(0,0),pady=(0,0))
+            self.image_label.grid(row=0,column=0,columnspan=2,padx=(0,0),pady=(20,0))
            
 
     def close(self):

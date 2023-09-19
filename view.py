@@ -24,9 +24,11 @@ from reportlab.platypus import SimpleDocTemplate, Spacer, Paragraph, Table, Tabl
 from reportlab.lib.pagesizes import letter,A4
 from reportlab.pdfgen import canvas
 from tkinter import messagebox
+from tkinter import ttk
 
 class View():
     def __init__(self, root,data_instance,reporter_instance):
+
 
         self.state=None
         self.root=root
@@ -63,6 +65,11 @@ class View():
         self.nro_puesto=None
         self.calculos_flag=0
         self.datos_ready_flag=0
+        self.width=None
+        self.height=None
+        ##############
+        self.amount=None
+        ################
          # Crear una cola bloqueante para las funciones de transición de interfaz
         self.interface_transition_queue = queue.Queue()
         self.enqueued_functions = set()
@@ -77,7 +84,11 @@ class View():
     def start(self,root):
         self.root.title('Deflectómetro')
         style = Style(root)
-        self.root.attributes('-fullscreen', True) 
+        self.width = self.root.winfo_screenwidth()
+        self.height = self.root.winfo_screenheight()
+        self.root.attributes('-fullscreen',True) 
+        # self.root.state('zoomed')
+        # self.root.attributes('-zoomed')
         self.inicializar_plots()
 
     def inicializar_plots(self):
@@ -156,11 +167,6 @@ class View():
         self.calculos_flag=0
         self.datos_ready_flag=0
         self.set_data_ready(value=0)
-        # self.Plot.get_state_label().config(text='')
-        # self.Plot2.get_state_label().config(text='')
-        # self.Plot3.get_state_label().config(text='')
-        # self.Plot4.get_state_label().config(text='')
-        # self.Plot5.get_state_label().config(text='')
 
     def set_reset(self,value):
         self.reset=value
@@ -189,11 +195,12 @@ class View():
         self.generar_carátula("caratula.pdf")
         self.Plot5.download_stats()
         self.Plot.generar_pdf()
+        numero_pagina=self.Plot.get_table().get_numero_pagina()
         self.Plot2.download_graphs()
         self.Plot3.download_graphs()
-        self.Plot4.download_graphs()
+        self.Plot4.download_graphs(numero_pagina)
         sleep(1)
-        self.combine_pdf()
+        self.combine_pdf(numero_pagina)
 
     def generar_carátula(self,filename):
 
@@ -232,6 +239,14 @@ class View():
         ancho_prog = c.stringWidth(prog_max, "Helvetica", 14)
         posicion_7 = centro_x - (ancho_prog / 2)
 
+        prog_inicial = "Progresiva inicial: 0"
+        ancho_prog_inicial = c.stringWidth(prog_inicial, "Helvetica", 14)
+        posicion_15 = centro_x - (ancho_prog_inicial / 2)
+
+        temperatura = "Temperatura [ºC]: "+str(self.get_temp())
+        ancho_temp = c.stringWidth(temperatura, "Helvetica", 14)
+        posicion_14 = centro_x - (ancho_temp / 2)
+
         fecha = "Fecha: "+str(datetime.datetime.now().date())
         ancho_fecha = c.stringWidth(fecha, "Helvetica", 12)
         posicion_8 = centro_x - (ancho_fecha / 2)
@@ -261,13 +276,15 @@ class View():
         posicion_13 = centro_x - (ancho_operador / 2)
 
         c.setFont("Helvetica", 14)
-        c.drawString(posicion_1, 360, f"{ruta}")
+        
+        
         c.drawString(posicion_2, 340, f"{provincia}")
         c.drawString(posicion_3, 320, f"{tramo}")
         c.drawString(posicion_4, 300, f"{subtramo}")
         c.drawString(posicion_5, 280, f"{pavimento}")
-        c.drawString(posicion_6, 260, "Progresiva Inicial: 0")
+        c.drawString(posicion_15, 260, f"{prog_inicial}")
         c.drawString(posicion_7, 240, f"{prog_max}")
+        c.drawString(posicion_14, 220, f"{temperatura}")
         c.drawString(posicion_8, 190, f"{fecha}")
         c.drawString(posicion_9, 170, f"{hora_inicio}")
         c.drawString(posicion_10, 150, f"{hora_final_string}")
@@ -279,7 +296,7 @@ class View():
         c.save()
        
 
-    def combine_pdf(self):
+    def combine_pdf(self,numero_pagina):
 
         output1="pdf2.pdf"
         output2="pdf3.pdf"
@@ -287,19 +304,22 @@ class View():
         image_path='figure_rad_l.png'
         if os.path.exists(image_path): 
 
-            # self.generar_carátula("informe.pdf")
+            ancho_pagina,alto_pagina=A4
+            centro_x = ancho_pagina / 2
             c = canvas.Canvas(output1, pagesize=A4)
             c.drawImage('header2.png', 25, 773, width=575, height=60)
-            c.drawImage('image.png', 0, 0, width=600, height=100)
+            c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_defl_mean_l.png',100, 200, width=383, height=230)
             c.drawImage('figure_rad_l.png', 100, 500,width=383, height=230)
+            c.drawString(centro_x-1, 125, f"{numero_pagina+2}")
             c.save()
 
             c = canvas.Canvas(output2, pagesize=A4)
             c.drawImage('header2.png', 25, 773, width=575, height=60)
-            c.drawImage('image.png', 0, 0, width=600, height=100)
+            c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_defl_mean_r.png', 100, 200, width=383, height=230)
             c.drawImage('figure_rad_r.png', 100, 500,width=383, height=230)
+            c.drawString(centro_x-1, 125, f"{numero_pagina+3}")
             c.save()
 
             pdf_files = [
@@ -311,12 +331,19 @@ class View():
                 "pdf3.pdf",
                 "radios.pdf"
             ]
-            puesto=self.reporter_instance.get_puesto()
+            
+
+            puesto = self.reporter_instance.get_puesto()
             current_datetime = datetime.datetime.now()
             formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
 
+            # Ruta absoluta para la carpeta "Informes" en el escritorio
+            # informes_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Informes")
+
+            # Nombre del archivo PDF completo
+            # output_filename = os.path.join(informes_folder, f"{formatted_datetime}_puesto_{puesto}.pdf")
             output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
-            
+
             pdf_merger = PyPDF2.PdfMerger()
        
             for pdf_file in pdf_files:
@@ -336,7 +363,7 @@ class View():
             os.remove('figure_rad_r.png')
             os.remove('figure_rad_l.png')
             self.set_state('')
-            messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes':")
+            messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes' del Escritorio.")
 
         else:
             # print("Detecto que la imagen no existe")
@@ -484,14 +511,19 @@ class View():
         return self.program_state
     
     def set_state(self,state):
-        print("View State:",state)
-        self.program_state=state
-        self.Plot.get_state_label().config(text=f'{state}')
-        self.Plot2.get_state_label().config(text=f'{state}')
-        self.Plot3.get_state_label().config(text=f'{state}')
-        self.Plot4.get_state_label().config(text=f'{state}')
-        self.Plot5.get_state_label().config(text=f'{state}')
-    
+        if(self.get_reset()!=1):
+            if(state=="Detenido"):
+                self.set_data_ready(0)
+            print("View State:",state)
+            self.program_state=state
+            self.Plot.get_state_label().config(text=f'{state}')
+            self.Plot2.get_state_label().config(text=f'{state}')
+            self.Plot3.get_state_label().config(text=f'{state}')
+            self.Plot4.get_state_label().config(text=f'{state}')
+            self.Plot5.get_state_label().config(text=f'{state}')
+        else:
+            return
+        
     def set_calculos_flag(self,flag):
         self.calculos_flag=flag
 
@@ -510,34 +542,50 @@ class View():
 
                 # Ejecutar la función de transición de interfaz correspondiente
                 if target_function == 'go_to_config':
-                    if(self.get_state()=='Obteniendo datos'):
-                        respuesta= messagebox.askokcancel("Aviso","Se están obteniendo datos, Si vuelve a la configuración deberá resetear el recorrido. ¿Desea continuar?")
-                        if respuesta:
-                            self.go_to_config()
-                            self.reset_all_plots()
-                            self.reset_all_data()
-                            self.set_reset(1)
-                            messagebox.showinfo("Aviso", "Datos reseteados!")
-                            self.enqueued_functions.remove(target_function)
-                            self.interface_transition_queue.task_done()
-                            continue
-                        else:
-                            self.enqueued_functions.remove(target_function)
-                            self.interface_transition_queue.task_done()
-                            continue
-                    self.go_to_config()
-                    self.enqueued_functions.remove(target_function)
-                    self.interface_transition_queue.task_done()
+                    # if(self.get_state()=='Obteniendo datos'):
+                    respuesta= messagebox.askokcancel("Aviso","Si vuelve a la configuración deberá resetear el recorrido. ¿Desea continuar?")
+                    if respuesta:
+                        reset_message = tk.Toplevel(self.root)
+                        
+                        reset_message.title("Reset Info")
+                        message_label = tk.Label(reset_message, text="Reseteando. Por favor espere...",font=(None,10))
+                        message_label.pack()
+                        reset_message.geometry(f"200x100")
+                        self.set_reset(1)
+                        self.go_to_config()
+                        self.reset_all_data()
+                        self.reset_all_plots()
+                        reset_message.destroy()
+                        # messagebox.showinfo("Aviso", "Datos reseteados!")
+                        self.set_reset(0)
+                        self.enqueued_functions.remove(target_function)
+                        self.interface_transition_queue.task_done()
+                        # continue
+                    else:
+                        self.enqueued_functions.remove(target_function)
+                        self.interface_transition_queue.task_done()
+                        # continue
+                    # self.go_to_config()
+                    # self.enqueued_functions.remove(target_function)
+                    # self.interface_transition_queue.task_done()
 
                 elif target_function == 'go_to_plot_1_from_config':
                     if(self.get_data_ready()==1):
                         messagebox.showwarning("Aviso","Debe resetear los datos antes de intentar modificarlos")
-                        self.interface_transition_queue.task_done()
-                        self.enqueued_functions.remove(target_function)
-                        continue
+                        # self.interface_transition_queue.task_done()
+                        # self.enqueued_functions.remove(target_function)
+                        # continue
+
                     self.go_to_plot1_from_config()
+               
                     self.enqueued_functions.remove(target_function)
+
+                
                     self.interface_transition_queue.task_done()
+                    data_thread = Thread(target=self.process_data)
+                    data_thread.daemon = True
+                    data_thread.start()
+                    print("RETORNO ACÁ")
 
                 elif target_function == 'go_to_plot_2_from_plot_1':
                     self.go_to_plot_2_from_plot_1()
@@ -581,11 +629,19 @@ class View():
                     self.interface_transition_queue.task_done()
 
                 elif target_function == 'reset_all_plots':
+                    reset_message = tk.Toplevel(self.root)
+                        
+                    reset_message.title("Reset Info")
+                    message_label = tk.Label(reset_message, text="Reseteando. Por favor espere...",font=(None,10))
+                    message_label.pack()
+                    reset_message.geometry(f"200x100")
                     print("Ejecuto reset")
+                    self.set_reset(1)
                     self.reset_all_plots()
                     self.reset_all_data()
-                    self.set_reset(1)
-                    messagebox.showinfo("Aviso", "Datos reseteados!")
+                    # messagebox.showinfo("Aviso", "Datos reseteados!")
+                    self.set_reset(0)
+                    reset_message.destroy()
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
 
@@ -609,7 +665,7 @@ class View():
                         d_x_r_der, d_x_r_izq, 
                         total_mediciones_defl, total_mediciones_rad
                     )
-                    self.set_state('')
+                    self.set_state('Cálculos generados.')
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
                     # self.set_data_ready(value=0)
@@ -619,11 +675,43 @@ class View():
                         messagebox.showwarning("Aviso","Se deben generar los cálculos para descargar el PDF.")
                         self.interface_transition_queue.task_done()
                         self.enqueued_functions.remove(target_function)
-                        continue
-                    
-                    self.download_pdf()
+                        # continue
+                    else:
+                        self.set_state("Generando PDF.")
+                        self.download_pdf()
+                        self.interface_transition_queue.task_done()
+                        self.enqueued_functions.remove(target_function)
+
+                elif target_function=='show_configuration':
+                    ventana_emergente = tk.Toplevel(self.root)
+                    ventana_emergente.title("Configuración")
+
+                    # Agregar contenido a la ventana emergente
+                    temperatura="Temperatura: " + str(self.get_temp())
+                    grupos= "Grupos: " + str(self.get_grupos())
+                    espesor= "Espesor: "+ str(self.get_espesor())
+                    ft="Ft: " + str(self.get_ft()) 
+                    fh ="Fh: " + str(self.get_fh())
+                    fc ="Fc: " + str(self.get_fc())
+                    z ="Z: " + str(self.get_z())
+                    etiqueta = ttk.Label(ventana_emergente, text=temperatura)
+                    etiqueta.pack(padx=10, pady=10)
+                    etiqueta2 = ttk.Label(ventana_emergente, text=grupos)
+                    etiqueta2.pack(padx=10, pady=10)
+                    etiqueta3 = ttk.Label(ventana_emergente, text=espesor)
+                    etiqueta3.pack(padx=10, pady=10)
+                    etiqueta4 = ttk.Label(ventana_emergente, text=ft)
+                    etiqueta4.pack(padx=10, pady=10)
+                    etiqueta5 = ttk.Label(ventana_emergente, text=fh)
+                    etiqueta5.pack(padx=10, pady=10)
+                    etiqueta6 = ttk.Label(ventana_emergente, text=fc)
+                    etiqueta6.pack(padx=10, pady=10)
+                    etiqueta7 = ttk.Label(ventana_emergente, text=z)
+                    etiqueta7.pack(padx=10, pady=10)
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
+
+
 
     def enqueue_transition(self, function_name):
         # self.interface_transition_queue.put(function_name)
@@ -632,8 +720,94 @@ class View():
             self.enqueued_functions.add(function_name)
 
 
+    def update_all(self):
+        self.data_instance.update_structures()
+        dict_r, dict_l = self.data_instance.get_data_dict()
+        defl_l_max, defl_r_max = self.data_instance.get_max_defl()
+        defl_l_car, defl_r_car = self.data_instance.get_car_defl()
+        self.new_group_data_view(dict_r,dict_l,defl_r_car,defl_l_car,defl_r_max,defl_l_max,grupos=self.grupos)
 
+    def update_defl_one(self):
+        defl_r, defl_l = self.data_instance.update_bar_data(self.amount)
+        self.update_bar_view(defl_r,defl_l)
+        self.data_instance.clear_bar_data()
 
+    def process_data(self):
+        self.set_state("Listo para obtener datos")
+        self.reporter_instance.start()
+        grupos=self.get_grupos()
+        muestras=self.get_muestras()
+        a=0
+        b=0
+
+        c=0
+        print("C value:",c)
+
+        while True:
+                
+            data, this_cycle = self.reporter_instance.get_new_measurements()
+            
+            if data is None or this_cycle is None:
+
+                if(self.reporter_instance.get_puesto_change()==1):
+                    messagebox.showinfo("Aviso","Cambio de Puesto detectado. Se mostrarán los resultados estadísticos.")
+                    # self.set_state("Cambio de puesto")
+                    self.enqueue_transition('generate_stats')
+                    return
+
+                elif(a==muestras):
+                    messagebox.showinfo("Aviso","Cantidad de muestras alcanzada.")
+                    self.set_state("Detenido")
+                    return
+                
+                elif(self.get_reset()==1):
+                        print("Identifico reset")
+                        self.set_state("Deteniendo...")
+                        self.set_reset(1)
+                        print("Vuelvo a empezar")
+                        return
+                else:
+                    continue
+
+            # if(self.get_state()!="Detenido"):
+            if(c==0):
+                c=1
+                self.amount=1
+                print("Seteo cosas")
+                
+                self.set_hora_inicio()
+                self.set_nro_puesto(self.reporter_instance.get_last_puesto())
+
+            self.set_state("Obteniendo datos")
+            self.data_instance.data_destruct(data)
+            cantidad=self.data_instance.cant_mediciones()
+            a=a+1
+            print(cantidad)
+            
+            if(self.reporter_instance.get_puesto_change()==0):
+                if(a>=100):
+                    self.amount=10
+                    b=b+1
+                    if(b==10):
+                        b=0
+                        print("Grafico barras")
+                        # update_bar_thread = Thread(target=self.update_defl_one,args=(self,10))
+                        update_bar_thread = Thread(target=self.update_defl_one)
+                        update_bar_thread.daemon=True
+                        update_bar_thread.start()
+                else:
+                    # View.set_state("Grafico barras")
+                    print("Grafico barras")
+                    # update_bar_thread = Thread(target=self.update_defl_one,args=(self,1))
+                    update_bar_thread = Thread(target=self.update_defl_one)
+                    update_bar_thread.daemon=True
+                    update_bar_thread.start()
+                
+                if(cantidad%5 == 0):
+                    print("Grafico grupos")
+                    update_all_thread = Thread(target=self.update_all)
+                    update_all_thread.daemon=True 
+                    update_all_thread.start()
 
 
 

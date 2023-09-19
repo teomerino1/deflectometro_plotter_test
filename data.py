@@ -200,7 +200,7 @@ class Data():
         
         # # Calculo de desviaciones estandar deflexiones
         desv_defl_der = round(np.std(self.defl_r_acum),2)
-        desv_defl_l = round(np.std(self.defl_l_acum))
+        desv_defl_l = round(np.std(self.defl_l_acum),2)
 
         # # Calculo de coeficientes de variacion deflexiones
         coef_var_der = round((desv_defl_der/media_defl_der)*100,2)
@@ -225,6 +225,8 @@ class Data():
         # # Calculo de total de mediciones
         total_mediciones_defl = len(self.defl_l_acum)
         total_mediciones_rad = len(self.radio_l_acum)
+        # print("Defl l acum:",len(self.defl_l_acum))
+        # print("Radio l acum:",len(self.radio_l_acum))
 
         return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
 

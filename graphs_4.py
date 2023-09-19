@@ -66,11 +66,13 @@ class Graphs4():
         self.indexes = [x * grupos for x in range(1, len(self.rad_mean_l_data)+1)]
 
         # Agregar cálculos para las leyendas
-        promedio_x_izq = sum(self.defl_mean_l_data) / len(self.defl_mean_l_data)
+        # promedio_x_izq = sum(self.defl_mean_l_data) / len(self.defl_mean_l_data)
+        promedio_x_izq = sum(self.rad_mean_l_data) / len(self.rad_mean_l_data)
         promedio_producto_izq = sum(x * y for x, y in zip(self.defl_mean_l_data, self.rad_mean_l_data)) / len(self.rad_mean_l_data)
         promedio_division_izq = sum(x / y for x, y in zip(self.defl_mean_l_data, self.rad_mean_l_data)) / len(self.rad_mean_l_data)
 
-        promedio_x_der = sum(self.defl_mean_r_data) / len(self.defl_mean_r_data)
+        # promedio_x_der = sum(self.defl_mean_r_data) / len(self.defl_mean_r_data)
+        promedio_x_der = sum(self.rad_mean_r_data) / len(self.rad_mean_r_data)
         promedio_producto_der = sum(x * y for x, y in zip(self.defl_mean_r_data, self.rad_mean_r_data)) / len(self.rad_mean_r_data)
         promedio_division_der = sum(x / y for x, y in zip(self.defl_mean_r_data, self.rad_mean_r_data)) / len(self.rad_mean_r_data)
 
@@ -86,8 +88,10 @@ class Graphs4():
         subfigure_der.set_ylim(0,max(self.rad_mean_r_data)+500)  
         subfigure_izq.set_ylim(0,max(self.rad_mean_l_data)+500)  
 
-        subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
-        subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
+        # subfigure_izq.scatter(self.defl_mean_l_data,self.rad_mean_l_data, color = 'r')
+        subfigure_izq.scatter(self.rad_mean_l_data, self.defl_mean_l_data, color = 'r')
+        # subfigure_der.scatter(self.defl_mean_r_data, self.rad_mean_r_data, color = 'r')
+        subfigure_der.scatter(self.rad_mean_r_data, self.defl_mean_r_data, color = 'r')
 
 
         # Agregar anotaciones con la información de los cálculos
@@ -124,7 +128,7 @@ class Graphs4():
         self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_radios_graph(0,0,"Informe estadistico: Lado Izquierdo")
         self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(0,1,"Informe estadístico: Lado Derecho")
 
-    def download_graphs4(self):
+    def download_graphs4(self,numero_pagina):
 
         if(self.rad_mean_r_data==[] or self.rad_mean_l_data==[]):
             print("Detecto en graphs4 que es none")
@@ -140,14 +144,14 @@ class Graphs4():
             # Crear un nuevo PDF con ambas figuras
             output_pdf = 'radios.pdf'
             c = canvas.Canvas(output_pdf, pagesize=A4)
-            c.drawImage('header2.png', 25, 773, width=575, height=60)
+            ancho_pagina,alto_pagina=A4
+            centro_x = ancho_pagina / 2
 
-            c.drawImage('image.png', 0, 0, width=600, height=100)
-            # Agregar la primera figura en la posición deseada
+            c.drawImage('header2.png', 25, 773, width=575, height=60)
+            c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('radios_l.png',100, 200, width=383, height=230)
-            # Agregar la segunda figura debajo de la primera
             c.drawImage('radios_r.png',100, 500, width=383, height=230)
-            # Guardar el contenido en el PDF
+            c.drawString(centro_x-1, 125, f"{numero_pagina+4}")
             c.save()
             
             os.remove('radios_l.png')

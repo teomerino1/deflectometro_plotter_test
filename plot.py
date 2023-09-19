@@ -6,7 +6,6 @@ import table
 import graphs
 from tkinter.ttk import Treeview
 import tkinter as tk
-from tkinter import ttk
 import datetime
 from tkinter.ttk import Treeview
 from tkinter import ttk
@@ -39,7 +38,8 @@ class Plot():
         self.muestras = None 
         self.grupos = None 
         self.atras = None 
-        self.next = None 
+        self.next = None
+        self.configuration=None 
         self.Table = None
         self.Graphs = None
         self.label_der=None
@@ -108,6 +108,9 @@ class Plot():
             next = ttk.Button(self.botones_frame,text="Siguiente →",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
+            configuration=ttk.Button(self.botones_frame,text="Ver configuración",command=self.show_configuration,style="TButton")
+            self.configuration=configuration 
+
             self.Table = table.Tabla(self.table_frame) 
             self.Graphs = graphs.Graphs(self.graphs_frame) 
 
@@ -121,13 +124,13 @@ class Plot():
             screen_width = self.root.winfo_screenwidth()
 
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
-            desired_width = screen_width
+            desired_width = screen_width+10
             aspect_ratio = original_image.width / original_image.height
-            # height=65
             height=85
             desired_height = int(desired_width / aspect_ratio)
             print("desired height",desired_height)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, height))
 
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
@@ -139,9 +142,10 @@ class Plot():
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))  
             self.atras.grid(row=0, column=0,padx=(0,1900),pady=(0,0))
             self.next.grid(row=1, column=0,padx=(0,1900),pady=(0,0))
+            self.configuration.grid(row=2,column=0,padx=(0,1900),pady=(0,0))
             self.state_label.grid(row=0,column=0,padx=(0,1500),pady=(0,0))
-            self.puesto_label.grid(row=0,column=0,padx=(1200,0))
-            self.hora_label.grid(row=1,column=0,padx=(1200,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1600,0))
+            self.hora_label.grid(row=1,column=0,padx=(1600,0))
 
             self.labels_frame.grid(row=1,columnspan=2,padx=(0,0),pady=(0,0))
             self.label_izq.grid(row=1, column=0,padx=(0,350),pady=(0,0))
@@ -150,13 +154,15 @@ class Plot():
             self.table_frame.grid(row=2,padx=(0,45),pady=(0,0))
             self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(60,0))
 
-            self.imagen_frame.grid(row=3,padx=(0,100),pady=(575,0))
+            self.imagen_frame.grid(row=3,padx=(0,110),pady=(555,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,20))
+            
             
             
     def generar_pdf(self):
         self.Table.donwload_table()
-        self.Graphs.donwload_graphs()
+        numero_pagina=self.Table.get_numero_pagina()
+        self.Graphs.donwload_graphs(numero_pagina)
         
     def get_prog_max(self):
         return self.Graphs.get_max()
@@ -171,6 +177,9 @@ class Plot():
     def update_bar_plot(self, defl_r,defl_l):
         self.Graphs.update_bar(defl_r,defl_l)
 
+    def get_table(self):
+        return self.Table
+
     # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
     def new_group_data_plot(self,dict_r, dict_l):
         self.Table.insert(dict_r, dict_l)
@@ -178,9 +187,10 @@ class Plot():
     def go_to_plot_2_from_plot_1(self):
         self.view_instance.enqueue_transition('go_to_plot_2_from_plot_1')
         
+    def show_configuration(self):
+        self.view_instance.enqueue_transition('show_configuration')
+
     def go_to_config(self):
-        # if(self.view_instance.get_state()=="Obteniendo datos..."):
-        #     messagebox.askokcancel("Aviso","Se están obteniendo datos. ¿Desea volver a la configuración?")
         self.view_instance.enqueue_transition('go_to_config')
 
     def reset_table(self):
@@ -188,5 +198,3 @@ class Plot():
 
     
    
-
-

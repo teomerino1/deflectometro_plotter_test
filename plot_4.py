@@ -1,9 +1,11 @@
-
+from tkinter import *
 from tkinter.ttk import Label, Frame, Button, Scrollbar
 import view
 import table
 import graphs
+from tkinter.ttk import Treeview
 import tkinter as tk
+from tkinter import ttk
 import graphs_2
 import graphs_3
 import graphs_4
@@ -32,6 +34,7 @@ class Plot4():
         self.subtitle=None
         self.next = None
         self.back = None  
+        self.configuration=None 
         self.view_instance = view_instance
         self.Graphs4 = None
 
@@ -83,6 +86,9 @@ class Plot4():
             next = ttk.Button(botones_frame, text="Siguiente →", command=self.go_to_plot_5_from_plot_4,style="TButton") 
             self.next = next
 
+            configuration=ttk.Button(self.botones_frame,text="Ver configuración",command=self.show_configuration,style="TButton")
+            self.configuration=configuration 
+
             self.Graphs4 = graphs_4.Graphs4(self.graphs_frame)
 
             original_image=Image.open("image3.png")
@@ -91,10 +97,10 @@ class Plot4():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            # height=65
             height=85
             # desired_height = int(desired_width / aspect_ratio)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, height))
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagen_frame, image=self.image_cba)
@@ -105,17 +111,20 @@ class Plot4():
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1900),pady=(0,0))
             self.next.grid(row=1, column=0,padx=(0,1900),pady=(0,0))
+            self.configuration.grid(row=2,column=0,padx=(0,1900),pady=(0,0))
             self.state_label.grid(row=0,column=0,padx=(0,1500),pady=(0,0))
-            self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
-            self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(0,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1600,0),pady=(0,0))
+            self.hora_label.grid(row=1,column=0,padx=(1600,0),pady=(0,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.graphs_frame.grid(row=2,columnspan=2,padx=(0,0),pady=(100,0))
-            self.imagen_frame.grid(row=2,padx=(0,100),pady=(860,0))
+            self.imagen_frame.grid(row=2,padx=(0,140),pady=(830,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
-    def download_graphs(self):
-        self.Graphs4.download_graphs4()
+            
+
+    def download_graphs(self,numero_pagina):
+        self.Graphs4.download_graphs4(numero_pagina)
 
     def get_hora_label(self):
         return self.hora_label
@@ -134,3 +143,6 @@ class Plot4():
 
     def get_state_label(self):
         return self.state_label
+    
+    def show_configuration(self):
+        self.view_instance.enqueue_transition('show_configuration')

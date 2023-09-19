@@ -1,6 +1,6 @@
-# from tkinter import *
+from tkinter import *
 from tkinter.ttk import Label, Frame, Button, Scrollbar
-# import tkinter as tk
+import tkinter as tk
 from tkinter import ttk
 import graphs_2
 import graphs_3
@@ -30,6 +30,7 @@ class Plot2():
         self.subtitle=None
         self.next = None
         self.back = None
+        self.configuration=None
         self.view_instance = view_instance  
         self.Graphs2 = None
         self.Graphs3 = None
@@ -40,16 +41,14 @@ class Plot2():
 
     def reset(self):
         self.third_plot_frame.destroy()
-        # self.show(0)
+        
 
     def show(self,a):
        
         if(a == 0):
 
-            screen_width = self.root.winfo_screenwidth()
-            screen_height = self.root.winfo_screenheight()
-            print("Image width:",screen_width)
-            print("Screen height:",screen_height)
+            width = self.root.winfo_screenwidth()
+            height = self.root.winfo_screenheight()
 
             third_plot_frame = Frame(self.root,background='#F6F4F2')
             self.third_plot_frame = third_plot_frame
@@ -90,6 +89,9 @@ class Plot2():
             next = ttk.Button(self.botones_frame, text="Siguiente →", command=self.go_to_plot_3_from_plot2,style="TButton")
             self.next = next
 
+            configuration=ttk.Button(self.botones_frame,text="Ver configuración",command=self.show_configuration,style="TButton")
+            self.configuration=configuration 
+
             self.Graphs2 = graphs_2.Graphs2(self.graphs2_frame,lado="Izquierdo")
             self.Graphs3 = graphs_3.Graphs3(self.graphs3_frame,lado="Izquierdo")
 
@@ -99,10 +101,13 @@ class Plot2():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
-            # height=65
             height=85
             # desired_height = int(desired_width / aspect_ratio)
-            resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
+            resized_image = original_image.resize((desired_width, height))
+
+            
+
             # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)
@@ -113,16 +118,21 @@ class Plot2():
             self.botones_frame.grid(row=0,columnspan=2,padx=(0,0),pady=(0,0))
             self.back.grid(row=0, column=0,padx=(0,1900),pady=(0,0))
             self.next.grid(row=1, column=0,padx=(0,1900),pady=(0,0))
+            self.configuration.grid(row=2,column=0,padx=(0,1900),pady=(0,0))
             self.state_label.grid(row=0,column=0,padx=(0,1500),pady=(0,0))
-            self.puesto_label.grid(row=0,column=0,padx=(1200,0),pady=(0,0))
-            self.hora_label.grid(row=1,column=0,padx=(1200,0),pady=(0,0))
+            self.puesto_label.grid(row=0,column=0,padx=(1600,0),pady=(0,0))
+            self.hora_label.grid(row=1,column=0,padx=(1600,0),pady=(0,0))
             self.title_frame.grid(row=1,columnspan=2,pady=(20,0))
             self.title.grid()
             self.subtitle.grid()
             self.graphs2_frame.grid(row=2,column=0,padx=(0,800),pady=(100,0))
             self.graphs3_frame.grid(row=2,column=0,padx=(800,0),pady=(100,0))
-            self.imagenes_frame.grid(row=2,padx=(0,100),pady=(830,0))
+            self.imagenes_frame.grid(row=2,padx=(0,140),pady=(800,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
+
+
+
+            
             
 ##F6F4F2
 
@@ -148,10 +158,11 @@ class Plot2():
         
     def go_to_plot_3_from_plot2(self):
         self.view_instance.enqueue_transition('go_to_plot_3_from_plot_2')
+
+    def show_configuration(self):
+        self.view_instance.enqueue_transition('show_configuration')
         
 
         
 
    
-
-

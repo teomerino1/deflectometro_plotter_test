@@ -40,7 +40,7 @@ class Graphs():
         sub_figure.set_xlim(0,10)
         sub_figure.set_title(title)
 
-        sub_figure.set_xlabel("Nº grupo")
+        sub_figure.set_xlabel("nº grupo")
         sub_figure.set_ylabel("Deflexiones")
 
         sub_figure.bar([], [], width = 0.3, linewidth=0.1)
@@ -73,8 +73,8 @@ class Graphs():
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-        subfigure_der.set_ylim(0, (max(self.defl_r_data)+100))
-        subfigure_izq.set_ylim(0, (max(self.defl_l_data)+100))
+        subfigure_der.set_ylim(0, (max(self.defl_r_data)+1))
+        subfigure_izq.set_ylim(0, (max(self.defl_l_data)+1))
         
         subfigure_der.set_xlim(1, len(self.defl_r_data)+1)
         subfigure_izq.set_xlim(1, len(self.defl_l_data)+1)
@@ -86,8 +86,8 @@ class Graphs():
         subfigure_der.set_title("Deflexion Derecha")
         subfigure_izq.set_title("Deflexion Izquierda")
 
-        subfigure_der.set_xlabel("Progresivas [metros]")
-        subfigure_izq.set_xlabel("Progresivas [metros]")
+        subfigure_der.set_xlabel("nº grupo")
+        subfigure_izq.set_xlabel("nº grupo")
 
         subfigure_der.set_ylabel("Deflexiones")
         subfigure_izq.set_ylabel("Deflexiones")
@@ -119,29 +119,30 @@ class Graphs():
         else:
             return max(self.indexes)
     
-    def donwload_graphs(self):
+    def donwload_graphs(self,numero_pagina):
        
         # Ajustar los límites para eliminar espacio en blanco
         if(self.defl_l_data==[] or self.defl_r_data==[]):
             return
         else:
-            self.figure_bar_l.gca().set_ylim(0, (max(self.defl_l_data)+100))
-            self.figure_bar_r.gca().set_ylim(0, (max(self.defl_r_data)+100))  # Ajustar límites en el eje y según tu necesidad
+            self.figure_bar_l.gca().set_ylim(0, (max(self.defl_l_data)+1))
+            self.figure_bar_r.gca().set_ylim(0, (max(self.defl_r_data)+1))  # Ajustar límites en el eje y según tu necesidad
             self.figure_bar_l.savefig('figure_bar_l.png', bbox_inches='tight')
             self.figure_bar_r.savefig('figure_bar_r.png', bbox_inches='tight')
-        
+
+            ancho_pagina,alto_pagina=A4
+            centro_x = ancho_pagina / 2
+
             output_pdf = 'defl_individuales.pdf'
             c = canvas.Canvas(output_pdf, pagesize=A4)
-            # Dibuja la imagen de encabezado
+          
             c.drawImage('header2.png', 25, 773, width=575, height=60)
-
-            c.drawImage('image.png', 0, 0, width=600, height=100)
-            # Agregar la primera figura en la posición deseada
-            # c.drawImage('figure_bar_l.png', 10, 0)
+            c.drawImage('image.png', 0, 0, width=600, height=120)
             c.drawImage('figure_bar_l.png', 100, 200, width=383, height=230)
-            # Agregar la segunda figura debajo de la primera
             c.drawImage('figure_bar_r.png', 100, 500,width=383, height=230)
-            # Guardar el contenido en el PDF
+            c.drawString(centro_x-1, 125, f"{numero_pagina+1}")
+            
+            
             c.save()
             os.remove('figure_bar_l.png')
             os.remove('figure_bar_r.png')
@@ -153,4 +154,3 @@ class Graphs():
 
 
        
-

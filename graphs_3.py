@@ -23,6 +23,7 @@ class Graphs3():
         self.figure_defl_mean_l = None 
         self.defl_mean_l = None 
         self.defl_mean_widget_l = None
+        self.max_value=0
         self.defl_mean_l_data=[]
         self.defl_mean_r_data=[]
         self.defl_car_l_data=[]
@@ -70,6 +71,13 @@ class Graphs3():
         self.defl_car_r_data.extend(defl_r_car[-1:])
         self.defl_max_r_data.extend(defl_r_max[-1:])
         self.indexes = [x * grupos for x in range(1, len(self.defl_mean_r_data)+1)]
+        max_value = max(
+        max(self.defl_mean_l_data),
+        max(self.defl_car_l_data),
+        max(self.defl_max_l_data)
+        )
+        if max_value > self.max_value:
+            self.max_value = max_value
         
         if(lado == "Izquierdo"):
             # self.indexes=list(range(1,len(self.defl_mean_l_data)+1))
@@ -79,7 +87,7 @@ class Graphs3():
             subfigure_izq = self.figure_defl_mean_l.add_subplot(211)
             
             subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-            subfigure_izq.set_ylim(0,max(self.defl_mean_l_data)+50)  
+            subfigure_izq.set_ylim(0,self.max_value+50)  
             
             subfigure_izq.bar(self.indexes, self.defl_mean_l_data, color='black', width=1, edgecolor='black')
             subfigure_izq.plot(self.indexes, self.defl_car_l_data)
@@ -101,7 +109,7 @@ class Graphs3():
             subfigure_der=self.figure_defl_mean_r.add_subplot(211)
 
             subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
-            subfigure_der.set_ylim(0,max(self.defl_mean_r_data)+50)
+            subfigure_der.set_ylim(0,self.max_value+50)
             
             subfigure_der.bar(self.indexes, self.defl_mean_r_data, color='black', width=1, edgecolor='black')
             subfigure_der.plot(self.indexes, self.defl_car_r_data)
