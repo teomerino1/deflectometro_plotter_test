@@ -43,7 +43,7 @@ class Graphs():
         sub_figure.set_xlabel("nº grupo")
         sub_figure.set_ylabel("Deflexiones")
 
-        sub_figure.bar([], [], width = 0.3, linewidth=0.1)
+        sub_figure.bar([], [], width = 1, linewidth=0.1)
         sub_figure.grid(axis='both',linestyle='dotted')
 
         # Ajustar los márgenes de los subplots
@@ -80,8 +80,8 @@ class Graphs():
         subfigure_izq.set_xlim(1, len(self.defl_l_data)+1)
 
         # Grafica todos los datos almacenados
-        subfigure_der.bar(self.indexes, self.defl_r_data, width=0.8)
-        subfigure_izq.bar(self.indexes, self.defl_l_data, width=0.8)
+        subfigure_der.bar(self.indexes, self.defl_r_data, width=1)
+        subfigure_izq.bar(self.indexes, self.defl_l_data, width=1)
 
         subfigure_der.set_title("Deflexion Derecha")
         subfigure_izq.set_title("Deflexion Izquierda")
