@@ -92,22 +92,6 @@ class Graphs4():
         subfigure_izq.scatter(self.rad_mean_l_data, self.defl_mean_l_data, color = 'r')
         subfigure_der.scatter(self.rad_mean_r_data, self.defl_mean_r_data, color = 'r')
 
-
-        # # Agregar anotaciones con la información de los cálculos
-        # subfigure_izq.annotate(
-        #     f'R med.: {promedio_x_izq:.2f}\n'
-        #     f'RxD m: {promedio_producto_izq:.2f}\n'
-        #     f'D/R m: {promedio_division_izq:.2f}',
-        #     xy=(0.05, 0.95), xycoords='axes fraction',
-        #     fontsize=10, ha='left', va='top')
-
-        # subfigure_der.annotate(
-        #     f'R med.: {promedio_x_der:.2f}\n'
-        #     f'RxD m: {promedio_producto_der:.2f}\n'
-        #     f'D/R m: {promedio_division_der:.2f}',
-        #     xy=(0.05, 0.95), xycoords='axes fraction',
-        #     fontsize=10, ha='left', va='top')
-
         subfigure_izq.annotate(
             f'R med.: {promedio_x_izq:.2f}\n'
             f'RxD m: {promedio_producto_izq:.2f}\n'
@@ -169,8 +153,8 @@ class Graphs4():
 
             c.drawImage('header2.png', 25, 773, width=575, height=60)
             c.drawImage('image.png', 0, 0, width=600, height=120)
-            c.drawImage('radios_l.png',100, 200, width=383, height=230)
-            c.drawImage('radios_r.png',100, 500, width=383, height=230)
+            c.drawImage('radios_l.png',100, 150, width=383, height=260)
+            c.drawImage('radios_r.png',100, 450, width=383, height=260)
             c.drawString(centro_x-1, 125, f"{numero_pagina+4}")
             c.save()
             
