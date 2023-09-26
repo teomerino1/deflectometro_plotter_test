@@ -27,7 +27,7 @@ class Graphs():
         self.indexes = []
         self.flag=0
         #CANTIDAD DE BARRAS A QUERER GRAFICAR!!!!!!!!!
-        self.cantidad_barras=5
+        self.cantidad_barras=20
         #VARIABLE PARA INSTANCIAR NUEVOS ARRAY DE DATOS, POR EJEMPLO 'self.defl_l_data_1,self.defl_l_data_2'
         self.contador_graficos=0
         #VARIABLE PARA SABER QUÉ ARRAY DE DATOS ESTOY SELECCIONANDO.
@@ -74,22 +74,14 @@ class Graphs():
         dataset_izq = getattr(self,f"defl_l_data_{self.contador_graficos}")
         indexes=getattr(self,f"indexes_{self.contador_graficos}")
 
-        # self.defl_r_data.extend(defl_r)
-        # self.defl_l_data.extend(defl_l)
-        # self.indexes = list(range(1,len(self.defl_r_data)+1))
-
+        print("Contador graficos:",self.contador_graficos)
         print("Dataset der before extend:",dataset_der)
         dataset_der.extend(defl_r)
         dataset_izq.extend(defl_l)
-        indexes=list(range(1,len(dataset_der)+1))
+        indexes=list(range(self.contador_graficos*self.cantidad_barras,self.contador_graficos*self.cantidad_barras+len(dataset_der)))
         print("Defl r parametro:",defl_r)
         print("Dataset der after extend:",dataset_der)
         print("Indexes:",indexes)
-
-        if(len(self.defl_r_data)==len(self.indexes)):
-            print("Realizando calculos de deflexiones..")
-        else:
-            print("Indices NO iguales")
 
         self.figure_bar_r.clear()
         self.figure_bar_l.clear()
@@ -97,19 +89,13 @@ class Graphs():
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-        # subfigure_der.set_ylim(0, (max(self.defl_r_data)+1))
-        # subfigure_izq.set_ylim(0, (max(self.defl_l_data)+1))
         subfigure_der.set_ylim(0, (max(dataset_der)+1))
         subfigure_izq.set_ylim(0, (max(dataset_izq)+1))
         
-        # subfigure_der.set_xlim(1, len(self.defl_r_data)+1)
-        # subfigure_izq.set_xlim(1, len(self.defl_l_data)+1)
-        subfigure_der.set_xlim(1, len(dataset_der)+1)
-        subfigure_izq.set_xlim(1, len(dataset_izq)+1)
+        subfigure_der.set_xlim(self.contador_graficos*self.cantidad_barras,self.contador_graficos*self.cantidad_barras+len(dataset_der))
+        subfigure_izq.set_xlim(self.contador_graficos*self.cantidad_barras,self.contador_graficos*self.cantidad_barras+len(dataset_der))
 
         # Grafica todos los datos almacenados
-        # subfigure_der.bar(self.indexes, self.defl_r_data, width=1)
-        # subfigure_izq.bar(self.indexes, self.defl_l_data, width=1)
         subfigure_der.bar(indexes, dataset_der, width=1)
         subfigure_izq.bar(indexes, dataset_izq, width=1)
 
@@ -131,69 +117,9 @@ class Graphs():
 
         if(len(indexes)==self.cantidad_barras):
             print("Aca me doy cuenta que llegué a la cantidad de datos a mostrar")
+            self.contador_graficos+=1
             self.create_arrays()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # self.defl_r_data.extend(defl_r)
-        # self.defl_l_data.extend(defl_l)
-        # self.indexes = list(range(1,len(self.defl_r_data)+1))
-
-        # if(len(self.defl_r_data)==len(self.indexes)):
-        #     print("Realizando calculos de deflexiones..")
-        # else:
-        #     print("Indices NO iguales")
-
-        # self.figure_bar_r.clear()
-        # self.figure_bar_l.clear()
-
-        # subfigure_der = self.figure_bar_r.add_subplot(211)
-        # subfigure_izq = self.figure_bar_l.add_subplot(211)
-
-        # subfigure_der.set_ylim(0, (max(self.defl_r_data)+1))
-        # subfigure_izq.set_ylim(0, (max(self.defl_l_data)+1))
-        
-        # subfigure_der.set_xlim(1, len(self.defl_r_data)+1)
-        # subfigure_izq.set_xlim(1, len(self.defl_l_data)+1)
-
-        # # Grafica todos los datos almacenados
-        # subfigure_der.bar(self.indexes, self.defl_r_data, width=1)
-        # subfigure_izq.bar(self.indexes, self.defl_l_data, width=1)
-
-        # subfigure_der.set_title("Deflexion Derecha")
-        # subfigure_izq.set_title("Deflexion Izquierda")
-
-        # subfigure_der.set_xlabel("nº grupo")
-        # subfigure_izq.set_xlabel("nº grupo")
-
-        # subfigure_der.set_ylabel("Deflexiones")
-        # subfigure_izq.set_ylabel("Deflexiones")
-       
-        # subfigure_der.grid(axis='both',linestyle='dotted')
-        # subfigure_izq.grid(axis='both',linestyle='dotted')
-
-        #  # Llama al método draw_idle() para actualizar la interfaz gráfica
-        # self.figure_bar_r.canvas.draw_idle()
-        # self.figure_bar_l.canvas.draw_idle()
-
-        
 
     def show_bar_graph(self):
         self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(2, 0,"Deflexion Izquierda")
@@ -202,25 +128,15 @@ class Graphs():
         self.create_arrays()
         #######################
 
-    def create_arrays(self):
-            self.contador_graficos+=1
-            new_defl_r_data = f"defl_r_data_{self.contador_graficos}"
+    def create_arrays(self): 
+        new_defl_r_data = f"defl_r_data_{self.contador_graficos}"
+        setattr(self, new_defl_r_data, [])
+        new_defl_l_data = f"defl_l_data_{self.contador_graficos}"
+        setattr(self, new_defl_l_data, [])
+        new_indexes = f"indexes_{self.contador_graficos}"
+        setattr(self, new_indexes, [])
+        print("Creé los arrays:")
             
-            setattr(self, new_defl_r_data, [])
-            new_defl_l_data = f"defl_l_data_{self.contador_graficos}"
-            setattr(self, new_defl_l_data, [])
-            new_indexes = f"indexes_{self.contador_graficos}"
-            setattr(self, new_indexes, [])
-            print("Creé los arrays:")
-            print("New defl data R", new_defl_r_data)
-            print("New defl data R Type",type(new_defl_r_data))
-            print("New defl data R attr", getattr(self, new_defl_r_data))
-            print("New defl data R type attr", type(getattr(self, new_defl_r_data)))
-            # array=getattr(self,f"defl_r_data_{self.contador_graficos}")
-            # array.append(1)
-            # print("Array:",array)
-            
-
     def select_dataset(self, datos):
         self.datos_actual = datos
 
