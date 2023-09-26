@@ -110,8 +110,8 @@ class Graphs():
             subfigure_der = self.figure_bar_r.add_subplot(211)
             subfigure_izq = self.figure_bar_l.add_subplot(211)
 
-            subfigure_der.set_ylim(0, (max(dataset_der)+1))
-            subfigure_izq.set_ylim(0, (max(dataset_izq)+1))
+            # subfigure_der.set_ylim(0, (max(dataset_der)+1))
+            # subfigure_izq.set_ylim(0, (max(dataset_izq)+1))
             
             subfigure_der.set_xlim(self.data_selector*self.cantidad_barras,self.data_selector*self.cantidad_barras+len(dataset_der))
             subfigure_izq.set_xlim(self.data_selector*self.cantidad_barras,self.data_selector*self.cantidad_barras+len(dataset_izq))
