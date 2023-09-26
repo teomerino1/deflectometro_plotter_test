@@ -400,8 +400,6 @@ class Plot5():
         self.r_x_d_izq_value.grid(row=10, column=1,padx=(0,0),pady=(0,0),sticky=NE)
 
         
-       
-
     def go_to_plot_4_from_plot_5(self):
         self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
 

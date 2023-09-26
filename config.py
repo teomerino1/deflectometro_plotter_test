@@ -8,6 +8,12 @@ from tkinter import font
 from reportlab.pdfgen import canvas
 from tkinter import messagebox
 
+"""
+Clase Config:
+    Esta clase muestra la interfaz de la configuración inicial.
+    Contiene todos los objetos que se muestran en dicha interfaz
+    como los textos, inputs del usuario e imágenes. 
+"""
 class Config():
     def __init__(self, root,view_instance):
         
@@ -65,22 +71,28 @@ class Config():
         self.email_label=None
         self.web_label=None
         self.view_instance = view_instance
-        # self.go_to_plot1_from_config = go_to_plot1_from_config
 
 
+    """
+    MÉTODO SHOW
+        Esta función se llama cuando se accede a la interfaz.
+
+        @params a: Si a es 0, se instancia la clase por lo que se crean todos los objetos.
+                   Si a es 1, se accede a la interfaz por lo que se muestran los objetos creados.
+                    
+    """
     def show(self,a):
         
         if(a==0):
-            # config_frame = tk.Frame()
+          
             width = self.root.winfo_screenwidth()
             height = self.root.winfo_screenheight()
             
             config_frame = Frame(self.root,width=width,height=height)
             self.config_frame = config_frame
             
-            # title_frame=Frame(self.config_frame)
-            # self.title_frame=title_frame
-            #flat, groove,raised,ridge,solid or sunken
+            custom_font = font.Font(family="Krona_One", size=16, weight="bold")
+            
             parameters_frame=Frame(config_frame,relief="groove")
             self.parameters_frame=parameters_frame
     
@@ -96,9 +108,7 @@ class Config():
             imagenes_frame=Frame(config_frame,relief='groove')
             self.imagenes_frame=imagenes_frame
 
-            # Define una fuente personalizada
-            custom_font = font.Font(family="Krona_One", size=16, weight="bold")
-
+            #Configuracion
             conf_inicial = ttk.Label(self.config_frame, text="Configuración", font=(custom_font,25))
             self.conf_inicial = conf_inicial
 
@@ -108,7 +118,7 @@ class Config():
             info_reporte=Label(self.reportes_frame, text="Información de Reporte",font=(None, 20))
             self.info_reporte=info_reporte
 
-            # temp
+            #Temperatura
             temp_label=Label(self.parameters_frame, text="Temperatura [ºC]:",font=(None, 15))
             self.temp_label=temp_label
             
@@ -116,7 +126,7 @@ class Config():
             temp_ntry.insert(0, "20")
             self.temp_ntry = temp_ntry
 
-            # grupos
+            #Grupos (por defecto en 100)
             grupos_label=Label(self.parameters_frame, text="Tamaño de grupos:",font=(None, 15))
             self.grupos_label=grupos_label
             
@@ -129,11 +139,10 @@ class Config():
             grupos_ntry_100 = Radiobutton(self.parameters_frame,text='100', variable=var, value=100)
             self.grupos_ntry_100 = grupos_ntry_100
 
-            # Muestras
+            #Muestras
             muestras_label=Label(self.parameters_frame, text="Cantidad de muestras (opcional):",font=(None, 15))
             self.muestras_label=muestras_label
            
-
             muestras_ntry = Entry(self.parameters_frame,width=10)
             self.muestras_ntry = muestras_ntry
             
@@ -144,7 +153,7 @@ class Config():
             espesor = Entry(self.parameters_frame,width=10)
             self.espesor = espesor
 
-            # Ft
+            # Ft (por defecto en 1)
             ft_label=Label(self.parameters_frame, text="Ft:",font=(None, 15))
             self.ft_label=ft_label
             
@@ -152,7 +161,7 @@ class Config():
             ft.insert(0, "1") 
             self.ft_ntry=ft
         
-            # Fh
+            # Fh (por defecto en 1)
             fh_label=Label(self.parameters_frame, text="Fh:",font=(None, 15))
             self.fh_label=fh_label
 
@@ -160,7 +169,7 @@ class Config():
             fh.insert(0, "1")
             self.fh_ntry=fh
 
-            # Fc
+            # Fc (por defecto en 1)
             fc_label=Label(self.parameters_frame, text="Fc:",font=(None, 15))
             self.fc_label=fc_label
            
@@ -168,7 +177,7 @@ class Config():
             fc.insert(0, "1")
             self.fc_ntry=fc
 
-            # Z
+            # Z (por defecto en 1)
             z_label=Label(self.parameters_frame, text="Z:",font=(None, 15))
             self.z_label=z_label
           
@@ -211,43 +220,44 @@ class Config():
             pav_ntry = Entry(self.reportes_frame)
             self.pav_ntry = pav_ntry
 
+            #Operador
             operador_label=Label(self.reportes_frame, text="Operador:",font=(None, 15))
             self.operador_label=operador_label
 
             operador_ntry=Entry(self.reportes_frame)
             self.operador_ntry=operador_ntry
 
+            #Chofer
             chofer_label=Label(self.reportes_frame, text="Chofer:",font=(None, 15))
             self.chofer_label=chofer_label
 
             chofer_ntry=Entry(self.reportes_frame)
             self.chofer_ntry=chofer_ntry
 
+            #Apoyo
             apoyo_label=Label(self.reportes_frame, text="Apoyo:",font=(None, 15))
             self.apoyo_label=apoyo_label
             
             apoyo_ntry=Entry(self.reportes_frame)
             self.apoyo_ntry=apoyo_ntry
           
+            #Confirmar
             confirmar = ttk.Button(self.botones_frame, text="Confirmar", command=self.go_to_plot_1_from_config,
             style="TButton")
             self.confirmar=confirmar
               
+            #Resetear
             resetear=Button(self.botones_frame, text="Resetear", command=self.reset_all_plots)
             self.resetear=resetear
            
-
             original_image=Image.open("image.png")
             screen_width = self.root.winfo_screenwidth()
 
-            # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
+            #Imagen
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
             height=245
-            desired_height = int(desired_width / aspect_ratio)
-            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
             resized_image = original_image.resize((desired_width, height))
-            # Convierte la imagen redimensionada a un objeto PhotoImage
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)
             self.image_label.image = self.image_cba
@@ -265,7 +275,6 @@ class Config():
             self.imagenes_frame.grid_rowconfigure(0, weight=1)
             self.imagenes_frame.grid_columnconfigure(0, weight=1)
   
-
             self.parametros_medicion.grid(row=1,column=0,padx=(50,0),pady=(10, 0))
 
             self.temp_label.grid(row=2, column=0,padx=(50,0),pady=(10, 0),sticky="NW")
@@ -325,6 +334,14 @@ class Config():
             self.image_label.grid(row=0,column=0,columnspan=2,padx=(0,0),pady=(0,0))
            
 
+    """
+    MÉTODO CLOSE
+        Esta función se llama cuando se cierra esta interfaz.
+        Corrobora que todos los parámetros hayan sido completados correctamente.
+        @return: 
+            0 Si todos los parámetros están correctos
+            1 Si hay algún error 
+    """
     def close(self):
 
         text_fields = [
@@ -357,53 +374,25 @@ class Config():
                 messagebox.showwarning("Aviso", "Deben llenarse todos los campos de texto antes de continuar")
                 return 1
 
-
         for value in values:
             try:
-        # Intenta convertir el contenido del Entry a un número
                 float_value = float(value.get())
-        # Aquí puedes verificar si float_value es un entero, si es necesario
             except ValueError:
                 messagebox.showwarning("Aviso", "Los parámetros deben ser enteros o flotantes")
                 return 1
-
-
-        print("EJECUTO EL REST")
-
-        self.view_instance.set_temp(int(self.temp_ntry.get()))
-        
-        self.view_instance.set_grupos(int(self.var.get()))
-
-        if(self.espesor.get()==''):
-            print("Espesor flaiao")
-        else:
-            self.view_instance.set_espesor(float(self.espesor.get()))
-
-        if(self.ft_ntry.get()==''):
-            self.view_instance.set_ft(1)
-        else:
-            self.view_instance.set_ft(float(self.ft_ntry.get()))
-
-        if(self.fh_ntry.get()==''):
-            self.view_instance.set_fh(1)
-        else:
-            self.view_instance.set_fh(float(self.fh_ntry.get()))
-
-        if(self.fc_ntry.get()==''):
-            self.view_instance.set_fc(1)
-        else:
-            self.view_instance.set_fc(float(self.fc_ntry.get()))
-
-        if(self.z_ntry.get()==''):
-            self.view_instance.set_z(2)
-        else:
-            self.view_instance.set_z(float(self.z_ntry.get()))
 
         if(self.muestras_ntry.get()==''):
             self.view_instance.set_muestras(1000000)
         else:
             self.view_instance.set_muestras(int(self.muestras_ntry.get()))
 
+        self.view_instance.set_temp(int(self.temp_ntry.get()))
+        self.view_instance.set_grupos(int(self.var.get()))
+        self.view_instance.set_espesor(float(self.espesor.get()))
+        self.view_instance.set_ft(float(self.ft_ntry.get()))
+        self.view_instance.set_fh(float(self.fh_ntry.get()))
+        self.view_instance.set_fc(float(self.fc_ntry.get()))
+        self.view_instance.set_z(float(self.z_ntry.get()))
         self.view_instance.set_ruta(self.ruta_ntry.get())
         self.view_instance.set_provincia(self.prov_ntry.get())
         self.view_instance.set_tramo(self.tramo_ntry.get())
@@ -412,11 +401,9 @@ class Config():
         self.view_instance.set_chofer(self.chofer_ntry.get())
         self.view_instance.set_operador(self.operador_ntry.get())
         self.view_instance.set_apoyo(self.apoyo_ntry.get())
-
         self.view_instance.set_data_ready(value=1)
-        # self.view_instance.set_state("Obteniendo datos...")
         self.config_frame.grid_forget()
-        print("Cierro config y paso a plot")
+        
         return 0
 
     def get_config(self):

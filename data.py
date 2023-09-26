@@ -3,18 +3,27 @@ import view
 import math
 import threading
 
-# Clase donde se encuentran los metodos encargados de crear, mantener y actualizar las estructuras de datos
-# se tienen dos grupos de mediciones, unas de derecha y otra de izquierda.
-# En la inicializacion de la clase Data se crean todos los campos necesarios para interactuar con los datos
+"""
+Clase Data:
+    Se encuentran los metodos encargados de crear, mantener y actualizar las estructuras de datos.
+    Se tienen dos grupos de mediciones, unas de derecha y otra de izquierda.
+    En la inicializacion de la clase Data se crean todos los campos necesarios para interactuar con los datos
+"""
 class Data():
 
     def __init__(self):
 
-        
-        self.data_acumulator = None # acumula todo lo que llega de la db
-        self.deflexiones_acumulator = [] # acumula los valores de las deflexiones
-        self.group_counter = 1 # Contador de grupos
-        self.grupos=None        #Grupos seleccionados por el usuario
+        # acumula todo lo que llega de la db
+        self.data_acumulator = None 
+
+        # acumula los valores de las deflexiones
+        self.deflexiones_acumulator = [] 
+
+        # Contador de grupos
+        self.group_counter = 1
+
+        #Grupos seleccionados por el usuario 
+        self.grupos=None        
 
         # Contienen los datos del grupo actual
         self.defl_r = []
@@ -34,7 +43,6 @@ class Data():
         self.defl_bar_l = []
         self.defl_bar_r = []
 
-        
         # Acumuladores que contienen todos los datos recolectados durante la ejecucion
         self.defl_r_acum = []
         self.defl_l_acum = []
@@ -43,7 +51,6 @@ class Data():
         self.indices = []
 
         # Variables para el calculo de compensacion
-
         self.temp = None 
         self.espesor = None
         self.ft= None
@@ -75,76 +82,80 @@ class Data():
             "D/R":[],
         } 
 
-    # Metodo toma lo que devuelve la base de datos y coloca las deflexiones y sus indices en un diccionario.
-    def data_destruct(self,data):
+    """
+    MÉTODO DATA_DESTRUCT:
+        Esta función desestructura los datos que vienen de la base de datos.
+        Los divide en radio y deflexión, y además realiza el cálculo de compensación.
 
-        # print("Muestras:",muestras)
-        # print("Temp:",self.temp)
-        # print("Espesor:",self.espesor)   
+        @params data: El objeto data que contiene los valores de radio y deflexión.
+    """
+    def data_destruct(self,data):
 
         defl_r_aux=data[0]['valor']
         radio_r_aux=data[1]['valor']
         defl_l_aux=data[2]['valor']
         radio_l_aux=data[3]['valor']
 
-        print("Deflexion derecha:",defl_r_aux)
-        print("Deflexion izquierda:",defl_l_aux)
-        print("Radio derecha:",radio_r_aux)
-        print("Radio Izquierda:",radio_l_aux)
-        print("\n")
-
         defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux)
-
 
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
         self.radio_r.append(radio_r_aux)
         self.radio_l.append(radio_l_aux)
-
         self.defl_r_acum.append(defl_r_aux)
         self.radio_r_acum.append(radio_r_aux)
         self.defl_l_acum.append(defl_l_aux)
         self.radio_l_acum.append(radio_l_aux)
        
-    # Metodo que se encarga de una vez cumplido el grupo, actualizar los datos para el grafico de barras
+    """
+    MÉTODO UPDATE_BAR_DATA:
+        Esta función hace un update de los datos correspondientes al gráfico de barras 
+        de deflexiones individuales.
+
+        @param amount: La cantidad de datos a actualizar
+    """
     def update_bar_data(self,amount):
         self.defl_bar_r.extend(self.defl_r[-amount:])
         self.defl_bar_l.extend(self.defl_l[-amount:])
         return self.defl_bar_r,self.defl_bar_l
-
+    
+    """
+    CLEAR_BAR_DATA:
+        Esta función hace un clear de los arreglos de datos de deflexiones individuales.
+    """
     def clear_bar_data(self):
         self.defl_bar_r.clear()
         self.defl_bar_l.clear()
 
+    """
+    UPDATE_STRUCTURES:
+        Esta función actualiza las estructuras de datos que van a graficarse.
+        Es llamada cuando se cumple el grupo de 50 o 100 datos.
+            -Calcula el promedio de los radios y deflexiones, y la deflexion característica
+            -Añade los datos a los diccionarios que se insertan en la tabla
+            -Limpia los datos porque ya se cumplió el grupo
+    """
     def update_structures(self):
-        # Obtengo los promedios de cada cosa
-       
-        # print("Radio acum derecha:",self.radio_r_acum)
-        # print("Defl acum derecha:",self.defl_r_acum)
-
+        
         media_defl_r = round(np.mean(self.defl_r),2)
         media_defl_l = round(np.mean(self.defl_l),2)
         media_radio_r = round(np.mean(self.radio_r),2)
         media_radio_l = round(np.mean(self.radio_l),2)
 
-       
-
-        # Obtengo la deflexion caracteristica. Por el momento Z es igual a 2 y el resto (ft, fc, fh) es 1
+        #Deflexion caracteristica
         self.defl_l_car.append(  (media_defl_l + ((np.std(self.defl_l)*self.z)))*self.ft*self.fh*self.fc  )
         self.defl_r_car.append(  (media_defl_r + ((np.std(self.defl_r)*self.z)))*self.ft*self.fh*self.fc  )
         
-        # Obtengo los máximos de las deflexiones
+        #Máximos de las deflexiones
         self.defl_l_max.append(np.max(self.defl_l))
         self.defl_r_max.append(np.max(self.defl_r))
         
-
-        # Los agrego a los diccionarios correspondientes
+        #Se agrega a los diccionarios correspondientes
         self.data_dict_r['Grupo'].append(self.group_counter*self.get_grupos())
         self.data_dict_r['Radio'].append(media_radio_r)
         self.data_dict_r['Defl.'].append(media_defl_r)
         self.data_dict_r['R*D'].append(round(media_defl_r * media_radio_r,2))
         self.data_dict_r['D/R'].append(round(media_defl_r / media_radio_r,2))
-        
         self.data_dict_l['Grupo'].append(self.group_counter*self.get_grupos())
         self.data_dict_l['Radio'].append(media_radio_l)
         self.data_dict_l['Defl.'].append(media_defl_l)
@@ -153,28 +164,36 @@ class Data():
         
         self.group_counter += 1
 
-         # limpiamos porque ya se cumplio el grupo
+        #Se limpia porque ya se cumplió el grupo
         self.defl_r.clear()
         self.defl_l.clear()
         self.radio_r.clear()
         self.radio_l.clear()
 
     
-    # # Metodo que devuelve los datos compensados con respecto a la temperatura ingresada
+    """
+    COMPENSATE:
+        Esta función realiza los cálculos de compensación de los datos.
+
+        @params: Valores auxiliares de deflexiones y radios a ser compensados
+    """
     def compensate(self,defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux):
 
         defl_r_aux=round((defl_r_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
         defl_l_aux=round((defl_l_aux/((0.001*self.espesor*(self.temp-20))+1)),2) 
         radio_r_aux=round((radio_r_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
         radio_l_aux=round((radio_l_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
-        
         return defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux
        
-    def calculate_stats(self): # TODO-> Consultar por el calculo de Radio Caracteristico. Falta ese cálculo
 
-        print("Generando Calculos Estadísticos...")
+    """
+    CALCULATE STATS:
+        Esta función es llamada cuando se realizan los cálculos estadísticos.
+        Si aún no hay datos para realizar cálculos, se los retorna con valor 0
+    """
+    def calculate_stats(self):
+
         if(self.defl_r_acum==[] or self.defl_l_acum==[] or self.radio_r_acum==[] or self.radio_l_acum==[]):
-            print("Detecto que alguno es None")
             media_defl_der=0
             media_defl_izq=0
             media_rad_der=0
@@ -228,8 +247,6 @@ class Data():
         # # Calculo de total de mediciones
         total_mediciones_defl = len(self.defl_l_acum)
         total_mediciones_rad = len(self.radio_l_acum)
-        # print("Defl l acum:",len(self.defl_l_acum))
-        # print("Radio l acum:",len(self.radio_l_acum))
 
         return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
 

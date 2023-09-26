@@ -30,7 +30,7 @@ class Graphs3():
         self.defl_car_r_data=[]
         self.defl_max_l_data=[]
         self.defl_max_r_data=[]
-        self.indexes=[] 
+        self.indexes=[]
         self.show(lado)
 
 
