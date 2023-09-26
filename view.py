@@ -798,23 +798,23 @@ class View():
             print(cantidad)
             
             if(self.reporter_instance.get_puesto_change()==0):
-                if(a>=100):
-                    self.amount=10
-                    b=b+1
-                    if(b==10):
-                        b=0
-                        print("Grafico barras")
-                        # update_bar_thread = Thread(target=self.update_defl_one,args=(self,10))
-                        update_bar_thread = Thread(target=self.update_defl_one)
-                        update_bar_thread.daemon=True
-                        update_bar_thread.start()
-                else:
+                # if(a>=100):
+                #     self.amount=10
+                #     b=b+1
+                #     if(b==10):
+                #         b=0
+                #         print("Grafico barras")
+                #         # update_bar_thread = Thread(target=self.update_defl_one,args=(self,10))
+                #         update_bar_thread = Thread(target=self.update_defl_one)
+                #         update_bar_thread.daemon=True
+                #         update_bar_thread.start()
+                # else:
                     # View.set_state("Grafico barras")
-                    print("Grafico barras")
-                    # update_bar_thread = Thread(target=self.update_defl_one,args=(self,1))
-                    update_bar_thread = Thread(target=self.update_defl_one)
-                    update_bar_thread.daemon=True
-                    update_bar_thread.start()
+                print("Grafico barras")
+                # update_bar_thread = Thread(target=self.update_defl_one,args=(self,1))
+                update_bar_thread = Thread(target=self.update_defl_one)
+                update_bar_thread.daemon=True
+                update_bar_thread.start()
                 
                 if(cantidad%grupos == 0):
                     print("Grafico grupos")
