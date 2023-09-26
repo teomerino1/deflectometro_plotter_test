@@ -714,6 +714,16 @@ class View():
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
 
+                elif target_function=='avanzar_plots':
+                    self.Plot.avanzar_data_graphs()
+                    self.interface_transition_queue.task_done()
+                    self.enqueued_functions.remove(target_function)
+
+                elif target_function=='retroceder_plots':
+                    self.Plot.retroceder_data_graphs()
+                    self.interface_transition_queue.task_done()
+                    self.enqueued_functions.remove(target_function)
+
 
 
     def enqueue_transition(self, function_name):

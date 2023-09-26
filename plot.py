@@ -30,6 +30,7 @@ class Plot():
         self.graphs_frame=None
         self.labels_frame=None
         self.imagen_frame=None
+        self.plots_buttons_frame=None
         self.image_cba=None
         self.image_label=None
         self.view_instance = view_instance
@@ -39,6 +40,8 @@ class Plot():
         self.grupos = None 
         self.atras = None 
         self.next = None
+        self.atras_plot=None
+        self.next_plot=None
         self.configuration=None 
         self.Table = None
         self.Graphs = None
@@ -86,6 +89,9 @@ class Plot():
             graphs_frame=Frame(self.second_plot_frame)
             self.graphs_frame=graphs_frame
 
+            plots_buttons_frame=Frame(self.second_plot_frame)
+            self.plots_buttons_frame=plots_buttons_frame
+
             imagen_frame=Frame(self.second_plot_frame)
             self.imagen_frame=imagen_frame
 
@@ -108,6 +114,12 @@ class Plot():
             next = ttk.Button(self.botones_frame,text="Siguiente →",command=self.go_to_plot_2_from_plot_1,style="TButton")
             self.next = next
 
+            atras_plot = ttk.Button(self.plots_buttons_frame, text="←", command=self.retroceder_plots,style="TButton")
+            self.atras_plot=atras_plot
+
+            next_plot = ttk.Button(self.plots_buttons_frame,text="→",command=self.avanzar_plots,style="TButton")
+            self.next_plot = next_plot
+
             configuration=ttk.Button(self.botones_frame,text="Ver configuración",command=self.show_configuration,style="TButton")
             self.configuration=configuration 
 
@@ -126,7 +138,7 @@ class Plot():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width+10
             aspect_ratio = original_image.width / original_image.height
-            height=60
+            height=40
             desired_height = int(desired_width / aspect_ratio)
             print("desired height",desired_height)
             # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
@@ -154,10 +166,26 @@ class Plot():
             self.table_frame.grid(row=1,padx=(0,45),pady=(0,0))
             self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(0,0))
 
-            self.imagen_frame.grid(row=3,padx=(0,60),pady=(135,0))
+            self.plots_buttons_frame.grid(row=3,pady=(70,0))
+            self.atras_plot.grid(row=0,column=0)
+            self.next_plot.grid(row=0,column=1)
+            
+            self.imagen_frame.grid(row=3,padx=(0,60),pady=(155,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
+
             
-            
+    def avanzar_plots(self):
+        self.view_instance.enqueue_transition('avanzar_plots')
+
+    def retroceder_plots(self):
+        self.view_instance.enqueue_transition('retroceder_plots')
+
+    def avanzar_data_graphs(self):
+        self.Graphs.show_data(1)
+
+    def retroceder_data_graphs(self):
+        self.Graphs.show_data(-1)
+
     def generar_pdf(self):
         self.Table.donwload_table()
         numero_pagina=self.Table.get_numero_pagina()
