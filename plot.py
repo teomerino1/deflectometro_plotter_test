@@ -138,7 +138,7 @@ class Plot():
             # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width+10
             aspect_ratio = original_image.width / original_image.height
-            height=40
+            height=53
             desired_height = int(desired_width / aspect_ratio)
             print("desired height",desired_height)
             # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
@@ -166,12 +166,14 @@ class Plot():
             self.table_frame.grid(row=1,padx=(0,45),pady=(0,0))
             self.graphs_frame.grid(row=3,columnspan=2,padx=(0,0),pady=(0,0))
 
-            self.plots_buttons_frame.grid(row=3,pady=(70,0))
+            self.imagen_frame.grid(row=3,padx=(0,60),pady=(145,0))
+            self.image_label.grid(row=0,columnspan=2,padx=(0,0))
+
+            self.plots_buttons_frame.grid(row=3,pady=(60,0))
             self.atras_plot.grid(row=0,column=0)
             self.next_plot.grid(row=0,column=1)
             
-            self.imagen_frame.grid(row=3,padx=(0,60),pady=(155,0))
-            self.image_label.grid(row=0,columnspan=2,padx=(0,0))
+            
 
             
     def avanzar_plots(self):
@@ -187,9 +189,10 @@ class Plot():
         self.Graphs.show_data(-1)
 
     def generar_pdf(self):
-        self.Table.donwload_table()
-        numero_pagina=self.Table.get_numero_pagina()
-        self.Graphs.donwload_graphs(numero_pagina)
+        # self.Table.donwload_table()
+        # numero_pagina=self.Table.get_numero_pagina()
+        #Llamo a download graphs con la flag en 1 para testear
+        self.Graphs.donwload_graphs(numero_pagina=1,graph_flag=0)
         
     def get_prog_max(self):
         return self.Graphs.get_max()

@@ -194,15 +194,15 @@ class View():
 
     def download_pdf(self):
         #Genero los PDF en el orden que van en el informe
-        self.generar_carátula("caratula.pdf")
-        self.Plot5.download_stats()
+        # self.generar_carátula("caratula.pdf")
+        # self.Plot5.download_stats()
         self.Plot.generar_pdf()
-        numero_pagina=self.Plot.get_table().get_numero_pagina()
-        self.Plot2.download_graphs()
-        self.Plot3.download_graphs()
-        self.Plot4.download_graphs(numero_pagina)
+        # numero_pagina=self.Plot.get_table().get_numero_pagina()
+        # self.Plot2.download_graphs()
+        # self.Plot3.download_graphs()
+        # self.Plot4.download_graphs(numero_pagina)
         sleep(1)
-        self.combine_pdf(numero_pagina)
+        # self.combine_pdf(numero_pagina)
 
     def generar_carátula(self,filename):
 
@@ -544,11 +544,9 @@ class View():
 
                 # Ejecutar la función de transición de interfaz correspondiente
                 if target_function == 'go_to_config':
-                    # if(self.get_state()=='Obteniendo datos'):
                     respuesta= messagebox.askokcancel("Aviso","Si vuelve a la configuración deberá resetear el recorrido. ¿Desea continuar?")
                     if respuesta:
                         reset_message = tk.Toplevel(self.root)
-                        
                         reset_message.title("Reset Info")
                         message_label = tk.Label(reset_message, text="Reseteando. Por favor espere...",font=(None,10))
                         message_label.pack()
@@ -558,7 +556,6 @@ class View():
                         self.reset_all_data()
                         self.reset_all_plots()
                         reset_message.destroy()
-                        # messagebox.showinfo("Aviso", "Datos reseteados!")
                         self.set_reset(0)
                         self.enqueued_functions.remove(target_function)
                         self.interface_transition_queue.task_done()
@@ -574,9 +571,6 @@ class View():
                 elif target_function == 'go_to_plot_1_from_config':
                     if(self.get_data_ready()==1):
                         messagebox.showwarning("Aviso","Debe resetear los datos antes de intentar modificarlos")
-                        # self.interface_transition_queue.task_done()
-                        # self.enqueued_functions.remove(target_function)
-                        # continue
 
                     if(self.go_to_plot1_from_config()==0):
                         self.interface_transition_queue.task_done()
@@ -588,8 +582,6 @@ class View():
                     else:
                         self.enqueued_functions.remove(target_function)
                 
-                    
-
                 elif target_function == 'go_to_plot_2_from_plot_1':
                     self.go_to_plot_2_from_plot_1()
                     self.enqueued_functions.remove(target_function)
@@ -642,7 +634,6 @@ class View():
                     self.set_reset(1)
                     self.reset_all_plots()
                     self.reset_all_data()
-                    # messagebox.showinfo("Aviso", "Datos reseteados!")
                     self.set_reset(0)
                     reset_message.destroy()
                     self.interface_transition_queue.task_done()
@@ -798,23 +789,23 @@ class View():
             print(cantidad)
             
             if(self.reporter_instance.get_puesto_change()==0):
-                # if(a>=100):
-                #     self.amount=10
-                #     b=b+1
-                #     if(b==10):
-                #         b=0
-                #         print("Grafico barras")
-                #         # update_bar_thread = Thread(target=self.update_defl_one,args=(self,10))
-                #         update_bar_thread = Thread(target=self.update_defl_one)
-                #         update_bar_thread.daemon=True
-                #         update_bar_thread.start()
-                # else:
+                if(a>=200):
+                    self.amount=10
+                    b=b+1
+                    if(b==10):
+                        b=0
+                        print("Grafico barras")
+                        # update_bar_thread = Thread(target=self.update_defl_one,args=(self,10))
+                        update_bar_thread = Thread(target=self.update_defl_one)
+                        update_bar_thread.daemon=True
+                        update_bar_thread.start()
+                else:
                     # View.set_state("Grafico barras")
-                print("Grafico barras")
-                # update_bar_thread = Thread(target=self.update_defl_one,args=(self,1))
-                update_bar_thread = Thread(target=self.update_defl_one)
-                update_bar_thread.daemon=True
-                update_bar_thread.start()
+                    print("Grafico barras")
+                    # update_bar_thread = Thread(target=self.update_defl_one,args=(self,1))
+                    update_bar_thread = Thread(target=self.update_defl_one)
+                    update_bar_thread.daemon=True
+                    update_bar_thread.start()
                 
                 if(cantidad%grupos == 0):
                     print("Grafico grupos")
