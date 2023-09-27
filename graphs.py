@@ -27,7 +27,7 @@ class Graphs():
         self.indexes = []
         self.flag=0
         #CANTIDAD DE BARRAS A QUERER GRAFICAR!!!!!!!!!
-        self.cantidad_barras=500
+        self.cantidad_barras=200
         #VARIABLE PARA INSTANCIAR NUEVOS ARRAY DE DATOS, POR EJEMPLO 'self.defl_l_data_1,self.defl_l_data_2'
         self.contador_graficos=0
         #VARIABLE PARA SABER QUÉ ARRAY DE DATOS ESTOY SELECCIONANDO.
@@ -80,13 +80,14 @@ class Graphs():
 
         print("Len indexes UPDATE BAR:",len(indexes))
         print("Len datos der UPDATE BAR:",len(dataset_izq))
-        
+
         #Si el selector de datos es el actual, grafico en tiempo real
         if(self.contador_graficos==self.data_selector):
             self.graph_data(dataset_der,dataset_izq,indexes,limite=self.contador_graficos)
         
         #Si ya alcancé la cantidad de datos, incremento contador y creo arrays nuevos
-        if(len(indexes)==self.cantidad_barras):
+        if(len(indexes)>=self.cantidad_barras):
+            print("IDENTIFICO QUE TENGO QUE CREAR NEWS")
             self.contador_graficos+=1
             self.create_arrays()
 

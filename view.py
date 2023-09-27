@@ -789,7 +789,7 @@ class View():
             print(cantidad)
             
             if(self.reporter_instance.get_puesto_change()==0):
-                if(a>=200):
+                if(a>100):
                     self.amount=10
                     b=b+1
                     if(b==10):
