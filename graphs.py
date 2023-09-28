@@ -27,7 +27,7 @@ class Graphs():
         self.indexes = []
         self.flag=0
         #CANTIDAD DE BARRAS A QUERER GRAFICAR!!!!!!!!!
-        self.cantidad_barras=50
+        self.cantidad_barras=5
         #VARIABLE PARA INSTANCIAR NUEVOS ARRAY DE DATOS, POR EJEMPLO 'self.defl_l_data_1,self.defl_l_data_2'
         self.contador_graficos=0
         #VARIABLE PARA SABER QUÉ ARRAY DE DATOS ESTOY SELECCIONANDO.
@@ -191,13 +191,18 @@ class Graphs():
     def get_flag(self):
         return self.flag
     
+    def get_array_total(self):
+        data_total=[]
+        for i in range(0,self.contador_graficos+1):
+            data_total.extend(getattr(self, f"defl_r_data_{i}"))
+        return data_total
+    
     def get_max(self):
-        defl_l_data_actual=self.get_dataset_actual_izq()
-        if(defl_l_data_actual==[]):
+        data_total_actual=self.get_array_total()
+        if(data_total_actual==[]):
             messagebox.showwarning("Aviso","No hay datos para mostrar en PDF")
         else:
-            new_indexes = self.get_indexes_actual()
-            return max(new_indexes)
+            return len(data_total_actual)
     
     def donwload_graphs(self,numero_pagina,graph_flag):
         

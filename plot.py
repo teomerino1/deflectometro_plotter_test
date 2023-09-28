@@ -189,10 +189,10 @@ class Plot():
         self.Graphs.show_data(-1)
 
     def generar_pdf(self,graph_flag):
-        # self.Table.donwload_table()
-        # numero_pagina=self.Table.get_numero_pagina()
+        self.Table.donwload_table()
+        numero_pagina=self.Table.get_numero_pagina()
         #Llamo a download graphs con la flag en 1 para testear
-        self.Graphs.donwload_graphs(numero_pagina=1,graph_flag=graph_flag)
+        self.Graphs.donwload_graphs(numero_pagina=numero_pagina,graph_flag=graph_flag)
         
     def get_prog_max(self):
         return self.Graphs.get_max()

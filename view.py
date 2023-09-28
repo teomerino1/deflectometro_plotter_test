@@ -200,15 +200,15 @@ class View():
         graph_flag=self.var.get()
         self.deflexiones_message.destroy()
         #Genero los PDF en el orden que van en el informe
-        # self.generar_carátula("caratula.pdf")
-        # self.Plot5.download_stats()
+        self.generar_carátula("caratula.pdf")
+        self.Plot5.download_stats()
         self.Plot.generar_pdf(graph_flag=graph_flag)
-        # numero_pagina=self.Plot.get_table().get_numero_pagina()
-        # self.Plot2.download_graphs()
-        # self.Plot3.download_graphs()
-        # self.Plot4.download_graphs(numero_pagina)
-        # sleep(1)
-        # self.combine_pdf(numero_pagina)
+        numero_pagina=self.Plot.get_table().get_numero_pagina()
+        self.Plot2.download_graphs()
+        self.Plot3.download_graphs()
+        self.Plot4.download_graphs(numero_pagina)
+        sleep(1)
+        self.combine_pdf(numero_pagina)
 
     
        
@@ -668,7 +668,7 @@ class View():
                     update_bar_thread.daemon=True
                     update_bar_thread.start()
                 
-                if(cantidad%grupos == 0):
+                if(cantidad%5 == 0):
                     print("Grafico grupos")
                     update_all_thread = Thread(target=self.update_all)
                     update_all_thread.daemon=True 
