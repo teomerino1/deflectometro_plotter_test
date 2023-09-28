@@ -27,7 +27,7 @@ class Graphs():
         self.indexes = []
         self.flag=0
         #CANTIDAD DE BARRAS A QUERER GRAFICAR!!!!!!!!!
-        self.cantidad_barras=100
+        self.cantidad_barras=50
         #VARIABLE PARA INSTANCIAR NUEVOS ARRAY DE DATOS, POR EJEMPLO 'self.defl_l_data_1,self.defl_l_data_2'
         self.contador_graficos=0
         #VARIABLE PARA SABER QUÉ ARRAY DE DATOS ESTOY SELECCIONANDO.
@@ -94,19 +94,28 @@ class Graphs():
     def show_data(self,step):
         #Si estoy parado en el gráfico actual y quiero avanzar, no hago nada
         if(self.data_selector==self.contador_graficos and step==1):
-            print("Estoy en el actual. Me voy")
+            print("ESTOY EN EL ACTUAL. NO MUESTRO")
+            print("CONTADOR GRAFICOS:",self.contador_graficos)
+            print("DATA SELECTOR:",self.data_selector)
             return
         valor_anterior=self.data_selector
         self.data_selector += step
-        if hasattr(self, f"defl_r_data_{self.data_selector}") and hasattr(self, f"defl_l_data_{self.data_selector}"):
+
+        #Si existen los arrays y además tienen datos los muestro. Si no, no.
+        if hasattr(self, f"defl_r_data_{self.data_selector}") and len(getattr(self, f"defl_l_data_{self.data_selector}"))>0:
+            print("MUESTRO")
+            print("CONTADOR GRAFICOS:",self.contador_graficos)
+            print("DATA SELECTOR:",self.data_selector)
             dataset_der = getattr(self, f"defl_r_data_{self.data_selector}")
             dataset_izq = getattr(self, f"defl_l_data_{self.data_selector}")
             indexes=list(range(self.data_selector*self.cantidad_barras,self.data_selector*self.cantidad_barras+len(dataset_der)))
             self.graph_data(dataset_der,dataset_izq,indexes,limite=self.data_selector)
 
         else:
-            print("No hay pa mostra")
+            print("NO HAY PA MOSTRA")
             self.data_selector=valor_anterior
+            print("CONTADOR GRAFICOS:",self.contador_graficos)
+            print("DATA SELECTOR:",self.data_selector)
 
     def graph_data(self,dataset_der,dataset_izq,indexes,limite):
 

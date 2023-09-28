@@ -2,6 +2,9 @@ import mysql.connector
 from mysql.connector import errorcode 
 import json
 
+"""
+Esta clase se encarga de conectarse a la base de Datos y realizar las consultas para obtener los datos
+"""
 class Database:
     def __init__(self):
         config_file = open('config.json', 'r')
@@ -13,6 +16,10 @@ class Database:
             print("No se pudo establecer la conexión a la base de datos.")
         self.cursor = self.conn.cursor(buffered=True, dictionary=True)
 
+    """
+    Este método intenta conectarse a la base de datos.
+    Informa en caso de error.
+    """
     def connect(self):
         try:
             return mysql.connector.connect(**self.config)
@@ -25,6 +32,12 @@ class Database:
                 print("Error inesperado al conectar a la base de datos:", err)
             return None
 
+    """
+    Este método ejecuta una query en la base de datos.
+
+    @return - El resultado de la query en caso exitoso
+            - None en caso de error
+    """
     def query(self, query):
         if self.conn is not None:
             try:

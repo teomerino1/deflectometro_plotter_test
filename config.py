@@ -74,12 +74,10 @@ class Config():
 
 
     """
-    MÉTODO SHOW
-        Esta función se llama cuando se accede a la interfaz.
+    Esta función se llama cuando se accede o se instancia la interfaz.
 
-        @params a: Si a es 0, se instancia la clase por lo que se crean todos los objetos.
-                   Si a es 1, se accede a la interfaz por lo que se muestran los objetos creados.
-                    
+    @params a: Si a es 0, se instancia la clase por lo que se crean todos los objetos.
+                Si a es 1, se accede a la interfaz por lo que se muestran los objetos creados.         
     """
     def show(self,a):
         
@@ -262,8 +260,6 @@ class Config():
             self.image_label = Label(self.imagenes_frame, image=self.image_cba)
             self.image_label.image = self.image_cba
     
-
-           
         if(a==1):
 
             self.config_frame.grid(columnspan=2)
@@ -333,14 +329,12 @@ class Config():
 
             self.image_label.grid(row=0,column=0,columnspan=2,padx=(0,0),pady=(0,0))
            
-
     """
-    MÉTODO CLOSE
-        Esta función se llama cuando se cierra esta interfaz.
-        Corrobora que todos los parámetros hayan sido completados correctamente.
-        @return: 
-            0 Si todos los parámetros están correctos
-            1 Si hay algún error 
+    Est método se llama cuando se cierra esta interfaz.
+    Corrobora que todos los parámetros hayan sido completados correctamente.
+    @return: 
+        0 Si todos los parámetros están correctos
+        1 Si hay algún error 
     """
     def close(self):
 
@@ -370,7 +364,6 @@ class Config():
 
         for text_field in text_fields:
             if text_field.get() == '':
-                print("Detecto que la data es ''")
                 messagebox.showwarning("Aviso", "Deben llenarse todos los campos de texto antes de continuar")
                 return 1
 
@@ -406,12 +399,20 @@ class Config():
         
         return 0
 
+    #TODO-> CORROBORAR SI ESTE MÉTODO NO SE USA. EN ESE CASO, BORRARLO.
     def get_config(self):
         return self.temp_ntry.get(), self.var.get(), self.muestras_ntry.get(), self.espesor.get(), self.ft_ntry.get(), self.fh_ntry.get(), self.fc_ntry.get(), self.z_ntry.get()
     
+    """
+    Este método se llama cuando hay un reset.
+    Destruye el frame principal de la interfaz y todo lo que contiene
+    """
     def reset(self):
         self.config_frame.destroy()
 
+
+    
+    #TODO-> VERIFICAR SI ESTE MÉTODO SE USA. SI NO SE USA, BORRARLO.
     def reset_all_plots(self):
         data=[
             self.apoyo_ntry,
@@ -435,5 +436,9 @@ class Config():
             else:
                 self.view_instance.enqueue_transition('reset_all_plots')
 
+    """
+    Este método se llama cuando se quiere avanzar hacia
+    la interfaz del plot1. Encola la función correspondiente.
+    """
     def go_to_plot_1_from_config(self):
         self.view_instance.enqueue_transition('go_to_plot_1_from_config')

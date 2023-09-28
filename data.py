@@ -83,11 +83,10 @@ class Data():
         } 
 
     """
-    MÉTODO DATA_DESTRUCT:
-        Esta función desestructura los datos que vienen de la base de datos.
-        Los divide en radio y deflexión, y además realiza el cálculo de compensación.
+    Este método desestructura los datos que vienen de la base de datos.
+    Los divide en radio y deflexión, y además realiza el cálculo de compensación.
 
-        @params data: El objeto data que contiene los valores de radio y deflexión.
+    @params data: El objeto data que contiene los valores de radio y deflexión.
     """
     def data_destruct(self,data):
 
@@ -108,11 +107,10 @@ class Data():
         self.radio_l_acum.append(radio_l_aux)
        
     """
-    MÉTODO UPDATE_BAR_DATA:
-        Esta función hace un update de los datos correspondientes al gráfico de barras 
-        de deflexiones individuales.
+    Este método hace un update de los datos correspondientes al gráfico de barras 
+    de deflexiones individuales.
 
-        @param amount: La cantidad de datos a actualizar
+    @param amount: La cantidad de datos a actualizar
     """
     def update_bar_data(self,amount):
         self.defl_bar_r.extend(self.defl_r[-amount:])
@@ -120,20 +118,18 @@ class Data():
         return self.defl_bar_r,self.defl_bar_l
     
     """
-    CLEAR_BAR_DATA:
-        Esta función hace un clear de los arreglos de datos de deflexiones individuales.
+    Este método hace un clear de los arreglos de datos de deflexiones individuales.
     """
     def clear_bar_data(self):
         self.defl_bar_r.clear()
         self.defl_bar_l.clear()
 
     """
-    UPDATE_STRUCTURES:
-        Esta función actualiza las estructuras de datos que van a graficarse.
-        Es llamada cuando se cumple el grupo de 50 o 100 datos.
-            -Calcula el promedio de los radios y deflexiones, y la deflexion característica
-            -Añade los datos a los diccionarios que se insertan en la tabla
-            -Limpia los datos porque ya se cumplió el grupo
+    Este método actualiza las estructuras de datos que van a graficarse.
+    Es llamada cuando se cumple el grupo de 50 o 100 datos.
+        -Calcula el promedio de los radios y deflexiones, y la deflexion característica
+        -Añade los datos a los diccionarios que se insertan en la tabla
+        -Limpia los datos porque ya se cumplió el grupo
     """
     def update_structures(self):
         
@@ -172,13 +168,12 @@ class Data():
 
     
     """
-    COMPENSATE:
-        Esta función realiza los cálculos de compensación de los datos.
+    Esta función realiza los cálculos de compensación de los datos.
 
-        @params: Valores auxiliares de deflexiones y radios a ser compensados
+    @params: Valores auxiliares de deflexiones y radios a ser compensados
+    @return Los valores compensados
     """
     def compensate(self,defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux):
-
         defl_r_aux=round((defl_r_aux/((0.001*self.espesor*(self.temp-20))+1)),2)
         defl_l_aux=round((defl_l_aux/((0.001*self.espesor*(self.temp-20))+1)),2) 
         radio_r_aux=round((radio_r_aux*((0.001*self.espesor*(self.temp-20))+1)),2)
@@ -187,9 +182,10 @@ class Data():
        
 
     """
-    CALCULATE STATS:
-        Esta función es llamada cuando se realizan los cálculos estadísticos.
-        Si aún no hay datos para realizar cálculos, se los retorna con valor 0
+    Esta función es llamada cuando se realizan los cálculos estadísticos.
+
+    @return - Si hay valores para calcular, retorna los valores de todos los cálculos estadísticos
+            - Si no hay valores para calcular, los retorna todos 0 
     """
     def calculate_stats(self):
 
@@ -250,68 +246,110 @@ class Data():
 
         return media_defl_der,media_defl_izq,media_rad_der,media_rad_izq,desv_defl_der,desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq,d_r_der,d_r_izq,d_x_r_der,d_x_r_izq,total_mediciones_defl,total_mediciones_rad
 
-
+    """
+    Esta función retorna los diccionarios de valores de derecha e izquierda
+    """
     def get_data_dict(self):
         return self.data_dict_r, self.data_dict_l
     
+    """
+    Esta función retorna los valores máximos de deflexion derecha e izquierda
+    """
     def get_max_defl(self):
         return self.defl_l_max, self.defl_r_max
     
+    """
+    Esta función retorna los valores de deflexión característca derecha e izquierda
+    """
     def get_car_defl(self):
         return self.defl_l_car, self.defl_r_car
     
+    """
+    Esta función retorna el diccionario del histograma de mediciones
+    """
     def get_hist_dict(self):
         return self.hist_dict
 
+    """
+    Esta función retorna la cantidad de mediciones
+    """
     def cant_mediciones(self):
         return len(self.defl_r)
     
+    """
+    Esta función retorna los índices
+    """
     def get_indexes(self):
-        # self.indices = list(range(1,len(self.defl_bar_r)+1))
         return self.indices
-        # return self.hist_dict['index']
 
+    """
+    Esta función retorna los arreglos para el gráfico de deflexiones individuales
+    """
     def get_defl_bar(self):
         return  self.defl_bar_r, self.defl_bar_l
                
 
-    # Estas dos funciones se pueden usar para pasar los valores para el grafico de barras
+    """
+    Esta función retorna un diccionario con las deflexiones derecha e izquierda totales
+    """
     def get_defl(self):
         return {
                 "right": self.defl_r_acum,
                 "left": self.defl_l_acum
                }
     
+    """
+    Esta función setea el valor del espesor obtenido en la interfaz de configuración
+    """
     def set_espesor(self,espesor):
-        print("Espesor:",espesor)
         self.espesor=espesor
 
+    """
+    Esta función setea el valor de temperatura obtenido en la interfaz de configuración
+    """
     def set_temp(self,temp):
-        print("Temp:",temp)
         self.temp=temp
-        
+
+    """
+    Esta función setea el valor de ft obtenido en la interfaz de configuración
+    """    
     def set_ft(self,ft):
-        print("Ft:",ft)
         self.ft=ft
 
+    """
+    Esta función setea el valor de fc obtenido en la interfaz de configuración
+    """
     def set_fc(self,fc):
-        print("Fc",fc)
         self.fc=fc
-        
+
+    """
+    Esta función setea el valor de fh obtenido en la interfaz de configuración
+    """  
     def set_fh(self,fh):
-        print("Fh:",fh)
         self.fh=fh
 
+    """
+    Esta función setea el valor de z obtenido en la interfaz de configuración
+    """
     def set_z(self,z):
-        print("Z:",z)
         self.z=z
 
+    """
+    Esta función setea el valor de los grupos obtenido en la interfaz de configuración
+    """
     def set_grupos(self,grupos):
         self.grupos=grupos
 
+    """
+    Esta función retorna el valor de los grupos obtenido en la interfaz de configuración
+    """
     def get_grupos(self):
         return self.grupos
-        
+    
+    """
+    Esta función resetea todos los datos que maneja la clase Data.
+    Se ejecuta cuando ocurre un reset
+    """    
     def reset_all(self):
         self.defl_r.clear()
         self.defl_l.clear()
