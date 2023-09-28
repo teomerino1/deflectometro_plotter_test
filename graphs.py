@@ -27,7 +27,7 @@ class Graphs():
         self.indexes = []
         self.flag=0
         #CANTIDAD DE BARRAS A QUERER GRAFICAR!!!!!!!!!
-        self.cantidad_barras=200
+        self.cantidad_barras=100
         #VARIABLE PARA INSTANCIAR NUEVOS ARRAY DE DATOS, POR EJEMPLO 'self.defl_l_data_1,self.defl_l_data_2'
         self.contador_graficos=0
         #VARIABLE PARA SABER QUÉ ARRAY DE DATOS ESTOY SELECCIONANDO.
@@ -92,9 +92,12 @@ class Graphs():
             self.create_arrays()
 
     def show_data(self,step):
+        #Si estoy parado en el gráfico actual y quiero avanzar, no hago nada
+        if(self.data_selector==self.contador_graficos and step==1):
+            print("Estoy en el actual. Me voy")
+            return
         valor_anterior=self.data_selector
         self.data_selector += step
-
         if hasattr(self, f"defl_r_data_{self.data_selector}") and hasattr(self, f"defl_l_data_{self.data_selector}"):
             dataset_der = getattr(self, f"defl_r_data_{self.data_selector}")
             dataset_izq = getattr(self, f"defl_l_data_{self.data_selector}")
@@ -107,16 +110,13 @@ class Graphs():
 
     def graph_data(self,dataset_der,dataset_izq,indexes,limite):
 
-        # print("Dataset der SHOW DATA:",dataset_der)
-        # print("Indexes SHOW DATA:",indexes)
-        # Limpia las figuras
         self.figure_bar_r.clear() #TODO-> ESTA LINEA ME TIRO ERROR!!!!!!!!!!!!!!!!!!!!!!
         self.figure_bar_l.clear()
 
         subfigure_der = self.figure_bar_r.add_subplot(211)
         subfigure_izq = self.figure_bar_l.add_subplot(211)
         
-        #Si los datasets ya tienen datos, grafico. Puede pasar que existan pero todavia no tengan datos
+        #Si los datasets ya tienen datos, los grafico. Puede pasar que existan pero todavia no tengan datos
         if(len(dataset_der) and len(dataset_izq)>0):
             subfigure_der.set_xlim(limite*self.cantidad_barras,limite*self.cantidad_barras+len(dataset_der))
             subfigure_izq.set_xlim(limite*self.cantidad_barras,limite*self.cantidad_barras+len(dataset_izq))
@@ -125,11 +125,11 @@ class Graphs():
             subfigure_der.bar(indexes, dataset_der, width=1)
             subfigure_izq.bar(indexes, dataset_izq, width=1)
 
-            subfigure_der.set_title("Deflexion Derecha")
-            subfigure_izq.set_title("Deflexion Izquierda")
+            subfigure_der.set_title("Deflexiones Derecha")
+            subfigure_izq.set_title("Deflexiones Izquierda")
 
-            subfigure_der.set_xlabel("nº grupo")
-            subfigure_izq.set_xlabel("nº grupo")
+            subfigure_der.set_xlabel("nº")
+            subfigure_izq.set_xlabel("nº")
 
             subfigure_der.set_ylabel("Deflexiones")
             subfigure_izq.set_ylabel("Deflexiones")
@@ -142,8 +142,8 @@ class Graphs():
             self.figure_bar_l.canvas.draw_idle()
 
     def show_bar_graph(self):
-        self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(2, 0,"Deflexion Izquierda")
-        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(2, 1,"Deflexion Derecha")
+        self.figure_bar_l, self.bar_l, self.bar_widget_l = self.bar_graph(2, 0,"Deflexiones Izquierda")
+        self.figure_bar_r, self.bar_r, self.bar_widget_r = self.bar_graph(2, 1,"Deflexiones Derecha")
         self.create_arrays()
  
     def create_arrays(self): 
@@ -232,11 +232,11 @@ class Graphs():
             subfigure_izq_aux.bar(indexes, data_parcial_izq, width=1)
 
             
-        subfigure_der_aux.set_title("Deflexion Derecha")
-        subfigure_izq_aux.set_title("Deflexion Izquierda")
+        subfigure_der_aux.set_title("Derecha")
+        subfigure_izq_aux.set_title("Izquierda")
 
-        subfigure_der_aux.set_xlabel("nº grupo")
-        subfigure_izq_aux.set_xlabel("nº grupo")
+        subfigure_der_aux.set_xlabel("nº")
+        subfigure_izq_aux.set_xlabel("nº")
         
         subfigure_der_aux.set_ylabel("Deflexiones")
         subfigure_izq_aux.set_ylabel("Deflexiones")
@@ -250,15 +250,15 @@ class Graphs():
         output_pdf = 'defl_individuales.pdf'
         c = canvas.Canvas(output_pdf, pagesize=A4)
     
-        c.drawImage('header2.png', 25, 773, width=575, height=60)
+        c.drawImage('header2.png', 25, 773, width=585, height=60)
         c.drawImage('image.png', 0, 0, width=600, height=120)
-        c.drawImage('figure_bar_l.png', 100, 200, width=383, height=230)
-        c.drawImage('figure_bar_r.png', 100, 500,width=383, height=230)
+        c.drawImage('figure_bar_l.png', 40, 150, width=500, height=280)
+        c.drawImage('figure_bar_r.png', 40, 450,width=500, height=280)
         c.drawString(centro_x-1, 125, f"{numero_pagina+1}")
                     
         c.save()
-        os.remove('figure_bar_l.png')
-        os.remove('figure_bar_r.png')
+        # os.remove('figure_bar_l.png')
+        # os.remove('figure_bar_r.png')
 
 
 

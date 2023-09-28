@@ -70,6 +70,10 @@ class View():
         ##############
         self.amount=None
         ################
+        self.var=None
+        self.total=None
+        self.parcial=None
+        self.deflexiones_message=None
          # Crear una cola bloqueante para las funciones de transición de interfaz
         self.interface_transition_queue = queue.Queue()
         self.enqueued_functions = set()
@@ -193,184 +197,23 @@ class View():
         self.nro_puesto=nro_puesto
 
     def download_pdf(self):
+        graph_flag=self.var.get()
+        self.deflexiones_message.destroy()
         #Genero los PDF en el orden que van en el informe
         # self.generar_carátula("caratula.pdf")
         # self.Plot5.download_stats()
-        self.Plot.generar_pdf()
+        self.Plot.generar_pdf(graph_flag=graph_flag)
         # numero_pagina=self.Plot.get_table().get_numero_pagina()
         # self.Plot2.download_graphs()
         # self.Plot3.download_graphs()
         # self.Plot4.download_graphs(numero_pagina)
-        sleep(1)
+        # sleep(1)
         # self.combine_pdf(numero_pagina)
 
-    def generar_carátula(self,filename):
-
-            # Abrir el PDF existente en modo de escritura y agregar contenido
-        c = canvas.Canvas(filename, pagesize=A4)
-        ancho_pagina, alto_pagina = A4
-        centro_x = ancho_pagina / 2
-        # Dibuja la imagen en el PDF
-        c.drawImage('caratula3.png', 70, 420, width=469, height=386)
-
-        ruta = "Ruta: " + self.get_ruta()
-        ancho_ruta = c.stringWidth(ruta, "Helvetica", 14)
-        posicion_1 = centro_x - (ancho_ruta / 2)
-
-        provincia = "Provincia: " + self.get_provincia()
-        ancho_provincia = c.stringWidth(provincia, "Helvetica", 14)
-        posicion_2 = centro_x - (ancho_provincia / 2)
-
-        tramo ="Tramo: " + self.get_tramo()
-        ancho_tramo = c.stringWidth(tramo, "Helvetica", 14)
-        posicion_3 = centro_x - (ancho_tramo / 2)
-
-        subtramo = "Subtramo: " + self.get_subtramo()
-        ancho_subtramo = c.stringWidth(subtramo, "Helvetica", 14)
-        posicion_4 = centro_x - (ancho_subtramo / 2)
-
-        pavimento ="Pavimento: "+ self.get_pavimento()
-        ancho_pavimento = c.stringWidth(pavimento, "Helvetica", 14)
-        posicion_5 = centro_x - (ancho_pavimento / 2)
-
-        puesto="Número de trayecto: "+str(self.reporter_instance.get_puesto())
-        ancho_puesto = c.stringWidth(puesto, "Helvetica", 14)
-        posicion_6 = centro_x - (ancho_puesto / 2)
-
-        prog_max = "Progresiva final: "+str(self.Plot.get_prog_max())
-        ancho_prog = c.stringWidth(prog_max, "Helvetica", 14)
-        posicion_7 = centro_x - (ancho_prog / 2)
-
-        prog_inicial = "Progresiva inicial: 0"
-        ancho_prog_inicial = c.stringWidth(prog_inicial, "Helvetica", 14)
-        posicion_15 = centro_x - (ancho_prog_inicial / 2)
-
-        temperatura = "Temperatura [ºC]: "+str(self.get_temp())
-        ancho_temp = c.stringWidth(temperatura, "Helvetica", 14)
-        posicion_14 = centro_x - (ancho_temp / 2)
-
-        fecha = "Fecha: "+str(datetime.datetime.now().date())
-        ancho_fecha = c.stringWidth(fecha, "Helvetica", 12)
-        posicion_8 = centro_x - (ancho_fecha / 2)
-
-        hora_inicio="Inicio: "+ str(self.reporter_instance.get_initial_time())
-        ancho_hora_inicio=c.stringWidth(hora_inicio, "Helvetica", 12)
-        posicion_9=centro_x - (ancho_hora_inicio / 2)
-
-        hora_final = datetime.datetime.now().strftime("%H:%M")
-        hora, minutos = hora_final.split(":")
-        hora = hora.zfill(2)
-        minutos = minutos.zfill(2)
-        hora_final_string = f"Fin: {hora}:{minutos}"
-        ancho_hora_final=c.stringWidth(hora_final_string, "Helvetica", 12)
-        posicion_10=centro_x - (ancho_hora_final / 2)
-
-        chofer = "Chofer: "+self.get_chofer()
-        ancho_chofer = c.stringWidth(chofer, "Helvetica", 12)
-        posicion_11 = centro_x - (ancho_chofer / 2)
-
-        apoyo = "Apoyo: "+self.get_apoyo()
-        ancho_apoyo = c.stringWidth(apoyo, "Helvetica", 12)
-        posicion_12 = centro_x - (ancho_apoyo / 2)
-
-        operador = "Operador: "+self.get_operador()
-        ancho_operador = c.stringWidth(operador, "Helvetica", 12)
-        posicion_13 = centro_x - (ancho_operador / 2)
-
-        c.setFont("Helvetica", 14)
-        
-        
-        c.drawString(posicion_2, 340, f"{provincia}")
-        c.drawString(posicion_3, 320, f"{tramo}")
-        c.drawString(posicion_4, 300, f"{subtramo}")
-        c.drawString(posicion_5, 280, f"{pavimento}")
-        c.drawString(posicion_15, 260, f"{prog_inicial}")
-        c.drawString(posicion_7, 240, f"{prog_max}")
-        c.drawString(posicion_14, 220, f"{temperatura}")
-        c.drawString(posicion_8, 190, f"{fecha}")
-        c.drawString(posicion_9, 170, f"{hora_inicio}")
-        c.drawString(posicion_10, 150, f"{hora_final_string}")
-        c.drawString(posicion_11, 130, f"{chofer}")
-        c.drawString(posicion_12, 110, f"{apoyo}")
-        c.drawString(posicion_13, 90, f"{operador}")
-        c.drawString(posicion_6, 70, f"{puesto}")
-
-        c.save()
+    
        
 
-    def combine_pdf(self,numero_pagina):
-
-        output1="pdf2.pdf"
-        output2="pdf3.pdf"
-
-        image_path='figure_rad_l.png'
-        if os.path.exists(image_path): 
-
-            ancho_pagina,alto_pagina=A4
-            centro_x = ancho_pagina / 2
-            c = canvas.Canvas(output1, pagesize=A4)
-            c.drawImage('header2.png', 25, 773, width=575, height=60)
-            c.drawImage('image.png', 0, 0, width=600, height=120)
-            c.drawImage('figure_defl_mean_l.png',100, 200, width=383, height=275)
-            c.drawImage('figure_rad_l.png', 100, 500,width=383, height=230)
-            c.drawString(centro_x-1, 125, f"{numero_pagina+2}")
-            c.save()
-
-            c = canvas.Canvas(output2, pagesize=A4)
-            c.drawImage('header2.png', 25, 773, width=575, height=60)
-            c.drawImage('image.png', 0, 0, width=600, height=120)
-            c.drawImage('figure_defl_mean_r.png', 100, 200, width=383, height=275)
-            c.drawImage('figure_rad_r.png', 100, 500,width=383, height=230)
-            c.drawString(centro_x-1, 125, f"{numero_pagina+3}")
-            c.save()
-
-            pdf_files = [
-                "caratula.pdf",
-                "stats.pdf",
-                "tabla.pdf",    
-                "defl_individuales.pdf",
-                "pdf2.pdf",
-                "pdf3.pdf",
-                "radios.pdf"
-            ]
-            
-
-            puesto = self.reporter_instance.get_puesto()
-            current_datetime = datetime.datetime.now()
-            formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
-
-            # Ruta absoluta para la carpeta "Informes" en el escritorio
-            # informes_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Informes")
-
-            # Nombre del archivo PDF completo
-            # output_filename = os.path.join(informes_folder, f"{formatted_datetime}_puesto_{puesto}.pdf")
-            output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
-
-            pdf_merger = PyPDF2.PdfMerger()
-       
-            for pdf_file in pdf_files:
-                pdf_merger.append(pdf_file)
-            
-            
-            with open(output_filename, "wb") as output_pdf:
-                pdf_merger.write(output_pdf)
-            
-            pdf_merger.close()
-            
-            for pdf_file in pdf_files:
-                os.remove(pdf_file)
-
-            os.remove('figure_defl_mean_l.png')
-            os.remove('figure_defl_mean_r.png')
-            os.remove('figure_rad_r.png')
-            os.remove('figure_rad_l.png')
-            self.set_state('')
-            messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes' del Escritorio.")
-
-        else:
-            # print("Detecto que la imagen no existe")
-            messagebox.showwarning("Aviso","Faltan datos para generar el PDF.")
-            return
+    
 
 # Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
     def new_group_data_view(self, dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos):
@@ -665,14 +508,32 @@ class View():
                     # self.set_data_ready(value=0)
                 
                 elif target_function=='download_pdf':
+                    
                     if(self.get_calculos_flag()!=1):
                         messagebox.showwarning("Aviso","Se deben generar los cálculos para descargar el PDF.")
                         self.interface_transition_queue.task_done()
                         self.enqueued_functions.remove(target_function)
                         # continue
                     else:
+                        
                         self.set_state("Generando PDF.")
-                        self.download_pdf()
+                        deflexiones_message = tk.Toplevel(self.root)  
+                        self.deflexiones_message=deflexiones_message
+                        deflexiones_message.title("Deflexiones")
+                        message_label = tk.Label(deflexiones_message, text="¿Cómo desea el gráfico de las deflexiones individuales?",font=(None,12))
+                        var = tk.IntVar()
+                        var.set(1)
+                        self.var=var
+                        parcial = Radiobutton(deflexiones_message,text='Parcial', variable=var, value=0)
+                        self.parcial=parcial
+                        total = Radiobutton(deflexiones_message,text='Total', variable=var, value=1)
+                        self.total=total
+                        ok = ttk.Button(deflexiones_message,text="Ok",style="TButton")
+                        message_label.pack()
+                        parcial.pack()
+                        total.pack()
+                        ok.pack()
+                        ok.config(command=self.download_pdf)
                         self.interface_transition_queue.task_done()
                         self.enqueued_functions.remove(target_function)
 
@@ -813,8 +674,172 @@ class View():
                     update_all_thread.daemon=True 
                     update_all_thread.start()
 
+    def combine_pdf(self,numero_pagina):
 
+            output1="pdf2.pdf"
+            output2="pdf3.pdf"
 
+            image_path='figure_rad_l.png'
+            if os.path.exists(image_path): 
+
+                ancho_pagina,alto_pagina=A4
+                centro_x = ancho_pagina / 2
+                c = canvas.Canvas(output1, pagesize=A4)
+                c.drawImage('header2.png', 25, 773, width=575, height=60)
+                c.drawImage('image.png', 0, 0, width=600, height=120)
+                c.drawImage('figure_defl_mean_l.png',100, 200, width=383, height=275)
+                c.drawImage('figure_rad_l.png', 100, 500,width=383, height=230)
+                c.drawString(centro_x-1, 125, f"{numero_pagina+2}")
+                c.save()
+
+                c = canvas.Canvas(output2, pagesize=A4)
+                c.drawImage('header2.png', 25, 773, width=575, height=60)
+                c.drawImage('image.png', 0, 0, width=600, height=120)
+                c.drawImage('figure_defl_mean_r.png', 100, 200, width=395, height=275)
+                c.drawImage('figure_rad_r.png', 100, 500,width=395, height=230)
+                c.drawString(centro_x-1, 125, f"{numero_pagina+3}")
+                c.save()
+
+                pdf_files = [
+                    "caratula.pdf",
+                    "stats.pdf",
+                    "tabla.pdf",    
+                    "defl_individuales.pdf",
+                    "pdf2.pdf",
+                    "pdf3.pdf",
+                    "radios.pdf"
+                ]
+                
+
+                puesto = self.reporter_instance.get_puesto()
+                current_datetime = datetime.datetime.now()
+                formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
+
+                # Ruta absoluta para la carpeta "Informes" en el escritorio
+                # informes_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Informes")
+
+                # Nombre del archivo PDF completo
+                # output_filename = os.path.join(informes_folder, f"{formatted_datetime}_puesto_{puesto}.pdf")
+                output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
+
+                pdf_merger = PyPDF2.PdfMerger()
+        
+                for pdf_file in pdf_files:
+                    pdf_merger.append(pdf_file)
+                
+                
+                with open(output_filename, "wb") as output_pdf:
+                    pdf_merger.write(output_pdf)
+                
+                pdf_merger.close()
+                
+                for pdf_file in pdf_files:
+                    os.remove(pdf_file)
+
+                os.remove('figure_defl_mean_l.png')
+                os.remove('figure_defl_mean_r.png')
+                os.remove('figure_rad_r.png')
+                os.remove('figure_rad_l.png')
+                self.set_state('')
+                messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes' del Escritorio.")
+
+            else:
+                # print("Detecto que la imagen no existe")
+                messagebox.showwarning("Aviso","Faltan datos para generar el PDF.")
+                return
+
+    def generar_carátula(self,filename):
+
+            # Abrir el PDF existente en modo de escritura y agregar contenido
+        c = canvas.Canvas(filename, pagesize=A4)
+        ancho_pagina, alto_pagina = A4
+        centro_x = ancho_pagina / 2
+        # Dibuja la imagen en el PDF
+        c.drawImage('caratula3.png', 70, 420, width=469, height=386)
+
+        ruta = "Ruta: " + self.get_ruta()
+        ancho_ruta = c.stringWidth(ruta, "Helvetica", 14)
+        posicion_1 = centro_x - (ancho_ruta / 2)
+
+        provincia = "Provincia: " + self.get_provincia()
+        ancho_provincia = c.stringWidth(provincia, "Helvetica", 14)
+        posicion_2 = centro_x - (ancho_provincia / 2)
+
+        tramo ="Tramo: " + self.get_tramo()
+        ancho_tramo = c.stringWidth(tramo, "Helvetica", 14)
+        posicion_3 = centro_x - (ancho_tramo / 2)
+
+        subtramo = "Subtramo: " + self.get_subtramo()
+        ancho_subtramo = c.stringWidth(subtramo, "Helvetica", 14)
+        posicion_4 = centro_x - (ancho_subtramo / 2)
+
+        pavimento ="Pavimento: "+ self.get_pavimento()
+        ancho_pavimento = c.stringWidth(pavimento, "Helvetica", 14)
+        posicion_5 = centro_x - (ancho_pavimento / 2)
+
+        puesto="Número de trayecto: "+str(self.reporter_instance.get_puesto())
+        ancho_puesto = c.stringWidth(puesto, "Helvetica", 14)
+        posicion_6 = centro_x - (ancho_puesto / 2)
+
+        prog_max = "Progresiva final: "+str(self.Plot.get_prog_max())
+        ancho_prog = c.stringWidth(prog_max, "Helvetica", 14)
+        posicion_7 = centro_x - (ancho_prog / 2)
+
+        prog_inicial = "Progresiva inicial: 0"
+        ancho_prog_inicial = c.stringWidth(prog_inicial, "Helvetica", 14)
+        posicion_15 = centro_x - (ancho_prog_inicial / 2)
+
+        temperatura = "Temperatura [ºC]: "+str(self.get_temp())
+        ancho_temp = c.stringWidth(temperatura, "Helvetica", 14)
+        posicion_14 = centro_x - (ancho_temp / 2)
+
+        fecha = "Fecha: "+str(datetime.datetime.now().date())
+        ancho_fecha = c.stringWidth(fecha, "Helvetica", 12)
+        posicion_8 = centro_x - (ancho_fecha / 2)
+
+        hora_inicio="Inicio: "+ str(self.reporter_instance.get_initial_time())
+        ancho_hora_inicio=c.stringWidth(hora_inicio, "Helvetica", 12)
+        posicion_9=centro_x - (ancho_hora_inicio / 2)
+
+        hora_final = datetime.datetime.now().strftime("%H:%M")
+        hora, minutos = hora_final.split(":")
+        hora = hora.zfill(2)
+        minutos = minutos.zfill(2)
+        hora_final_string = f"Fin: {hora}:{minutos}"
+        ancho_hora_final=c.stringWidth(hora_final_string, "Helvetica", 12)
+        posicion_10=centro_x - (ancho_hora_final / 2)
+
+        chofer = "Chofer: "+self.get_chofer()
+        ancho_chofer = c.stringWidth(chofer, "Helvetica", 12)
+        posicion_11 = centro_x - (ancho_chofer / 2)
+
+        apoyo = "Apoyo: "+self.get_apoyo()
+        ancho_apoyo = c.stringWidth(apoyo, "Helvetica", 12)
+        posicion_12 = centro_x - (ancho_apoyo / 2)
+
+        operador = "Operador: "+self.get_operador()
+        ancho_operador = c.stringWidth(operador, "Helvetica", 12)
+        posicion_13 = centro_x - (ancho_operador / 2)
+
+        c.setFont("Helvetica", 14)
+        
+        
+        c.drawString(posicion_2, 340, f"{provincia}")
+        c.drawString(posicion_3, 320, f"{tramo}")
+        c.drawString(posicion_4, 300, f"{subtramo}")
+        c.drawString(posicion_5, 280, f"{pavimento}")
+        c.drawString(posicion_15, 260, f"{prog_inicial}")
+        c.drawString(posicion_7, 240, f"{prog_max}")
+        c.drawString(posicion_14, 220, f"{temperatura}")
+        c.drawString(posicion_8, 190, f"{fecha}")
+        c.drawString(posicion_9, 170, f"{hora_inicio}")
+        c.drawString(posicion_10, 150, f"{hora_final_string}")
+        c.drawString(posicion_11, 130, f"{chofer}")
+        c.drawString(posicion_12, 110, f"{apoyo}")
+        c.drawString(posicion_13, 90, f"{operador}")
+        c.drawString(posicion_6, 70, f"{puesto}")
+
+        c.save()
 
 
 
