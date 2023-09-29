@@ -39,14 +39,14 @@ if __name__ == "__main__":
         nro_puesto = result['nro_puesto']
         print("nro_puesto:", nro_puesto)
 
-        for i in range(0, 14):
+        for i in range(0, 400):
             print("Insertando datos en la base de datos con puesto:", nro_puesto)
             cursor.execute('INSERT INTO ciclo VALUES(%(nro_puesto)s,%(nro_ciclo)s,800,NOW(),NOW(),200,200,"1","TARDE",1,"1","1")', {'nro_puesto' : nro_puesto, 'nro_ciclo':nro_ciclo})
             print("Inserte el nro de ciclo:", nro_ciclo)
             print("Inserción nro:", i)
             counter = 1
             for n in range(1, 5):
-                ran = round(random.uniform(110, 115), 4)
+                ran = round(random.uniform(90, 93), 4)
                 # ran = round(random.uniform(1500, 1510), 4)
                 cursor.execute('INSERT INTO mediciones_ciclo VALUES(%s,%s,%s,%s)', (nro_puesto, nro_ciclo, counter, ran))
            

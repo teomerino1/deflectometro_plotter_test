@@ -14,8 +14,12 @@ from tkinter.ttk import Treeview
 from tkinter import ttk
 from PIL import Image, ImageTk
 
-# Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
+"""
+Esta clase corresponde a la interfaz que contiene los gráficos de radios por grupo con respecto a la deflexión.
+Se encarga de crear e instanciar sus respectivos objetos.
+Tiene métodos en los cuales indica a sus objetos lo que debe suceder durante la ejecución.
+"""
 class Plot4():
     def __init__(self,root, view_instance):
 
@@ -38,14 +42,43 @@ class Plot4():
         self.view_instance = view_instance
         self.Graphs4 = None
 
-    # Metodo que elimina todo lo que muestra la pagina
+    """
+    Este método cierra la interfaz. No la elimina, queda en 'background'
+    """
     def close(self):
         self.fifht_plot_frame.grid_forget()
 
+    """
+    Este método destruye la interfaz principal de la clase por lo que se elimina todo
+    Se ejecuta cuando hay un reset
+    """
     def reset(self):
         self.fifht_plot_frame.destroy()
-        # self.show(0)
 
+    """
+    Get para saber la hora en la que inició la adquisición de datos.
+    """
+    def get_hora_label(self):
+        return self.hora_label
+    
+    """
+    Get para saber cual es el nro de puesto de la base de datos en la ejecución.
+    """
+    def get_puesto_label(self):
+        return self.puesto_label
+    
+    """
+    Get para saber cual es el estado
+    """
+    def get_state_label(self):
+        return self.state_label
+
+    """
+    Esta función se llama cuando se accede o se instancia la interfaz.
+
+    @params a:  Si a es 0, se instancia la clase por lo que se crean todos los objetos.
+                Si a es 1, se accede a la interfaz por lo que se muestran los objetos creados.         
+    """
     def show(self,a):
        
         if(a == 0):
@@ -94,14 +127,11 @@ class Plot4():
             original_image=Image.open("image3.png")
             screen_width = self.root.winfo_screenwidth()
 
-            # Redimensiona la imagen al ancho de la pantalla y ajusta la altura proporcionalmente
             desired_width = screen_width
             aspect_ratio = original_image.width / original_image.height
             height=60
-            # desired_height = int(desired_width / aspect_ratio)
-            # resized_image = original_image.resize((desired_width, height), Image.ANTIALIAS)
             resized_image = original_image.resize((desired_width, height))
-            # Convierte la imagen redimensionada a un objeto PhotoImage
+
             self.image_cba = ImageTk.PhotoImage(resized_image)
             self.image_label = Label(self.imagen_frame, image=self.image_cba)
             self.image_label.image = self.image_cba
@@ -121,26 +151,38 @@ class Plot4():
             self.imagen_frame.grid(row=2,padx=(0,90),pady=(360,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
 
+    """
+    Este método le indica al objeto Graphs4 que guarde los gráficos
+    correspondientes para armar el PDF.
+    """
     def download_graphs(self,numero_pagina):
         self.Graphs4.download_graphs4(numero_pagina)
 
-    def get_hora_label(self):
-        return self.hora_label
-    
-    def get_puesto_label(self):
-        return self.puesto_label
-    
+    """
+    Este método le indica al objeto Graphs4 que deben actualizar sus gráficos porque se cumplió el grupo (50 o 100).
+
+    @params dict_r, dict_l: Diccionarios con valores de lado derecho e izquierdo.
+            defl_r_car, defl_l_car: Valores de deflexión característica de lado derecho e izquierdo.
+            defl_r_max, defl_l_max: Valores de deflexión máximos de lado derecho e izquierdo.
+            grupos: El valor del grupo (50 o 100) seleccionado por el usuario. 
+    """
     def new_group_data_plot4(self,dict_r,dict_l,grupos):
         self.Graphs4.update_deflexiones_radios_graph(dict_r,dict_l,grupos)
 
+    """
+    Este método se ejecuta cuando el usuario presiona el botón de '← Atras'.
+    """
     def go_to_plot_3_from_plot_4(self):
         self.view_instance.enqueue_transition('go_to_plot_3_from_plot_4')
 
+    """
+    Este método se ejecuta cuando el usuario presiona el botón de 'Siguiente →'.
+    """
     def go_to_plot_5_from_plot_4(self):
         self.view_instance.enqueue_transition('go_to_plot_5_from_plot_4')
 
-    def get_state_label(self):
-        return self.state_label
-    
+    """
+    Este método muestra la configuración establecida por el usuario.
+    """
     def show_configuration(self):
         self.view_instance.enqueue_transition('show_configuration')

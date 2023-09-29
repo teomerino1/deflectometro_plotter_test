@@ -11,8 +11,11 @@ import PyPDF2
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter,A4
 
-# Clase donde se inicializan y actualizan los graficos
 
+"""
+Esta clase es la encargada de crear los objetos y métodos correspondientes a los gráficos
+de deflexiones por grupos, deflexion característica y valor máximo de deflexion. Se instancian en las clases 'plot_2' y 'plot_3'
+"""
 class Graphs3():
     def __init__(self, frame,lado):
 
@@ -35,34 +38,44 @@ class Graphs3():
 
 
     def show(self,lado):
-
         self.show_deflexiones_gmean_graph(lado)
 
-    
+    """
+    Este método se encarga de crear los gráficos e instanciarlos
+    Se llama cuando se ejecuta el programa
+
+    @params: row: La fila en donde va a estar el gráfico
+             column: La columna en donde va a estar el gráfico
+             title: El titulo del gráfico
+
+    @return: Los elementos que contiene el gráfico
+    """
     def deflexiones_gmean_graph(self,row, column,title):
-        
-        # figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
         figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
         figure.subplots_adjust(bottom=0,top=0.93)
         sub_figure=figure.add_subplot(211)
         sub_figure.set_title(title)
-
-        # sub_figure.set_xlim(0,20)
-
         sub_figure.set_ylim(0,100)
         sub_figure.set_xlabel("Progresivas")
         sub_figure.set_ylabel("Deflexiones")
-
         sub_figure.bar([], [], width = 3, linewidth=0)
         sub_figure.grid(axis='both',linestyle='dotted')
-
         bar = FigureCanvasTkAgg(figure,self.frame)
         bar_widget = bar.get_tk_widget()
         bar_widget.grid(row = row, column = column)
         return figure, bar, bar_widget
     
-    def update_deflexiones_gmean(self, dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos,lado):
 
+    """
+    Este método actualiza los gráficos cuando se cumple el grupo.
+
+    @params: dict_r, dict_l: Los diccionarios de datos de lado derecho e izquierdo
+             defl_r_car, defl_l_car: Los valores de deflexiones características de lado derecho e izquierdo
+             defl_r_max, defl_l_max: Los valores de deflexiones de lado derecho e izquierdo
+             grupos: El valor de los grupos (50 o 100) seleccionado por el usuario
+             lado: El lado (derecho e izquierdo)
+    """
+    def update_deflexiones_gmean(self, dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos,lado):
         self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
         self.defl_car_l_data.extend(defl_l_car[-1:])
         self.defl_max_l_data.extend(defl_l_max[-1:])
@@ -80,78 +93,65 @@ class Graphs3():
             self.max_value = max_value
         
         if(lado == "Izquierdo"):
-            # self.indexes=list(range(1,len(self.defl_mean_l_data)+1))
-          
             self.figure_defl_mean_l.clear()
-
             subfigure_izq = self.figure_defl_mean_l.add_subplot(211)
-            
             subfigure_izq.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
             subfigure_izq.set_ylim(0,self.max_value+100)  
-            
             subfigure_izq.bar(self.indexes, self.defl_mean_l_data, color='black', width=1, edgecolor='black')
             subfigure_izq.plot(self.indexes, self.defl_car_l_data)
             subfigure_izq.scatter(self.indexes, self.defl_max_l_data)
             subfigure_izq.legend(['Defl. Caracterist', 'Defl. Máxima', 'Defl. Promedio'], 
                         loc='upper center', bbox_to_anchor=(0.5, -0.2)) 
             subfigure_izq.grid(axis='both', linestyle='dotted')
-
             subfigure_izq.set_title("Deflexiones Izquierda")
             subfigure_izq.set_xlabel("Progresivas")
             subfigure_izq.set_ylabel("Deflexiones")
-        
+
             self.figure_defl_mean_l.canvas.draw_idle()
 
         if(lado == "Derecho"):
-            # self.indexes=list(range(1,len(self.defl_mean_r_data)+1))
-            
             self.figure_defl_mean_r.clear()
-
             subfigure_der=self.figure_defl_mean_r.add_subplot(211)
-
             subfigure_der.set_xlim(min(self.indexes)-50, max(self.indexes)+50)
             subfigure_der.set_ylim(0,self.max_value+100)
-            
             subfigure_der.bar(self.indexes, self.defl_mean_r_data, color='black', width=1, edgecolor='black')
             subfigure_der.plot(self.indexes, self.defl_car_r_data)
             subfigure_der.scatter(self.indexes, self.defl_max_r_data)
-            # subfigure_der.legend(['Defl. Caracterist','Defl. Máxima', 'Defl. Promedio'])  # Leyendas para el scatter y el plot
             subfigure_der.legend(['Defl. Caracterist', 'Defl. Máxima', 'Defl. Promedio'], 
                      loc='upper center', bbox_to_anchor=(0.5, -0.2))
-
             subfigure_der.grid(axis='both', linestyle='dotted')
-
             subfigure_der.set_title("Deflexiones Derecha")
             subfigure_der.set_xlabel("Progresivas")
             subfigure_der.set_ylabel("Deflexiones")
             
             self.figure_defl_mean_r.canvas.draw_idle()
         
-    def show_deflexiones_gmean_graph(self,lado):
+    """
+    Este método se encarga de crear los gráficos.
 
+    @param lado: El lado derecho o izquierdo
+    """
+    def show_deflexiones_gmean_graph(self,lado):
         if(lado == "Derecho"):
             self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_gmean_graph(0,0,"Deflexiones Derecha")
-
         if(lado == "Izquierdo"):
             self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_gmean_graph(0,0,"Deflexiones Izquierda")
 
+    """
+    Este método se encarga de guardar las imágenes correspondientes a los gráficos
 
+    @param lado: El lado derecho o izquierdo
+    """
     def download_graphs3(self,lado):
-        print("Defl mean l data:",self.defl_mean_l_data)
-        print("Defl mean r data:",self.defl_mean_r_data)
-
         if(self.defl_mean_l_data==[] or self.defl_mean_r_data==[]):
-            print("Detecto en graphs3 que es none")
             return
         else:
             if(lado=="Izquierdo"):
-
-                self.figure_defl_mean_l.gca().set_ylim(0,self.max_value+100)   # Ajustar límites en el eje y según tu necesidad
+                self.figure_defl_mean_l.gca().set_ylim(0,self.max_value+100)   
                 self.figure_defl_mean_l.savefig('figure_defl_mean_l.png', bbox_inches='tight')
                 
             if(lado=="Derecho"):
-                
-                self.figure_defl_mean_r.gca().set_ylim(0,self.max_value+100)  # Ajustar límites en el eje y según tu necesidad
+                self.figure_defl_mean_r.gca().set_ylim(0,self.max_value+100) 
                 self.figure_defl_mean_r.savefig('figure_defl_mean_r.png', bbox_inches='tight')
                 
            

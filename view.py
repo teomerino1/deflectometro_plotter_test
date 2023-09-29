@@ -668,7 +668,7 @@ class View():
                     update_bar_thread.daemon=True
                     update_bar_thread.start()
                 
-                if(cantidad%5 == 0):
+                if(cantidad%grupos == 0):
                     print("Grafico grupos")
                     update_all_thread = Thread(target=self.update_all)
                     update_all_thread.daemon=True 

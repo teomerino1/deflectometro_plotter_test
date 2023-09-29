@@ -23,8 +23,11 @@ from tkinter import ttk
 from tkinter import messagebox
 
 
-# Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
+"""
+Esta clase corresponde a la interfaz que muestra la planilla de cálculos estadísticos.
+Se encarga de crear e instanciar sus respectivos objetos.
+"""
 class Plot5():
     def __init__(self,root,view_instance):
 
@@ -124,14 +127,55 @@ class Plot5():
         self.image_cba=None
         self.image_label=None
 
-    # Metodo que elimina todo lo que muestra la pagina
+    """
+    Este método cierra la interfaz. No la elimina, queda en 'background'
+    """
     def close(self):
         self.sixth_plot_frame.grid_forget()
 
+    """
+    Este método destruye la interfaz principal de la clase por lo que se elimina todo
+    Se ejecuta cuando hay un reset
+    """
     def reset(self):
         self.sixth_plot_frame.destroy()
-        # self.show(0)
+    
+    """
+    Get para saber la hora en la que inició la adquisición de datos.
+    """
+    def get_hora_label(self):
+        return self.hora_label
+    
+    """
+    Get para saber cual es el nro de puesto de la base de datos en la ejecución.
+    """
+    def get_puesto_label(self):
+        return self.puesto_label
+    
+    """
+    Set de la ruta establecida por el usuario
+    """
+    def set_ruta(self,ruta):
+        self.ruta=ruta
 
+    """
+    Get de la ruta establecida por el usuario
+    """
+    def get_ruta(self):
+        return self.ruta
+    
+    """
+    Get para saber cual es el estado
+    """
+    def get_state_label(self):
+        return self.state_label
+    
+    """
+    Esta función se llama cuando se accede o se instancia la interfaz.
+
+    @params a:  Si a es 0, se instancia la clase por lo que se crean todos los objetos.
+                Si a es 1, se accede a la interfaz por lo que se muestran los objetos creados.         
+    """
     def show(self,a):
        
         if(a==0):
@@ -294,8 +338,6 @@ class Plot5():
             self.d_r_med_der.grid(row=9, column=0,sticky=NW,pady=(0,4))
             self.r_x_d_der.grid(row=10, column=0,sticky=NW,pady=(0,0))
 
-            # # self.whitespace.grid(row=12+2, column=0,sticky=NW)
-            
             self.defl_media_izq.grid(row=1, column=1,padx=(150,0),sticky=NW,pady=(0,4))
             self.desv_std_izq.grid(row=2, column=1,padx=(150,0),sticky=NW,pady=(0,4))
             self.coef_var_izq.grid(row=3, column=1,padx=(150,0),sticky=NW,pady=(0,4))
@@ -313,7 +355,20 @@ class Plot5():
             self.imagen_frame.grid(row=4,padx=(0,90),pady=(0,0))
             self.image_label.grid(row=0,columnspan=2,padx=(0,0))
     
+    """
+    Este método muestra en pantalla los valores de los cálculos estadísticos.
 
+    @params: media_defl_r, media_defl_l: Valores medios de deflexión de derecha e izquierda.
+             media_rad_der, media_rad_izq: Valores medios de radio de derecha e izquierda.
+             desv_defl_der, desv_defl_l: Desviación estándar de deflexiones de derecha e izquierda.
+             coef_var_der, coef_var_izq: Coeficientes de variación de derecha e izquierda.
+             defl_car_der, defl_car_izq: Valores de deflexión característica de derecha e izquierda.
+             rad_car_der, rad_car_izq: Valores de radio característico de derecha e izquierda.
+             d_r_der, d_r_izq: Valores de D/R de derecha e izquierda.
+             d_x_r_der, d_x_r_izq: Valores de D*R de derecha e izquierda.
+             total_mediciones_defl: Mediciones totales de deflexión de derecha e izquierda.
+             total_mediciones_rad: Mediciones totales de radio de derecha e izquierda.
+    """
     def grid_stats(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
         
         print("Total mediciones defl:",total_mediciones_defl)
@@ -399,44 +454,41 @@ class Plot5():
         self.r_x_d_izq_value=Label(self.labels_frame, text=d_x_r_izq,font=(None, 10),background='#F6F4F2',foreground='#625651')
         self.r_x_d_izq_value.grid(row=10, column=1,padx=(0,0),pady=(0,0),sticky=NE)
 
-        
+    """
+    Este método se ejecuta cuando el usuario presiona el botón de '← Atras'.
+    """
     def go_to_plot_4_from_plot_5(self):
         self.view_instance.enqueue_transition('go_to_plot_4_from_plot_5')
 
+    """
+    Este método se ejecuta cuando el usuario presiona el botón de 'Generar Cálculos'.
+    """
     def generate_stats(self):
         self.view_instance.enqueue_transition('generate_stats')
         self.view_instance.set_calculos_flag(1)
 
+    """
+    Este método se ejecuta cuando el usuario presiona el botón de "Descargar PDF".
+    """
     def download_pdf(self):
         self.view_instance.enqueue_transition('download_pdf')
 
-    
-    def get_hora_label(self):
-        return self.hora_label
-    
-    def get_puesto_label(self):
-        return self.puesto_label
-
-    def set_ruta(self,ruta):
-        self.ruta=ruta
-
-    def get_ruta(self):
-        return self.ruta
-    
-    def get_state_label(self):
-        return self.state_label
-    
+    """
+    Este método se ejecuta cuando se debe mostrar la configuración actual seleccionada por el usuario.
+    """
     def show_configuration(self):
         self.view_instance.enqueue_transition('show_configuration')
 
+    """
+    Este objeto guarda los valores estadśticos en PDF.
+    Crea tablas con los valores correspondientes y los guarda.
+    """
     def download_stats(self):
         
         buffer = BytesIO()
-        
-        # Crear un objeto Canvas
+    
         c = canvas.Canvas(buffer, pagesize=A4)
 
-        # Dibuja la imagen de encabezado
         c.drawImage('header.png', 25, 773, width=550, height=60)
         ancho_pagina,alto_pagina=A4
         centro_x = ancho_pagina / 2
@@ -471,10 +523,9 @@ class Plot5():
             self.d_r_med_izq_value, self.r_x_d_izq_value
         ]
 
-          # Configura el estilo de la tabla
         table_style = TableStyle([
-            ('BACKGROUND', (0, 0), (-1, -1), colors.beige),  # Fondo para todas las filas
-            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),   # Color de texto para todas las filas
+            ('BACKGROUND', (0, 0), (-1, -1), colors.beige),  
+            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),   
             ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
             ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
@@ -507,20 +558,20 @@ class Plot5():
         tabla_datos_der.setStyle(table_style)
         tabla_titulo_der = Table([[titulo_der]], colWidths=[400])
         tabla_titulo_der.setStyle(titulo_style)
-        tabla_titulo_der.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_titulo_der.wrapOn(c, 400, 200)  
         tabla_titulo_der.drawOn(c, 95, 700) 
-        tabla_datos_der.wrapOn(c, 400, 400)  # Ajusta el tamaño de la tabla si es necesario
-        tabla_datos_der.drawOn(c, 95, 480)  # Dibuja la tabla en las coordenadas especificadas
+        tabla_datos_der.wrapOn(c, 400, 400)  
+        tabla_datos_der.drawOn(c, 95, 480)  
 
         # Dibuja la tabla izquierda
         tabla_datos_izq = Table(tabla_izq, colWidths=[200, 200], rowHeights=22)
         tabla_datos_izq.setStyle(table_style)
         tabla_titulo_izq = Table([[titulo_izq]], colWidths=[400])
         tabla_titulo_izq.setStyle(titulo_style)
-        tabla_titulo_izq.wrapOn(c, 400, 200)  # Ajusta el tamaño de la tabla si es necesario
+        tabla_titulo_izq.wrapOn(c, 400, 200)  
         tabla_titulo_izq.drawOn(c, 95, 440) 
-        tabla_datos_izq.wrapOn(c, 400, 400)  # Ajusta el tamaño de la tabla si es necesario
-        tabla_datos_izq.drawOn(c, 95, 225)  # Dibuja la tabla en las coordenadas especificadas
+        tabla_datos_izq.wrapOn(c, 400, 400)  
+        tabla_datos_izq.drawOn(c, 95, 225)  
 
         # Guarda el PDF en el buffer
         c.showPage()

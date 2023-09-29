@@ -13,8 +13,11 @@ from reportlab.lib.pagesizes import letter,A4
 import os
 
 
-# Clase donde se inicializan y actualizan los graficos
 
+"""
+Esta clase es la encargada de crear los objetos y métodos correspondientes a los gráficos
+del valor de radio con respecto a la deflexión. Se instancian en la clase 'plot_4'
+"""
 class Graphs4():
     def __init__(self, frame):
         self.frame = frame
@@ -29,14 +32,22 @@ class Graphs4():
         self.defl_mean_l_data=[]
         self.defl_mean_r_data=[]
         self.indexes=[] 
-
         self.show()
 
     def show(self):
         self.show_defl_radios_graph()
     
+    """
+    Este método se encarga de crear los gráficos e instanciarlos
+    Se llama cuando se ejecuta el programa
+
+    @params: row: La fila en donde va a estar el gráfico
+             column: La columna en donde va a estar el gráfico
+             title: El titulo del gráfico
+
+    @return: Los elementos que contiene el gráfico
+    """
     def deflexiones_radios_graph(self,row, column,title):
-        
         figure = Figure(figsize=(7,7), dpi=100,facecolor='#F6F4F2')
         figure.subplots_adjust(bottom=0,top=0.9)
         sub_figure=figure.add_subplot(211)
@@ -47,31 +58,31 @@ class Graphs4():
         sub_figure.set_ylabel("Defl.")
         sub_figure.bar([], [], width = 3, linewidth=0)
         sub_figure.grid(axis='both',linestyle='dotted')
-
         bar = FigureCanvasTkAgg(figure,self.frame)
         bar_widget = bar.get_tk_widget()
         bar_widget.grid(row = row, column = column)
         return figure, bar, bar_widget
     
+    """
+    Este método actualiza los gráficos cuando se cumple el grupo.
+    En estos gráficos es necesario realizar cálculos de promedios.
+
+    @params: dict_r, dict_l: Los diccionarios de datos de lado derecho e izquierdo
+             grupos: El valor de los grupos (50 o 100) seleccionado por el usuario
+             lado: El lado (derecho e izquierdo)
+    """
     def update_deflexiones_radios_graph(self, dict_r, dict_l,grupos):
 
         self.rad_mean_r_data.extend(dict_r['Radio'][-1:])
         self.rad_mean_l_data.extend(dict_l['Radio'][-1:])
         self.defl_mean_r_data.extend(dict_r['Defl.'][-1:])
         self.defl_mean_l_data.extend(dict_l['Defl.'][-1:])
-        
-       
-
-        # self.indexes=list(range(1,len(self.rad_mean_l_data)+1))
         self.indexes = [x * grupos for x in range(1, len(self.rad_mean_l_data)+1)]
 
-        # Agregar cálculos para las leyendas
-        # promedio_x_izq = sum(self.defl_mean_l_data) / len(self.defl_mean_l_data)
         promedio_x_izq = sum(self.rad_mean_l_data) / len(self.rad_mean_l_data)
         promedio_producto_izq = sum(x * y for x, y in zip(self.defl_mean_l_data, self.rad_mean_l_data)) / len(self.rad_mean_l_data)
         promedio_division_izq = sum(x / y for x, y in zip(self.defl_mean_l_data, self.rad_mean_l_data)) / len(self.rad_mean_l_data)
 
-        # promedio_x_der = sum(self.defl_mean_r_data) / len(self.defl_mean_r_data)
         promedio_x_der = sum(self.rad_mean_r_data) / len(self.rad_mean_r_data)
         promedio_producto_der = sum(x * y for x, y in zip(self.defl_mean_r_data, self.rad_mean_r_data)) / len(self.rad_mean_r_data)
         promedio_division_der = sum(x / y for x, y in zip(self.defl_mean_r_data, self.rad_mean_r_data)) / len(self.rad_mean_r_data)
@@ -81,14 +92,13 @@ class Graphs4():
         
         subfigure_izq=self.figure_defl_mean_l.add_subplot(211)
         subfigure_der=self.figure_defl_mean_r.add_subplot(211)
-        print("Voy a graficar en izquierdo:",self.rad_mean_l_data)
-        print("Indices:",self.indexes)
+
         subfigure_der.set_xlim(min(self.rad_mean_r_data)-50, max(self.rad_mean_r_data)+50)
         subfigure_izq.set_xlim(min(self.rad_mean_l_data)-50, max(self.rad_mean_l_data)+50)
+
         subfigure_der.set_ylim(0,max(self.rad_mean_r_data)+500)  
         subfigure_izq.set_ylim(0,max(self.rad_mean_l_data)+500)  
 
-       
         subfigure_izq.scatter(self.rad_mean_l_data, self.defl_mean_l_data, color = 'r')
         subfigure_der.scatter(self.rad_mean_r_data, self.defl_mean_r_data, color = 'r')
 
@@ -112,7 +122,6 @@ class Graphs4():
             fontsize=10, ha='right', va='top',
             bbox=dict(boxstyle='round,pad=0.5', edgecolor='blue', facecolor='white'))
 
-
         subfigure_izq.grid(axis='both',linestyle='dotted')
         subfigure_der.grid(axis='both',linestyle='dotted')
 
@@ -128,14 +137,21 @@ class Graphs4():
         self.figure_defl_mean_r.canvas.draw_idle()
     
 
+    """
+    Este método se encarga de instanciar los gráficos cuando se ejecuta el programa.
+    """
     def show_defl_radios_graph(self):
         self.figure_defl_mean_r, self.defl_mean_r, self.defl_mean_widget_r = self.deflexiones_radios_graph(0,0,"Informe estadistico: Lado Izquierdo")
         self.figure_defl_mean_l, self.defl_mean_l, self.defl_mean_widget_l = self.deflexiones_radios_graph(0,1,"Informe estadístico: Lado Derecho")
 
+    """
+    Este método se encarga de guardar las imágenes de los gráficos en un PDF 'radios.pdf'.
+
+    @param numero_pagina: El número de pie de página del PDF donde deben ir estos gráficos.
+    """
     def download_graphs4(self,numero_pagina):
 
         if(self.rad_mean_r_data==[] or self.rad_mean_l_data==[]):
-            print("Detecto en graphs4 que es none")
             return
         else:
             # Ajustar los límites para eliminar espacio en blanco
@@ -145,7 +161,6 @@ class Graphs4():
             self.figure_defl_mean_l.savefig('radios_l.png', bbox_inches='tight')
             self.figure_defl_mean_r.savefig('radios_r.png', bbox_inches='tight')
         
-            # Crear un nuevo PDF con ambas figuras
             output_pdf = 'radios.pdf'
             c = canvas.Canvas(output_pdf, pagesize=A4)
             ancho_pagina,alto_pagina=A4

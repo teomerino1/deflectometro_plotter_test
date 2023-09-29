@@ -10,8 +10,11 @@ import io
 import PyPDF2
 from reportlab.lib.pagesizes import letter,A4
 from reportlab.pdfgen import canvas
-# Clase donde se inicializan y actualizan los graficos
 
+"""
+Esta clase es la encargada de crear los objetos y métodos correspondientes a los gráficos
+de radios. Son los que se instancian en las clases 'plot_2' y 'plot_3'
+"""
 class Graphs2():
     def __init__(self, frame,lado):
         self.frame = frame
@@ -26,8 +29,17 @@ class Graphs2():
         self.indexes=[] 
         self.show(lado)
 
+
+    """
+    Este método se encarga de crear los gráficos de radios
+
+    @params: row: La fila en donde va a estar el gráfico
+             column: La columna en donde va a estar el gráfico
+             title: El titulo del gráfico
+
+    @return: Los elementos que contiene el gráfico
+    """
     def radio_gmean_graph(self,row, column,title):
-        
         figure = Figure(figsize=(7, 6), dpi=100,facecolor='#F6F4F2')
         sub_figure = figure.add_subplot(211)
         sub_figure.set_xlim(0,100)
@@ -44,16 +56,20 @@ class Graphs2():
         return figure, graph, graph_widget
     
 
-    def update_gmean(self, dict_r, dict_l,grupos,lado):
+    """
+    Este método se encarga de actualizar los gráficos de radio en el lado izquierdo y derecho
 
+    @params: dict_r: El diccionario con los datos del lado derecho
+             dict_l: El diccionario con los datos del lado izquierdo
+             grupos: El numero de grupos (50 o 100) seleccionado por el usuario
+             lado: El lado (derecho o izquierdo)
+    """
+    def update_gmean(self, dict_r, dict_l,grupos,lado):
         self.rad_r_data.extend(dict_r['Radio'][-1:])
         self.rad_l_data.extend(dict_l['Radio'][-1:])
         self.indexes = [x * grupos for x in range(1, len(self.rad_l_data)+1)]
 
-
         if(lado == "Izquierdo"):
-
-            # self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(3,0,1,"Radio Izquierda")
             self.figure_rad_mean_l.clear()
             subfigure_izq=self.figure_rad_mean_l.add_subplot(211)
 
@@ -71,8 +87,6 @@ class Graphs2():
             self.figure_rad_mean_l.canvas.draw_idle()
 
         if(lado == "Derecho"):
-
-            # self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(3,0,1,"Radio Derecha")
             self.figure_rad_mean_r.clear()
             subfigure_der=self.figure_rad_mean_r.add_subplot(211)
 
@@ -89,20 +103,23 @@ class Graphs2():
             
             self.figure_rad_mean_r.canvas.draw_idle()
 
+    """
+    Este método se encarga de instanciar los gráficos
+    Se llama cuando se ejecuta el programa
+    """
     def show(self,lado):
-        
         if(lado == "Derecho"):
             self.figure_rad_mean_r, self.rad_mean_r, self.rad_mean_widget_r = self.radio_gmean_graph(0,1,"Radio Derecha")
         
         if(lado == "Izquierdo"):
             self.figure_rad_mean_l, self.rad_mean_l, self.rad_mean_widget_l = self.radio_gmean_graph(2,0,"Radio Izquierda")
            
+    """
+    Este método se encarga de guardar como imágenes los gráficos de lado izquierdo y derecho
+    """
     def download_graphs2(self,lado):
-        
         if(self.rad_l_data==[] or self.rad_r_data==[]):
-            print("Detecto en graphs2 que es none")
             return
-        
         else:
             if(lado=="Izquierdo"):
                 self.figure_rad_mean_l.gca().set_ylim(0, max(self.rad_l_data)+50)  # Ajustar límites en el eje y según tu necesidad

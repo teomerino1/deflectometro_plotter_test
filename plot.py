@@ -16,8 +16,12 @@ from tkinter import messagebox
 
 
 
-# Clase correspondiente a la vista encargada de mostrar los datos y graficos
 
+"""
+Esta clase corresponde a la interfaz que contiene la tabla y los gráficos de deflexiones individuales.
+Se encarga de crear e instanciar sus respectivos objetos.
+Tiene métodos en los cuales indica a sus objetos lo que debe suceder durante la ejecución.
+"""
 class Plot():
     def __init__(self,root,view_instance):
 
@@ -51,26 +55,43 @@ class Plot():
         self.puesto_label=None
         self.hora_label=None
 
-    # Metodo que elimina todo lo que muestra la pagina
+    """
+    Este método cierra la interfaz. No la elimina, queda en 'background'
+    """
     def close(self):
         self.second_plot_frame.grid_forget()
     
+    """
+    Este método destruye la interfaz principal de la clase por lo que se elimina todo
+    Se ejecuta cuando hay un reset
+    """
     def reset(self):
         self.second_plot_frame.destroy()
-        # self.show(0)
 
+    """
+    Get para saber cual es el estado
+    """
     def get_state_label(self):
         return self.state_label
     
+    """
+    Get para saber cual es el nro de puesto de la base de datos en la ejecución.
+    """
     def get_puesto_label(self):
         return self.puesto_label
     
+    """
+    Get para saber la hora en la que inició la adquisición de datos.
+    """
     def get_hora_label(self):
         return self.hora_label
     
-    def get_puesto_label(self):
-        return self.puesto_label
-    
+    """
+    Esta función se llama cuando se accede o se instancia la interfaz.
+
+    @params a:  Si a es 0, se instancia la clase por lo que se crean todos los objetos.
+                Si a es 1, se accede a la interfaz por lo que se muestran los objetos creados.         
+    """
     def show(self,a):
 
         if(a == 0):
@@ -173,56 +194,100 @@ class Plot():
             self.atras_plot.grid(row=0,column=0)
             self.next_plot.grid(row=0,column=1)
             
-            
-
-            
+    """
+    Este método se ejecuta cuando el usuario aprieta el botón para avanzar entre los gráficos de deflexiones
+    individuales.
+    """
     def avanzar_plots(self):
         self.view_instance.enqueue_transition('avanzar_plots')
 
+    """
+    Este método se ejecuta cuando el usuario aprieta el botón para retroceder entre los gráficos de deflexiones.
+    individuales
+    """
     def retroceder_plots(self):
         self.view_instance.enqueue_transition('retroceder_plots')
 
+    """
+    Este método hace avanzar el conjunto de 500 datos de deflexiones individuales en el objeto Graphs.
+    """
     def avanzar_data_graphs(self):
         self.Graphs.show_data(1)
 
+    """
+    Este método hace retroceder el conjunto de 500 datos de deflexiones individuales en el objeto Graphs.
+    """
     def retroceder_data_graphs(self):
         self.Graphs.show_data(-1)
 
+    """
+    Este método le indica a la tabla y los gráficos de deflexiones individuales que deben guardar sus objetos
+    para armar el PDF.
+
+    @param graph_flag: La flag para descargar las deflexiones totales o parciales seleccionado por el usuario
+    """
     def generar_pdf(self,graph_flag):
         self.Table.donwload_table()
         numero_pagina=self.Table.get_numero_pagina()
-        #Llamo a download graphs con la flag en 1 para testear
         self.Graphs.donwload_graphs(numero_pagina=numero_pagina,graph_flag=graph_flag)
         
+    """
+    Este método devuelve la progresión máxima o final.
+    """
     def get_prog_max(self):
         return self.Graphs.get_max()
  
+    """
+    Este método setea la ruta seleccionada por el usuario en la tabla
+    """
     def set_ruta(self,ruta):
         self.Table.set_ruta(ruta)
         self.Table.set_fecha(datetime.datetime.now().date())
 
-    def grid_plot1(self):
-        self.second_plot_frame.grid(ipadx=10, ipady=5)
+    """
+    Este método le indica al objeto Graphs que debe actualizar los gráficos
+    de deflexiones individuales.
 
+    @params: defl_r: Deflexiones de lado derecho
+             defl_l: Deflexiones de lado izquierdo
+    """
     def update_bar_plot(self, defl_r,defl_l):
         self.Graphs.update_bar(defl_r,defl_l)
 
+    """
+    Este método devuelve la tabla
+    """
     def get_table(self):
         return self.Table
 
-    # Metodo que recibe los datos nuevos y manda a actualizar estructuras y plots
+    """
+    Este método se ejecuta cuando se cumple el grupo (50 o 100) y se deben 
+    insertar datos nuevos en la tabla.
+    """
     def new_group_data_plot(self,dict_r, dict_l):
         self.Table.insert(dict_r, dict_l)
 
+    """
+    Este método se ejecuta cuando el usuario presiona el botón de 'Siguiente →'.
+    """
     def go_to_plot_2_from_plot_1(self):
         self.view_instance.enqueue_transition('go_to_plot_2_from_plot_1')
         
+    """
+    Este método se ejecuta cuando se debe mostrar la configuración actual seleccionada por el usuario.
+    """
     def show_configuration(self):
         self.view_instance.enqueue_transition('show_configuration')
 
+    """
+    Este método se ejecuta cuando el usuario presiona el botón de '← Atras'.
+    """
     def go_to_config(self):
         self.view_instance.enqueue_transition('go_to_config')
 
+    """
+    Este método resetea la tabla
+    """
     def reset_table(self):
         self.Table.reset()
 

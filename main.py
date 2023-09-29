@@ -11,7 +11,11 @@ from time import sleep
 
 
 
-
+"""
+La clase main instancia los objetos que se utilizan en la ejecución
+El hilo main queda ejecutando la interfaz principal 'root' mientras
+que todo el resto sucede en las otras clases
+"""
 def main():
     
     root=ThemedTk(theme='radiance')
