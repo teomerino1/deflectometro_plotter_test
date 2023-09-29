@@ -479,6 +479,11 @@ class Plot5():
     def show_configuration(self):
         self.view_instance.enqueue_transition('show_configuration')
 
+    # def get_total_mediciones_defl(self):
+    #     return self.total_med_defl_der_value.get()
+    
+    # def get_total_mediciones_rad(self):
+    #     return self.total_med_rad_der_value.get()
     """
     Este objeto guarda los valores estadśticos en PDF.
     Crea tablas con los valores correspondientes y los guarda.

@@ -97,6 +97,9 @@ class Data():
 
         defl_r_aux,defl_l_aux,radio_r_aux,radio_l_aux = self.compensate(defl_r_aux, defl_l_aux,radio_r_aux,radio_l_aux)
 
+        print("Radio R:",radio_r_aux)
+        print("Radio L:",radio_l_aux)
+
         self.defl_r.append(defl_r_aux)
         self.defl_l.append(defl_l_aux)
         self.radio_r.append(radio_r_aux)

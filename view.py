@@ -576,8 +576,6 @@ class View():
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
 
-
-
     def enqueue_transition(self, function_name):
         # self.interface_transition_queue.put(function_name)
         if function_name not in self.enqueued_functions:
@@ -591,12 +589,23 @@ class View():
         defl_l_max, defl_r_max = self.data_instance.get_max_defl()
         defl_l_car, defl_r_car = self.data_instance.get_car_defl()
         self.new_group_data_view(dict_r,dict_l,defl_r_car,defl_l_car,defl_r_max,defl_l_max,grupos=self.grupos)
+        print("Grafico en grupo:")
+        print("Dict r:",dict_r)
+        print("Dict l:",dict_l)
+        print("Defl l max:",defl_l_max)
+        print("Defl r max:",defl_r_max)
+        print("Defl l car:",defl_l_car)
+        print("Defl r car:",defl_r_car)
+
 
     def update_defl_one(self):
         defl_r, defl_l = self.data_instance.update_bar_data(self.amount)
+        # print("Grafico barras:")
+        # print("Defl r",defl_r)
+        # print("Defl l:",defl_l)
         self.update_bar_view(defl_r,defl_l)
         self.data_instance.clear_bar_data()
-
+        
     def process_data(self):
         self.set_state("Listo para obtener datos")
         self.reporter_instance.start()
@@ -668,7 +677,7 @@ class View():
                     update_bar_thread.daemon=True
                     update_bar_thread.start()
                 
-                if(cantidad%grupos == 0):
+                if(cantidad%5 == 0):
                     print("Grafico grupos")
                     update_all_thread = Thread(target=self.update_all)
                     update_all_thread.daemon=True 

@@ -28,7 +28,7 @@ class Graphs():
         self.defl_l_data = []
         self.indexes = []
         self.flag=0
-        self.cantidad_barras=500
+        self.cantidad_barras=5
         self.contador_graficos=0
         self.datos_actual=0
         self.data_selector=0
@@ -224,16 +224,7 @@ class Graphs():
     def get_dataset_actual_der(self):
         defl_r_data_actual = f"defl_r_data_{self.contador_graficos}"
         setattr(self, defl_r_data_actual, [])
-        return defl_r_data_actual
-
-
-
-    # def set_flag(self,flag):
-    #     self.flag=flag
-
-    # def get_flag(self):
-    #     return self.flag
-    
+        return defl_r_data_actual    
 
     """
     Este método devuelve el array total derecho. Se utiliza para saber cuantos datos hay 
@@ -332,8 +323,8 @@ class Graphs():
         c.drawString(centro_x-1, 125, f"{numero_pagina+1}")
                     
         c.save()
-        # os.remove('figure_bar_l.png')
-        # os.remove('figure_bar_r.png')
+        os.remove('figure_bar_l.png')
+        os.remove('figure_bar_r.png')
 
 
 
