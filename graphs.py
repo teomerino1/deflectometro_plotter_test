@@ -28,7 +28,7 @@ class Graphs():
         self.defl_l_data = []
         self.indexes = []
         self.flag=0
-        self.cantidad_barras=5
+        self.cantidad_barras=500
         self.contador_graficos=0
         self.datos_actual=0
         self.data_selector=0

@@ -26,10 +26,12 @@ from reportlab.pdfgen import canvas
 from tkinter import messagebox
 from tkinter import ttk
 
+"""
+Esta clase es la encargada de dirigir lo que sucede en la ejecución del programa; comunica todos
+los objetos y clases entre sí e invoca las funciones necesarias.  
+"""
 class View():
     def __init__(self, root,data_instance,reporter_instance):
-
-
         self.state=None
         self.root=root
         self.temp = None
@@ -84,7 +86,12 @@ class View():
 
         # self.Plot.show()
 
-     # Metodo que inicializa la view:
+    """
+    Esta función se llama al comienzo de la ejecución. Inicializa 
+    la vista principal y le establece atributos. 
+
+    @param root: La interfaz principal del programa
+    """
     def start(self,root):
         self.root.title('Deflectómetro')
         style = Style(root)
@@ -95,6 +102,10 @@ class View():
         self.root.attributes('-zoomed')
         self.inicializar_plots()
 
+    """
+    Esta función se llama al comienzo de la ejecución. Crea todos
+    los objetos de las interfaces e inicializa 'Config' 
+    """
     def inicializar_plots(self):
         self.Config.show(0)
         self.Config.show(1)
@@ -103,52 +114,84 @@ class View():
         self.Plot3.show(0)
         self.Plot4.show(0)
         self.Plot5.show(0)
-     # Metodo que borra el frame Config y abre el Plot1
+
+
+    """
+    Esta función cierra la interfaz de configuración y accede a 'Plot'
+    """
     def go_to_plot1_from_config(self):
         if(self.Config.close()==0):
             self.Plot.show(1)
             return 0
         else:
             return 1
-    # Metodo que borra el Plot 1 y abre el de Config
+        
+    """
+    Esta función cierra la interfaz 'Plot' y accede a 'Config'
+    """
     def go_to_config(self):
         self.Plot.close()
         self.Config.show(1)
 
-    # # Metodo que borra el Plot 1 y abre el Plot 2
+    """
+    Esta función cierra la interfaz 'Plot y accede a 'Plot2'
+    """
     def go_to_plot_2_from_plot_1(self):
         self.Plot.close()
         self.Plot2.show(1)
 
-    # Metodo que borra el Plot 2 y abre el Plot 1
+    """
+    Esta función cierra la interfaz 'Plot2' y accede a 'Plot'
+    """
     def go_to_plot_1_from_plot_2(self):
         self.Plot2.close()
         self.Plot.show(1) 
 
+    """
+    Esta función cierra la interfaz 'Plot2' y accede a 'Plot3'
+    """
     def go_to_plot_3_from_plot2(self):
         self.Plot2.close()
         self.Plot3.show(1)
 
+    """
+    Esta función cierra la interfaz 'Plot3' y accede a 'Plot2'
+    """
     def go_to_plot_2_from_plot_3(self):
         self.Plot3.close()
         self.Plot2.show(1)
 
+    """
+    Esta función cierra la interfaz 'Plot3' y accede a 'Plot4'
+    """
     def go_to_plot_4_from_plot_3(self):
         self.Plot3.close()
         self.Plot4.show(1)
 
+    """
+    Esta función cierra la interfaz 'Plot4' y accede a 'Plot3'
+    """
     def go_to_plot_3_from_plot_4(self):
         self.Plot4.close()
         self.Plot3.show(1)
 
+    """
+    Esta función cierra la interfaz 'Plot4' y accede a 'Plot5'
+    """
     def go_to_plot_5_from_plot_4(self):
         self.Plot4.close()
         self.Plot5.show(1)
 
+    """
+    Esta función cierra la interfaz 'Plot5' y accede a 'Plot4'
+    """
     def go_to_plot_4_from_plot_5(self):
         self.Plot5.close()
         self.Plot4.show(1)
 
+    """
+    Esta función resetea todas las interfaces y las vuelve a inicializar
+    """
     def reset_all_plots(self):
         self.Config.reset()
         self.Plot.reset_table()
@@ -159,6 +202,9 @@ class View():
         self.Plot5.reset()
         self.inicializar_plots()
 
+    """
+    Esta función resetea todos los datos
+    """
     def reset_all_data(self):
         self.data_instance.reset_all()
         self.reporter_instance.reset_reporter()
@@ -174,12 +220,24 @@ class View():
         self.datos_ready_flag=0
         self.set_data_ready(value=0)
 
+    """
+    Esta función se llama cuando hay un reset
+
+    @param value: 1 si hay reset
+                  0 si ya se reseteó
+    """
     def set_reset(self,value):
         self.reset=value
 
+    """
+    Get para obtener el valor de reset
+    """
     def get_reset(self):
         return self.reset
     
+    """
+    Esta función setea la hora de inicio en todas las interfaces
+    """
     def set_hora_inicio(self):
         self.hora_inicio=time.strftime("%H:%M", time.localtime())
         self.Plot.get_hora_label().config(text=f'Hora Inicio {self.hora_inicio}')
@@ -188,6 +246,9 @@ class View():
         self.Plot4.get_hora_label().config(text=f'Hora Inicio {self.hora_inicio}')
         self.Plot5.get_hora_label().config(text=f'Hora Inicio {self.hora_inicio}')
 
+    """
+    Esta función setea el numero de puesto en todas las interfaces
+    """
     def set_nro_puesto(self,nro_puesto):
         self.Plot.get_puesto_label().config(text=f'Nº Puesto:{nro_puesto}')
         self.Plot2.get_puesto_label().config(text=f'Nº Puesto:{nro_puesto}')
@@ -196,6 +257,10 @@ class View():
         self.Plot5.get_puesto_label().config(text=f'Nº Puesto:{nro_puesto}')
         self.nro_puesto=nro_puesto
 
+    """
+    Esta función le indica a todas las interfaces que deben guardar sus datos para
+    descargar el PDF.
+    """
     def download_pdf(self):
         graph_flag=self.var.get()
         self.deflexiones_message.destroy()
@@ -215,90 +280,156 @@ class View():
 
     
 
-# Metodo que obtiene los datos nuevos y debe mandar a actualizar los ploteos y las estructuras
+    """
+    Esta función se llama cuando se cumple un grupo (50 o 100) y se actualizan las interfaces con los datos
+    correspondientes
+
+    @params dict_r: Diccionario con valores de derecha
+            dict_l: Diccionario con valores de izquierda
+            defl_r_car: Deflexion caracteristica derecha
+            defl_l_car: Deflexion caracteristica izquierda
+            defl_r_max: Deflexion maxima derecha
+            defl_l_max: Deflexion maxima izquierda
+            Grupos: El numero de grupos (50 o 100)
+    """
     def new_group_data_view(self, dict_r, dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos):
         self.Plot.new_group_data_plot(dict_r, dict_l)
         self.Plot2.new_group_data_plot2(dict_r,dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos)
         self.Plot3.new_group_data_plot3(dict_r,dict_l, defl_r_car, defl_l_car, defl_r_max, defl_l_max,grupos)
         self.Plot4.new_group_data_plot4(dict_r, dict_l,grupos)
 
-    # Metodo que manda a actualizar el gafico de barras 
+    """
+    Esta función se llama cuando se debe actualizar el gráfico de deflexiones individuales (barras)
+
+    @params defl_r: Deflexiones derecha
+            defl_l: Deflexiones izquierda
+    """ 
     def update_bar_view(self, defl_r,defl_l):
         self.Plot.update_bar_plot(defl_r,defl_l)
 
+    """
+    Esta función se llama cuando se deben mostrar los cálculos estadísticos en Plot5
+    """
     def show_stats_in_plot(self,media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad):
         self.Plot5.grid_stats(media_defl_r, media_defl_izq,media_rad_der, media_rad_izq,desv_defl_der, desv_defl_l,coef_var_der,coef_var_izq,defl_car_der,defl_car_izq,rad_car_der,rad_car_izq, d_r_der,d_r_izq ,d_x_r_der, d_x_r_izq, total_mediciones_defl, total_mediciones_rad)
 
+    """
+    Get de la configuración
+    """
     def get_config(self):
         return self.Config.get_config()
 
-    def get_params(self):
-        return self.Config.get_params()
-    
-    def on_plot(self):
-        return self.is_plotting
-    
-    def obtain_values(self):
-       return self.temp, self.grupos, self.muestras, self.espesor, self.ft_ntry, self.fh_ntry, self.fc_ntry, self.z_ntry
-
+    """
+    Set de temperatura. Se setea en la instancia de data también
+    """
     def set_temp(self,temp):
         self.data_instance.set_temp(temp)
         self.temp=temp
 
+    """
+    Get de temperatura
+    """
     def get_temp(self):
         return self.temp
 
+    """
+    Set de grupos
+    """
     def set_grupos(self,grupos):
         self.grupos=grupos
         self.data_instance.set_grupos(grupos)
         
+    """
+    Get de grupos
+    """   
     def get_grupos(self):
         return self.grupos
 
+    """
+    Set de muestras
+    """
     def set_muestras(self,muestras):
         self.muestras=muestras
 
+    """
+    Get de muestras
+    """
     def get_muestras(self):
         return self.muestras
 
+    """
+    Set de espesor
+    """
     def set_espesor(self,espesor):
         self.data_instance.set_espesor(espesor)
         self.espesor=espesor
 
+    """
+    Get de espesor
+    """
     def get_espesor(self):
         return self.espesor
 
+    """
+    Set de ft
+    """
     def set_ft(self,ft):
         self.data_instance.set_ft(ft)
         self.ft_ntry=ft
 
+    """
+    Get de ft
+    """
     def get_ft(self):
         return self.ft_ntry
-
+    """
+    Set de fh
+    """
     def set_fh(self,fh):
         self.data_instance.set_fh(fh)
         self.fh_ntry=fh
 
+    """
+    Get de fh
+    """
     def get_fh(self):
         return self.fh_ntry
 
+    """
+    Set de fc
+    """
     def set_fc(self,fc):
         self.data_instance.set_fc(fc)
         self.fc_ntry=fc
 
+    """
+    Get de fc
+    """
     def get_fc(self):
         return self.fc_ntry
     
+    """
+    Set de z
+    """
     def set_z(self,z):
         self.data_instance.set_z(z)
         self.z_ntry=z 
 
+    """
+    Get de z
+    """
     def get_z(self):
         return self.z_ntry
     
+    """
+    Set para saber cuando el usuario ya ingresó los inputs 
+    """
     def set_data_ready(self,value):
         self.data_ready=value
 
+    """
+    Get de data ready
+    """
     def get_data_ready(self):
         return self.data_ready
     
@@ -355,6 +486,9 @@ class View():
     def get_state(self):
         return self.program_state
     
+    """
+    Esta función setea el estado del programa en todas las interfaces
+    """
     def set_state(self,state):
         if(self.get_reset()!=1):
             if(state=="Detenido"):
@@ -378,14 +512,18 @@ class View():
     def get_calculos_flag(self):
         return self.calculos_flag
 
+    """
+    Esta función es la principal de la clase. Se encarga de atender todas las solicitudes del usuario.
+    Cualquier botón que el usuario presione para avanzar o retroceder entre interfaces, generación de cálculos,
+    de PDF, se procesa en esta función.
+    Hay un hilo esperando constantemente a que haya una función nueva a ejecutar en la cola 'interface_transition_queue'
+    y cuando hay alguna función nueva ejecuta lo que corresponda.
+    """
     def interface_transition_function(self):
             while True:
 
-                # self.actualizar_estado()
-                # Utilizar una cola bloqueante para esperar a que se solicite una función de transición
                 target_function = self.interface_transition_queue.get()
 
-                # Ejecutar la función de transición de interfaz correspondiente
                 if target_function == 'go_to_config':
                     respuesta= messagebox.askokcancel("Aviso","Si vuelve a la configuración deberá resetear el recorrido. ¿Desea continuar?")
                     if respuesta:
@@ -402,15 +540,10 @@ class View():
                         self.set_reset(0)
                         self.enqueued_functions.remove(target_function)
                         self.interface_transition_queue.task_done()
-                        # continue
                     else:
                         self.enqueued_functions.remove(target_function)
                         self.interface_transition_queue.task_done()
-                        # continue
-                    # self.go_to_config()
-                    # self.enqueued_functions.remove(target_function)
-                    # self.interface_transition_queue.task_done()
-
+               
                 elif target_function == 'go_to_plot_1_from_config':
                     if(self.get_data_ready()==1):
                         messagebox.showwarning("Aviso","Debe resetear los datos antes de intentar modificarlos")
@@ -440,7 +573,6 @@ class View():
                     self.enqueued_functions.remove(target_function)
                     self.interface_transition_queue.task_done()
 
-                # Agregar más casos para otras funciones de transición...
                 elif target_function == 'go_to_plot_2_from_plot_3':
                     self.go_to_plot_2_from_plot_3()
                     self.enqueued_functions.remove(target_function)
@@ -505,7 +637,6 @@ class View():
                     self.set_state('Cálculos generados.')
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
-                    # self.set_data_ready(value=0)
                 
                 elif target_function=='download_pdf':
                     
@@ -513,7 +644,6 @@ class View():
                         messagebox.showwarning("Aviso","Se deben generar los cálculos para descargar el PDF.")
                         self.interface_transition_queue.task_done()
                         self.enqueued_functions.remove(target_function)
-                        # continue
                     else:
                         
                         self.set_state("Generando PDF.")
@@ -540,8 +670,6 @@ class View():
                 elif target_function=='show_configuration':
                     ventana_emergente = tk.Toplevel(self.root)
                     ventana_emergente.title("Configuración")
-
-                    # Agregar contenido a la ventana emergente
                     temperatura="Temperatura: " + str(self.get_temp())
                     grupos= "Grupos: " + str(self.get_grupos())
                     espesor= "Espesor: "+ str(self.get_espesor())
@@ -576,36 +704,45 @@ class View():
                     self.interface_transition_queue.task_done()
                     self.enqueued_functions.remove(target_function)
 
+    """
+    Esta función agrega una función a la cola, y la agrega en la
+    cola de funciones encoladas
+    """
     def enqueue_transition(self, function_name):
-        # self.interface_transition_queue.put(function_name)
         if function_name not in self.enqueued_functions:
             self.interface_transition_queue.put(function_name)
             self.enqueued_functions.add(function_name)
 
-
+    """
+    Esta función se llama cuando se cumple un grupo (50 o 100) y hay que actualizar todos los gráficos de las interfaces, 
+    menos el de barras. Se obtienen los valores de Data y se grafica
+    """
     def update_all(self):
         self.data_instance.update_structures()
         dict_r, dict_l = self.data_instance.get_data_dict()
         defl_l_max, defl_r_max = self.data_instance.get_max_defl()
         defl_l_car, defl_r_car = self.data_instance.get_car_defl()
         self.new_group_data_view(dict_r,dict_l,defl_r_car,defl_l_car,defl_r_max,defl_l_max,grupos=self.grupos)
-        print("Grafico en grupo:")
-        print("Dict r:",dict_r)
-        print("Dict l:",dict_l)
-        print("Defl l max:",defl_l_max)
-        print("Defl r max:",defl_r_max)
-        print("Defl l car:",defl_l_car)
-        print("Defl r car:",defl_r_car)
 
-
+    """
+    Esta función se llama cuando hay que actualizar el gráfico de barras.
+    Se obtienen los valores de Data y se grafica
+    """
     def update_defl_one(self):
         defl_r, defl_l = self.data_instance.update_bar_data(self.amount)
-        # print("Grafico barras:")
-        # print("Defl r",defl_r)
-        # print("Defl l:",defl_l)
         self.update_bar_view(defl_r,defl_l)
         self.data_instance.clear_bar_data()
         
+    """
+    Esta función es la que procesa los datos que se obtienen de la base de datos, se ejecuta constantemente
+    durante la ejecución.
+    Chequea constantemente si hay un dato nuevo en la base de datos, y de ser así
+    actualiza los datos y grafica lo que sea necesario.
+    También chequea constantemente si el usuario hace un reset, si se alcanza la cantidad
+    de muestras seleccionada o si hay un cambio de 'nro_puesto' en la base de datos para finalizar.
+    Los gráficos de barras se grafican 'de a 1 dato' hasta llegar a las 100 mediciones, y luego se grafican de a 10
+    Todos los otros gráficos se actualizan cuando se alcanza un grupo (50 o 100 mediciones)
+    """
     def process_data(self):
         self.set_state("Listo para obtener datos")
         self.reporter_instance.start()
@@ -613,7 +750,6 @@ class View():
         muestras=self.get_muestras()
         a=0
         b=0
-
         c=0
         print("C value:",c)
 
@@ -625,25 +761,19 @@ class View():
 
                 if(self.reporter_instance.get_puesto_change()==1):
                     messagebox.showinfo("Aviso","Cambio de Puesto detectado. Se mostrarán los resultados estadísticos.")
-                    # self.set_state("Cambio de puesto")
                     self.enqueue_transition('generate_stats')
                     return
-
                 elif(a==muestras):
                     messagebox.showinfo("Aviso","Cantidad de muestras alcanzada.")
                     self.set_state("Detenido")
                     return
-                
                 elif(self.get_reset()==1):
-                        print("Identifico reset")
                         self.set_state("Deteniendo...")
                         self.set_reset(1)
-                        print("Vuelvo a empezar")
                         return
                 else:
                     continue
 
-            # if(self.get_state()!="Detenido"):
             if(c==0):
                 c=1
                 self.amount=1
@@ -664,25 +794,28 @@ class View():
                     b=b+1
                     if(b==10):
                         b=0
-                        print("Grafico barras")
-                        # update_bar_thread = Thread(target=self.update_defl_one,args=(self,10))
                         update_bar_thread = Thread(target=self.update_defl_one)
                         update_bar_thread.daemon=True
                         update_bar_thread.start()
                 else:
-                    # View.set_state("Grafico barras")
-                    print("Grafico barras")
-                    # update_bar_thread = Thread(target=self.update_defl_one,args=(self,1))
                     update_bar_thread = Thread(target=self.update_defl_one)
                     update_bar_thread.daemon=True
                     update_bar_thread.start()
                 
-                if(cantidad%5 == 0):
-                    print("Grafico grupos")
+                if(cantidad%grupos== 0):
                     update_all_thread = Thread(target=self.update_all)
                     update_all_thread.daemon=True 
                     update_all_thread.start()
 
+    """
+    Esta función arma el PDF completo con todos los gráficos.
+    Toma lo que armaron el resto de las clases (PDFs e imágenes de gráficos)
+    y lo convierte en un solo PDF.
+
+    @param numero_pagina: Esta variable sirve para saber cuantas hojas ocupa la tabla
+            ya que puede variar dependiendo la ejecución. En base a este valor,
+            se coloca el número de página correspondiente en el resto de las hojas
+    """
     def combine_pdf(self,numero_pagina):
 
             output1="pdf2.pdf"
@@ -725,11 +858,11 @@ class View():
                 formatted_datetime = current_datetime.strftime("%d-%m-%Y_%H-%M")
 
                 # Ruta absoluta para la carpeta "Informes" en el escritorio
-                # informes_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Informes")
+                informes_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Informes")
 
                 # Nombre del archivo PDF completo
-                # output_filename = os.path.join(informes_folder, f"{formatted_datetime}_puesto_{puesto}.pdf")
-                output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
+                output_filename = os.path.join(informes_folder, f"{formatted_datetime}_puesto_{puesto}.pdf")
+                # output_filename = f"Informes/{formatted_datetime}_puesto_{puesto}.pdf"
 
                 pdf_merger = PyPDF2.PdfMerger()
         
@@ -753,17 +886,18 @@ class View():
                 messagebox.showinfo("Aviso","PDF generado en la carpeta 'Informes' del Escritorio.")
 
             else:
-                # print("Detecto que la imagen no existe")
                 messagebox.showwarning("Aviso","Faltan datos para generar el PDF.")
                 return
 
+    """
+    Esta función genera la carátula que es la primera hoja del PDF.
+    Coloca las imágenes correspondientes y la selección del usuario en la configuración.
+    """
     def generar_carátula(self,filename):
 
-            # Abrir el PDF existente en modo de escritura y agregar contenido
         c = canvas.Canvas(filename, pagesize=A4)
         ancho_pagina, alto_pagina = A4
         centro_x = ancho_pagina / 2
-        # Dibuja la imagen en el PDF
         c.drawImage('caratula3.png', 70, 420, width=469, height=386)
 
         ruta = "Ruta: " + self.get_ruta()
@@ -831,8 +965,6 @@ class View():
         posicion_13 = centro_x - (ancho_operador / 2)
 
         c.setFont("Helvetica", 14)
-        
-        
         c.drawString(posicion_2, 340, f"{provincia}")
         c.drawString(posicion_3, 320, f"{tramo}")
         c.drawString(posicion_4, 300, f"{subtramo}")
@@ -847,7 +979,6 @@ class View():
         c.drawString(posicion_12, 110, f"{apoyo}")
         c.drawString(posicion_13, 90, f"{operador}")
         c.drawString(posicion_6, 70, f"{puesto}")
-
         c.save()
 
 
